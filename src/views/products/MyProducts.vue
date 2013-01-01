@@ -2,46 +2,56 @@
   <ion-page>
     <ion-row>
        <ion-col>
-        <button @click="$router.go(-1)" >
+        <button @click="$router.go(-1)"  >
+          
           <ion-icon :icon="arrowBack" style="margin-left: 5%;top: 40%;position: absolute;" ></ion-icon>
         </button>
-          <p style="color: #000">
-            Enviar solicitud
-          </p>
-          <p>
-           Selecciona uno o más de tus productos
+          
+          <p>Mis Productos
           </p>
       </ion-col>
-      
     </ion-row>
-    <ion-card style=" height: 25%;">
-      <img src="https://ionicframework.com/docs/demos/api/card/madison.jpg" class="img-left">
-      <img src="/assets/ArrowsLeftRight.png" class="img-center">
-      <img src="https://ionicframework.com/docs/demos/api/card/madison.jpg" class="img-right">
-    </ion-card>
-    
-    <ion-card style=" height: 25%; overflow: auto;white-space: nowrap;">
-     
-      <template v-for="n in 6" :key="n"> 
-          <img src="https://ionicframework.com/docs/demos/api/card/madison.jpg" style="border-radius: 30px 30px 30px 30px; width: 35%;height:100%;" >&nbsp;
+     <ion-content>
+      <ion-list>
+        <ion-row>
+             <ion-col v-for="n in 3" :key="n"  size="6" size-sm >
+                <ion-card>
+                  <div align="center" class="badge-3"  @click="openPopover" ><img src="/assets/more_vertical.png" > </div>
+                  <ion-img src="https://ionicframework.com/docs/demos/api/card/madison.jpg"></ion-img>
 
-      </template>
-       <button class="button-add"><img class="img-add" src="/assets/FAB.png">
-       </button>
-    </ion-card>
-    <p>  
-      <button type="button" class="btn-primary" @click="redirect({name : 'add_message.requests'})" style="width: 300px">
-        <b>Enviar Mensaje</b>
-      </button>
-    </p>
-    <ion-content class="ion-padding">
-      <ion-list >
+                  <ion-card-header>
+                 
+                  <ion-card-subtitle  style="color: #000">
+                    <ion-row> 
+                      <b>Nombre {{n}}</b> 
+                    </ion-row>  
+                  </ion-card-subtitle>
+                
+                  </ion-card-header>
+
+                  <ion-card-content>  <b>Ubicacion</b>
+                </ion-card-content>
+
+              </ion-card>
+            </ion-col>
+   
+            <ion-col  size="6" size-sm >
+              <ion-card style="height: 93%;">
+                <div style="margin-top: 15%">
+                 <center>
+                  <button class="button-add-2"><img class="img-add-2" src="/assets/FAB.png">
+                  </button>
+                </center>
+                </div>
+              </ion-card>
+            </ion-col>
+          </ion-row>
       </ion-list>
       <ion-infinite-scroll @ionInfinite="loadData($event)" threshold="100px"  id="infinite-scroll" :disabled="isDisabled">
         <ion-infinite-scroll-content loading-spinner="bubbles" loading-text="Loading more data...">
         </ion-infinite-scroll-content>
       </ion-infinite-scroll>
-    </ion-content>
+    </ion-content> 
   </ion-page>
 </template>
 
@@ -49,15 +59,17 @@
 
 import { repeat,arrowBack } from 'ionicons/icons';
 import ModalDetail from '@/views/products/ModalDetail'
+import PopoverProduct from './PopoverProduct.vue'
 import { 
-
   IonContent, 
   IonInfiniteScroll, 
   IonInfiniteScrollContent,
   modalController,
   IonList,
-  IonPage
+  IonPage,
+  popoverController
  } from '@ionic/vue';
+
 import { defineComponent, ref } from 'vue';
 
 export default defineComponent({
@@ -120,76 +132,54 @@ export default defineComponent({
           cssClass: 'my-custom-class',
         })
       return modal.present();
+    },
+    async openPopover(Event) {
+      const popover = await popoverController
+        .create({
+          component: PopoverProduct,
+          cssClass: 'my-custom-class',
+          event: Event,
+          translucent: true
+        })
+      await popover.present();
+
+      const { role } = await popover.onDidDismiss();
+      console.log('onDidDismiss resolved with role', role);
     }
   }
 });
 
 </script>
 <style type="text/css">
- .img-left{
-  margin-left: -8%;
-  width: 40%;
-  height: 100%;
-  float: left;
-  border-radius: 30px 30px 30px 30px;
- }
- .img-right{
-  margin-right: -8%;
-  width: 40%;
-  height: 100%;
-  float: right;
-  border-radius: 30px 30px 30px 30px;
- }
-
-   @media (max-width: 700px){
-    .img-center{
-     position: absolute;
-     left:45%;
-     top: 38%;
-    }
-  }
-
-  @media (min-width: 1500px){
-     .img-center{
-     position: absolute;
-     left:49%;
-     top: 38%;
-    }
-  }
-
-div.scrollmenu {
-  background-color: #333;
-  overflow: auto;
-  white-space: nowrap;
-}
-
-
 
   @media (max-width: 500px){
-    .button-add{
-      height:100%;
-      width: 35%;
-      position: absolute;
+    .button-add-2{
+      margin-left: 7%;
       background: #fff;
-      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-      border-radius: 30px 30px 30px 30px; 
+      margin-top: 4%;
     }
-    .img-add{
-      margin-top: 17%;
+    .img-add-2{
+      margin-left: 2%;
+      margin-top: 40%;
+    }
+    .add{
+       height: 90.5%;
     }
   }
 
   @media (min-width: 1000px){
-    .button-add{
-      height:100%;
-      width: 35%;
-      position: absolute;
+    .button-add-2{
+      width: 90%;
+      height:90%;
       background: #fff;
-      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-      border-radius: 30px 30px 30px 30px; 
+      margin-top: 3%;
     }
-    .img-add{
-      margin-top: 6%;
+    .img-add-2{
+      margin-left: 2%;
+      margin-top: 10%;
+    }
+    .add{
+      margin-top: 92.5%;
     }
   }
 </style>

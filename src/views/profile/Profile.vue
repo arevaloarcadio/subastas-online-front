@@ -2,7 +2,7 @@
    <ion-page>
      <ion-row>
        <ion-col>
-        <button @click="redirect('/')" >
+        <button @click="$router.go(-1)" >
           <ion-icon :icon="arrowBack" style="margin-left: 5%;top: 40%;position: absolute;" ></ion-icon>
         </button>
         <p style="color: #000">
@@ -23,23 +23,48 @@
       </ion-col>
     </ion-row>
     <div class="hr"> </div>
+      <ul>
+        <ion-row>
+          <img src="/assets/package-little.png" style="height: 10%;">&nbsp;&nbsp;
+          <p class="p-no-center" @click="redirect({name : 'my.products'})" style="color: #000;margin-top: 0.2%;"><b>Mis Productos</b></p>
+        </ion-row>
+      </ul>
+       <ul>
+        <ion-row>
+          <img src="/assets/setting.png" style="height: 10%;">&nbsp;&nbsp;
+          <p class="p-no-center" @click="redirect()" style="color: #000;margin-top: 0.2%;"><b>Preferencia</b></p>
+        </ion-row>
+      </ul>
+       <ul>
+        <ion-row>
+          <img src="/assets/SignOut.png" style="height: 10%;">&nbsp;&nbsp;
+          <p class="p-no-center" @click="redirect()" style="color: #000;margin-top: 0.2%;"><b> Salir</b></p>
+        </ion-row>
+      </ul>
     <ion-list>
-      <ion-item  lines="none">
-        <p class="p-no-center" style="color: #000"><b>Editar perfil</b></p>
-      </ion-item>
-      <ion-item  lines="none">
-        <p class="p-no-center" style="color: #000"><b> Editar perfil</b></p>
-      </ion-item>
-      <ion-item  lines="none">
-        <p class="p-no-center" style="color: #000"><b>Editar perfil</b></p>
-      </ion-item>
     </ion-list>
   </ion-page>  
 </template>
 
 
 <script lang="ts">
+  
+import { arrowBack } from 'ionicons/icons';
 
+import { defineComponent } from 'vue';
+
+export default defineComponent({
+  setup() {
+    return {
+      arrowBack
+    }
+  },
+  methods:{
+    redirect(path) {
+      this.$router.push(path);
+    }
+  }
+});
 
 
 </script>

@@ -22,6 +22,7 @@ const Principal = () =>  import('@/views/dashboard/Principal')
 const CreateProduct = () =>  import('@/views/products/CreateProduct')
 const DetailsProduct = () =>  import('@/views/products/DetailsProduct')
 const CreateDetailsProduct = () =>  import('@/views/products/CreateDetailsProduct')
+const MyProducts = () =>  import('@/views/products/MyProducts')
 
 //Send Request
 const AddMessage = () =>  import('@/views/send_requests/AddMessage')
@@ -159,7 +160,11 @@ const routes = [
     name: 'chat.policies.terms',
     component: PoliciesAndTerms,
   },
-
+  {
+    path: '/my_products',
+    name: 'my.products',
+    component: MyProducts,
+  }
 ]
 
 const router = createRouter({

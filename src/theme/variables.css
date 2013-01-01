@@ -700,7 +700,7 @@ html:not([dir=rtl]) .c-switch-label .c-switch-slider::after {
   cursor: pointer
 }
 
-  @media (max-width: 800px){
+  @media (max-width: 400px){
     .badge{
       background: rgba(50, 186, 176, 0.6);
       border-radius: 4px;
@@ -719,8 +719,13 @@ html:not([dir=rtl]) .c-switch-label .c-switch-slider::after {
       top: 4%;
       left: 68%;
     }
+    .badge-3{
+        position: absolute;
+      top: 4%;
+      left: 85%;
+    }
   }
-  @media (min-width: 1500px){
+  @media (min-width: 1000px){
    .badge{
       background: rgba(50, 186, 176, 0.6);
       border-radius: 4px;
@@ -740,6 +745,12 @@ html:not([dir=rtl]) .c-switch-label .c-switch-slider::after {
       left: 80%;
     }
 
+    .badge-3{
+      cursor: pointer;
+        position: absolute;
+      top: 3%;
+      left: 94%;
+    }
   }
 
   @media (max-width: 700px){
