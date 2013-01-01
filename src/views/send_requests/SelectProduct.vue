@@ -13,7 +13,7 @@
           </p>
           <br><br>
           <p class="sub-title" style="width: 80%;margin-left: 10%;font-weight: 500;">
-           Selecciona uno o más de tus productos
+           Selecciona uno o  más <br> de tus productos
           </p>
       </ion-col>
       

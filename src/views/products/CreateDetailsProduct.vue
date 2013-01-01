@@ -39,7 +39,7 @@
         <ion-row>
           <ion-col col-12>
             <div class="container">
-              <label class="label-input">Dirección</label>
+              <label class="label-input" style="font-family: Montserrat;font-style: normal;font-weight: normal;font-size: 16px;line-height: 28px;letter-spacing: 0.75px;color: #32BAB0;">Dirección</label>
               <div  class="input-container">
                 <input type="" name="" class="input-text">
               </div>
@@ -84,7 +84,7 @@
               <ion-row>
                 <ion-col>
                   <ion-item  lines="none">
-                    <p class="p-no-center">Mostrar mi dirección solo al aceptar el intercambio</p>
+                    <p class="p-no-center">Mostrar mi dirección solo al <br> aceptar el intercambio</p>
                     <ion-radio color="success" slot="start" value="biff"></ion-radio>
                   </ion-item>
                 </ion-col>

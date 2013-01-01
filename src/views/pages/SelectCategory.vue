@@ -20,7 +20,7 @@
           </button>
      
            <button type="button" :class="{'category-large' : true,'btn-category-active':category.Tecnologia,'btn-category':!category.Tecnologia}"  @click="select_category('Tecnologia')"  :style="styles.tecnologia">
-            Tecnologia
+            Tecnología
           </button>
        
   

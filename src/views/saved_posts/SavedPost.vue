@@ -4,11 +4,11 @@
   <p style="color: #000" class="title">
    Publicaciones guardadas
   </p>
-    <ion-content >
+    <ion-content class="ion-padding">
      <ion-row style="position: absolute;margin-top: 8%;">
        <ion-col v-for="n in 2" :key="n"  size="6"  >
-        <ion-card class="cursor" @click="redirect_details(n)" style="width: 98%;left: -3%;">
-          <div align="center" class="badge-2"  v-if="n%2!=0" style="left: 63%;"> 
+        <ion-card class="cursor" @click="redirect_details(n)" style="width: 98%;left: -8%;">
+          <div align="center" class="badge-2"  v-if="n%2!=0"> 
             <span style="position: absolute;left: 15%;top: 20%;">
             10
             </span>

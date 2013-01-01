@@ -12,13 +12,13 @@
             Enviar solicitud
           </p><br>
           <p class="sub-title" style="width: 80%;margin-left: 10%;font-weight: 500;">
-           Agrega un mensaje que describa tu oferta
+           Agrega un mensaje que <br> describa tu oferta
           </p>
       </ion-col>
       
     </ion-row>
    
-    <ion-content>
+     <ion-content>
        <ion-card style="box-shadow: inherit;margin-top: 11%;width: 101%;margin-left: -1%">
       <img src="https://ionicframework.com/docs/demos/api/card/madison.jpg" class="img-left">
        <svg width="49" height="49" viewBox="0 0 49 49" fill="none" xmlns="http://www.w3.org/2000/svg" class="img-center">
@@ -29,18 +29,15 @@
       </svg>
       <img src="https://ionicframework.com/docs/demos/api/card/madison.jpg" class="img-right">
     </ion-card>
-    <p>  
-
    
-    </p>
         <p style="margin-top: -18px;">
           <br>
           <br>
         <ion-row>
-        <ion-col col-12>
-          <div class="container">
+        <ion-col>
+          <div class="container" style="width: 88%;margin-left: 26px;">
             <label class="label-input">Mensaje</label>
-            <div  class="input-container">
+            <div  class="input-container" >
               <textarea style="line-height: 38px;height: 120.55px" class="input-text" placeholder="Que tal si intercambiamos">  </textarea>
             </div>
           </div>

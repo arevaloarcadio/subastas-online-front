@@ -33,7 +33,7 @@
          <ion-row> 
         <ion-col col-12>
           <div class="container">
-            <label class="label-input">Descripción</label>
+            <label class="label-input" style="font-family: Montserrat;font-style: normal;font-weight: 500;font-size: 16px;line-height: 20px;color: #32BAB0;">Descripción</label>
             <div  class="input-container">
               <input type="" name="" class="input-text">
             </div>
@@ -52,7 +52,7 @@
                   </ion-item>
                     </ion-col>
                      <ion-col>
-                  <ion-item  lines="none">
+                  <ion-item  lines="none" style="margin-left: -27px;">
                     <p class="text-radio">Usado</p>
                     <ion-radio color="success" slot="start" value="griff"></ion-radio>
                   </ion-item>
@@ -68,7 +68,7 @@
               <div class="container"   style="cursor: pointer;">
          
                 <div  class="input-container" v-if="takenImageUrl == null">
-                  <label class="label-input" style="margin-top: 18px;" @click="setOpen(true)">Selecciona una foto</label>
+                  <label class="label-input" style="margin-top: 16px;font-family: Montserrat;font-style: normal;font-weight: normal;font-size: 16px;line-height: 28px;letter-spacing: 0.75px;" @click="setOpen(true)">Selecciona una foto</label>
                   <img src="/assets/PlusCircle2.png" style="margin-left:85%" @click="setOpen(true)">
                   <input class="input-text">
                 </div>
@@ -86,7 +86,7 @@
           <ion-row> 
             <ion-col col-12>
               <div class="container">
-                <label class="label-input">¿Que quieres a cambio? </label>
+                <label class="label-input">¿Qué quieres a cambio? </label>
                 <div  class="input-container">
                   <input type="" name="" class="input-text">
                 </div>
