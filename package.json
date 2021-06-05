@@ -1,5 +1,5 @@
 {
-  "name": "vue-first-app",
+  "name": "Subasta",
   "version": "0.0.1",
   "private": true,
   "scripts": {
@@ -15,10 +15,24 @@
     "@capacitor/ios": "^2.4.2",
     "@ionic/vue": "^5.4.0",
     "@ionic/vue-router": "^5.4.0",
-    "core-js": "^3.6.5",
+    "@vue/babel-preset-app": "^4.5.13",
+    "@vue/cli-shared-utils": "^4.5.13",
+    "axios": "^0.21.1",
+    "chalk": "^2.4.2",
+    "core-js": "^3.13.1",
+    "event-pubsub": "^4.3.0",
+    "js-message": "^1.0.7",
+    "js-queue": "^2.0.2",
+    "lodash": "^4.17.21",
+    "lru-cache": "^5.1.1",
+    "node-ipc": "^9.1.4",
+    "parse-json": "^5.2.0",
     "vue": "^3.0.0-0",
     "vue-router": "^4.0.0-0",
-    "vuex": "^4.0.0-rc.1"
+    "vue-socket.io": "^3.0.10",
+    "vuex": "^4.0.0-rc.1",
+    "vuex-persistedstate": "*",
+    "yallist": "^3.1.1"
   },
   "devDependencies": {
     "@capacitor/cli": "2.4.2",

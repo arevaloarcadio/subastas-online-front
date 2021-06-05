@@ -1,8 +1,13 @@
 import { createRouter, createWebHistory } from '@ionic/vue-router';
 
-import MemoriesPage from '../pages/MemoriesPage.vue';
 
-const routes = [
+const Dashboard = () => import('@/views/Dashboard')
+const Layout = () => import('@/components/base/Layout')
+const Login = () =>  import('@/views/pages/Login')
+const Register = () =>  import('@/views/pages/Register')
+
+
+/*const routes = [
   {
     path: '/',
     redirect: '/memories'
@@ -18,6 +23,32 @@ const routes = [
   {
     path: '/memories/add',
     component: () => import('../pages/AddMemoryPage.vue')
+  }
+]*/
+
+const routes = [
+  {
+    path: '/',
+    redirect: '/login',
+    name: 'Dashboard',
+    component: Layout,
+    children: [
+      {
+        path: 'dashboard',
+        name: 'Dashboard',
+        component: Dashboard
+      },
+    ]
+  },
+  {
+    path: '/login',
+    name: 'Login',
+    component: Login,
+  },
+  {
+    path: '/register',
+    name: 'Registro',
+    component: Register,
   }
 ]
 

@@ -1,12 +1,12 @@
 import { createApp } from 'vue'
-
 import App from './App.vue'
-import BaseLayout from './components/base/BaseLayout.vue';
 import router from './router';
 import store from './store';
-
+import vuex from './plugins/store';
+import axios from './plugins/axios'
+import axios_ from 'axios'
 import { IonicVue } from '@ionic/vue';
-
+import Socketio from '@/plugins/socket-io'
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/vue/css/core.css';
 
@@ -26,14 +26,27 @@ import '@ionic/vue/css/display.css';
 /* Theme variables */
 import './theme/variables.css';
 import './theme/core.css';
+import './theme/material-dashboard.css';
+
 
 
 const app = createApp(App)
   .use(IonicVue)
   .use(router)
-  .use(store);
+  .use(vuex)
+  .use(axios)
+  .use(store)
+  .use(Socketio, {
+    connection: axios_.defaults.baseURL,
+    options: {
+        // Your Socket.io options here
+    }
+})
 
-app.component('base-layout', BaseLayout);
+
+
+
+//app.component('base-layout', BaseLayout);
   
 router.isReady().then(() => {
   app.mount('#app');
