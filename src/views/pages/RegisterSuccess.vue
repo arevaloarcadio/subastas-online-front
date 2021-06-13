@@ -1,64 +1,39 @@
 <template>
- <br>
- <br>
- <br>
   <div align="center"> 
     <br>
     <img src="/assets/logo-success.png">
   </div>
   <p>
-   <span class="text-control"><b>Estamos felices de verte otra vez</b> </span> 
-   </p>
+    <span class="text-control" ><b>Te has registrado exitosamente</b> </span> 
+  </p>
+  <div align="center"> 
     <br>
-    <br>
-    <br>
-    <p> 
-    <ion-grid>
-      <ion-row>
-        <ion-col col-12>
-            <ion-item>
-              <ion-label position="floating" style="color: #32BAB0;font-family: Montserrat; font-style: normal;"><b>Emial o Teléfono</b></ion-label>
-              <ion-input ></ion-input>
-            </ion-item>
-        </ion-col>
-      </ion-row>
-      <ion-row>
-        <ion-col col-12>
-            <ion-item>
-              <ion-label position="floating" style="color: #32BAB0;font-family: Montserrat; font-style: normal;"><b>Contraseña</b></ion-label>
-              <ion-input type="password"></ion-input>
-            </ion-item>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
-    <br>
-      <a href="/login" class="text-control"> ¿Olvidaste tu contraseña?</a>
-    <br>
-    <br>
-    <button type="button" class="btn-primary" @click="redirect()" style="width: 300px">
-      <ion-icon name="mail-outline"></ion-icon> 
-        <b>Iniciar Sesión</b>
-    </button>
+    <img src="/assets/success.png">
+  </div>
+  <p>  
+  <button type="button" class="btn-primary" @click="redirect()" style="width: 300px">
+    <ion-icon name="mail-outline"></ion-icon> 
+      <b>Continuar</b>
+  </button>
   </p>
 </template>
 
 <script>
-import { loadingController,toastController,IonIcon,IonRow,IonGrid,IonCol,IonLabel, IonInput, IonItem  } from '@ionic/vue';
-import { eyeOutline,eyeOffOutline } from 'ionicons/icons';
+import { loadingController,toastController,IonIcon } from '@ionic/vue';
 import { defineComponent } from 'vue';
 import axios from 'axios';
 
 export default defineComponent({
-  components: { IonIcon,IonRow,IonGrid,IonCol,IonLabel, IonInput, IonItem},
+  components: { IonIcon},
   name: "Register",
-  setup() {
-    return { eyeOutline,eyeOffOutline }
-  },
   data() {
     return {
+      type : null,
+      first_name: null,
+      last_name: null,
       email: null,
       password: null,
-      show_password : true
+      password_confirmacion: null,
     };
   },
   mounted(){
@@ -66,7 +41,7 @@ export default defineComponent({
   },
   methods: {
     redirect(){
-      this.$router.push({path: 'principal'});
+      this.$router.push({path: 'select_category'});
     },
     async register() {
 

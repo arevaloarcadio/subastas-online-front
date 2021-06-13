@@ -5,7 +5,7 @@
    <span class="text-control" style="margin-left: 13%"><b>Registro</b> </span> 
     <br>
      <p style="margin-left: 13%;float: left;"> 
-    Crea tu cuenta
+    Ubicación
     </p>
     <br>
     <br>
@@ -15,39 +15,23 @@
     <ion-grid>
       <ion-row>
         <ion-col col-12>
-            <ion-item>
-              <ion-label position="floating" style="color: #32BAB0;font-family: Montserrat; font-style: normal;"><b>Nombre</b></ion-label>
-              <ion-input ></ion-input>
+             <ion-item>
+              <ion-label style="color: #32BAB0;font-family: Montserrat; font-style: normal;"><b>Selecciona tu pais</b></ion-label>
+              <ion-select style="color: #32BAB0;font-family: Montserrat; font-style: normal;" value="Peru" ok-text="Okay" cancel-text="Dismiss">
+                <ion-select-option value="Peru">Peru</ion-select-option>
+              </ion-select>
             </ion-item>
-        </ion-col>
+          </ion-col>  
       </ion-row>
-      <ion-row>
+       <ion-row>
         <ion-col col-12>
-            <ion-item v-if="type == 'email'">
-              <ion-label position="floating" style="color: #32BAB0;font-family: Montserrat; font-style: normal;"><b>Email</b></ion-label>
-              <ion-input ></ion-input>
+             <ion-item>
+              <ion-label style="color: #32BAB0;font-family: Montserrat; font-style: normal;"><b>Selecciona tu cuidad</b></ion-label>
+              <ion-select style="color: #32BAB0;font-family: Montserrat; font-style: normal;" value="Peru" ok-text="Okay" cancel-text="Dismiss">
+                <ion-select-option value="Peru">Peru</ion-select-option>
+              </ion-select>
             </ion-item>
-            <ion-item v-else>
-              <ion-label position="floating" style="color: #32BAB0;font-family: Montserrat; font-style: normal;"><b>Teléfono</b></ion-label>
-              <ion-input></ion-input>
-            </ion-item>
-        </ion-col>
-      </ion-row>
-      <ion-row>
-        <ion-col col-12>
-            <ion-item>
-              <ion-label position="floating" style="color: #32BAB0;font-family: Montserrat; font-style: normal;"><b>Contraseña</b></ion-label>
-              <ion-input type="password" ></ion-input>
-            </ion-item>
-        </ion-col>
-      </ion-row>
-      <ion-row>
-        <ion-col col-12>
-            <ion-item>
-              <ion-label position="floating" style="color: #32BAB0;font-family: Montserrat; font-style: normal;"><b>Confrimación de Contraseña</b></ion-label>
-              <ion-input type="password" ></ion-input>
-            </ion-item>
-        </ion-col>
+          </ion-col>  
       </ion-row>
     </ion-grid>
   
@@ -55,7 +39,7 @@
     <br>
       <button type="button" class="btn-primary" @click="redirect()" style="width: 300px">
         <ion-icon name="mail-outline"></ion-icon> 
-          <b>Registrarme</b>
+          <b>Continuar</b>
       </button>
  <br>
     <br>
@@ -66,12 +50,12 @@
 </template>
 
 <script>
-import { loadingController,toastController,IonIcon,IonRow,IonGrid,IonCol,IonLabel, IonInput, IonItem  } from '@ionic/vue';
+import { loadingController,toastController,IonIcon,IonRow,IonGrid,IonCol,IonLabel, IonItem,IonSelect, IonSelectOption  } from '@ionic/vue';
 import { defineComponent } from 'vue';
 import axios from 'axios';
 
 export default defineComponent({
-  components: { IonIcon,IonRow,IonGrid,IonCol,IonLabel, IonInput, IonItem},
+  components: { IonIcon,IonRow,IonGrid,IonCol,IonLabel, IonItem,IonSelect, IonSelectOption},
   name: "Register",
   data() {
     return {
@@ -88,7 +72,7 @@ export default defineComponent({
   },
   methods: {
     redirect(){
-      this.$router.push({path: 'select_country'});
+       this.$router.push({path: 'success'});
     },
     async register() {
 
@@ -146,6 +130,26 @@ export default defineComponent({
 .item-has-focus{
 
   --highlight-background :#32BAB0 ;
+}
+
+.alert-radio-inner.sc-ion-alert-md{
+  background-color : #32BAB0;
+}
+
+[aria-checked=true].sc-ion-alert-md .alert-radio-icon.sc-ion-alert-md {
+    border-color: #32BAB0;
+}
+
+.alert-radio-label.sc-ion-alert-md{
+  color: #5B716F;
+}
+
+[aria-checked=true].sc-ion-alert-md .alert-radio-label.sc-ion-alert-md{
+    color: #5B716F;
+}
+
+.alert-button.sc-ion-alert-md{
+  color : #32BAB0;
 }
 </style>
 

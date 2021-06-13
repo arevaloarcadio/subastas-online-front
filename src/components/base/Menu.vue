@@ -7,7 +7,7 @@
     </ion-content>
   </ion-menu>
 
-  <ion-router-outlet id="main"></ion-router-outlet>
+ 
 </template>
 
 

@@ -1,6 +1,6 @@
 {
-  "name": "Subasta",
-  "version": "0.0.1",
+  "name": "Upgrap-App-Front",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
@@ -17,8 +17,10 @@
     "@ionic/vue-router": "^5.4.0",
     "@vue/babel-preset-app": "^4.5.13",
     "@vue/cli-shared-utils": "^4.5.13",
+    "animate.css": "^4.1.1",
     "axios": "^0.21.1",
     "chalk": "^2.4.2",
+    "clone-deep": "^4.0.1",
     "core-js": "^3.13.1",
     "event-pubsub": "^4.3.0",
     "js-message": "^1.0.7",
@@ -27,6 +29,7 @@
     "lru-cache": "^5.1.1",
     "node-ipc": "^9.1.4",
     "parse-json": "^5.2.0",
+    "sass-loader": "^10.2.0",
     "vue": "^3.0.0-0",
     "vue-router": "^4.0.0-0",
     "vue-socket.io": "^3.0.10",

@@ -1,6 +1,6 @@
 <template>
 
-  <div v-if="preload" class="preload" align="center" >
+<div v-if="preload" class="preload" align="center" >
     <img src="/assets/logo-preload.png" :style="style.img">
     <ion-grid>
       <ion-row>
@@ -11,13 +11,13 @@
     </ion-grid>
   </div>
 
-    <router-view></router-view>
+
 </template>
 <script>
-  import { IonSpinner,IonRow,IonGrid,IonCol } from '@ionic/vue';
+import { IonSpinner,IonRow,IonGrid,IonCol } from '@ionic/vue';
 export default {
   components: { IonSpinner,  IonGrid, IonRow,IonCol  },
-  name :'Layout',
+  name: "Preload",
   data(){
     return{
       height : screen.height,
@@ -25,16 +25,16 @@ export default {
         img :{
           'margin-top'  : null
         }
-      },
-      preload : true,
+      }
     }
   },
   created(){
+
     this.style.img['margin-top'] = (screen.height/3)+'px'
-    var self = this;
+
+      var self = this;
         setTimeout(function() {
-              self.preload = false; 
-             self.$router.push({path: '/pre_login'});
+             self.preload = false;
         }, 2000);
   },
   methods: {
@@ -42,6 +42,7 @@ export default {
   }
 };
 </script>
+
 
 <style type="text/css">
 .preload{
