@@ -7,7 +7,9 @@
     "build": "vue-cli-service build",
     "test:unit": "vue-cli-service test:unit",
     "test:e2e": "vue-cli-service test:e2e",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "generate apk andorid": "ionic capacitor copy android && cd android && ./gradlew assembleDebug && cd ..",
+    "otro": "gradlew -Dorg.gradle.java.home=/path_to_jdk_directory"
   },
   "dependencies": {
     "@capacitor/android": "^2.4.2",
@@ -17,6 +19,7 @@
     "@ionic/vue-router": "^5.4.0",
     "@vue/babel-preset-app": "^4.5.13",
     "@vue/cli-shared-utils": "^4.5.13",
+    "@vueform/multiselect": "^1.5.0",
     "animate.css": "^4.1.1",
     "axios": "^0.21.1",
     "chalk": "^2.4.2",
@@ -31,6 +34,7 @@
     "parse-json": "^5.2.0",
     "sass-loader": "^10.2.0",
     "vue": "^3.0.0-0",
+    "vue-multiselect": "^2.1.6",
     "vue-router": "^4.0.0-0",
     "vue-socket.io": "^3.0.10",
     "vuex": "^4.0.0-rc.1",

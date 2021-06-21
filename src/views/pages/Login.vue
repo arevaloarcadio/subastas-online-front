@@ -1,4 +1,6 @@
 <template>
+  <ion-page>  
+     <ion-content class="ion-padding"> 
  <br>
  <br>
  <br>
@@ -40,6 +42,8 @@
         <b>Iniciar Sesión</b>
     </button>
   </p>
+   </ion-content>    
+ </ion-page> 
 </template>
 
 <script>

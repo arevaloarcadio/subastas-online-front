@@ -1,4 +1,6 @@
 <template>
+    <ion-page>
+       <ion-content class="ion-padding"> 
   <br>
   <div align="center">
   <span class="text-control" ><b>¿Como quieres que funcione el chat? </b> </span> 
@@ -40,7 +42,9 @@
    <button type="button" class="btn-primary" @click="redirect()" >
       <b>Continuar</b>
   </button>
-  </div>  
+  </div>
+ </ion-content>     
+ </ion-page>   
 </template>
 
 <script>

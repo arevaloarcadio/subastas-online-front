@@ -1,4 +1,6 @@
 <template>
+   <ion-page>
+     <ion-content class="ion-padding"> 
   <div align="center"> 
     <br>
     <img src="/assets/logo-success.png">
@@ -16,6 +18,8 @@
       <b>Continuar</b>
   </button>
   </p>
+ </ion-content>     
+</ion-page>  
 </template>
 
 <script>

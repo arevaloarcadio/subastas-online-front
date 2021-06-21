@@ -4,6 +4,7 @@ import router from './router';
 import store from './store';
 import vuex from './plugins/store';
 import axios from './plugins/axios'
+import Multiselect from '@vueform/multiselect'
 //import axios_ from 'axios'
 import { IonicVue } from '@ionic/vue';
 //import Socketio from '@/plugins/socket-io'
@@ -22,6 +23,8 @@ import '@ionic/vue/css/text-alignment.css';
 import '@ionic/vue/css/text-transformation.css';
 import '@ionic/vue/css/flex-utils.css';
 import '@ionic/vue/css/display.css';
+import './theme/vue-multiselect.min.css';
+
 
 /* Theme variables */
 import './theme/variables.css';
@@ -38,6 +41,8 @@ const app = createApp(App)
   .use(vuex)
   .use(axios)
   .use(store)
+
+  app.component('multiselect',Multiselect);
   //.use(Socketio, {
     //connection: axios_.defaults.baseURL,
     //options: {

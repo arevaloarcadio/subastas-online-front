@@ -18,6 +18,18 @@ const LayoutDashboard = () =>  import('@/components/base/LayoutDashboard')
 const Principal = () =>  import('@/views/dashboard/Principal')
 
 
+//Product
+const CreateProduct = () =>  import('@/views/products/CreateProduct')
+const DetailsProduct = () =>  import('@/views/products/DetailsProduct')
+const CreateDetailsProduct = () =>  import('@/views/products/CreateDetailsProduct')
+
+//Send Request
+const AddMessage = () =>  import('@/views/send_requests/AddMessage')
+const SelectProduct = () =>  import('@/views/send_requests/SelectProduct')
+const RequestSuccess = () =>  import('@/views/send_requests/Success')
+
+const MyExchanges = () =>  import('@/views/my_exchanges/MyExchanges')
+
 const routes = [
   {
     path: '/dashboard',
@@ -30,8 +42,45 @@ const routes = [
         name: 'Principal',
         component: Principal,
       },
+      {
+        path: '/details/:productId',
+        name: 'details.product',
+        component: DetailsProduct,
+      },
+      {
+        path: '/create/product',
+        name: 'create.product',
+        component: CreateProduct,
+      },
+      {
+        path: '/create/details/product',
+        name: 'create.details.product',
+        component: CreateDetailsProduct,
+      },
+      {
+        path: '/send_requests/select_product/:productId',
+        name: 'select_product.requests',
+        component: SelectProduct
+      },
+      {
+        path: '/send_requests/add_message/:productId',
+        name: 'add_message.requests',
+        component: AddMessage
+      },
+      
+      {
+        path: '/send_requests/success',
+        name: 'success.requests',
+        component: RequestSuccess
+      },
+      {
+        path: '/my_exchanges',
+        name: 'my.exchanges',
+        component: MyExchanges
+      },
+
     ]
-  },
+   },
   {
     path: '/',
     name: 'Layout',
@@ -83,7 +132,8 @@ const routes = [
         component: Complete,
       },
     ]
-  }
+  },
+
 ]
 
 const router = createRouter({

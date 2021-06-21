@@ -1,5 +1,6 @@
 <template>
-  <div>
+  <ion-page>
+
     <div align="center" class="eclipse"> 
       <br>
       <img src="/assets/logo-white.png">
@@ -29,13 +30,9 @@
         </ion-col>
       </ion-row>
     </ion-grid>
-     <br>
-     <br>
-      <span class="text-control">
-        Continuar como invitado
-      </span>
-    </p>
-  </div>
+    
+    </p>  
+ </ion-page> 
 </template>
 
 <script>

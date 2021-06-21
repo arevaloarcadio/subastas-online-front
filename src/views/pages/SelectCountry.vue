@@ -1,52 +1,56 @@
 <template>
- <br>
- <br>
- <br>
-   <span class="text-control" style="margin-left: 13%"><b>Registro</b> </span> 
-    <br>
-     <p style="margin-left: 13%;float: left;"> 
-    Ubicación
-    </p>
-    <br>
-    <br>
-    <br>
-    <br>
-    <p> 
-    <ion-grid>
-      <ion-row>
-        <ion-col col-12>
-             <ion-item>
-              <ion-label style="color: #32BAB0;font-family: Montserrat; font-style: normal;"><b>Selecciona tu pais</b></ion-label>
-              <ion-select style="color: #32BAB0;font-family: Montserrat; font-style: normal;" value="Peru" ok-text="Okay" cancel-text="Dismiss">
-                <ion-select-option value="Peru">Peru</ion-select-option>
-              </ion-select>
-            </ion-item>
-          </ion-col>  
-      </ion-row>
-       <ion-row>
-        <ion-col col-12>
-             <ion-item>
-              <ion-label style="color: #32BAB0;font-family: Montserrat; font-style: normal;"><b>Selecciona tu cuidad</b></ion-label>
-              <ion-select style="color: #32BAB0;font-family: Montserrat; font-style: normal;" value="Peru" ok-text="Okay" cancel-text="Dismiss">
-                <ion-select-option value="Peru">Peru</ion-select-option>
-              </ion-select>
-            </ion-item>
-          </ion-col>  
-      </ion-row>
-    </ion-grid>
-  
-    <br>
-    <br>
-      <button type="button" class="btn-primary" @click="redirect()" style="width: 300px">
-        <ion-icon name="mail-outline"></ion-icon> 
-          <b>Continuar</b>
-      </button>
- <br>
-    <br>
-       ¿Tiene cuenta?
-       <br>
-       <a href="/login" class="text-control"> Iniciar Sesión</a>
-    </p>
+    <ion-page>
+       <ion-content class="ion-padding"> 
+         <br>
+         <br>
+         <br>
+           <span class="text-control" style="margin-left: 13%"><b>Registro</b> </span> 
+            <br>
+             <p style="margin-left: 13%;float: left;"> 
+            Ubicación
+            </p>
+            <br>
+            <br>
+            <br>
+            <br>
+            <p> 
+            <ion-grid>
+              <ion-row>
+                <ion-col col-12>
+                     <ion-item>
+                      <ion-label style="color: #32BAB0;font-family: Montserrat; font-style: normal;"><b>Selecciona tu pais</b></ion-label>
+                      <ion-select style="color: #32BAB0;font-family: Montserrat; font-style: normal;" value="Peru" ok-text="Seleccionar" cancel-text="Cerrar">
+                        <ion-select-option value="Peru">Peru</ion-select-option>
+                      </ion-select>
+                    </ion-item>
+                  </ion-col>  
+              </ion-row>
+               <ion-row>
+                <ion-col col-12>
+                     <ion-item>
+                      <ion-label style="color: #32BAB0;font-family: Montserrat; font-style: normal;"><b>Selecciona tu cuidad</b></ion-label>
+                      <ion-select style="color: #32BAB0;font-family: Montserrat; font-style: normal;" value="Peru" ok-text="Seleccionar" cancel-text="Cerrar">
+                        <ion-select-option value="Peru">Peru</ion-select-option>
+                      </ion-select>
+                    </ion-item>
+                  </ion-col>  
+              </ion-row>
+            </ion-grid>
+          
+            <br>
+            <br>
+              <button type="button" class="btn-primary" @click="redirect()" style="width: 300px">
+                <ion-icon name="mail-outline"></ion-icon> 
+                  <b>Continuar</b>
+              </button>
+         <br>
+            <br>
+               ¿Tiene cuenta?
+               <br>
+               <a href="/login" class="text-control"> Iniciar Sesión</a>
+            </p>
+      </ion-content>          
+  </ion-page>  
 </template>
 
 <script>

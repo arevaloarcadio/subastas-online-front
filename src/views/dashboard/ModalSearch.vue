@@ -29,7 +29,7 @@ import { close } from 'ionicons/icons';
 import { defineComponent } from 'vue';
 
 export default defineComponent({
-  name: 'Modal',
+  name: 'ModalSearch',
 
   components: { IonContent, IonHeader,IonSearchbar },
   setup() {

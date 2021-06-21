@@ -1,53 +1,55 @@
 <template>
+   <ion-page>
+     <ion-content class="ion-padding"> 
   <p> 
     Selecciona al menos 3 categorias de productos
   </p>
   <br>
   <br>
-  <ion-content class="ion-padding">
-    <a class="text-control" style="float: right;"  @click="redirect()" > Siguiente</a>
+
+    <a class="text-control" style="float: right;cursor: pointer;"  @click="redirect()"> Siguiente</a>
     <br>
     <br>
     <center>
-      <button type="button" class="btn-category category-large" style="line-height: 250%;">
+      <button type="button" :class="{'category-large' : true,'btn-category-active':category.Belleza,'btn-category':!category.Belleza}"  @click="select_category('Belleza')" style="line-height: 250%;">
         Belleza
       </button>
     </center>
     <ion-grid>
       <ion-row>
         <ion-col>
-           <button type="button" class="btn-category-active" style="margin: 2%;width: 90%;line-height: 250%">
+           <button type="button"  :class="{'category-large' : true,'btn-category-active':category.Deco,'btn-category':!category.Deco}"   @click="select_category('Deco')" >
             Deco
           </button>
         </ion-col>
         <ion-col >
-           <button type="button" class="btn-category" style="margin: 2%;width: 90%;line-height: 250%">
+           <button type="button" :class="{'category-large' : true,'btn-category-active':category.Tecnologia,'btn-category':!category.Tecnologia}"  @click="select_category('Tecnologia')" >
             Tecnologia
           </button>
         </ion-col>
       </ion-row>
     </ion-grid>
     <center>
-      <button type="button" class="btn-category-active category-large" style="margin: 2%;width: 90%;line-height: 250%">
+      <button type="button"  :class="{'category-large' : true,'btn-category-active':category.Accesorios,'btn-category':!category.Accesorios}"   @click="select_category('Accesorios')" >
         Accesorios
       </button>
     </center>
      <ion-grid>
       <ion-row>
         <ion-col>
-           <button type="button" class="btn-category" style="margin: 2%;width: 90%;line-height: 250%">
+           <button type="button" :class="{'category-large' : true,'btn-category-active':category.Calzado,'btn-category':!category.Calzado}"  @click="select_category('Calzado')">
             Calzado
           </button>
         </ion-col>
         <ion-col >
-           <button type="button" class="btn-category" style="margin: 2%;width: 90%;line-height: 250%">
+           <button type="button"  :class="{'category-large' : true,'btn-category-active':category.Deportes,'btn-category':!category.Deportes}"  @click="select_category('Deportes')"  >
             Deportes
           </button>
         </ion-col>
       </ion-row>
     </ion-grid>
     <center>
-      <button type="button" class="btn-category-active category-large" style="margin: 2%;width: 90%;line-height: 250%">
+      <button type="button" :class="{'category-large' : true,'btn-category-active':category.Videojuegos,'btn-category':!category.Videojuegos}"  @click="select_category('Videojuegos')" >
          Videojuegos
       </button>
     </center>
@@ -55,6 +57,7 @@
     <center>Omitir</center>
     </p>
   </ion-content>
+</ion-page>  
 </template>
 
 <script>
@@ -73,12 +76,24 @@ export default defineComponent({
       email: null,
       password: null,
       password_confirmacion: null,
+      category :{
+        Belleza :false,
+        Deco :false,
+        Tecnologia :false,
+        Accesorios :false,
+        Calzado :false,
+        Deportes :false,
+        Videojuegos :false
+      }
     };
   },
   mounted(){
     this.type = this.$route.query.type;
   },
   methods: {
+    select_category(category){
+      this.category[category] = this.category[category] ? false : true
+    },
     redirect(){
        this.$router.push({path: 'config_chat'});
     },

@@ -1,45 +1,49 @@
 <template>
-    <div align="center" > 
-      <br>
-      <img src="/assets/logo-green.png" >
-    </div>
-    <br><br><br><br><br>
-   <span class="text-control" style="margin-left: 13%">Registro </span> 
-    <br>
-     <p style="margin-left: 13%;float: left;"> 
-    Elige como quieres registrarte
-    </p>
-    <br>
-    <br>
-    <p> 
+    <ion-page>
+        <ion-content class="ion-padding">
+          <div align="center" > 
+            <br>
+            <img src="/assets/logo-green.png" >
+          </div>
+          <br><br><br><br><br>
+         <span class="text-control" style="margin-left: 13%">Registro </span> 
+          <br>
+           <p style="margin-left: 13%;float: left;"> 
+          Elige como quieres registrarte
+          </p>
+          <br>
+          <br>
+          <p> 
 
-       <button type="button" class="btn-primary" @click="redirect('email')" style="width: 300px">
-        <ion-icon :icon="mail"></ion-icon>  <b>Registro con email</b>
-      </button>
-  
-    <br>
-    <br>
-      <button type="button" class="btn-primary" @click="redirect('cell')" style="width: 300px">
-        <ion-icon :icon="callOutline"></ion-icon> <b>Registro con celular</b>
-      </button>
+             <button type="button" class="btn-primary" @click="redirect('email')" style="width: 300px">
+              <ion-icon :icon="mail"></ion-icon>  <b>Registro con email</b>
+            </button>
+        
+          <br>
+          <br>
+            <button type="button" class="btn-primary" @click="redirect('cell')" style="width: 300px">
+              <ion-icon :icon="callOutline"></ion-icon> <b>Registro con celular</b>
+            </button>
 
-     <br>
-     <br>
-     <ion-grid>
-      <ion-row>
-        <ion-col col-4>
-          <img src="/assets/icon-facebook.png" >
+           <br>
+           <br>
+           <ion-grid>
+            <ion-row>
+              <ion-col col-4>
+                <img src="/assets/icon-facebook.png" >
 
-        </ion-col>
-        <ion-col col-4>
-          <img src="/assets/icon-google.png" >
-        </ion-col>
-      </ion-row>
-    </ion-grid>
-     <br>
-     <br>
-        <a href="/" class="text-control"> Continuar como invitado</a>
-    </p>
+              </ion-col>
+                  <p><b>o</b></p>
+              <ion-col col-4>
+                <img src="/assets/icon-google.png" >
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+           <br>
+           <br>
+          </p>
+      </ion-content>    
+  </ion-page>  
 </template>
 
 <script>

@@ -3,13 +3,13 @@
     <div style="text-align: center; margin-top: 2%">
       <ion-grid>
           <ion-row>
-            <ion-col col-2>
+            <ion-col col-2 class="cursor">
                  <ion-icon :icon="notifications"></ion-icon>
             </ion-col>
-            <ion-col col-2>
+            <ion-col col-2 >
                <img src="/assets/logo-green.png">
             </ion-col>
-            <ion-col col-2>
+            <ion-col col-2 class="cursor"  @click="openPopover">
                <ion-icon :icon="personOutline"></ion-icon>
             </ion-col>
           </ion-row>
@@ -23,10 +23,11 @@
 
 <script>
 
-import { IonSearchbar,modalController,IonRow,IonGrid,IonCol  } from '@ionic/vue';
+import { IonSearchbar,modalController,IonRow,IonGrid,IonCol ,popoverController  } from '@ionic/vue';
 import { defineComponent  } from 'vue';
 import { notifications,personOutline } from 'ionicons/icons';
 import ModalSearch from '@/views/dashboard/ModalSearch'
+import Popover from './Popover.vue'
 
 export default defineComponent({
   components: { IonSearchbar,IonRow,IonGrid,IonCol},
@@ -51,6 +52,19 @@ export default defineComponent({
         })
       return modal.present();
     },
+    async openPopover(Event) {
+      const popover = await popoverController
+        .create({
+          component: Popover,
+          cssClass: 'my-custom-class',
+          event: Event,
+          translucent: true
+        })
+      await popover.present();
+
+      const { role } = await popover.onDidDismiss();
+      console.log('onDidDismiss resolved with role', role);
+    }
   }
 });
 </script>

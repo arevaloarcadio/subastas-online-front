@@ -1,5 +1,6 @@
 <template>
-
+  <ion-page>
+      <ion-content class="ion-padding">
 <div v-if="preload" class="preload" align="center" >
     <img src="/assets/logo-preload.png" :style="style.img">
     <ion-grid>
@@ -10,8 +11,8 @@
       </ion-row>
     </ion-grid>
   </div>
-
-
+  </ion-content>    
+</ion-page>
 </template>
 <script>
 import { IonSpinner,IonRow,IonGrid,IonCol } from '@ionic/vue';
