@@ -14,11 +14,15 @@
 
                   <ion-card-header>
 
-                  <ion-card-subtitle>Card Subtitle {{n}}</ion-card-subtitle>
+                 <ion-card-subtitle  style="color: #000">
+                    <ion-row> 
+                      <b>Nombre {{n}}</b> 
+                    </ion-row>  
+                  </ion-card-subtitle>
                 
                   </ion-card-header>
 
-                  <ion-card-content>Dron
+                  <ion-card-content><b>Ubicacion</b>
                 </ion-card-content>
 
               </ion-card>

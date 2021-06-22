@@ -1,64 +1,38 @@
 <template>
 <ion-page>
    <ion-row>
-       <ion-col>
+      <ion-col>
         <button @click="redirect('/principal')" >
           <ion-icon :icon="arrowBack" style="margin-left: 5%;top: 40%;position: absolute;" ></ion-icon>
         </button>
-          
-          <p style="color: #000">
-           Mis intercambios
-          </p>
-          <p>
-            <button style="background: #fff"> <img src="/assets/see_products.png"></button>
-          </p>
+        <p style="color: #000">
+          Chat
+        </p>
       </ion-col>
-
     </ion-row>
-    <ion-row>
-      <ion-col>
-        <ion-item  lines="none">
-         <ion-select  multiple="true" style="color: #32BAB0;font-family: Montserrat; font-style: normal;width: 70%" value="Enviadas" ok-text="Seleccionar" cancel-text="Cerrar">
-            <ion-select-option value="Enviadas">Enviadas</ion-select-option>
-            <ion-select-option value="Recibidas">Recibidas</ion-select-option>
-            <ion-select-option value="Rechazados">Rechazados</ion-select-option>
-            <ion-select-option value="confirmar">Por confirmar</ion-select-option>
-            </ion-select>
-             <ion-label style="color: #32BAB0;font-family: Montserrat; font-style: normal;margin-left: 40%;"><b style="color: #000">Filtrar</b></ion-label>
-          </ion-item>
-        </ion-col>
-     </ion-row>
-   
     <ion-content>
       <ion-list>
-        <ion-card style=" height: 25%;">
-          <ion-row>
-            <ion-col>
-              <img style="border-radius: 15px 30px 15px 15px;" src="https://ionicframework.com/docs/demos/api/card/madison.jpg" >
-            </ion-col>
-            <ion-col><br>
-
-            <b style="color: #000;font-family: Montserrat;">Nombre de producto</b><br>
-            <small>Pais, Cuidad</small> <br><br><br>
-            <span class="text-control">Enviada</span>
-            </ion-col>
-          </ion-row>
-          
-        </ion-card>
-        <ion-card style=" height: 25%;">
-          <ion-row>
-            <ion-col>
-              <img style="border-radius: 15px 30px 15px 15px;" src="https://ionicframework.com/docs/demos/api/card/madison.jpg" >
-            </ion-col>
-            <ion-col><br>
-
-            <b style="color: #000;font-family: Montserrat;">Nombre de producto</b><br>
-            <small>Pais, Cuidad</small> <br><br><br>
-            <span class="text-control">Recibida</span>
-            </ion-col>
-          </ion-row>
-          
-        </ion-card>
+        <br>
+        <p v-if="messages.length == 0" style="font-weight: 400">
+         Cuando alguien inicie negociación por tu producto o tu inicies negociación se habilitará el chat
+        </p>
+        <template v-else>
+          <ion-card v-for="message in messages" :key="message">
+            <ion-row>
+              <ion-col>
+                <img style="border-radius: 15px 15px 15px 15px;" :src="message.photo" >
+              </ion-col>
+              <ion-col style="margin-left: -40%;">
+                <b style="color: #000;font-family: Montserrat; font-weight: 600">{{message.product}} 
+                <img v-show="message.active" style="border-radius: 15px 15px 15px 15px;" src="/assets/active.png" > </b>
+                <br>
+                <br>
+                <small style="font-size: 15px">{{message.last_message}}</small>
+              </ion-col>
+            </ion-row>
+            
+          </ion-card>
+        </template>
       </ion-list>
       <ion-infinite-scroll @ionInfinite="loadData($event)" threshold="100px"  id="infinite-scroll" :disabled="isDisabled">
         <ion-infinite-scroll-content loading-spinner="bubbles" loading-text="Loading more data...">
@@ -137,6 +111,30 @@ export default defineComponent({
       arrowBack,
       camera
     }
+  },
+  data(){
+    return {
+      messages : 
+      [
+        {
+          photo : '/assets/Guitar.png',
+          product : 'Camisa',
+          last_message : 'Me gustaria intercambiar mi camisa...',
+          date_last_message : '7 min', 
+          active : true
+        },
+        {
+          photo : '/assets/Guitar.png',
+          product : 'Camisa',
+          last_message : 'Me gustaria intercambiar mi camisa...',
+          date_last_message : '7 min', 
+          active : false
+        }, 
+      ]
+    }
+  },
+  mounted(){
+    console.log(this.messages.length)
   },
   methods:{
     redirect(path) {

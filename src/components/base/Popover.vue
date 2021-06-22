@@ -1,5 +1,9 @@
 <template>
 <ion-content class="ion-padding">
+<ion-row style="cursor: pointer;" @click="redirect('/profile')">
+Perfil
+</ion-row>
+<div class="hr"> </div>
 <ion-row style="cursor: pointer;" @click="redirect('/')">
 Cerrar Sesión
 </ion-row>

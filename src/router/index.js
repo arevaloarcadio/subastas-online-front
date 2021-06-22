@@ -30,6 +30,13 @@ const RequestSuccess = () =>  import('@/views/send_requests/Success')
 
 const MyExchanges = () =>  import('@/views/my_exchanges/MyExchanges')
 
+const SavedPost = () =>  import('@/views/saved_posts/SavedPost')
+
+const Chat = () =>  import('@/views/chat/Chat')
+const PoliciesAndTerms = () =>  import('@/views/chat/PoliciesAndTerms')
+
+const Profile = () =>  import('@/views/profile/Profile')
+
 const routes = [
   {
     path: '/dashboard',
@@ -78,7 +85,21 @@ const routes = [
         name: 'my.exchanges',
         component: MyExchanges
       },
-
+      {
+        path: '/saved_posts',
+        name: 'saved.posts',
+        component: SavedPost
+      },
+      {
+        path: '/chat',
+        name: 'chat',
+        component: Chat
+      },
+      {
+        path: '/profile',
+        name: 'profile',
+        component: Profile,
+      },
     ]
    },
   {
@@ -132,6 +153,11 @@ const routes = [
         component: Complete,
       },
     ]
+  },
+  {
+    path: '/chat/policies/terms',
+    name: 'chat.policies.terms',
+    component: PoliciesAndTerms,
   },
 
 ]

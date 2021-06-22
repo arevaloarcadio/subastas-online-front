@@ -15,7 +15,7 @@
  <ion-content>
     <ion-row>
       <ion-avatar style="margin-left: 5%">
-        <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
+        <img src="/assets/avatar.png">
       </ion-avatar>
       <ion-col style="margin-top: 3%">
          <span class="text-control">Nombre del Usuario</span> 

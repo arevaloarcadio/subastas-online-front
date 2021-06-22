@@ -15,9 +15,9 @@
               </center>
           </ion-col>
           <ion-col col-2 class="cursor">
-             <img src="/assets/Tag.png" style="margin-top: 5%;" @click="redirect('/principal')">
+             <img src="/assets/Tag.png" style="margin-top: 5%;" @click="redirect('/saved_posts')">
              <center>
-                <div v-show="path == '/'" style="background:#32BAB0;height: 13px; width: 50%;border-radius: 100px 100px 0 0 ;"></div>
+                <div v-show="path == '/saved_posts'" style="background:#32BAB0;height: 13px; width: 50%;border-radius: 100px 100px 0 0 ;"></div>
               </center>
           </ion-col>
           <ion-col col-2>
@@ -33,9 +33,9 @@
               </center>
           </ion-col>
           <ion-col col-2>
-             <img src="/assets/ChatCircleDots.png" class="cursor" @click="redirect('/principal')">
+             <img src="/assets/ChatCircleDots.png" class="cursor" @click="redirect('/chat')">
              <center>
-                <div v-show="path == '/'" style="background:#32BAB0;height: 13px; width: 50%;border-radius: 100px 100px 0 0 ;"></div>
+                <div v-show="path == '/chat'" style="background:#32BAB0;height: 13px; width: 50%;border-radius: 100px 100px 0 0 ;"></div>
               </center>
           </ion-col>
         </ion-row>
