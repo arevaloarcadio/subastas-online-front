@@ -37,6 +37,8 @@ const Chat = () =>  import('@/views/chat/Chat')
 const PoliciesAndTerms = () =>  import('@/views/chat/PoliciesAndTerms')
 
 const Profile = () =>  import('@/views/profile/Profile')
+const Setting = () =>  import('@/views/profile/Setting')
+const EditProfile = () =>  import('@/views/profile/EditProfile')
 
 const routes = [
   {
@@ -101,6 +103,21 @@ const routes = [
         name: 'profile',
         component: Profile,
       },
+      {
+        path: '/edit/profile',
+        name: 'edit.profile',
+        component: EditProfile,
+      },
+      {
+        path: '/my_products',
+        name: 'my.products',
+        component: MyProducts,
+      },
+      {
+        path: '/setting',
+        name: 'setting',
+        component: Setting,
+      }
     ]
    },
   {
@@ -160,11 +177,7 @@ const routes = [
     name: 'chat.policies.terms',
     component: PoliciesAndTerms,
   },
-  {
-    path: '/my_products',
-    name: 'my.products',
-    component: MyProducts,
-  }
+  
 ]
 
 const router = createRouter({

@@ -14,7 +14,7 @@
           <br>
           <br>
           <p> 
-
+          <br>
              <button type="button" class="btn-primary" @click="redirect('email')" style="width: 300px">
               <ion-icon :icon="mail"></ion-icon>  <b>Registro con email</b>
             </button>

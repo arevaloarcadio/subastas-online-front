@@ -60,14 +60,14 @@ background: #32BAB0;
 }
 
 
-  @media (max-width: 600px){
+  @media (max-width: 1000px){
     .top{
       margin-top:-30%;
       font-weight: 300; 
     }
   }
 
-  @media (min-width: 1500px){
+  @media (min-width: 1000px){
     .top{
       margin-top:-5%; 
       font-weight :300; 

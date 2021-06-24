@@ -2,7 +2,7 @@
   <ion-page>
     <ion-row>
        <ion-col>
-        <button @click="$router.go(-1)"  >
+        <button @click="$router.push({name : 'profile'})" >
           
           <ion-icon :icon="arrowBack" style="margin-left: 5%;top: 40%;position: absolute;" ></ion-icon>
         </button>
@@ -36,9 +36,11 @@
             </ion-col>
    
             <ion-col  size="6" size-sm >
-              <ion-card style="height: 93%;">
+              <ion-card class="card">
+
                 <div style="margin-top: 15%">
                  <center>
+                    Agregar
                   <button class="button-add-2"><img class="img-add-2" src="/assets/FAB.png">
                   </button>
                 </center>
@@ -152,18 +154,21 @@ export default defineComponent({
 </script>
 <style type="text/css">
 
-  @media (max-width: 500px){
+  @media (max-width: 1000px){
     .button-add-2{
       margin-left: 7%;
       background: #fff;
       margin-top: 4%;
     }
     .img-add-2{
-      margin-left: 2%;
-      margin-top: 40%;
+          margin-left: -7%;
+          margin-top: 6%;
     }
     .add{
        height: 90.5%;
+    }
+    .card{
+          height: 90%;
     }
   }
 
@@ -180,6 +185,9 @@ export default defineComponent({
     }
     .add{
       margin-top: 92.5%;
+    }
+    .card{
+      height: 94%;
     }
   }
 </style>

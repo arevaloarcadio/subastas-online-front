@@ -140,7 +140,7 @@ export default defineComponent({
   border-radius: 30px 30px 30px 30px;
  }
 
-   @media (max-width: 700px){
+   @media (max-width: 1000px){
     .img-center{
      position: absolute;
      left:45%;
@@ -148,7 +148,7 @@ export default defineComponent({
     }
   }
 
-  @media (min-width: 1500px){
+  @media (min-width: 1000px){
      .img-center{
      position: absolute;
      left:49%;
@@ -164,7 +164,7 @@ div.scrollmenu {
 
 
 
-  @media (max-width: 700px){
+  @media (max-width: 1000px){
     .button-add{
       height:100%;
       width: 35%;
@@ -178,7 +178,7 @@ div.scrollmenu {
     }
   }
 
-  @media (min-width: 1500px){
+  @media (min-width: 1000px){
     .button-add{
       height:100%;
       width: 35%;

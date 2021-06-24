@@ -700,7 +700,7 @@ html:not([dir=rtl]) .c-switch-label .c-switch-slider::after {
   cursor: pointer
 }
 
-  @media (max-width: 400px){
+  @media (max-width: 1000px){
     .badge{
       background: rgba(50, 186, 176, 0.6);
       border-radius: 4px;
@@ -753,13 +753,13 @@ html:not([dir=rtl]) .c-switch-label .c-switch-slider::after {
     }
   }
 
-  @media (max-width: 700px){
+  @media (max-width: 1000px){
     .buttons-details{
      margin-top: 40%
     }
   }
 
-  @media (min-width: 1500px){
+  @media (min-width: 1000px){
     .buttons-details{
      margin-top: 4%
     }
