@@ -4,7 +4,7 @@
 Perfil
 </ion-row>
 <div class="hr"> </div>
-<ion-row style="cursor: pointer;" @click="location.href='/'">
+<ion-row style="cursor: pointer;" @click="redirect({path : '/login'})">
 Cerrar Sesión
 </ion-row>
 </ion-content>

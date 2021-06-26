@@ -1,5 +1,5 @@
 <template>
-   <ion-page>
+ <div>
      <ion-row>
        <ion-col>
         <button @click="$router.push({path : '/principal'})" >
@@ -41,9 +41,8 @@
           <p class="p-no-center" @click="redirect()" style="color: #000;margin-top: 0.2%;"><b> Salir</b></p>
         </ion-row>
       </ul>
-    <ion-list>
-    </ion-list>
-  </ion-page>  
+ </div>
+
 </template>
 
 

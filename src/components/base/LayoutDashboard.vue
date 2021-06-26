@@ -1,8 +1,6 @@
 <template>
   <div>
-      <transition name="fade" mode="out-in"
- enter-active-class="animate__animated animate__fadeIn"
- leave-active-class="animate__animated animate__fadeOut">
+      <transition name="slide-fade" >
         <router-view></router-view>
       </transition>
 
@@ -92,5 +90,18 @@ export default defineComponent({
 }
 div.scroll {
   overflow: auto;
+}
+.slide-fade-enter-active {
+  transition: all 0.3s ease-out;
+}
+
+.slide-fade-leave-active {
+  transition: all 0.8s cubic-bezier(1, 0.5, 0.8, 1);
+}
+
+.slide-fade-enter-from,
+.slide-fade-leave-to {
+  transform: translateX(20px);
+  opacity: 0;
 }
 </style>

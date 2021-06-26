@@ -1,5 +1,5 @@
 import { createApp } from 'vue'
-import App from './App.vue'
+import Layout from './App.vue'
 import router from './router';
 import store from './store';
 import vuex from './plugins/store';
@@ -35,7 +35,7 @@ import 'animate.css';
 
 
 
-const app = createApp(App)
+const app = createApp(Layout)
   .use(IonicVue)
   .use(router)
   .use(vuex)

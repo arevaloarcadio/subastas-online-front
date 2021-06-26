@@ -34,11 +34,17 @@ const MyExchanges = () =>  import('@/views/my_exchanges/MyExchanges')
 const SavedPost = () =>  import('@/views/saved_posts/SavedPost')
 
 const Chat = () =>  import('@/views/chat/Chat')
+const ChatView = () =>  import('@/views/chat/ChatView')
 const PoliciesAndTerms = () =>  import('@/views/chat/PoliciesAndTerms')
 
 const Profile = () =>  import('@/views/profile/Profile')
 const Setting = () =>  import('@/views/profile/Setting')
 const EditProfile = () =>  import('@/views/profile/EditProfile')
+
+const Notification = () =>  import('@/views/notifications/Notification')
+const Request = () =>  import('@/views/notifications/Request')
+const RequestAccepted = () =>  import('@/views/notifications/RequestAccepted')
+const RequestRejected = () =>  import('@/views/notifications/RequestRejected')
 
 const routes = [
   {
@@ -98,6 +104,7 @@ const routes = [
         name: 'chat',
         component: Chat
       },
+     
       {
         path: '/profile',
         name: 'profile',
@@ -117,7 +124,32 @@ const routes = [
         path: '/setting',
         name: 'setting',
         component: Setting,
-      }
+      },
+      {
+        path: '/notification',
+        name: 'notification',
+        component: Notification,
+      },
+      {
+        path: '/request/:productId',
+        name: 'request',
+        component: Request,
+      },
+      {
+        path: '/request/accepted/:productId',
+        name: 'request.accepted',
+        component: RequestAccepted,
+      },  
+      {
+        path: '/request/rejected/:productId',
+        name: 'request.rejected',
+        component: RequestRejected,
+      },
+       {
+        path: '/chat/view/:productId',
+        name: 'request.chat',
+        component: ChatView
+      }, 
     ]
    },
   {

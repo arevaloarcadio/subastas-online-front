@@ -4,13 +4,23 @@
       <ion-grid>
           <ion-row>
             <ion-col col-2 class="cursor">
-                 <ion-icon :icon="notifications"></ion-icon>
+                 
+              <ion-fab-button @click="redirect({path : 'notification'})" id="fab-button-notifications" style="" color="light">
+                 <ion-icon :icon="notifications"></ion-icon>.
+              </ion-fab-button>
             </ion-col>
             <ion-col col-2 >
                <img src="/assets/logo-green.png">
             </ion-col>
-            <ion-col col-2 class="cursor"  @click="openPopover">
-               <ion-icon :icon="personOutline"></ion-icon>
+          
+            <ion-col col-2 class="cursor">
+              <ion-fab style="margin-left: -33%;">
+                <ion-fab-button color="light"> <ion-icon :icon="personOutline"></ion-icon></ion-fab-button>
+                 <ion-fab-list side="bottom">
+                  <ion-fab-button @click="redirect({path : 'profile'})"><ion-icon :icon="personOutline"></ion-icon></ion-fab-button>
+                  <ion-fab-button @click="redirect({path : 'login'})"><ion-icon :icon="logOut"></ion-icon></ion-fab-button>
+                </ion-fab-list>
+              </ion-fab>
             </ion-col>
           </ion-row>
         </ion-grid>
@@ -23,18 +33,17 @@
 
 <script>
 
-import { IonSearchbar,modalController,IonRow,IonGrid,IonCol ,popoverController  } from '@ionic/vue';
+import { IonSearchbar,modalController,IonRow,IonGrid,IonCol ,IonFabList  } from '@ionic/vue';
 import { defineComponent  } from 'vue';
-import { notifications,personOutline } from 'ionicons/icons';
+import { notifications,personOutline,add,logOut } from 'ionicons/icons';
 import ModalSearch from '@/views/dashboard/ModalSearch'
-import Popover from './Popover.vue'
 
 export default defineComponent({
-  components: { IonSearchbar,IonRow,IonGrid,IonCol},
+  components: { IonSearchbar,IonRow,IonGrid,IonCol,IonFabList},
   name: "Header",
    setup() {
 
-    return { notifications,personOutline}
+    return { notifications,personOutline,add,logOut}
   },
   data() {
     return {
@@ -43,7 +52,8 @@ export default defineComponent({
   mounted(){
   },
   methods: {
-  async openModal() {
+    async openModal() {
+      alert("aquiiiiiii")
       const modal = await modalController
         .create({
           component: ModalSearch,
@@ -52,20 +62,11 @@ export default defineComponent({
         })
       return modal.present();
     },
-    async openPopover(Event) {
-      const popover = await popoverController
-        .create({
-          component: Popover,
-          cssClass: 'my-custom-class',
-          event: Event,
-          translucent: true
-        })
-      await popover.present();
-
-      const { role } = await popover.onDidDismiss();
-      console.log('onDidDismiss resolved with role', role);
+    redirect(path) {
+      console.log(path)
+     this.$router.push(path);
     }
-  }
+  }, 
 });
 </script>
 
@@ -80,6 +81,17 @@ export default defineComponent({
   color: white;
   text-align: center;
 }
+  @media (max-width: 1000px){
+    #fab-button-notifications{
+     margin-left: 35%;
+    }
+  }
+
+  @media (min-width: 1000px){
+    #fab-button-notifications{
+     margin-left: 75%;
+    }
+  }
 </style>
 
 

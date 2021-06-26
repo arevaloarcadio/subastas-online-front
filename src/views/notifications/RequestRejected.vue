@@ -8,29 +8,28 @@
           <p style="color: #000">
             Enviar solicitud
           </p>
-          <p>
-          Hemos enviado tu oferta a
-          </p>
-           <p>
+            <p>
           <span class="text-control" style="font-weight: 600;font-size: 22px;">
                 Usuario
               </span>
           </p>
+          <p>
+        Ha rechazado tu oferta
+          </p>
+         
       </ion-col>
     </ion-row>
     <ion-content class="ion-padding">
       <ion-list>
         <p>
-          <img  src="/assets/bi_clock.png">
+          <img  src="/assets/rejected.png">
           <br>
           <br>
-          Te avisaremos cuando la
-          acepte y habilitaremos 
-          el chat
+            Ofrécele algo mejor
           <br>
           <br>
           <button type="button" class="btn-primary" @click="redirect({path : '/principal'})" style="width: 200px">
-              <b>Regresar al home</b>
+              <b>Renegociar</b>
           </button>
         </p>
       </ion-list>

@@ -8,29 +8,28 @@
           <p style="color: #000">
             Enviar solicitud
           </p>
-          <p>
-          Hemos enviado tu oferta a
-          </p>
-           <p>
+            <p>
           <span class="text-control" style="font-weight: 600;font-size: 22px;">
                 Usuario
               </span>
           </p>
+          <p>
+          Ha aceptado tu oferta
+          </p>
+         
       </ion-col>
     </ion-row>
     <ion-content class="ion-padding">
       <ion-list>
         <p>
-          <img  src="/assets/bi_clock.png">
+          <img  src="/assets/success.png">
           <br>
           <br>
-          Te avisaremos cuando la
-          acepte y habilitaremos 
-          el chat
+         Ahora puedes  usar el chat
           <br>
           <br>
           <button type="button" class="btn-primary" @click="redirect({path : '/principal'})" style="width: 200px">
-              <b>Regresar al home</b>
+              <b>Abrir chat</b>
           </button>
         </p>
       </ion-list>

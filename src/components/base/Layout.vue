@@ -1,6 +1,6 @@
 <template>
 
-  <div v-if="preload" class="preload" align="center" >
+  <div v-if="preload && $route.path == '/'" class="preload" align="center" >
     <img src="/assets/logo-preload.png" :style="style.img">
     <ion-grid>
       <ion-row>
@@ -10,7 +10,7 @@
       </ion-row>
     </ion-grid>
   </div>
-    <transition name="fade" mode="out-in" enter-active-class="animate__animated animate__fadeIn" leave-active-class="animate__animated animate__fadeOut">
+    <transition name="slide-fade">
     <router-view></router-view>
   </transition>
 </template>
@@ -31,12 +31,16 @@ export default {
     }
   },
   created(){
-    this.style.img['margin-top'] = (screen.height/3)+'px'
-    var self = this;
-        setTimeout(function() {
-              self.preload = false; 
-             self.$router.push({path: '/pre_login'});
-        }, 2000);
+    if(this.$route.path == '/'){
+      this.style.img['margin-top'] = (screen.height/3)+'px'
+      var self = this;
+          setTimeout(function() {
+                self.preload = false; 
+               self.$router.push({path: '/pre_login'});
+          }, 2000);
+    }else{
+      this.preload = false; 
+    }    
   },
   methods: {
   
@@ -57,6 +61,20 @@ background: #32BAB0;
 
 .preload img {
   vertical-align:middle;
+}
+
+.slide-fade-enter-active {
+  transition: all 0.3s ease-out;
+}
+
+.slide-fade-leave-active {
+  transition: all 0.8s cubic-bezier(1, 0.5, 0.8, 1);
+}
+
+.slide-fade-enter-from,
+.slide-fade-leave-to {
+  transform: translateX(20px);
+  opacity: 0;
 }
 
 </style>
