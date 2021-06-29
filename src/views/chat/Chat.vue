@@ -17,7 +17,7 @@
          Cuando alguien inicie negociación por tu producto o tu inicies negociación se habilitará el chat
         </p>
         <template v-else>
-          <ion-card v-for="message in messages" :key="message">
+          <ion-card v-for="message in messages" :key="message"  @click="redirect({name : 'request.chat' , params : { productId : message.productId }})">
             <ion-row>
               <ion-col>
                 <img style="border-radius: 15px 15px 15px 15px;" :src="message.photo" >
@@ -117,6 +117,7 @@ export default defineComponent({
       messages : 
       [
         {
+          productId : 1,
           photo : '/assets/Guitar.png',
           product : 'Camisa',
           last_message : 'Me gustaria intercambiar mi camisa...',
@@ -124,6 +125,7 @@ export default defineComponent({
           active : true
         },
         {
+          productId : 2,
           photo : '/assets/Guitar.png',
           product : 'Camisa',
           last_message : 'Me gustaria intercambiar mi camisa...',
@@ -138,7 +140,7 @@ export default defineComponent({
   },
   methods:{
     redirect(path) {
-      this.$router.push({path: path});
+      this.$router.push(path);
     },
     async openModal() {
       const modal = await modalController

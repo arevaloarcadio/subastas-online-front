@@ -36,6 +36,9 @@ const SavedPost = () =>  import('@/views/saved_posts/SavedPost')
 const Chat = () =>  import('@/views/chat/Chat')
 const ChatView = () =>  import('@/views/chat/ChatView')
 const PoliciesAndTerms = () =>  import('@/views/chat/PoliciesAndTerms')
+const AcceptedRejetedRequest = () =>  import('@/views/chat/AcceptedRejetedRequest')
+const AcceptedConfirm = () =>  import('@/views/chat/AcceptedConfirm')
+const RejetedComfirm = () =>  import('@/views/chat/RejetedComfirm')
 
 const Profile = () =>  import('@/views/profile/Profile')
 const Setting = () =>  import('@/views/profile/Setting')
@@ -145,11 +148,26 @@ const routes = [
         name: 'request.rejected',
         component: RequestRejected,
       },
-       {
+      {
         path: '/chat/view/:productId',
         name: 'request.chat',
         component: ChatView
       }, 
+      {
+        path: '/request/confirm/:productId',
+        name: 'request.accepted.rejected',
+        component: AcceptedRejetedRequest
+      },
+      {
+        path: '/request/rejected/confirm/:productId',
+        name: 'request.confirm.rejected',
+        component: RejetedComfirm
+      }, 
+      {
+        path: '/request/accepted/confirm/:productId',
+        name: 'request.confirm.accepted',
+        component: AcceptedConfirm
+      },  
     ]
    },
   {
@@ -208,8 +226,7 @@ const routes = [
     path: '/chat/policies/terms',
     name: 'chat.policies.terms',
     component: PoliciesAndTerms,
-  },
-  
+  }
 ]
 
 const router = createRouter({

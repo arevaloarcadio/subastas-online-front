@@ -38,7 +38,6 @@
     <br>
     <br>
     <button type="button" class="btn-primary" @click="redirect()" style="width: 300px">
-      <ion-icon name="mail-outline"></ion-icon> 
         <b>Iniciar Sesión</b>
     </button>
   </p>
@@ -47,13 +46,13 @@
 </template>
 
 <script>
-import { loadingController,toastController,IonIcon,IonRow,IonGrid,IonCol,IonLabel, IonInput, IonItem  } from '@ionic/vue';
+import { loadingController,toastController,IonRow,IonGrid,IonCol,IonLabel, IonInput, IonItem  } from '@ionic/vue';
 import { eyeOutline,eyeOffOutline } from 'ionicons/icons';
 import { defineComponent } from 'vue';
 import axios from 'axios';
 
 export default defineComponent({
-  components: { IonIcon,IonRow,IonGrid,IonCol,IonLabel, IonInput, IonItem},
+  components: { IonRow,IonGrid,IonCol,IonLabel, IonInput, IonItem},
   name: "Register",
   setup() {
     return { eyeOutline,eyeOffOutline }

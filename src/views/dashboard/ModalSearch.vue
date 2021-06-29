@@ -19,7 +19,18 @@
       </ion-row>
     </ion-grid>
 
-    <ion-searchbar style="color: #5B716F;background: rgba(233, 235, 235, 0.5);border-radius: 10px;" @click="openModal"></ion-searchbar>
+    <ion-searchbar style="color: #5B716F; background: rgba(233, 235, 235, 0.5);border-radius: 10px;" @click="openModal"></ion-searchbar>
+    
+      <img src="/assets/tecnology-green.png" style="width:50%" @click="search('tecnologia')">
+      <img src="/assets/beatiful-green.png" style="width:50%"  @click="search('belleza')">
+      <center>
+        <img src="/assets/tools-green.png" style="width:100%" @click="search('herramientas')">
+      </center>
+    
+    
+    <img  src="/assets/home-green.png" style="width: 46%;margin-left: 3%;margin-bottom: 3%;"  @click="search('hogar')">
+    <img  src="/assets/collection-green.png" style="width:50%"  @click="search('coleccion')">
+    <img  src="/assets/books-green.png" style="width:52%"   @click="search('libros')">
  </ion-content>
 </template>
 
@@ -41,6 +52,9 @@ export default defineComponent({
     }
   },
   methods: {
+  search(filter){
+    alert(filter)
+  },  
   async closeModal() {
       const modal = await modalController
       return modal.dismiss();
@@ -48,3 +62,41 @@ export default defineComponent({
   }
 });
 </script>
+
+<style scoped="">
+  
+  @media (max-width: 1000px){
+    #img-search-home{
+    position: relative;
+    top: -2%;
+    left: 5%;
+    }
+    #img-search-collection{
+       position: relative;
+    top: 21%;
+    left: -42%;
+    }
+    #img-search-books{
+    position: relative;
+    left: 50%;
+    top: -20%;
+    }
+  }
+
+  @media (min-width: 1000px){
+    #img-search-home{
+        position: relative;
+    top: -26%;
+    left: 19%;
+    }
+    #img-search-collection{
+    position: relative;
+    top: 0%;
+    left: -13%;
+    }
+    #img-search-books{
+      left: -15%;
+    position: relative;
+    }
+  }
+</style>

@@ -11,6 +11,9 @@
         <p style="font-weight: 100">
           Juan Camilo
         </p>
+        <button @click="redirect({name : 'request.accepted.rejected'})"  style="margin-left: 85%;top: 40%;position: absolute;background: #fff">
+          <img src="/assets/ArrowsLeftRightGreenLow.png">
+        </button>
       </ion-col>
     </ion-row>
     <ion-content>
@@ -60,13 +63,12 @@
 <script >
 
 import { repeat,arrowBack,camera,sendOutline } from 'ionicons/icons';
-import ModalDetail from '@/views/products/ModalDetail'
+
 import { 
 
   IonContent, 
   IonInfiniteScroll, 
   IonInfiniteScrollContent,
-  modalController,
   IonList,
   IonPage
  } from '@ionic/vue';
@@ -153,16 +155,7 @@ export default defineComponent({
   },
   methods:{
     redirect(path) {
-      this.$router.push({path: path});
-    },
-    async openModal() {
-      const modal = await modalController
-        .create({
-          component: ModalDetail,
-          keyboardClose : true,
-          cssClass: 'my-custom-class',
-        })
-      return modal.present();
+      this.$router.push(path);
     },
     async takePhoto() {
       const photo = await Camera.getPhoto({
