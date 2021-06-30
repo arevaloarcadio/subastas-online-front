@@ -1,5 +1,4 @@
 <template>
-    <ion-page>
         <ion-content class="ion-padding">
           <div align="center" > 
             <br>
@@ -15,13 +14,13 @@
           <br>
           <p> 
           <br>
-             <button type="button" class="btn-primary" @click="redirect('email')" style="width: 300px">
+             <button type="button" class="btn-primary" @click="redirect({path: 'register' , query : { type : 'email' }})" style="width: 300px">
               <ion-icon :icon="mail"></ion-icon>  <b>Registro con email</b>
             </button>
         
           <br>
           <br>
-            <button type="button" class="btn-primary" @click="redirect('cell')" style="width: 300px">
+            <button type="button" class="btn-primary" @click="redirect({path: 'register' , query : { type : 'cell' }})" style="width: 300px">
               <ion-icon :icon="callOutline"></ion-icon> <b>Registro con celular</b>
             </button>
 
@@ -41,9 +40,10 @@
           </ion-grid>
            <br>
            <br>
+            <a  @click="redirect({path: '/pre_login'})" class="text-control">Atras</a>
           </p>
       </ion-content>    
-  </ion-page>  
+
 </template>
 
 <script>
@@ -68,8 +68,8 @@ export default defineComponent({
     };
   },
   methods: {
-    redirect(type){
-      this.$router.push({path: 'register' , query : { type : type }});
+    redirect(poth){
+      this.$router.push(poth);
     },
     async register() {
 

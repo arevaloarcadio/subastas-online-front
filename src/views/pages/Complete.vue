@@ -1,5 +1,5 @@
 <template>
-  <ion-page>
+
       <div  class="preload" align="center" >
         <img src="/assets/logo-white.png" :style="style.img">
         <br>
@@ -15,7 +15,6 @@
           <button type="button" class="btn-line"  @click="redirect('login')"> <b>Iniciar Sesión</b></button>
         </p>
       </div> 
-</ion-page>
 
 </template>
 <script>

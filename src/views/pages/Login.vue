@@ -1,5 +1,5 @@
 <template>
-  <ion-page>  
+
      <ion-content class="ion-padding"> 
  <br>
  <br>
@@ -37,12 +37,13 @@
       <a href="/login" class="text-control"> ¿Olvidaste tu contraseña?</a>
     <br>
     <br>
-    <button type="button" class="btn-primary" @click="redirect()" style="width: 300px">
+    <button type="button" class="btn-primary" @click="redirect({path: 'principal'})" style="width: 300px">
         <b>Iniciar Sesión</b>
-    </button>
+    </button> <br><br>
+    <a  @click="redirect({path: '/pre_login'})" class="text-control">Atras</a>
   </p>
    </ion-content>    
- </ion-page> 
+
 </template>
 
 <script>
@@ -68,8 +69,8 @@ export default defineComponent({
     this.type = this.$route.query.type;
   },
   methods: {
-    redirect(){
-      this.$router.push({path: 'principal'});
+    redirect(path){
+      this.$router.push(path);
     },
     async register() {
 

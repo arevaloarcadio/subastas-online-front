@@ -1,6 +1,6 @@
 <template>
   <div>
-      <transition name="slide-fade" >
+    <transition name="slide-fade" >
         <router-view></router-view>
       </transition>
 
@@ -47,10 +47,10 @@
 <script>
 
 import { IonRow,IonGrid,IonCol   } from '@ionic/vue';
-import { defineComponent  } from 'vue';
 
 
-export default defineComponent({
+
+export default {
   components: { IonRow,IonGrid,IonCol },
   name: "LayoutDashboard",
  
@@ -74,7 +74,7 @@ export default defineComponent({
       this.$router.push({path: path});
     }
   }
-});
+};
 </script>
 
 

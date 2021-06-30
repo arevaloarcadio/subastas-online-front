@@ -1,5 +1,5 @@
 <template>
-   <ion-page>
+
      <ion-content class="ion-padding"> 
   <p> 
     Selecciona al menos 3 categorias de productos
@@ -57,7 +57,7 @@
     <center>Omitir</center>
     </p>
   </ion-content>
-</ion-page>  
+
 </template>
 
 <script>

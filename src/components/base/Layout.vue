@@ -10,9 +10,9 @@
       </ion-row>
     </ion-grid>
   </div>
-    <transition name="slide-fade">
-    <router-view></router-view>
-  </transition>
+       <transition name="slide-fade" >
+        <router-view></router-view>
+      </transition>
 </template>
 <script>
   import { IonSpinner,IonRow,IonGrid,IonCol } from '@ionic/vue';

@@ -1,5 +1,5 @@
 <template>
-   <ion-page>
+
     <br>
     <br>
     <br>
@@ -24,7 +24,7 @@
   </button>
   </p>
  </ion-content>     
-</ion-page>  
+
 </template>
 
 

@@ -1,5 +1,4 @@
 <template>
-   <ion-page>
      <ion-content class="ion-padding"> 
   <div align="center"> 
     <br>
@@ -19,7 +18,7 @@
   </button>
   </p>
  </ion-content>     
-</ion-page>  
+
 </template>
 
 <script>

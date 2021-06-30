@@ -1,5 +1,5 @@
 <template>
-<ion-page>
+
   <ion-content class="ion-padding">
  <br>
  <br>
@@ -66,7 +66,7 @@
        <a href="/login" class="text-control"> Iniciar Sesión</a>
     </p>
     </ion-content>    
-  </ion-page>  
+ 
 </template>
 
 <script>

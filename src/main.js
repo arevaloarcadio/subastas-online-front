@@ -3,7 +3,7 @@ import Layout from './App.vue'
 import router from './router';
 import store from './store';
 import vuex from './plugins/store';
-import axios from './plugins/axios'
+import './plugins/axios'
 //import axios_ from 'axios'
 import { IonicVue } from '@ionic/vue';
 //import Socketio from '@/plugins/socket-io'
@@ -38,7 +38,6 @@ const app = createApp(Layout)
   .use(IonicVue)
   .use(router)
   .use(vuex)
-  .use(axios)
   .use(store)
 
   //.use(Socketio, {
