@@ -36,7 +36,7 @@ export default {
       var self = this;
           setTimeout(function() {
                 self.preload = false; 
-               self.$router.push({path: '/pre_login'});
+               self.$router.push({path: '/get_started'});
           }, 2000);
     }else{
       this.preload = false; 

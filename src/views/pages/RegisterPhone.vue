@@ -4,61 +4,55 @@
          <br>
          <br>
          <br>
-            <span class="text-control" style="margin-left: 13%;font-size: 24px;">Registro </span> 
+            <span class="text-control" style="margin-left: 5%;font-size: 24px;">Registro </span> 
             <br>
-             <p style="margin-left: 13%;float: left;"> 
-            Ubicación
+             <p class="p-no-center" style="margin-left: 5%;float: left;"> 
+            Ingresa tu número de teléfono, te enviaremos un código 
             </p>
             <br>
             <br>
             <br>
             <br>
             <p> 
+              <img src="/assets/phone.png">
             <ion-grid>
               <ion-row>
-                <ion-col col-12>
+                <ion-col  size="4">
                      <ion-item>
-                      <ion-label style="color: #32BAB0;font-family: Montserrat; font-style: normal;">Selecciona tu pais</ion-label>
-                      <ion-select style="color: #32BAB0;font-family: Montserrat; font-style: normal;" value="Peru" ok-text="Seleccionar" cancel-text="Cerrar">
-                        <ion-select-option value="Peru">Peru</ion-select-option>
+                      <ion-select class="cut" style="color: #32BAB0;font-family: Montserrat; font-style: normal;" value="+31" ok-text="Seleccionar" cancel-text="Cerrar">
+                        <ion-select-option value="+56">+56</ion-select-option>
+                         <ion-select-option value="+31">+31</ion-select-option>
                       </ion-select>
                     </ion-item>
-                  </ion-col>  
-              </ion-row>
-               <ion-row>
-                <ion-col col-12>
+                  </ion-col>
+                  <ion-col  size="8">
                      <ion-item>
-                      <ion-label style="color: #32BAB0;font-family: Montserrat; font-style: normal;">Selecciona tu cuidad</ion-label>
-                      <ion-select style="color: #32BAB0;font-family: Montserrat; font-style: normal;" value="Peru" ok-text="Seleccionar" cancel-text="Cerrar">
-                        <ion-select-option value="Peru">Peru</ion-select-option>
-                      </ion-select>
+                        <ion-input placeholder="Ingrese el número" style="margin-top: 7%;"></ion-input>
                     </ion-item>
-                  </ion-col>  
+                  </ion-col>    
               </ion-row>
             </ion-grid>
           
             <br>
             <br>
-              <button type="button" class="btn-primary" @click="redirect()" style="width: 300px">
-                  Continuar
+              <button type="button" class="btn-primary" @click="redirect({name : 'verify.phone'})" style="width: 150px">
+                  Verificar
               </button>
-         <br>
             <br>
-               ¿Tiene cuenta?
-               <br>
-               <a href="/login" class="text-control"> Iniciar Sesión</a>
+            <br>
+            <a  @click="redirect({path: '/pre_login'})" class="text-control">Atras</a>
             </p>
       </ion-content>          
 
 </template>
 
 <script>
-import { loadingController,toastController,IonRow,IonGrid,IonCol,IonLabel, IonItem,IonSelect, IonSelectOption  } from '@ionic/vue';
+import { loadingController,toastController,IonRow,IonGrid,IonCol, IonItem,IonSelect, IonSelectOption  } from '@ionic/vue';
 import { defineComponent } from 'vue';
 import axios from 'axios';
 
 export default defineComponent({
-  components: { IonRow,IonGrid,IonCol,IonLabel, IonItem,IonSelect, IonSelectOption},
+  components: { IonRow,IonGrid,IonCol, IonItem,IonSelect, IonSelectOption},
   name: "Register",
   data() {
     return {
@@ -74,8 +68,8 @@ export default defineComponent({
     this.type = this.$route.query.type;
   },
   methods: {
-    redirect(){
-       this.$router.push({path: 'success'});
+    redirect(poth){
+      this.$router.push(poth);
     },
     async register() {
 
@@ -128,7 +122,7 @@ export default defineComponent({
 </script>
 
 
-<style type="text/css">
+<style scoped>
 
 .item-has-focus{
 
@@ -153,6 +147,17 @@ export default defineComponent({
 
 .alert-button.sc-ion-alert-md{
   color : #32BAB0;
+}
+
+ion-select::part(text) {
+    padding: 5px 12px;
+    background: #32BAB0;
+    border: 1px solid #32BAB0;
+    box-sizing: border-box;
+    border-radius: 10px;
+    color: #fff;
+    font-family: Montserrat;
+
 }
 </style>
 

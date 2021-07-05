@@ -3,7 +3,7 @@
    <ion-row>
       <ion-col>
         <button @click="redirect({path :'/principal'})" >
-          <ion-icon :icon="arrowBack" style="margin-left: 5%;top: 40%;position: absolute;" ></ion-icon>
+          <ion-icon :icon="arrowBack" style="margin-left: 5%;top: 52%;position: absolute;" ></ion-icon>
         </button>
         <p style="color: #000">
           Notificaciones

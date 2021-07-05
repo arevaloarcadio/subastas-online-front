@@ -1,50 +1,66 @@
 <template>
-     <ion-content class="ion-padding"> 
-  <div align="center"> 
-    <br>
-    <img src="/assets/logo-success.png">
-  </div>
-  <p>
-    <span class="text-control" >Te has registrado exitosamente</span> 
-  </p>
-  <div align="center"> 
-    <br>
-    <img src="/assets/success.png">
-  </div>
-  <p>  
-  <button type="button" class="btn-primary" @click="redirect()" style="width: 300px">
 
-      Continuar
-  </button>
+     <ion-content class="ion-padding"> 
+
+  <div align="center"> 
+    <br>
+    <img src="/assets/logo-green.png">
+  </div>
+  <p class="p-no-center" style="margin-left: 2%;font-family: Montserrat;font-style: normal;font-weight: normal;font-size: 24px;line-height: 36px;letter-spacing: -0.01em;color: #001211;">
+  Recuperación de contraseña
+   </p>
+
+   <p class="p-no-center" style="margin-left: 2%;" >Por favor, introduzca su dirección de correo electrónico. </p>
+   
+    <p> 
+    <ion-grid>
+      <ion-row>
+        <ion-col col-12>
+            <ion-item>
+              <ion-label position="floating" style="color: #32BAB0;font-family: Montserrat; font-style: normal;">Email</ion-label>
+              <ion-input ></ion-input>
+            </ion-item>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    
+    <br>
+    <button type="button" class="btn-primary" @click="() => router.push('/forget_password/send')"   style="width: 100px">
+       Enviar
+    </button> <br><br>
+    <a   @click="() => router.push('/pre_login')" class="text-control">Atras</a>
   </p>
- </ion-content>     
+   </ion-content>    
 
 </template>
 
 <script>
-import { loadingController,toastController } from '@ionic/vue';
+import { loadingController,toastController,IonRow,IonGrid,IonCol,IonLabel, IonInput, IonItem  } from '@ionic/vue';
+import { eyeOutline,eyeOffOutline } from 'ionicons/icons';
 import { defineComponent } from 'vue';
 import axios from 'axios';
-
+import { useRouter } from 'vue-router';
 export default defineComponent({
-
+  components: { IonRow,IonGrid,IonCol,IonLabel, IonInput, IonItem},
   name: "Register",
+  setup() {
+      const router = useRouter();
+    return { eyeOutline,eyeOffOutline,router }
+  },
   data() {
     return {
-      type : null,
-      first_name: null,
-      last_name: null,
       email: null,
-      password: null,
-      password_confirmacion: null,
+      password: 'password',
+      show_password : false,
     };
   },
+
   mounted(){
     this.type = this.$route.query.type;
   },
   methods: {
-    redirect(){
-      this.$router.push({path: 'select_category'});
+    redirect(path){
+      this.$router.push(path);
     },
     async register() {
 

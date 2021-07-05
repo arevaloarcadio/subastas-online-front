@@ -3,7 +3,7 @@
     <ion-row>
        <ion-col>
         <button @click="$router.go(-1)" >
-          <ion-icon :icon="arrowBack" style="margin-left: 5%;top: 40%;position: absolute;" ></ion-icon>
+          <ion-icon :icon="arrowBack" style="margin-left: 5%;top: 52%;position: absolute;" ></ion-icon>
         </button>
           <p style="color: #000">
             Solicitud
@@ -49,12 +49,12 @@
       <ion-row>
         <ion-col>
            <button type="button" class="btn-line" @click="redirect({name : 'add_message.requests'})" >
-            <b>Rechazar</b>
+            Rechazar
           </button>
         </ion-col>
          <ion-col>
            <button type="button" class="btn-primary" @click="redirect({name : 'add_message.requests'})" >
-            <b>Ver Oferta</b>
+            Ver Oferta
           </button>
         </ion-col>
       </ion-row>

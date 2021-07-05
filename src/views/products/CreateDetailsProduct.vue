@@ -3,7 +3,7 @@
    <ion-row>
        <ion-col>
         <button @click="redirect()" >
-          <ion-icon :icon="arrowBack" style="margin-left: 5%;top: 40%;position: absolute;" ></ion-icon>
+          <ion-icon :icon="arrowBack" style="margin-left: 5%;top: 52%;position: absolute;" ></ion-icon>
         </button>
           
           <p style="color: #000">
@@ -19,7 +19,7 @@
           <ion-row>
           <ion-col>
             <ion-item>
-              <ion-label style="color: #32BAB0;font-family: Montserrat; font-style: normal;"><b>Seleccione una categoria</b></ion-label>
+              <ion-label style="color: #32BAB0;font-family: Montserrat; font-style: normal;">Seleccione una categoria</ion-label>
               <ion-select style="color: #32BAB0;font-family: Montserrat; font-style: normal;" ok-text="Seleccionar" cancel-text="Cerrar">
                 <ion-select-option value="Hogar">Hogar</ion-select-option>
                 <ion-select-option value="Técnología">Técnología</ion-select-option>
@@ -35,7 +35,7 @@
         <ion-row>
           <ion-col >
               <ion-item>
-                <ion-label position="floating" style="color: #32BAB0;font-family: Montserrat; font-style: normal;"><b>Dirección</b></ion-label>
+                <ion-label position="floating" style="color: #32BAB0;font-family: Montserrat; font-style: normal;">Dirección</ion-label>
                 <ion-input></ion-input>
               </ion-item>
           </ion-col>
@@ -43,7 +43,7 @@
         <ion-row>
           <ion-col>
             <ion-item>
-              <ion-label style="color: #32BAB0;font-family: Montserrat; font-style: normal;"><b>Selecciona tu pais</b></ion-label>
+              <ion-label style="color: #32BAB0;font-family: Montserrat; font-style: normal;">Selecciona tu pais</ion-label>
               <ion-select style="color: #32BAB0;font-family: Montserrat; font-style: normal;" value="Peru" ok-text="Seleccionar" cancel-text="Cerrar">
                 <ion-select-option value="Peru">Peru</ion-select-option>
               </ion-select>
@@ -69,7 +69,7 @@
         <br>
         <center>
           <button type="button" class="btn-primary" @click="redirect()" style="width: 300px">
-            <b>Publicar</b>
+            Publicar
           </button>
          </center>     
       </ion-list>

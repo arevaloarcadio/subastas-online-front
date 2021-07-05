@@ -3,14 +3,14 @@
    <ion-row>
        <ion-col>
         <button @click="redirect('/principal')" >
-          <ion-icon :icon="arrowBack" style="margin-left: 5%;top: 40%;position: absolute;" ></ion-icon>
+          <ion-icon :icon="arrowBack" style="margin-left: 5%;top: 37%;position: absolute;" ></ion-icon>
         </button>
           
           <p style="color: #000">
             Publicar un producto
           </p>
           <p>
-            ¿Que quieres cambiar?
+            ¿Qué quieres cambiar?
           </p>
       </ion-col>
     </ion-row>
@@ -19,7 +19,7 @@
         <ion-row>
           <ion-col>
               <ion-item>
-                <ion-label position="floating" style="color: #32BAB0;font-family: Montserrat; font-style: normal;"><b>Nombre</b></ion-label>
+                <ion-label position="floating" style="color: #32BAB0;font-family: Montserrat; font-style: normal;">Nombre</ion-label>
                 <ion-input ></ion-input>
               </ion-item>
           </ion-col>
@@ -27,7 +27,7 @@
         <ion-row>
           <ion-col >
               <ion-item>
-                <ion-label position="floating" style="color: #32BAB0;font-family: Montserrat; font-style: normal;"><b>Descripción</b></ion-label>
+                <ion-label position="floating" style="color: #32BAB0;font-family: Montserrat; font-style: normal;">Descripción</ion-label>
                 <ion-input ></ion-input>
               </ion-item>
           </ion-col>
@@ -35,7 +35,7 @@
         <ion-row>
           <ion-col>
             <ion-item>
-              <ion-label style="color: #32BAB0;font-family: Montserrat; font-style: normal;"><b>Selecciona tu pais</b></ion-label>
+              <ion-label style="color: #32BAB0;font-family: Montserrat; font-style: normal;">Selecciona tu pais</ion-label>
               <ion-select style="color: #32BAB0;font-family: Montserrat; font-style: normal;" value="Peru" ok-text="Seleccionar" cancel-text="Cerrar">
                 <ion-select-option value="Peru">Peru</ion-select-option>
               </ion-select>
@@ -69,7 +69,7 @@
               <img  :src="takenImageUrl" />
             </ion-thumbnail>
              <ion-input >
-              <ion-label style="color: #32BAB0;font-family: Montserrat; font-style: normal;"><b>Selecciona una foto</b></ion-label>
+              <ion-label style="color: #32BAB0;font-family: Montserrat; font-style: normal;">Selecciona una foto</ion-label>
               
             </ion-input>  
             <ion-icon slot="start" :icon="camera"></ion-icon>
@@ -79,7 +79,7 @@
          <ion-row>
           <ion-col>
               <ion-item>
-                <ion-label position="floating" style="color: #32BAB0;font-family: Montserrat; font-style: normal;"><b>¿Que quieres a cambio?</b></ion-label>
+                <ion-label position="floating" style="color: #32BAB0;font-family: Montserrat; font-style: normal;">¿Qué quieres a cambio?</ion-label>
                 <ion-input ></ion-input>
               </ion-item>
           </ion-col>
@@ -88,7 +88,7 @@
         <br>
         <center>
           <button type="button" class="btn-primary" @click="redirect('/create/details/product')" style="width: 300px">
-            <b>Añadir categoria</b>
+            Añadir categoría
           </button>
          </center>     
       </ion-list>

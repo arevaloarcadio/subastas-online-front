@@ -1,7 +1,7 @@
 <template>
 
      <ion-content class="ion-padding"> 
-  <p> 
+  <p  style="font-weight: 500;color: #001D1B" > 
     Selecciona al menos 3 categorias de productos
   </p>
   <br>

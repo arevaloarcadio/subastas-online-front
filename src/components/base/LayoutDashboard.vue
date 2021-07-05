@@ -2,7 +2,7 @@
   <div>
     <transition name="slide-fade" >
         <router-view></router-view>
-      </transition>
+    </transition>
 
     <div class="footer">
       <ion-grid>

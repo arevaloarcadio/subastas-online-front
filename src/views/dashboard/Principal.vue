@@ -6,28 +6,19 @@
       <ion-grid>
           <ion-row>
             <ion-col col-2 class="cursor">
-                 
-              <ion-fab-button @click="redirect({path : 'notification'})" id="fab-button-notifications" style="" color="light">
-                 <ion-icon :icon="notifications"></ion-icon>.
-              </ion-fab-button>
+              <button  @click="redirect({path : 'notification'})" style="background-color: #fff"> <img src="/assets/notification.png"></button>
             </ion-col>
             <ion-col col-2 >
                <img src="/assets/logo-green.png">
             </ion-col>
           
             <ion-col col-2 class="cursor">
-              <ion-fab style="margin-left: -33%;">
-                <ion-fab-button color="light"> <ion-icon :icon="personOutline"></ion-icon></ion-fab-button>
-                 <ion-fab-list side="bottom">
-                  <ion-fab-button @click="redirect({path : 'profile'})"><ion-icon :icon="personOutline"></ion-icon></ion-fab-button>
-                  <ion-fab-button @click="redirect({path : 'login'})"><ion-icon :icon="logOut"></ion-icon></ion-fab-button>
-                </ion-fab-list>
-              </ion-fab>
+              <button  @click="redirect({path : 'profile'})" style="background-color: #fff"> <img src="/assets/user.png"></button>
             </ion-col>
           </ion-row>
         </ion-grid>
            <center>
-         <ion-searchbar style="color: #5B716F;background: rgba(233, 235, 235, 0.5);border-radius: 10px;" @click="openModal"></ion-searchbar>
+         <ion-searchbar style="color: #5B716F;background: #fff;border-radius: 10px;text-align: left;"  placeholder="Buscar" @click="openModal"></ion-searchbar>
       </center>
       </div> 
    </div>
@@ -45,13 +36,13 @@
 
                  <ion-card-subtitle  style="color: #000">
                     <ion-row> 
-                      <b>Nombre {{n}}</b> 
+                      Nombre {{n}}
                     </ion-row>  
                   </ion-card-subtitle>
                 
                   </ion-card-header>
 
-                  <ion-card-content><b>Ubicacion</b>
+                  <ion-card-content>Ubicación
                 </ion-card-content>
 
               </ion-card>

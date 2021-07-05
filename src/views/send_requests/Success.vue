@@ -3,7 +3,7 @@
     <ion-row>
        <ion-col>
         <button @click="$router.go(-1)" >
-          <ion-icon :icon="arrowBack" style="margin-left: 5%;top: 40%;position: absolute;" ></ion-icon>
+          <ion-icon :icon="arrowBack" style="margin-left: 5%;top: 52%;position: absolute;" ></ion-icon>
         </button>
           <p style="color: #000">
             Enviar solicitud
@@ -30,7 +30,7 @@
           <br>
           <br>
           <button type="button" class="btn-primary" @click="redirect({path : '/principal'})" style="width: 200px">
-              <b>Regresar al home</b>
+              Regresar al home
           </button>
         </p>
       </ion-list>

@@ -1,6 +1,6 @@
 <template>
 <ion-app v-if="route.meta.layout =='LayoutDashboard'">
-	LayoutDashboard
+	
 	<LayoutDashboard></LayoutDashboard>
 <!--<transition name="slide-fade">
 

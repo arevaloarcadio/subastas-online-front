@@ -4,7 +4,7 @@
  <br>
  <br>
  <br>
-   <span class="text-control" style="margin-left: 13%"><b>Registro</b> </span> 
+   <span class="text-control" style="margin-left: 13%;font-size: 24px;">Registro </span> 
     <br>
      <p style="margin-left: 13%;float: left;"> 
     Crea tu cuenta
@@ -18,7 +18,7 @@
       <ion-row>
         <ion-col col-12>
             <ion-item>
-              <ion-label position="floating" style="color: #32BAB0;font-family: Montserrat; font-style: normal;"><b>Nombre</b></ion-label>
+              <ion-label position="floating" style="color: #32BAB0;font-family: Montserrat; font-style: normal;">Nombre</ion-label>
               <ion-input ></ion-input>
             </ion-item>
         </ion-col>
@@ -26,11 +26,11 @@
       <ion-row>
         <ion-col col-12>
             <ion-item v-if="type == 'email'">
-              <ion-label position="floating" style="color: #32BAB0;font-family: Montserrat; font-style: normal;"><b>Email</b></ion-label>
+              <ion-label position="floating" style="color: #32BAB0;font-family: Montserrat; font-style: normal;">Email</ion-label>
               <ion-input ></ion-input>
             </ion-item>
             <ion-item v-else>
-              <ion-label position="floating" style="color: #32BAB0;font-family: Montserrat; font-style: normal;"><b>Teléfono</b></ion-label>
+              <ion-label position="floating" style="color: #32BAB0;font-family: Montserrat; font-style: normal;">Teléfono</ion-label>
               <ion-input></ion-input>
             </ion-item>
         </ion-col>
@@ -38,16 +38,31 @@
       <ion-row>
         <ion-col col-12>
             <ion-item>
-              <ion-label position="floating" style="color: #32BAB0;font-family: Montserrat; font-style: normal;"><b>Contraseña</b></ion-label>
-              <ion-input type="password" ></ion-input>
+              <span  style="margin-left: 90%;top: 46%; position: absolute;z-index: 500;cursor: pointer;"  @click="show_password =! show_password" v-if="show_password">
+                <ion-icon :icon="eyeOutline"></ion-icon>
+              </span>
+              <span style="margin-left: 90%;top: 46%; position: absolute;z-index: 500; cursor: pointer;"    @click="show_password =! show_password" v-else >
+                <ion-icon :icon="eyeOffOutline"></ion-icon>
+              </span>
+              <ion-label position="floating" style="color: #32BAB0;font-family: Montserrat; font-style: normal;">Contraseña</ion-label> 
+
+              <ion-input :type="show_password ? 'text' : 'password'" v-model="password"></ion-input>
             </ion-item>
         </ion-col>
       </ion-row>
       <ion-row>
         <ion-col col-12>
             <ion-item>
-              <ion-label position="floating" style="color: #32BAB0;font-family: Montserrat; font-style: normal;"><b>Confrimación de Contraseña</b></ion-label>
-              <ion-input type="password" ></ion-input>
+                <span  style="margin-left: 90%;top: 46%; position: absolute;z-index: 500;cursor: pointer;"  @click="show_password_confirmation =! show_password_confirmation" v-if="show_password_confirmation">
+                <ion-icon :icon="eyeOutline"></ion-icon>
+              </span>
+              <span style="margin-left: 90%;top: 46%; position: absolute;z-index: 500; cursor: pointer;"    @click="show_password_confirmation =! show_password_confirmation" v-else >
+                <ion-icon :icon="eyeOffOutline"></ion-icon>
+              </span>
+              <ion-label position="floating" style="color: #32BAB0;font-family: Montserrat; font-style: normal;">Confirmación de Contraseña</ion-label> 
+
+              <ion-input :type="show_password_confirmation ? 'text' : 'password'" v-model="password_confirmacion"></ion-input>
+
             </ion-item>
         </ion-col>
       </ion-row>
@@ -57,13 +72,13 @@
     <br>
       <button type="button" class="btn-primary" @click="redirect()" style="width: 300px">
         <ion-icon name="mail-outline"></ion-icon> 
-          <b>Registrarme</b>
+          Registrarme
       </button>
- <br>
-    <br>
-       ¿Tiene cuenta?
+      <br>
+      <br>
+      ¿Tienes una cuenta?
        <br>
-       <a href="/login" class="text-control"> Iniciar Sesión</a>
+       <a href="/login" class="text-control"> Inicia sesión aquí</a>
     </p>
     </ion-content>    
  
@@ -73,10 +88,16 @@
 import { loadingController,toastController,IonIcon,IonRow,IonGrid,IonCol,IonLabel, IonInput, IonItem  } from '@ionic/vue';
 import { defineComponent } from 'vue';
 import axios from 'axios';
+import { eyeOutline,eyeOffOutline } from 'ionicons/icons';
 
 export default defineComponent({
   components: { IonIcon,IonRow,IonGrid,IonCol,IonLabel, IonInput, IonItem},
   name: "Register",
+  setup(){
+    return{
+      eyeOutline,eyeOffOutline
+    }
+  },
   data() {
     return {
       type : null,
@@ -85,6 +106,8 @@ export default defineComponent({
       email: null,
       password: null,
       password_confirmacion: null,
+      show_password : false,
+      show_password_confirmation : false,
     };
   },
   mounted(){

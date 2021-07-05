@@ -9,7 +9,7 @@
     <img src="/assets/logo-success.png">
   </div>
   <p>
-   <span class="text-control"><b>Estamos felices de verte otra vez</b> </span> 
+   <span class="text-control">Estamos felices de verte otra vez </span> 
    </p>
     <br>
     <br>
@@ -19,7 +19,7 @@
       <ion-row>
         <ion-col col-12>
             <ion-item>
-              <ion-label position="floating" style="color: #32BAB0;font-family: Montserrat; font-style: normal;"><b>Emial o Teléfono</b></ion-label>
+              <ion-label position="floating" style="color: #32BAB0;font-family: Montserrat; font-style: normal;">Email o Teléfono</ion-label>
               <ion-input ></ion-input>
             </ion-item>
         </ion-col>
@@ -27,20 +27,28 @@
       <ion-row>
         <ion-col col-12>
             <ion-item>
-              <ion-label position="floating" style="color: #32BAB0;font-family: Montserrat; font-style: normal;"><b>Contraseña</b></ion-label>
-              <ion-input type="password"></ion-input>
+              <span  style="margin-left: 90%;top: 46%; position: absolute;z-index: 500;cursor: pointer;"  @click="show_password =! show_password" v-if="show_password">
+                <ion-icon :icon="eyeOutline"></ion-icon>
+              </span>
+              <span style="margin-left: 90%;top: 46%; position: absolute;z-index: 500; cursor: pointer;"    @click="show_password =! show_password" v-else >
+                <ion-icon :icon="eyeOffOutline"></ion-icon>
+              </span>
+              <ion-label position="floating" style="color: #32BAB0;font-family: Montserrat; font-style: normal;">Contraseña</ion-label> 
+
+              <ion-input :type="show_password ? 'text' : 'password'" v-model="password"></ion-input>
+
             </ion-item>
         </ion-col>
       </ion-row>
     </ion-grid>
     <br>
-      <a href="/login" class="text-control"> ¿Olvidaste tu contraseña?</a>
+      <a @click="() => router.push('/forget_password')"  class="text-control"> ¿Olvidaste tu contraseña?</a>
     <br>
     <br>
-    <button type="button" class="btn-primary" @click="redirect({path: 'principal'})" style="width: 300px">
-        <b>Iniciar Sesión</b>
+    <button type="button" class="btn-primary" @click="() => router.push('/principal')"   style="width: 300px">
+        Iniciar Sesión
     </button> <br><br>
-    <a  @click="redirect({path: '/pre_login'})" class="text-control">Atras</a>
+    <a   @click="() => router.push('/pre_login')" class="text-control">Atras</a>
   </p>
    </ion-content>    
 
@@ -51,20 +59,22 @@ import { loadingController,toastController,IonRow,IonGrid,IonCol,IonLabel, IonIn
 import { eyeOutline,eyeOffOutline } from 'ionicons/icons';
 import { defineComponent } from 'vue';
 import axios from 'axios';
-
+import { useRouter } from 'vue-router';
 export default defineComponent({
   components: { IonRow,IonGrid,IonCol,IonLabel, IonInput, IonItem},
   name: "Register",
   setup() {
-    return { eyeOutline,eyeOffOutline }
+      const router = useRouter();
+    return { eyeOutline,eyeOffOutline,router }
   },
   data() {
     return {
       email: null,
-      password: null,
-      show_password : true
+      password: 'password',
+      show_password : false,
     };
   },
+
   mounted(){
     this.type = this.$route.query.type;
   },

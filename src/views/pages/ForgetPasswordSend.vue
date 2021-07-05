@@ -1,50 +1,52 @@
 <template>
+
      <ion-content class="ion-padding"> 
+
   <div align="center"> 
     <br>
     <img src="/assets/logo-success.png">
   </div>
   <p>
-    <span class="text-control" >Te has registrado exitosamente</span> 
-  </p>
-  <div align="center"> 
-    <br>
-    <img src="/assets/success.png">
-  </div>
-  <p>  
-  <button type="button" class="btn-primary" @click="redirect()" style="width: 300px">
+ Recibirá un enlace para crear una nueva contraseña por correo electrónico.
+   <br>  <br>
+     <br>
+    <button type="button" class="btn-primary" @click="() => router.push('/login')"   style="width: 150px">
+       Regresar
+    </button> 
+   </p>
 
-      Continuar
-  </button>
-  </p>
- </ion-content>     
+
+  
+   </ion-content>    
 
 </template>
 
 <script>
-import { loadingController,toastController } from '@ionic/vue';
+import { loadingController,toastController} from '@ionic/vue';
+import { eyeOutline,eyeOffOutline } from 'ionicons/icons';
 import { defineComponent } from 'vue';
 import axios from 'axios';
-
+import { useRouter } from 'vue-router';
 export default defineComponent({
-
   name: "Register",
+  setup() {
+      const router = useRouter();
+    return { eyeOutline,eyeOffOutline,router }
+  },
   data() {
     return {
-      type : null,
-      first_name: null,
-      last_name: null,
       email: null,
-      password: null,
-      password_confirmacion: null,
+      password: 'password',
+      show_password : false,
     };
   },
+
   mounted(){
     this.type = this.$route.query.type;
   },
   methods: {
-    redirect(){
-      this.$router.push({path: 'select_category'});
+    redirect(path){
+      this.$router.push(path);
     },
     async register() {
 

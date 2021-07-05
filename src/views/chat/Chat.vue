@@ -3,7 +3,7 @@
    <ion-row>
       <ion-col>
         <button @click="redirect('/principal')" >
-          <ion-icon :icon="arrowBack" style="margin-left: 5%;top: 40%;position: absolute;" ></ion-icon>
+          <ion-icon :icon="arrowBack" style="margin-left: 5%;top: 52%;position: absolute;" ></ion-icon>
         </button>
         <p style="color: #000">
           Chat
@@ -13,7 +13,7 @@
     <ion-content>
       <ion-list>
         <br>
-        <p v-if="messages.length == 0" style="font-weight: 400">
+        <p v-if="messages.length == 0">
          Cuando alguien inicie negociación por tu producto o tu inicies negociación se habilitará el chat
         </p>
         <template v-else>
@@ -22,12 +22,12 @@
               <ion-col>
                 <img style="border-radius: 15px 15px 15px 15px;" :src="message.photo" >
               </ion-col>
-              <ion-col style="margin-left: -40%;">
-                <b style="color: #000;font-family: Montserrat; font-weight: 600">{{message.product}} 
-                <img v-show="message.active" style="border-radius: 15px 15px 15px 15px;" src="/assets/active.png" > </b>
-                <br>
-                <br>
-                <small style="font-size: 15px">{{message.last_message}}</small>
+
+              <ion-col class="col-chat">
+                <p class="p-no-center" style="color: #000;font-family: Montserrat;">{{message.product}} 
+                <img v-show="message.active" style="border-radius: 15px 15px 15px 15px;" src="/assets/active.png" > </p>
+             
+                <small style="font-size: 13px">{{message.last_message}}</small>
               </ion-col>
             </ion-row>
             
@@ -43,7 +43,7 @@
 </template>
 
 
-<script lang="ts">
+<script>
 
 import { repeat,arrowBack,camera } from 'ionicons/icons';
 import ModalDetail from '@/views/products/ModalDetail'
@@ -259,6 +259,13 @@ ion-select::part(icon) {
   opacity: 1;
 }
    
+
+
+  @media (max-width: 1000px){
+     .col-chat{
+    margin-left: -36%;margin-top:-6%
+    }
+  }
 </style>
 
 

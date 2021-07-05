@@ -4,61 +4,39 @@
          <br>
          <br>
          <br>
-            <span class="text-control" style="margin-left: 13%;font-size: 24px;">Registro </span> 
+            <span class="text-control" style="margin-left: 5%;font-size: 24px;">Verificación </span> 
             <br>
-             <p style="margin-left: 13%;float: left;"> 
-            Ubicación
+             <p class="p-no-center" style="margin-left: 5%;float: left;"> 
+           Hemos enviado un codigo a tu telefono
             </p>
-            <br>
-            <br>
             <br>
             <br>
             <p> 
-            <ion-grid>
-              <ion-row>
-                <ion-col col-12>
-                     <ion-item>
-                      <ion-label style="color: #32BAB0;font-family: Montserrat; font-style: normal;">Selecciona tu pais</ion-label>
-                      <ion-select style="color: #32BAB0;font-family: Montserrat; font-style: normal;" value="Peru" ok-text="Seleccionar" cancel-text="Cerrar">
-                        <ion-select-option value="Peru">Peru</ion-select-option>
-                      </ion-select>
-                    </ion-item>
-                  </ion-col>  
-              </ion-row>
-               <ion-row>
-                <ion-col col-12>
-                     <ion-item>
-                      <ion-label style="color: #32BAB0;font-family: Montserrat; font-style: normal;">Selecciona tu cuidad</ion-label>
-                      <ion-select style="color: #32BAB0;font-family: Montserrat; font-style: normal;" value="Peru" ok-text="Seleccionar" cancel-text="Cerrar">
-                        <ion-select-option value="Peru">Peru</ion-select-option>
-                      </ion-select>
-                    </ion-item>
-                  </ion-col>  
-              </ion-row>
-            </ion-grid>
-          
-            <br>
-            <br>
-              <button type="button" class="btn-primary" @click="redirect()" style="width: 300px">
-                  Continuar
-              </button>
-         <br>
-            <br>
-               ¿Tiene cuenta?
-               <br>
-               <a href="/login" class="text-control"> Iniciar Sesión</a>
+              <img src="/assets/phone.png">
+             <ion-item>
+              <ion-label position="floating" style="color: #32BAB0;font-family: Montserrat; font-style: normal;">Ingrese el código</ion-label>
+              <ion-input  style="text-align: center;"  v-on:keypress="codeLength" type="number"></ion-input>
+            </ion-item>
             </p>
+            <div class="footer" style="background:#32BAB0;height: 25%; width: 100%;border-radius: 24px 24px 0 0 ;">
+              <p class="p-no-center" style="color: #fff; position: absolute;left: 33px;width: 312px;">
+                Por favor, ingresa el codigo de 4 digitos que te enviamos por SMS
+              </p>
+              <center>
+                <button type="button" class="btn-line"  @click="redirect('login')" style="width: 200px;position: absolute;top: 70px;left: 23%">Verificar Código</button>
+              </center>
+            </div>
       </ion-content>          
 
 </template>
 
 <script>
-import { loadingController,toastController,IonRow,IonGrid,IonCol,IonLabel, IonItem,IonSelect, IonSelectOption  } from '@ionic/vue';
+import { loadingController,toastController  } from '@ionic/vue';
 import { defineComponent } from 'vue';
 import axios from 'axios';
 
 export default defineComponent({
-  components: { IonRow,IonGrid,IonCol,IonLabel, IonItem,IonSelect, IonSelectOption},
+
   name: "Register",
   data() {
     return {
@@ -74,8 +52,15 @@ export default defineComponent({
     this.type = this.$route.query.type;
   },
   methods: {
-    redirect(){
-       this.$router.push({path: 'success'});
+    codeLength(event){
+      console.log(event.target.value.length)
+      if(event.target.value.length > 3){
+          let val = event.target.value.toString().slice(0,-1);
+          event.target.value = parseInt(val);
+      }
+    },
+    redirect(poth){
+      this.$router.push(poth);
     },
     async register() {
 
@@ -128,7 +113,7 @@ export default defineComponent({
 </script>
 
 
-<style type="text/css">
+<style scoped>
 
 .item-has-focus{
 
@@ -154,6 +139,19 @@ export default defineComponent({
 .alert-button.sc-ion-alert-md{
   color : #32BAB0;
 }
+
+ion-select::part(text) {
+    padding: 5px 12px;
+    background: #32BAB0;
+    border: 1px solid #32BAB0;
+    box-sizing: border-box;
+    border-radius: 10px;
+    color: #fff;
+    font-family: Montserrat;
+
+}
+
+
 </style>
 
 

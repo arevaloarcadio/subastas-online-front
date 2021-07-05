@@ -4,6 +4,7 @@ import router from './router';
 import store from './store';
 import vuex from './plugins/store';
 import './plugins/axios'
+import './theme/variables.css';
 //import axios_ from 'axios'
 import { IonicVue } from '@ionic/vue';
 //import Socketio from '@/plugins/socket-io'
@@ -26,7 +27,7 @@ import './theme/vue-multiselect.min.css';
 
 
 /* Theme variables */
-import './theme/variables.css';
+
 import './theme/core.css';
 //import './theme/material-dashboard.css';
 

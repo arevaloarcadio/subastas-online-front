@@ -3,7 +3,7 @@
        <ion-content class="ion-padding"> 
   <br>
   <div align="center">
-  <span class="text-control" ><b>¿Como quieres que funcione el chat? </b> </span> 
+  <span class="text-control">¿Como quieres que funcione el chat?  </span> 
   <br>
   <br>
   <br>
@@ -12,7 +12,7 @@
   <ion-grid>
       <ion-row>
         <ion-col>
-          <p>
+          <p class="p-no-center" style="margin-left: 10%;">
             Habilitar el chat para todas las propuestas
           </p>
         </ion-col>
@@ -24,7 +24,7 @@
       </ion-row>
       <ion-row>
         <ion-col>
-          <p  >
+          <p class="p-no-center" style="margin-left: 10%;">
            Decidir que propuestas acepto
           </p>
         </ion-col>
@@ -40,7 +40,7 @@
     </ion-grid>
 
    <button type="button" class="btn-primary" @click="redirect()" >
-      <b>Continuar</b>
+      Continuar
   </button>
   </div>
  </ion-content>     

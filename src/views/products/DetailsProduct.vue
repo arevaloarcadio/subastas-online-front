@@ -4,7 +4,7 @@
        <ion-col>
         <button @click="$router.go(-1)"  >
           
-          <ion-icon :icon="arrowBack" style="margin-left: 5%;top: 40%;position: absolute;" ></ion-icon>
+          <ion-icon :icon="arrowBack" style="margin-left: 5%;top: 52%;position: absolute;" ></ion-icon>
         </button>
           
           <p>
@@ -27,13 +27,13 @@
             <img src="/assets/Tag-Green.png">
           </ion-row>
           <p style="float: left;margin-left: 2%; font-weight: 150 !important;">
-            Direccion, Pais
+            Dirección, Pais
           </p>
           <br>
           <br>
           <br>
           <span class="text-control" style="margin-left: 2%; font-weight: 400">
-             Descripcion del producto
+             Descripción del producto
           </span>
           <br>
           <p class="p-no-center" style="float: left;margin-left: 2%">
@@ -42,7 +42,7 @@
           <div align="center" class="buttons-details">
           <ion-row >
               <ion-col   size="6" size-sm >  
-                <button type="button" class="btn-line"  style="width: 130px" @click="openModal">Mas Información</button>
+                <button type="button" class="btn-line"  style="width: 140px" @click="openModal">Mas Información</button>
               </ion-col>
               <ion-col   size="6" size-sm >  
                 <button type="button" class="btn-primary" style="width: 140px" @click="redirect({ name : 'select_product.requests',params : { productId : 1} })" >Me Interesa</button>
@@ -62,13 +62,13 @@
 
                     <ion-card-subtitle  style="color: #000">
                     <ion-row> 
-                      <b>Nombre {{n}}</b> 
+                    Nombre {{n}}
                     </ion-row>  
                   </ion-card-subtitle>
                 
                   </ion-card-header>
 
-                  <ion-card-content>  <b>Ubicacion</b>
+                  <ion-card-content>  <p class="p-no-center">Ubicación</p>
                 </ion-card-content>
 
               </ion-card>

@@ -4,7 +4,7 @@
      <ion-row>
        <ion-col>
         <button @click="$router.go(-1)" >
-          <ion-icon :icon="arrowBack" style="margin-left: 5%;top: 40%;position: absolute;" ></ion-icon>
+          <ion-icon :icon="arrowBack" style="margin-left: 5%;top: 52%;position: absolute;" ></ion-icon>
         </button>
         <p style="color: #000">
           Preferencias
@@ -14,10 +14,12 @@
     <ion-content class="ion-padding">
      <ion-list>
      <p class="p-no-center" >
-       <b style="color: #000">Categorias</b>
+      <span style="color: #000"> Categorias</span>
+       
        <br>
        <br>
-       Se optimizará la plataforma para mostrarte estos productos primero
+
+         Se optimizará la plataforma para mostrarte estos productos primero
      </p>
      <div style="background: #E9EBEB;border-radius: 10px; height: 55px">
        <ion-icon :icon="closeSharp" style="float: right;" ></ion-icon><br>
@@ -38,10 +40,12 @@
        <br>
        <center><span class="text-control" > <b>+</b></span> </center>
      </div>
-     <p class="p-no-center" >
-       <b style="color: #000">Solicitudes y respuestas</b>
+     <p class="p-no-center" style="margin-left: 4px;"  >
+       <span style="color: #000 font-size: 17px"> Solicitudes y respuestas</span>
+    
        <br>
        <br>
+
        Decide como te pueden contactar
      </p>
       <ion-row>

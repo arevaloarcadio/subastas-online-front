@@ -15,13 +15,13 @@
           <p> 
           <br>
              <button type="button" class="btn-primary" @click="redirect({path: 'register' , query : { type : 'email' }})" style="width: 300px">
-              <ion-icon :icon="mail"></ion-icon>  <b>Registro con email</b>
+              <ion-icon :icon="mail"></ion-icon>  Registro con email
             </button>
         
           <br>
           <br>
-            <button type="button" class="btn-primary" @click="redirect({path: 'register' , query : { type : 'cell' }})" style="width: 300px">
-              <ion-icon :icon="callOutline"></ion-icon> <b>Registro con celular</b>
+            <button type="button" class="btn-primary" @click="redirect({name: 'register.phone'})" style="width: 300px">
+              <ion-icon :icon="callOutline"></ion-icon> Registro con celular
             </button>
 
            <br>

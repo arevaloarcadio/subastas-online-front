@@ -4,7 +4,12 @@ import { createRouter, createWebHistory } from '@ionic/vue-router';
 const Layout = () => import('@/components/base/Layout')
 const Login = () =>  import('@/views/pages/Login')
 const PreLogin = () =>  import('@/views/pages/PreLogin')
+const GetStarted = () =>  import('@/views/pages/GetStarted')
+const ForgetPassword = () =>  import('@/views/pages/ForgetPassword')
+const ForgetPasswordSend = () =>  import('@/views/pages/ForgetPasswordSend')
 const Register = () =>  import('@/views/pages/Register')
+const RegisterPhone = () =>  import('@/views/pages/RegisterPhone')
+const VerifyPhone = () =>  import('@/views/pages/VerifyPhone')
 const SelectCountry = () =>  import('@/views/pages/SelectCountry')
 const SelectTypeRegister = () =>  import('@/views/pages/SelectTypeRegister')
 const RegisterSuccess = () =>  import('@/views/pages/RegisterSuccess')
@@ -206,8 +211,38 @@ const routes = [
         component: PreLogin,
       },
       {
+        path: '/forget_password',
+        name: 'forget_password',
+        meta : {layout : 'Layout'},
+        component: ForgetPassword,
+      },
+      {
+        path: '/forget_password/send',
+        name: 'forget_password.send',
+        meta : {layout : 'Layout'},
+        component: ForgetPasswordSend,
+      },
+      {
+        path: '/get_started',
+        name: 'get_started',
+        meta : {layout : 'Layout'},
+        component: GetStarted,
+      },
+      {
+        path: '/register/phone',
+        name: 'register.phone',
+        meta : {layout : 'Layout'},
+        component: RegisterPhone,
+      },
+      {
+        path: '/verify/phone',
+        name: 'verify.phone',
+        meta : {layout : 'Layout'},
+        component: VerifyPhone,
+      },
+      {
         path: '/login',
-        name: 'Login',
+        name: 'login',
         meta : {layout : 'Layout'},
         component: Login,
       },

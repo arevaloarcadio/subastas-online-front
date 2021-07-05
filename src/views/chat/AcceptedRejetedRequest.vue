@@ -3,7 +3,7 @@
     <ion-row>
        <ion-col>
         <button @click="$router.go(-1)" >
-          <ion-icon :icon="arrowBack" style="margin-left: 5%;top: 40%;position: absolute;" ></ion-icon>
+          <ion-icon :icon="arrowBack" style="margin-left: 5%;top: 52%;position: absolute;" ></ion-icon>
         </button>
           <p style="color: #000">
             Solicitud
@@ -35,12 +35,12 @@
       <ion-row>
         <ion-col>
            <button type="button" class="btn-primary" style="line-height: 15px;" @click="redirect({name : 'request.confirm.accepted' , params : { productId : $route.params.productId}})" >
-            <b>Aceptar</b>
+            Aceptar
           </button>
         </ion-col>
          <ion-col>
            <button type="button" class="btn-line" @click="redirect({name : 'request.confirm.rejected' , params : { productId : $route.params.productId}})" >
-            <b>Rechazar</b>
+            Rechazar
           </button>
         </ion-col>
       </ion-row>

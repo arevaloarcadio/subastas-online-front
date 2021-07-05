@@ -11,10 +11,10 @@
      </center>
      <br>
      <br>
-      <button type="button" class="btn-primary" @click="redirect('select_type_register')"> <b>Registro</b></button>
+      <button type="button" class="btn-primary" @click="() => router.push('/select_type_register')">Registro</button>
      <br>
      <br>
-      <button type="button" class="btn-line"  @click="redirect('login')"> <b>Iniciar Sesión</b></button>
+      <button type="button" class="btn-line"  @click="() => router.push('/login')">Iniciar Sesión</button>
       <br>
      <br>
      <br>
@@ -30,7 +30,7 @@
         </ion-col>
       </ion-row>
     </ion-grid>
-    
+      <a href="/login" class="text-control"> Continuar como invitado</a>
     </p>  
  </ion-page> 
 </template>
@@ -42,7 +42,7 @@ import axios from 'axios';
 import jwtToken from "@/plugins/jwt/jwt-token";
 import {mapActions} from "vuex";
 import user from "@/plugins/jwt/user";
-
+import { useRouter } from 'vue-router';
 export default defineComponent({
   name: "Login",
   data() {
@@ -55,6 +55,10 @@ export default defineComponent({
       email: '',
       password: '',
     };
+  },
+  setup() {
+      const router = useRouter();
+      return { router };
   },
   mounted(){
  

@@ -9,10 +9,10 @@
         <p style="font-size: 72px;font-family: Montserrat;color: #fff;" class="top">
           5462
         </p>
-        <p style="font-family: Montserrat;color: #fff;margin-top:-3%;font-weight: 600 ">
+        <p class="inter">
        
           Intercambios disponibles<br><br>
-          <button type="button" class="btn-line"  @click="redirect('login')"> <b>Iniciar Sesión</b></button>
+          <button type="button" class="btn-line"  @click="redirect('login')"> Iniciar Sesión</button>
         </p>
       </div> 
 
@@ -62,14 +62,19 @@ background: #32BAB0;
   @media (max-width: 1000px){
     .top{
       margin-top:-30%;
-      font-weight: 300; 
+    }
+    .inter{
+      font-family: Montserrat;color: #fff;margin-top:-13%; 
     }
   }
 
   @media (min-width: 1000px){
     .top{
       margin-top:-5%; 
-      font-weight :300; 
+    }
+
+     .inter{
+      font-family: Montserrat;color: #fff;margin-top:-2%;
     }
   }
 </style>

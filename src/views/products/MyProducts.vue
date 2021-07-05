@@ -4,7 +4,7 @@
        <ion-col>
         <button @click="$router.push({name : 'profile'})" >
           
-          <ion-icon :icon="arrowBack" style="margin-left: 5%;top: 40%;position: absolute;" ></ion-icon>
+          <ion-icon :icon="arrowBack" style="margin-left: 5%;top: 52%;position: absolute;" ></ion-icon>
         </button>
           
           <p>Mis Productos
@@ -23,13 +23,13 @@
                  
                   <ion-card-subtitle  style="color: #000">
                     <ion-row> 
-                      <b>Nombre {{n}}</b> 
+                      Nombre {{n}}
                     </ion-row>  
                   </ion-card-subtitle>
                 
                   </ion-card-header>
 
-                  <ion-card-content>  <b>Ubicacion</b>
+                  <ion-card-content>  Ubicación
                 </ion-card-content>
 
               </ion-card>

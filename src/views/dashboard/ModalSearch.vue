@@ -12,14 +12,14 @@
         <ion-col col-2>
         </ion-col>
         <ion-col col-2>
-           <button type="button" @click="closeModal()" style="margin-left:75%;">
+           <button type="button" @click="closeModal()" style="margin-left:75%;background-color: #fff;">
             <ion-icon :icon="close"></ion-icon> 
           </button>
         </ion-col>
       </ion-row>
     </ion-grid>
 
-    <ion-searchbar style="color: #5B716F; background: rgba(233, 235, 235, 0.5);border-radius: 10px;" @click="openModal"></ion-searchbar>
+    <ion-searchbar style="color: #5B716F;background: #fff;border-radius: 10px;text-align: left;"   placeholder="Buscar" @click="openModal"></ion-searchbar>
     
       <img src="/assets/tecnology-green.png" style="width:50%" @click="search('tecnologia')">
       <img src="/assets/beatiful-green.png" style="width:50%"  @click="search('belleza')">

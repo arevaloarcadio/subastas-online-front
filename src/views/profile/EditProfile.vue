@@ -3,12 +3,12 @@
      <ion-row>
        <ion-col>
         <button @click="$router.push({path : '/profile'})" >
-          <ion-icon :icon="arrowBack" style="margin-left: 5%;top: 40%;position: absolute;" ></ion-icon>
+          <ion-icon :icon="arrowBack" style="margin-left: 5%;top: 52%;position: absolute;" ></ion-icon>
         </button>
         <p style="color: #000">
           Editar Perfil
         </p>
-        <button style="background: #fff; margin-left: 80%;top: 40%;position: absolute;" @click="$router.push({path : '/principal'})" >
+        <button style="background: #fff; margin-left: 80%;top: 52%;position: absolute;" @click="$router.push({path : '/principal'})" >
           <img src="/assets/check.png">
         </button>
       </ion-col>
@@ -65,7 +65,7 @@
         </ion-row>
          <ion-row>
           <ion-col>
-            <ion-label  style="color: #32BAB0;font-family: Montserrat; font-style: normal;"><b>Cuidad</b></ion-label>
+            <ion-label  style="color: #32BAB0;font-family: Montserrat; font-style: normal;">Cuidad</ion-label>
             <ion-item>
               <ion-input> 
               </ion-input>
@@ -86,7 +86,7 @@
         </ion-row>
          <ion-row>
           <ion-col>
-            <ion-label  style="color: #32BAB0;font-family: Montserrat; font-style: normal;"><b>Dirección</b></ion-label>
+            <ion-label  style="color: #32BAB0;font-family: Montserrat; font-style: normal;">Dirección</ion-label>
               <ion-item>
                 <ion-input> 
                 </ion-input>
@@ -107,7 +107,7 @@
          </ion-row>
          <ion-row>
           <ion-col>
-            <ion-label  style="color: #32BAB0;font-family: Montserrat; font-style: normal;"><b>Telefono</b></ion-label>
+            <ion-label  style="color: #32BAB0;font-family: Montserrat; font-style: normal;">Telefono</ion-label>
               <ion-item>
               <ion-input> 
                 </ion-input>
