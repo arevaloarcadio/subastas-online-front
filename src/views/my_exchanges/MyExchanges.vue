@@ -15,23 +15,19 @@
       </ion-col>
 
     </ion-row>
-    <ion-row>
-      <ion-col>
-        <ion-item  lines="none">
-         <ion-select  multiple="true" style="color: #32BAB0;font-family: Montserrat; font-style: normal;width: 70%" value="Enviadas" ok-text="Seleccionar" cancel-text="Cerrar">
+ 
+         <ion-select  ref="ionSelectFilter" multiple="true" style="position: absolute;left: -15%;top: 164px;" v-show="filter.length != 0 " @ionChange="filter_($event)" v-model="filter" ok-text="Seleccionar" cancel-text="Cerrar">
             <ion-select-option value="Enviadas">Enviadas</ion-select-option>
             <ion-select-option value="Recibidas">Recibidas</ion-select-option>
             <ion-select-option value="Rechazados">Rechazados</ion-select-option>
             <ion-select-option value="confirmar">Por confirmar</ion-select-option>
-            </ion-select>
-             <ion-label style="color: #32BAB0;font-family: Montserrat; font-style: normal;margin-left: 40%;"><b style="color: #000">Filtrar</b></ion-label>
-          </ion-item>
-        </ion-col>
-     </ion-row>
-   
+          </ion-select>
+          
+          <ion-label style="color: #32BAB0;font-family: Montserrat; font-style: normal;margin-left: 78%;color: #000" @click="() => $refs.ionSelectFilter.click()">Filtrar</ion-label>
+  
     <ion-content>
       <ion-list>
-        <ion-card style=" height: 25%;">
+        <ion-card style=" height: 20%;">
           <ion-row>
             <ion-col>
               <img style="border-radius: 15px 30px 15px 15px;" src="https://ionicframework.com/docs/demos/api/card/madison.jpg" >
@@ -39,7 +35,7 @@
             <ion-col><br>
 
             <b style="color: #000;font-family: Montserrat;">Nombre de producto</b><br>
-            <small>Pais, Cuidad</small> <br><br><br>
+            <small>Pais, Cuidad</small> <br>
             <span class="text-control">Enviada</span>
             </ion-col>
           </ion-row>
@@ -53,7 +49,7 @@
             <ion-col><br>
 
             <b style="color: #000;font-family: Montserrat;">Nombre de producto</b><br>
-            <small>Pais, Cuidad</small> <br><br><br>
+            <small>Pais, Cuidad</small> <br>
             <span class="text-control">Recibida</span>
             </ion-col>
           </ion-row>
@@ -69,7 +65,7 @@
 </template>
 
 
-<script lang="ts">
+<script >
 
 import { repeat,arrowBack,camera } from 'ionicons/icons';
 import ModalDetail from '@/views/products/ModalDetail'
@@ -97,6 +93,11 @@ export default defineComponent({
     IonInfiniteScrollContent,
     IonList,
     IonPage
+  },
+  data(){
+    return{
+       filter : [] 
+    }
   },
   setup() {
     const isDisabled = ref(false);
@@ -139,6 +140,9 @@ export default defineComponent({
     }
   },
   methods:{
+    filter_(ev){
+      this.filter = ev.target.value
+    },
     redirect(path) {
       this.$router.push({path: path});
     },
@@ -192,15 +196,6 @@ export default defineComponent({
 .alert-button.sc-ion-alert-md{
   color : #32BAB0;
 }
-.radio-checked{
---color-checked :#32BAB0 !important; 
-
-
-}
- .ion-activated{
---color-checked :#32BAB0; 
- }
-
 .ion-color-success {
     --ion-color-base: #32BAB0 !important;
     --ion-color-base-rgb: var(--ion-color-success-rgb, 45, 211, 111) !important;
@@ -213,7 +208,9 @@ input[type="file"] {
   display: none;
 }
 
-   
+   .hidden{
+     display: none;
+   }
 </style>
 
 

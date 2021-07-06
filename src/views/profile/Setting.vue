@@ -41,7 +41,7 @@
        <center><span class="text-control" > <b>+</b></span> </center>
      </div>
      <p class="p-no-center" style="margin-left: 4px;"  >
-       <span style="color: #000 font-size: 17px"> Solicitudes y respuestas</span>
+       <span style="color: #000; font-size: 17px"> Solicitudes y respuestas</span>
     
        <br>
        <br>

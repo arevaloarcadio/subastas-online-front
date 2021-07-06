@@ -42,7 +42,7 @@
          <ul  style="cursor: pointer;">
           <ion-row>
             <img src="/assets/SignOut.png" style="height: 10%;">&nbsp;&nbsp;
-            <p class="p-no-center" @click="redirect({name : 'login'})" style="color: #000;margin-top: 0.2%;"> Salir</p>
+            <p class="p-no-center" @click="redirect({path : '/login'})" style="color: #000;margin-top: 0.2%;"> Salir</p>
           </ion-row>
         </ul>
       </ion-list>

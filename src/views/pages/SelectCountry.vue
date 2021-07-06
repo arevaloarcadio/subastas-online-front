@@ -128,7 +128,7 @@ export default defineComponent({
 </script>
 
 
-<style type="text/css">
+<style scoped="">
 
 .item-has-focus{
 
@@ -154,6 +154,12 @@ export default defineComponent({
 .alert-button.sc-ion-alert-md{
   color : #32BAB0;
 }
+
+.alert-checkbox-label{
+  color: #32BAB0 !important;
+}
+
+
 </style>
 
 

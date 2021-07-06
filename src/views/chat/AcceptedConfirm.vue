@@ -5,7 +5,7 @@
         <button @click="$router.go(-1)" >
           <ion-icon :icon="arrowBack" style="margin-left: 5%;top: 52%;position: absolute;" ></ion-icon>
         </button>
-          <p style="color: #000">
+          <p style="color: #000;width: 80%;margin-left: 10%" >
             ¿Estas seguro de aceptar el cambio?
           </p>
       </ion-col>

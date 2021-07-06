@@ -743,7 +743,7 @@ body {
   font-size: 0.9em;
 }
 #app .content .messages ul li:nth-last-child(1) {
-  margin-bottom: 20px;
+  margin-bottom: 34px;
 }
 #app .content .messages ul li.sent img {
   margin: 6px 8px 0 0;

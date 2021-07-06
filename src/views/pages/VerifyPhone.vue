@@ -1,9 +1,7 @@
 <template>
 
        <ion-content class="ion-padding"> 
-         <br>
-         <br>
-         <br>
+        
             <span class="text-control" style="margin-left: 5%;font-size: 24px;">Verificación </span> 
             <br>
              <p class="p-no-center" style="margin-left: 5%;float: left;"> 
@@ -15,15 +13,15 @@
               <img src="/assets/phone.png">
              <ion-item>
               <ion-label position="floating" style="color: #32BAB0;font-family: Montserrat; font-style: normal;">Ingrese el código</ion-label>
-              <ion-input  style="text-align: center;"  v-on:keypress="codeLength" type="number"></ion-input>
+              <ion-input style="text-align: center;"  v-on:keypress="codeLength" type="number" @ionFocus="footer"  @ionBlur="footer"></ion-input>
             </ion-item>
             </p>
-            <div class="footer" style="background:#32BAB0;height: 25%; width: 100%;border-radius: 24px 24px 0 0 ;">
+            <div  ref="footer" class="footer" style="background:#32BAB0;height: 25%; width: 100%;border-radius: 24px 24px 0 0 ;">
               <p class="p-no-center" style="color: #fff; position: absolute;left: 33px;width: 312px;">
                 Por favor, ingresa el codigo de 4 digitos que te enviamos por SMS
               </p>
-              <center>
-                <button type="button" class="btn-line"  @click="redirect('login')" style="width: 200px;position: absolute;top: 70px;left: 23%">Verificar Código</button>
+              <center><br><br><br><br>
+                <button type="button" class="btn-line"  @click="redirect({path :'/login'})" style="width: 200px;">Verificar Código</button>
               </center>
             </div>
       </ion-content>          
@@ -52,6 +50,10 @@ export default defineComponent({
     this.type = this.$route.query.type;
   },
   methods: {
+    footer(){
+
+     this.$refs.footer.style.display == 'none' ? this.$refs.footer.style.display = '' : this.$refs.footer.style.display = 'none' 
+    },
     codeLength(event){
       console.log(event.target.value.length)
       if(event.target.value.length > 3){
