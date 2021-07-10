@@ -873,7 +873,7 @@ ion-select::part(icon) {
     margin: 0px;
     padding: 0px 8px;
     z-index: 1;
-    background-color: aliceblue;
+    background-color: #fff;
     transition: color 0.3s ease-in-out 0s;
     font-size: 16px;
 }
