@@ -11,23 +11,23 @@
             <br>
             <p> 
               <img src="/assets/phone.png">
-          
-                    <ion-row>
-                  <ion-col col-12>
-                    <div class="container">
-                      <label class="label-input">Código</label>
-                      <div  class="input-container">
-                        <input type="number" v-on:keypress="codeLength" @Focus="footer"  @Blur="footer" class="input-text" style="text-align: center;">
-                      </div>
-                    </div>
-                  </ion-col>
-                </ion-row>
+    
 
             </p>
-            <div  ref="footer" class="footer" style="background:#32BAB0;height: 25%; width: 100%;border-radius: 24px 24px 0 0 ;">
+            <div  ref="footer" class="footer" style="background:#32BAB0;height: 45%; width: 100%;border-radius: 24px 24px 0 0 ;">
+              
+              <input type="number" id="code-1" maxlength="1" v-on:keyup="change_input($event,1)" class="input-validate-code" style="margin-left: -2%"> 
+              <input type="number" id="code-2"  maxlength="1" v-on:keyup="change_input($event,2)" class="input-validate-code">
+              <input type="number" id="code-3"   maxlength="1" v-on:keyup="change_input($event,3)" class="input-validate-code">
+              <input type="number" id="code-4"   maxlength="1" v-on:keyup="change_input($event,4)" class="input-validate-code" >
+              
               <p class="p-no-center" style="color: #fff; position: absolute;left: 33px;width: 312px;">
                 Por favor, ingresa el codigo de 4 digitos que te enviamos por SMS
               </p>
+             <br>
+             <br>
+             <br>
+          
               <center><br><br><br><br>
                 <button type="button" class="btn-line"  @click="redirect({path :'/login'})" style="width: 200px;">Verificar Código</button>
               </center>
@@ -62,12 +62,15 @@ export default defineComponent({
 
      this.$refs.footer.style.display == 'none' ? this.$refs.footer.style.display = '' : this.$refs.footer.style.display = 'none' 
     },
-    codeLength(event){
+    change_input(event,input){
       console.log(event.target.value.length)
-      if(event.target.value.length > 3){
+      if(event.target.value.length > 1){
           let val = event.target.value.toString().slice(0,-1);
           event.target.value = parseInt(val);
       }
+
+       let next = input + 1;
+      document.getElementById("code-"+next).focus();
     },
     redirect(poth){
       this.$router.push(poth);
@@ -161,6 +164,9 @@ ion-select::part(text) {
 
 }
 
+.input-validate-code{
+font-size: 24px;text-align: center; border: 0px;background:#32BAB0; border-bottom:  2px solid #fff; height: 60px; width: 60px; margin-left:5%
+}
 
 </style>
 
