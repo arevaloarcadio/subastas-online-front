@@ -3,7 +3,7 @@
     <ion-row>
        <ion-col>
         <button @click="$router.go(-1)" >
-          <ion-icon :icon="arrowBack" style="margin-left: 5%;top: 52%;position: absolute;" ></ion-icon>
+          <ion-icon :icon="arrowBack" style="margin-left: 5%;top: 37%;position: absolute;" ></ion-icon>
         </button>
           <p style="color: #000">
             Enviar solicitud
@@ -26,12 +26,19 @@
     <ion-content class="ion-padding">
       <ion-list>
         <p>
-          <ion-item>
-            <ion-label style="color:#32BAB0">Mensaje</ion-label>
-            <ion-textarea rows="6" cols="20" placeholder="Que tal si intercambiamos..." style="font-family: Montserrat"></ion-textarea>
-          </ion-item>
+        <ion-row>
+        <ion-col col-12>
+          <div class="container">
+            <label class="label-input">Mensaje</label>
+            <div  class="input-container">
+              <textarea style="line-height: 38px;" class="input-text" placeholder="Que tal si intercambiamos">  </textarea>
+            </div>
+          </div>
+        </ion-col>
+      </ion-row>
+         
           <br>
-          <button type="button" class="btn-primary" @click="redirect({name : 'success.requests'})" style="width: 300px">
+          <button type="button" class="btn-primary" @click="redirect({name : 'success.requests'})" style="width: 250px">
               Enviar Solicitud
           </button>
        </p>

@@ -7,7 +7,8 @@
           <ion-icon :icon="arrowBack" style="margin-left: 5%;top: 52%;position: absolute;" ></ion-icon>
         </button>
           
-          <p>Mis Productos
+          <p  style="color: #000">
+            Mis Productos
           </p>
       </ion-col>
     </ion-row>

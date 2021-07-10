@@ -16,11 +16,14 @@
     </ion-row>
   <ion-content>
       <ion-list>
-          <ion-row>
-          <ion-col>
-            <ion-item>
-              <ion-label style="color: #32BAB0;font-family: Montserrat; font-style: normal;">Seleccione una categoria</ion-label>
-              <ion-select style="color: #32BAB0;font-family: Montserrat; font-style: normal;" ok-text="Seleccionar" cancel-text="Cerrar">
+     
+        
+         <ion-row>
+          <ion-col col-12>
+            <div class="container">
+              <label class="label-input">Seleccione una categoria</label>
+              <div  class="input-container">
+                <ion-select  :interface-options="customActionSheetOptions" interface="action-sheet"  class="input-text" style="color: #32BAB0;" >
                 <ion-select-option value="Hogar">Hogar</ion-select-option>
                 <ion-select-option value="Técnología">Técnología</ion-select-option>
                 <ion-select-option value="Calzado">Calzado</ion-select-option>
@@ -28,28 +31,48 @@
                 <ion-select-option value="Deportes">Deportes</ion-select-option>
                 <ion-select-option value="Videojuegos">Videojuegos</ion-select-option>
               </ion-select>
-            </ion-item>
+              </div>
+            </div>
           </ion-col>
-        </ion-row>
+        </ion-row> 
+
 
         <ion-row>
-          <ion-col >
-              <ion-item>
-                <ion-label position="floating" style="color: #32BAB0;font-family: Montserrat; font-style: normal;">Dirección</ion-label>
-                <ion-input></ion-input>
-              </ion-item>
+          <ion-col col-12>
+            <div class="container">
+              <label class="label-input">Dirección</label>
+              <div  class="input-container">
+                <input type="" name="" class="input-text">
+              </div>
+            </div>
           </ion-col>
         </ion-row>
+   
         <ion-row>
-          <ion-col>
-            <ion-item>
-              <ion-label style="color: #32BAB0;font-family: Montserrat; font-style: normal;">Selecciona tu pais</ion-label>
-              <ion-select style="color: #32BAB0;font-family: Montserrat; font-style: normal;" value="Peru" ok-text="Seleccionar" cancel-text="Cerrar">
+          <ion-col col-12>
+            <div class="container">
+              <label class="label-input">Selecciona tu pais</label>
+              <div  class="input-container">
+                <ion-select  :interface-options="customActionSheetOptions" interface="action-sheet"  class="input-text" style="color: #32BAB0;" >
                 <ion-select-option value="Peru">Peru</ion-select-option>
               </ion-select>
-            </ion-item>
+              </div>
+            </div>
           </ion-col>
-        </ion-row>
+        </ion-row> 
+
+        <ion-row>
+          <ion-col col-12>
+            <div class="container">
+              <label class="label-input">Selecciona tu Provincia</label>
+              <div  class="input-container">
+                <ion-select  :interface-options="customActionSheetOptions" interface="action-sheet"  class="input-text" style="color: #32BAB0;" >
+                <ion-select-option value="Peru">Peru</ion-select-option>
+              </ion-select>
+              </div>
+            </div>
+          </ion-col>
+        </ion-row> 
 
         <ion-row>
           <ion-col >

@@ -23,7 +23,7 @@
     <ion-list>
        <ion-row>
           <ion-col>
-            <ion-label  style="color: #32BAB0;">Nombre</ion-label>
+            <ion-label  style="color: #5B716F;">Nombre</ion-label>
               <ion-item>
                 <ion-input :value="'Micaela  Rodriguez'"> 
                 </ion-input>
@@ -44,7 +44,7 @@
         </ion-row>
          <ion-row>
           <ion-col>
-            <ion-label  style="color: #32BAB0;">Pais</ion-label>
+            <ion-label  style="color: #5B716F;">Pais</ion-label>
               <ion-item>
                 <ion-input> 
                 </ion-input>
@@ -65,7 +65,7 @@
         </ion-row>
          <ion-row>
           <ion-col>
-            <ion-label  style="color: #32BAB0;">Cuidad</ion-label>
+            <ion-label  style="color: #5B716F;">Cuidad</ion-label>
             <ion-item>
               <ion-input> 
               </ion-input>
@@ -86,7 +86,7 @@
         </ion-row>
          <ion-row>
           <ion-col>
-            <ion-label  style="color: #32BAB0;">Dirección</ion-label>
+            <ion-label  style="color: #5B716F;">Dirección</ion-label>
               <ion-item>
                 <ion-input> 
                 </ion-input>
@@ -107,7 +107,7 @@
          </ion-row>
          <ion-row>
           <ion-col>
-            <ion-label  style="color: #32BAB0;">Telefono</ion-label>
+            <ion-label  style="color: #5B716F;">Telefono</ion-label>
               <ion-item>
               <ion-input> 
                 </ion-input>

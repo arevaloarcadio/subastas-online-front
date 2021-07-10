@@ -33,7 +33,7 @@
               </center>
           </ion-col>
           <ion-col col-2>
-             <img src="/assets/ChatCircleDots.png" class="cursor" @click="redirect('/chat')">
+             <img src="/assets/ChatCircleDots.png" class="cursor" @click="redirect('/chat/policies/terms')">
              <center>
                 <div v-show="path == '/chat'" style="background:#32BAB0;height: 13px; width: 50%;border-radius: 100px 100px 0 0 ;"></div>
               </center>

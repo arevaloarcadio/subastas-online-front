@@ -15,63 +15,64 @@
     <br>
     <p> 
     <ion-grid>
-      <ion-row>
+        <ion-row>
         <ion-col col-12>
-            <ion-item>
-              <ion-label position="floating" style="color: #32BAB0;font-family: Montserrat; font-style: normal;">Nombre</ion-label>
-              <ion-input ></ion-input>
-            </ion-item>
+          <div class="container">
+            <label class="label-input">Nombre</label>
+            <div  class="input-container">
+              <input type="" name="" class="input-text">
+            </div>
+          </div>
         </ion-col>
       </ion-row>
-      <ion-row>
+        <ion-row>
         <ion-col col-12>
-            <ion-item v-if="type == 'email'">
-              <ion-label position="floating" style="color: #32BAB0;font-family: Montserrat; font-style: normal;">Email</ion-label>
-              <ion-input ></ion-input>
-            </ion-item>
-            <ion-item v-else>
-              <ion-label position="floating" style="color: #32BAB0;font-family: Montserrat; font-style: normal;">Teléfono</ion-label>
-              <ion-input></ion-input>
-            </ion-item>
+          <div class="container">
+            <label class="label-input">Email</label>
+            <div  class="input-container">
+              <input type="" name="" class="input-text">
+            </div>
+          </div>
         </ion-col>
       </ion-row>
-      <ion-row>
-        <ion-col col-12>
-            <ion-item>
-              <span  style="margin-left: 90%;top: 46%; position: absolute;z-index: 500;cursor: pointer;"  @click="show_password =! show_password" v-if="show_password">
-                <ion-icon :icon="eyeOutline"></ion-icon>
-              </span>
-              <span style="margin-left: 90%;top: 46%; position: absolute;z-index: 500; cursor: pointer;"    @click="show_password =! show_password" v-else >
-                <ion-icon :icon="eyeOffOutline"></ion-icon>
-              </span>
-              <ion-label position="floating" style="color: #32BAB0;font-family: Montserrat; font-style: normal;">Contraseña</ion-label> 
-
-              <ion-input :type="show_password ? 'text' : 'password'" v-model="password"></ion-input>
-            </ion-item>
-        </ion-col>
+        <ion-row>
+          <ion-col col-12>
+            <div class="container">
+              <label class="label-input">Contraseña</label>
+              <div  class="input-container">
+                <input :type="show_password ? 'text' : 'password'"  class="input-text" v-model="password">
+                 <span  style="z-index: 500;cursor: pointer;left: 90%; position: absolute;"  @click="show_password =! show_password" v-if="show_password">
+                    <ion-icon :icon="eyeOffOutline"></ion-icon>
+                  </span>
+                  <span style="z-index: 500;cursor: pointer;left: 90%; position: absolute;" @click="show_password =! show_password" v-else >
+                    <ion-icon :icon="eyeOutline"></ion-icon>
+                  </span>
+              </div>
+            </div>
+          </ion-col>
       </ion-row>
-      <ion-row>
-        <ion-col col-12>
-            <ion-item>
-                <span  style="margin-left: 90%;top: 46%; position: absolute;z-index: 500;cursor: pointer;"  @click="show_password_confirmation =! show_password_confirmation" v-if="show_password_confirmation">
-                <ion-icon :icon="eyeOutline"></ion-icon>
-              </span>
-              <span style="margin-left: 90%;top: 46%; position: absolute;z-index: 500; cursor: pointer;"    @click="show_password_confirmation =! show_password_confirmation" v-else >
-                <ion-icon :icon="eyeOffOutline"></ion-icon>
-              </span>
-              <ion-label position="floating" style="color: #32BAB0;font-family: Montserrat; font-style: normal;">Confirmación de Contraseña</ion-label> 
-
-              <ion-input :type="show_password_confirmation ? 'text' : 'password'" v-model="password_confirmacion"></ion-input>
-
-            </ion-item>
-        </ion-col>
+       <ion-row>
+          <ion-col col-12>
+            <div class="container">
+              <label class="label-input">Confirmación Contraseña</label>
+              <div  class="input-container">
+                <input :type="show_password_confirmation ? 'text' : 'password'"  class="input-text" v-model="password_confirmacion">
+                 <span  style="z-index: 500;cursor: pointer;left: 90%; position: absolute;"  @click="show_password_confirmation =! show_password_confirmation" v-if="show_password_confirmation">
+                    <ion-icon :icon="eyeOffOutline"></ion-icon>
+                  </span>
+                  <span style="z-index: 500;cursor: pointer;left: 90%; position: absolute;" @click="show_password_confirmation =! show_password_confirmation" v-else >
+                    <ion-icon :icon="eyeOutline"></ion-icon>
+                  </span>
+              </div>
+            </div>
+          </ion-col>
       </ion-row>
     </ion-grid>
   
     <br>
     <br>
-      <button type="button" class="btn-primary" @click="redirect()" style="width: 300px">
-        <ion-icon name="mail-outline"></ion-icon> 
+      <button type="button" class="btn-primary" @click="redirect()" style="width: 200px">
+      
           Registrarme
       </button>
       <br>
@@ -85,13 +86,13 @@
 </template>
 
 <script>
-import { loadingController,toastController,IonIcon,IonRow,IonGrid,IonCol,IonLabel, IonInput, IonItem  } from '@ionic/vue';
+import { loadingController,toastController,IonIcon,IonRow,IonGrid,IonCol  } from '@ionic/vue';
 import { defineComponent } from 'vue';
 import axios from 'axios';
 import { eyeOutline,eyeOffOutline } from 'ionicons/icons';
 
 export default defineComponent({
-  components: { IonIcon,IonRow,IonGrid,IonCol,IonLabel, IonInput, IonItem},
+  components: { IonIcon,IonRow,IonGrid,IonCol },
   name: "Register",
   setup(){
     return{

@@ -15,16 +15,17 @@
       </ion-col>
 
     </ion-row>
- 
-         <ion-select  ref="ionSelectFilter" multiple="true" style="position: absolute;left: -15%;top: 164px;" v-show="filter.length != 0 " @ionChange="filter_($event)" v-model="filter" ok-text="Seleccionar" cancel-text="Cerrar">
-            <ion-select-option value="Enviadas">Enviadas</ion-select-option>
-            <ion-select-option value="Recibidas">Recibidas</ion-select-option>
-            <ion-select-option value="Rechazados">Rechazados</ion-select-option>
-            <ion-select-option value="confirmar">Por confirmar</ion-select-option>
-          </ion-select>
-          
-          <ion-label style="color: #32BAB0;font-family: Montserrat; font-style: normal;margin-left: 78%;color: #000" @click="() => $refs.ionSelectFilter.click()">Filtrar</ion-label>
-  
+
+    <ion-row>
+      <ion-col size="8">
+        <div style="margin-left: 10%">
+        <small class="small-filters" v-for="filter in filters" :key="filter">{{filter}}<span style="color:  rgba(91, 113, 111, 0.6);" @click="removeFilter(filter)">x</span></small>&nbsp;&nbsp;
+        </div>
+      </ion-col>
+      <ion-col size="4">
+        <ion-label style="color: #32BAB0;font-family: Montserrat; font-style: normal;color: #000" @click="() => $refs.ionSelectFilter.click()">Filtrar</ion-label>
+      </ion-col>
+    </ion-row>
     <ion-content>
       <ion-list>
         <ion-card style=" height: 20%;">
@@ -36,7 +37,7 @@
 
             <b style="color: #000;font-family: Montserrat;">Nombre de producto</b><br>
             <small>Pais, Cuidad</small> <br>
-            <span class="text-control">Enviada</span>
+            <span class="text-control" style="position: absolute;top: 76%;">Enviada</span>
             </ion-col>
           </ion-row>
           
@@ -50,7 +51,7 @@
 
             <b style="color: #000;font-family: Montserrat;">Nombre de producto</b><br>
             <small>Pais, Cuidad</small> <br>
-            <span class="text-control">Recibida</span>
+            <span class="text-control" style="position: absolute;top: 76%;">Recibida</span>
             </ion-col>
           </ion-row>
           
@@ -61,6 +62,12 @@
         </ion-infinite-scroll-content>
       </ion-infinite-scroll>
     </ion-content>    
+    <ion-select  ref="ionSelectFilter"   multiple="true" style="position: absolute;left: -15%;top: 164px;" v-show="false" @ionChange="filter_($event)" v-model="filter" ok-text="Seleccionar" cancel-text="Cerrar">
+            <ion-select-option value="Enviadas">Enviadas</ion-select-option>
+            <ion-select-option value="Recibidas">Recibidas</ion-select-option>
+            <ion-select-option value="Rechazados">Rechazados</ion-select-option>
+            <ion-select-option value="confirmar">Por confirmar</ion-select-option>
+          </ion-select>
   </ion-page>  
 </template>
 
@@ -96,7 +103,7 @@ export default defineComponent({
   },
   data(){
     return{
-       filter : [] 
+       filters : [] 
     }
   },
   setup() {
@@ -141,7 +148,15 @@ export default defineComponent({
   },
   methods:{
     filter_(ev){
-      this.filter = ev.target.value
+      this.filters = ev.target.value
+      //this.$refs.ionSelectFilter.value = ''
+    },
+    removeFilter(filter){
+      var index = this.filters.indexOf(filter);
+      if (index !== -1) {
+        this.filters.splice(index, 1);
+        this.$refs.ionSelectFilter.value = this.filters
+      }
     },
     redirect(path) {
       this.$router.push({path: path});
@@ -170,7 +185,7 @@ export default defineComponent({
 </script>
 
 
-<style type="text/css">
+<style scoped>
 
 .item-has-focus{
 
@@ -211,6 +226,63 @@ input[type="file"] {
    .hidden{
      display: none;
    }
+
+
+   ion-select {
+  width: 100%;
+
+  justify-content: center;
+}
+
+/* Set the flex in order to size the text width to its content */
+ion-select::part(placeholder),
+ion-select::part(text) {
+  flex: 0 0 auto;
+}
+
+/* Set the placeholder color and opacity */
+ion-select::part(placeholder) {
+  color: #20a08a;
+  opacity: 1;
+}
+
+/*
+ * Set the font of the first letter of the placeholder
+ * Shadow parts work with pseudo-elements, too!
+ * https://developer.mozilla.org/en-US/docs/Web/CSS/Pseudo-elements
+ */
+ion-select::part(placeholder)::first-letter {
+  font-size: 24px;
+  font-weight: 500;
+}
+
+/* Set the text color */
+ion-select::part(text) {
+    padding: 10px 20px;
+    background: #fff;
+    border: 1px solid #32BAB0;
+    box-sizing: border-box;
+    border-radius: 10px;
+    color: #000;
+    font-family: Montserrat;
+
+}
+
+/* Set the icon color and opacity */
+ion-select::part(icon) {
+  color: #32BAB0;
+  opacity: 1;
+}
+
+
+.small-filters{
+  width: auto;
+   background: #FFFFFF;
+   border: 1px solid #32BAB0;
+   box-sizing: border-box;
+   border-radius: 8px;
+   margin-left: 1%;
+}
 </style>
 
 

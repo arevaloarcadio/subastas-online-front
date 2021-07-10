@@ -14,12 +14,15 @@
    
     <p> 
     <ion-grid>
-      <ion-row>
+ 
+        <ion-row>
         <ion-col col-12>
-            <ion-item>
-              <ion-label position="floating" style="color: #32BAB0;font-family: Montserrat; font-style: normal;">Email</ion-label>
-              <ion-input ></ion-input>
-            </ion-item>
+          <div class="container">
+            <label class="label-input">Email</label>
+            <div  class="input-container">
+              <input type="" name="" class="input-text">
+            </div>
+          </div>
         </ion-col>
       </ion-row>
     </ion-grid>
@@ -35,13 +38,13 @@
 </template>
 
 <script>
-import { loadingController,toastController,IonRow,IonGrid,IonCol,IonLabel, IonInput, IonItem  } from '@ionic/vue';
+import { loadingController,toastController,IonRow,IonGrid,IonCol,  } from '@ionic/vue';
 import { eyeOutline,eyeOffOutline } from 'ionicons/icons';
 import { defineComponent } from 'vue';
 import axios from 'axios';
 import { useRouter } from 'vue-router';
 export default defineComponent({
-  components: { IonRow,IonGrid,IonCol,IonLabel, IonInput, IonItem},
+  components: { IonRow,IonGrid,IonCol},
   name: "Register",
   setup() {
       const router = useRouter();

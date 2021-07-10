@@ -819,6 +819,7 @@ ion-select::part(text) {
 ion-select::part(placeholder) {
   color: #20a08a;
   opacity: 1;
+
 }
 
 /*
@@ -835,18 +836,20 @@ ion-select::part(placeholder)::first-letter {
 ion-select::part(text) {
     padding: 10px 20px;
     background: #fff;
-    border: 1px solid #32BAB0;
     box-sizing: border-box;
     border-radius: 10px;
-    color: #000;
+    color: rgb(60, 74, 91);
     font-family: Montserrat;
-
+   margin-right: 72%;
 }
 
 /* Set the icon color and opacity */
 ion-select::part(icon) {
   color: #32BAB0;
   opacity: 1;
+
+    left: 86%;
+    position: absolute;
 }
 
 
@@ -857,3 +860,69 @@ ion-select::part(icon) {
 .alert-radio-label.sc-ion-alert-md {
   color: #5B716F;
 }
+
+.label-input{
+  color: #32BAB0;
+    font-family: Montserrat;
+    font-size: 12px;
+    letter-spacing: 0.4px;
+    line-height: 20px;
+    left: 27px;
+    position: absolute;
+    top: 0px;
+    margin: 0px;
+    padding: 0px 8px;
+    z-index: 1;
+    background-color: aliceblue;
+    transition: color 0.3s ease-in-out 0s;
+    font-size: 16px;
+}
+
+.container{
+
+   background-color: #fff;
+    padding-top: 8px;
+    position: relative;
+
+
+}
+
+.input-text{
+  background-color: transparent;
+    color: rgb(60, 74, 91);
+    font-family: Montserrat;
+    font-size: 14px;
+    letter-spacing: 0.4px;
+    line-height: 3px;
+    border: 0px;
+    border-radius: 8px;
+    box-sizing: border-box;
+    margin: 0px;
+    padding: 12px 14px;
+    transition: background-color 0.3s ease-in-out 0s;
+    width: 100%;
+}
+
+.input-container{
+      border-color: rgb(188, 202, 216);
+    border-radius: 8px;
+    border-style: solid;
+    border-width: 2px;
+    -webkit-box-align: center;
+    align-items: center;
+    display: flex;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    position: relative;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease-in-out 0s;
+    border: 1.5px solid rgba(91, 113, 111, 0.8);
+}
+
+
+.input-container:hover{
+  border-color: rgb(1 4 8);
+}
+
+input:focus{ outline: none; }
+textarea:focus{ outline: none; }

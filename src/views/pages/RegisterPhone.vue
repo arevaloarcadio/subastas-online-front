@@ -16,20 +16,21 @@
             <p> 
               <img src="/assets/phone.png">
             <ion-grid>
-              <ion-row>
-                <ion-col  size="4">
-                     <ion-item>
-                      <ion-select class="cut" style="color: #32BAB0;font-family: Montserrat; font-style: normal;" value="+31" ok-text="Seleccionar" cancel-text="Cerrar">
-                        <ion-select-option value="+56">+56</ion-select-option>
-                         <ion-select-option value="+31">+31</ion-select-option>
-                      </ion-select>
-                    </ion-item>
-                  </ion-col>
-                  <ion-col  size="8">
-                     <ion-item>
-                        <ion-input placeholder="Ingrese el número" style="margin-top: 7%;"></ion-input>
-                    </ion-item>
-                  </ion-col>    
+               <ion-row>
+                  <ion-col size="4">
+                    <img src="/assets/Bitmap.png" style="z-index: 1000;z-index: 1000;position: absolute;top: 36%; left: 18%;">
+                    <ion-select  :interface-options="customActionSheetOptions" interface="action-sheet" style="background: #32BAB0;border-radius: 10px;color: #32BAB0;font-family: Montserrat;width: 110%" value="+31" ok-text="Seleccionar" cancel-text="Cerrar">
+                    <ion-select-option value="+56">+56</ion-select-option>
+                    <ion-select-option value="+31">+31</ion-select-option>
+                  </ion-select>
+                </ion-col>
+                <ion-col size="8">
+                  <div class="container1">
+                    <div  class="input-container1">
+                      <input type="number" value="12655465498" class="input-text1">
+                    </div>
+                  </div>
+                </ion-col>
               </ion-row>
             </ion-grid>
           
@@ -47,12 +48,12 @@
 </template>
 
 <script>
-import { loadingController,toastController,IonRow,IonGrid,IonCol, IonItem,IonSelect, IonSelectOption  } from '@ionic/vue';
+import { loadingController,toastController,IonRow,IonGrid,IonCol,IonSelect, IonSelectOption  } from '@ionic/vue';
 import { defineComponent } from 'vue';
 import axios from 'axios';
 
 export default defineComponent({
-  components: { IonRow,IonGrid,IonCol, IonItem,IonSelect, IonSelectOption},
+  components: { IonRow,IonGrid,IonCol,IonSelect, IonSelectOption},
   name: "Register",
   data() {
     return {
@@ -124,30 +125,7 @@ export default defineComponent({
 
 <style scoped>
 
-.item-has-focus{
 
-  --highlight-background :#32BAB0 ;
-}
-
-.alert-radio-inner.sc-ion-alert-md{
-  background-color : #32BAB0;
-}
-
-[aria-checked=true].sc-ion-alert-md .alert-radio-icon.sc-ion-alert-md {
-    border-color: #32BAB0;
-}
-
-.alert-radio-label.sc-ion-alert-md{
-  color: #5B716F;
-}
-
-[aria-checked=true].sc-ion-alert-md .alert-radio-label.sc-ion-alert-md{
-    color: #5B716F;
-}
-
-.alert-button.sc-ion-alert-md{
-  color : #32BAB0;
-}
 
 ion-select::part(text) {
     padding: 5px 12px;
@@ -157,8 +135,85 @@ ion-select::part(text) {
     border-radius: 10px;
     color: #fff;
     font-family: Montserrat;
+    margin-left: 50%
+}
+
+ion-select::part(icon) {
+  color: #fff;
+  opacity: 1;
+
+    left: 75%;
+    position: absolute;
+}
+
+.label-input1{
+  color: #32BAB0;
+    font-family: Montserrat;
+    font-size: 12px;
+    letter-spacing: 0.4px;
+    line-height: 20px;
+    left: 27px;
+    position: absolute;
+    top: 0px;
+    margin: 0px;
+    padding: 0px 8px;
+    z-index: 1;
+    background-color: aliceblue;
+    transition: color 0.3s ease-in-out 0s;
+    font-size: 16px;
+}
+
+.container1{
+
+   background-color: #F3F3F3;
+    padding-top: 8px;
+    position: relative;
+
 
 }
+
+.input-text1{
+  background-color: transparent;
+    color: rgb(60, 74, 91);
+    font-family: Montserrat;
+    font-size: 14px;
+    letter-spacing: 0.4px;
+    line-height: 3px;
+    border: 0px;
+    border-radius: 8px;
+    box-sizing: border-box;
+    margin: 0px;
+    padding: 12px 14px;
+    transition: background-color 0.3s ease-in-out 0s;
+    width: 100%;
+}
+
+.input-container1{
+      border-color: rgb(188, 202, 216);
+    border-radius: 8px;
+    border-style: solid;
+    border-width: 2px;
+    -webkit-box-align: center;
+    align-items: center;
+    display: flex;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    position: relative;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease-in-out 0s;
+    border: 0px solid rgba(91, 113, 111, 0.8);
+}
+
+
+.input-container1:hover{
+  border-color: rgb(1 4 8);
+}
+
+
+
+/* Set the icon color and opacity */
+
+
 </style>
 
 

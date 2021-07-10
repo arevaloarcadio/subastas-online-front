@@ -3,7 +3,7 @@
    <ion-row>
       <ion-col>
         <button @click="$router.go(-1)" >
-          <ion-icon :icon="arrowBack" style="margin-left: 5%;top: 52%;position: absolute;" ></ion-icon>
+          <ion-icon :icon="arrowBack" style="margin-left: 5%;top: 37%;position: absolute;" ></ion-icon>
         </button>
         <p style="color: #000">
           Camisas
@@ -11,7 +11,7 @@
         <p style="font-weight: 100">
           Juan Camilo
         </p>
-        <button @click="redirect({name : 'request.accepted.rejected'})"  style="margin-left: 85%;top: 40%;position: absolute;background: #fff">
+        <button @click="redirect({name : 'request.accepted.rejected'})"  style="margin-left: 85%;top: 30%;position: absolute;background: #fff">
           <img src="/assets/ArrowsLeftRightGreenLow.png">
         </button>
       </ion-col>
@@ -51,8 +51,9 @@
     </ion-content>
      <div class="message-input">
           <div class="wrap">
-          <input type="text" placeholder="Escribe un mensaje" />
-          <i class="fa fa-paperclip attachment" aria-hidden="true"></i>
+              <span><ion-icon slot="start" :icon="cameraOutline" style="margin-top: 6%;margin-left: -10%;"></ion-icon></span>
+          <input type="text" placeholder="Escribe un mensaje" >
+             
           <button><img src="/assets/send.png"></button>
           </div>
       </div>   
@@ -62,7 +63,7 @@
 
 <script >
 
-import { repeat,arrowBack,camera,sendOutline } from 'ionicons/icons';
+import { repeat,arrowBack,cameraOutline,sendOutline } from 'ionicons/icons';
 
 import { 
 
@@ -125,7 +126,7 @@ export default defineComponent({
       items,
       repeat,
       arrowBack,
-      camera,
+      cameraOutline,
       sendOutline
     }
   },
@@ -790,7 +791,7 @@ body {
   position: relative;
 }
  .message-input .wrap input {
-  font-family: "proxima-nova",  "Source Sans Pro", sans-serif;
+  font-family: "Montserrat";
   float: left;
   border: none;
   width: calc(100% - 90px);

@@ -7,7 +7,7 @@
         </button>
       </ion-col>
     </ion-row>
-    <p>
+    <p style="color: #000">
       ¿Quien interambia este producto?
     </p>
  
@@ -28,8 +28,9 @@
         Estado:
        </p> 
       </ion-col>
+      <br>
       <ion-col> 
-        <button type="button" class="tag-primary" @click="redirect('select_type_register')" style="width: 180px">Producto Usado</button>
+        <button type="button" class="tag-primary" style="margin-left: -10%;width: 180px;padding: 1px 2px">Producto Usado</button>
       </ion-col>
     </ion-row>
     <ion-row>
@@ -39,7 +40,7 @@
         </p>
       </ion-col>
       <ion-col> 
-        <button type="button" class="tag-primary" @click="redirect('select_type_register')"><ion-icon :icon="pricetag"></ion-icon> Tecnologia</button>
+        <button type="button" class="tag-primary" style="padding: 1px 2px"><ion-icon :icon="pricetag"></ion-icon> Tecnologia</button>
       </ion-col>
     </ion-row>  
  </ion-content>

@@ -9,39 +9,35 @@
           <p style="color: #000">
             Publicar un producto
           </p>
-          <p>
+          <p style="font-size: 13px;">
             ¿Qué quieres cambiar?
           </p>
       </ion-col>
     </ion-row>
   <ion-content>
       <ion-list>
-        <ion-row>
-          <ion-col>
-              <ion-item>
-                <ion-label position="floating" style="color: #32BAB0;font-family: Montserrat; font-style: normal;">Nombre</ion-label>
-                <ion-input ></ion-input>
-              </ion-item>
-          </ion-col>
-        </ion-row>
-        <ion-row>
-          <ion-col >
-              <ion-item>
-                <ion-label position="floating" style="color: #32BAB0;font-family: Montserrat; font-style: normal;">Descripción</ion-label>
-                <ion-input ></ion-input>
-              </ion-item>
-          </ion-col>
-        </ion-row>
-        <ion-row>
-          <ion-col>
-            <ion-item>
-              <ion-label style="color: #32BAB0;font-family: Montserrat; font-style: normal;">Selecciona tu pais</ion-label>
-              <ion-select style="color: #32BAB0;font-family: Montserrat; font-style: normal;" value="Peru" ok-text="Seleccionar" cancel-text="Cerrar">
-                <ion-select-option value="Peru">Peru</ion-select-option>
-              </ion-select>
-            </ion-item>
-          </ion-col>
-        </ion-row>
+        <ion-row> 
+        <ion-col col-12>
+          <div class="container">
+            <label class="label-input">Nombre</label>
+            <div  class="input-container">
+              <input type="" name="" class="input-text">
+            </div>
+          </div>
+        </ion-col>
+      </ion-row>
+      
+         <ion-row> 
+        <ion-col col-12>
+          <div class="container">
+            <label class="label-input">Descripción</label>
+            <div  class="input-container">
+              <input type="" name="" class="input-text">
+            </div>
+          </div>
+        </ion-col>
+      </ion-row>
+       
         <ion-row>
           <ion-col >
              <ion-radio-group value="biff">
@@ -62,28 +58,31 @@
             </ion-radio-group>
           </ion-col>
         </ion-row>
-         <ion-row>
-          <ion-col>
-             <ion-item @click="takePhoto" style="cursor: pointer;">
-            <ion-thumbnail v-show="false" slot="start">
-              <img  :src="takenImageUrl" />
-            </ion-thumbnail>
-             <ion-input >
-              <ion-label style="color: #32BAB0;font-family: Montserrat; font-style: normal;">Selecciona una foto</ion-label>
-              
-            </ion-input>  
-            <ion-icon slot="start" :icon="camera"></ion-icon>
-          </ion-item>
-          </ion-col>
-        </ion-row>
-         <ion-row>
-          <ion-col>
-              <ion-item>
-                <ion-label position="floating" style="color: #32BAB0;font-family: Montserrat; font-style: normal;">¿Qué quieres a cambio?</ion-label>
-                <ion-input ></ion-input>
-              </ion-item>
-          </ion-col>
-        </ion-row>
+
+
+        <ion-row> 
+            <ion-col col-12>
+              <div class="container" @click="takePhoto" style="cursor: pointer;">
+         
+                <div  class="input-container">
+                         <label class="label-input" style="margin-top: 3%;">Selecciona una foto</label>
+                  <img src="/assets/PlusCircle2.png" style="margin-left:85%">
+                  <input class="input-text">
+                </div>
+              </div>
+            </ion-col>
+          </ion-row>
+          <br>
+          <ion-row> 
+            <ion-col col-12>
+              <div class="container">
+                <label class="label-input">¿Que quieres a cambio? </label>
+                <div  class="input-container">
+                  <input type="" name="" class="input-text">
+                </div>
+              </div>
+            </ion-col>
+          </ion-row>
         <br>
         <br>
         <center>

@@ -15,28 +15,41 @@
             <br>
             <p> 
             <ion-grid>
-              <ion-row>
-                <ion-col col-12>
-                     <ion-item>
-                      <ion-label style="color: #32BAB0;font-family: Montserrat; font-style: normal;">Selecciona tu pais</ion-label>
-                      <ion-select style="color: #32BAB0;font-family: Montserrat; font-style: normal;" value="Peru" ok-text="Seleccionar" cancel-text="Cerrar">
-                        <ion-select-option value="Peru">Peru</ion-select-option>
-                      </ion-select>
-                    </ion-item>
-                  </ion-col>  
+
+                <ion-row>
+                  <ion-col size="4">
+                    <img src="/assets/Bitmap.png" style="z-index: 1000;z-index: 1000;position: absolute;top: 36%; left: 16%;">
+                    <ion-select  :interface-options="customActionSheetOptions" interface="action-sheet" style="background: #32BAB0;border-radius: 10px;color: #32BAB0;font-family: Montserrat;width: 110%;height: 100%;"  ok-text="Seleccionar" cancel-text="Cerrar" @ionChange="getCountry($event)">
+                    <ion-select-option value="Peru">Peru</ion-select-option>
+                  </ion-select>
+                </ion-col>
+                <ion-col size="8">
+                  <div class="container1">
+                    <div  class="input-container1">
+                      <input type="text" v-model="country" placeholder="Selecciona tu pais" class="input-text1">
+                    </div>
+                  </div>
+                </ion-col>
               </ion-row>
-               <ion-row>
-                <ion-col col-12>
-                     <ion-item>
-                      <ion-label style="color: #32BAB0;font-family: Montserrat; font-style: normal;">Selecciona tu cuidad</ion-label>
-                      <ion-select style="color: #32BAB0;font-family: Montserrat; font-style: normal;" value="Peru" ok-text="Seleccionar" cancel-text="Cerrar">
-                        <ion-select-option value="Peru">Peru</ion-select-option>
-                      </ion-select>
-                    </ion-item>
-                  </ion-col>  
+
+                <ion-row>
+                 
+                <ion-col>
+                 <ion-col size="8">
+                  <div class="container1">
+                    <div  class="input-container1">
+
+                      <input type="text" v-model="city"  placeholder="Selecciona tu cuidad" class="input-text1">
+                        <ion-select ref="ionSelectCity" v-model="filter"   :interface-options="customActionSheetOptions"  @ionChange="getCity($event)" interface="action-sheet" v-show="true"  ok-text="Seleccionar" cancel-text="Cerrar" style="width: 50%;" >
+                    <ion-select-option value="Cuidad">Cuidad</ion-select-option>
+                  </ion-select>
+                    </div>
+                  </div>
+                </ion-col>
+                </ion-col>
               </ion-row>
             </ion-grid>
-          
+            
             <br>
             <br>
               <button type="button" class="btn-primary" @click="redirect()" style="width: 300px">
@@ -53,12 +66,12 @@
 </template>
 
 <script>
-import { loadingController,toastController,IonRow,IonGrid,IonCol,IonLabel, IonItem,IonSelect, IonSelectOption  } from '@ionic/vue';
+import { loadingController,toastController,IonRow,IonGrid,IonCol,IonSelect, IonSelectOption  } from '@ionic/vue';
 import { defineComponent } from 'vue';
 import axios from 'axios';
 
 export default defineComponent({
-  components: { IonRow,IonGrid,IonCol,IonLabel, IonItem,IonSelect, IonSelectOption},
+  components: { IonRow,IonGrid,IonCol,IonSelect, IonSelectOption},
   name: "Register",
   data() {
     return {
@@ -68,6 +81,8 @@ export default defineComponent({
       email: null,
       password: null,
       password_confirmacion: null,
+      country : null,
+      city : null
     };
   },
   mounted(){
@@ -76,6 +91,12 @@ export default defineComponent({
   methods: {
     redirect(){
        this.$router.push({path: 'success'});
+    },
+    getCountry(ev){
+      this.country = ev.target.value;
+    },
+    getCity(ev){
+      this.city = ev.target.value;
     },
     async register() {
 
@@ -130,34 +151,89 @@ export default defineComponent({
 
 <style scoped="">
 
-.item-has-focus{
-
-  --highlight-background :#32BAB0 ;
+ion-select::part(text) {
+  display: none;
+    padding: 5px 12px;
+    background: #32BAB0;
+    border: 1px solid #32BAB0;
+    box-sizing: border-box;
+    border-radius: 10px;
+    color: #fff;
+    font-family: Montserrat;
+    margin-left: 50%
 }
 
-.alert-radio-inner.sc-ion-alert-md{
-  background-color : #32BAB0;
+ion-select::part(icon) {
+  color: #32BAB0;
+  opacity: 1;
+
+    left: 75%;
+    position: absolute;
 }
 
-[aria-checked=true].sc-ion-alert-md .alert-radio-icon.sc-ion-alert-md {
-    border-color: #32BAB0;
+.label-input1{
+  color: #32BAB0;
+    font-family: Montserrat;
+    font-size: 12px;
+    letter-spacing: 0.4px;
+    line-height: 20px;
+    left: 27px;
+    position: absolute;
+    top: 0px;
+    margin: 0px;
+    padding: 0px 8px;
+    z-index: 1;
+    background-color: aliceblue;
+    transition: color 0.3s ease-in-out 0s;
+    font-size: 16px;
 }
 
-.alert-radio-label.sc-ion-alert-md{
-  color: #5B716F;
+.container1{
+
+   background-color: #F3F3F3;
+    padding-top: 8px;
+    position: relative;
+
+
 }
 
-[aria-checked=true].sc-ion-alert-md .alert-radio-label.sc-ion-alert-md{
-    color: #5B716F;
+.input-text1{
+  background-color: transparent;
+    color: rgb(60, 74, 91);
+    font-family: Montserrat;
+    font-size: 14px;
+    letter-spacing: 0.4px;
+    line-height: 3px;
+    border: 0px;
+    border-radius: 8px;
+    box-sizing: border-box;
+    margin: 0px;
+    padding: 12px 14px;
+    transition: background-color 0.3s ease-in-out 0s;
+    width: 100%;
 }
 
-.alert-button.sc-ion-alert-md{
-  color : #32BAB0;
+.input-container1{
+      border-color: rgb(188, 202, 216);
+    border-radius: 8px;
+    border-style: solid;
+    border-width: 2px;
+    -webkit-box-align: center;
+    align-items: center;
+    display: flex;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    position: relative;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease-in-out 0s;
+    border: 0px solid rgba(91, 113, 111, 0.8);
 }
 
-.alert-checkbox-label{
-  color: #32BAB0 !important;
+
+.input-container1:hover{
+  border-color: rgb(1 4 8);
 }
+
 
 
 </style>

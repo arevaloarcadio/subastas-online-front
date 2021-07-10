@@ -18,9 +18,9 @@
 
   </div>
   <p>  
-  <button type="button" class="btn-primary" @click="redirect()" style="width: 300px">
-    <ion-icon name="mail-outline"></ion-icon> 
-      <b>Continuar</b>
+  <button type="button" class="btn-primary" @click="redirect({path : '/chat'})" style="width: 300px">
+
+      Continuar
   </button>
   </p>
  </ion-content>     
@@ -28,8 +28,30 @@
 </template>
 
 
-<script lang="ts">
+<script >
 
+
+
+
+
+
+import { defineComponent } from 'vue';
+
+export default defineComponent({
+
+  data(){
+    return {
+    }
+  },
+  mounted(){
+
+  },
+  methods:{
+    redirect(path) {
+      this.$router.push(path);
+    },
+  }
+});
 
 
 </script>

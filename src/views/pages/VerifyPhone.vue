@@ -11,10 +11,18 @@
             <br>
             <p> 
               <img src="/assets/phone.png">
-             <ion-item>
-              <ion-label position="floating" style="color: #32BAB0;font-family: Montserrat; font-style: normal;">Ingrese el código</ion-label>
-              <ion-input style="text-align: center;"  v-on:keypress="codeLength" type="number" @ionFocus="footer"  @ionBlur="footer"></ion-input>
-            </ion-item>
+          
+                    <ion-row>
+                  <ion-col col-12>
+                    <div class="container">
+                      <label class="label-input">Código</label>
+                      <div  class="input-container">
+                        <input type="number" v-on:keypress="codeLength" @Focus="footer"  @Blur="footer" class="input-text" style="text-align: center;">
+                      </div>
+                    </div>
+                  </ion-col>
+                </ion-row>
+
             </p>
             <div  ref="footer" class="footer" style="background:#32BAB0;height: 25%; width: 100%;border-radius: 24px 24px 0 0 ;">
               <p class="p-no-center" style="color: #fff; position: absolute;left: 33px;width: 312px;">

@@ -18,28 +18,33 @@
     <ion-grid>
       <ion-row>
         <ion-col col-12>
-            <ion-item>
-              <ion-label position="floating" style="color: #32BAB0;font-family: Montserrat; font-style: normal;">Email o Teléfono</ion-label>
-              <ion-input ></ion-input>
-            </ion-item>
+          <div class="container">
+            <label class="label-input">Email</label>
+            <div  class="input-container">
+              <input type="" name="" class="input-text">
+            </div>
+          </div>
         </ion-col>
       </ion-row>
+
       <ion-row>
         <ion-col col-12>
-            <ion-item>
-              <span  style="margin-left: 90%;top: 46%; position: absolute;z-index: 500;cursor: pointer;"  @click="show_password =! show_password" v-if="show_password">
-                <ion-icon :icon="eyeOutline"></ion-icon>
-              </span>
-              <span style="margin-left: 90%;top: 46%; position: absolute;z-index: 500; cursor: pointer;"    @click="show_password =! show_password" v-else >
-                <ion-icon :icon="eyeOffOutline"></ion-icon>
-              </span>
-              <ion-label position="floating" style="color: #32BAB0;font-family: Montserrat; font-style: normal;">Contraseña</ion-label> 
-
-              <ion-input :type="show_password ? 'text' : 'password'" v-model="password"></ion-input>
-
-            </ion-item>
+          
+          <div class="container">
+            <label class="label-input">Contraseña</label>
+            <div  class="input-container">
+              <input :type="show_password ? 'text' : 'password'"  class="input-text">
+               <span  style="z-index: 500;cursor: pointer;left: 90%; position: absolute;"  @click="show_password =! show_password" v-if="show_password">
+                  <ion-icon :icon="eyeOffOutline"></ion-icon>
+                </span>
+                <span style="z-index: 500;cursor: pointer;left: 90%; position: absolute;" @click="show_password =! show_password" v-else >
+                  <ion-icon :icon="eyeOutline"></ion-icon>
+                </span>
+            </div>
+          </div>
         </ion-col>
       </ion-row>
+
     </ion-grid>
     <br>
       <a @click="() => router.push('/forget_password')"  class="text-control"> ¿Olvidaste tu contraseña?</a>
@@ -55,13 +60,13 @@
 </template>
 
 <script>
-import { loadingController,toastController,IonRow,IonGrid,IonCol,IonLabel, IonInput, IonItem  } from '@ionic/vue';
+import { loadingController,toastController,IonRow,IonGrid,IonCol  } from '@ionic/vue';
 import { eyeOutline,eyeOffOutline } from 'ionicons/icons';
 import { defineComponent } from 'vue';
 import axios from 'axios';
 import { useRouter } from 'vue-router';
 export default defineComponent({
-  components: { IonRow,IonGrid,IonCol,IonLabel, IonInput, IonItem},
+  components: { IonRow,IonGrid,IonCol, },
   name: "Register",
   setup() {
       const router = useRouter();
@@ -139,6 +144,9 @@ export default defineComponent({
 
   --highlight-background :#32BAB0 ;
 }
+
+
+
 </style>
 
 

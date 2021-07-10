@@ -3,7 +3,7 @@
     <ion-row>
        <ion-col>
         <button @click="$router.go(-1)" >
-          <ion-icon :icon="arrowBack" style="margin-left: 5%;top: 52%;position: absolute;" ></ion-icon>
+          <ion-icon :icon="arrowBack" style="margin-left: 5%;top: 42%;position: absolute;" ></ion-icon>
         </button>
            <p style="color: #000;width: 80%;margin-left: 10%">
             ¿Estas seguro de rechazar el cambio?
@@ -33,7 +33,7 @@
     
     <p>  
         <button type="button" class="btn-primary" style="line-height: 15px;width: 200px;" @click="redirect({name : 'add_message.requests'})" >
-        <b>Si, estoy seguro</b>
+      Si, estoy seguro
       </button>
       <br>
     </p>
