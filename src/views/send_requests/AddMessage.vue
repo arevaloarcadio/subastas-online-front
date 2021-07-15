@@ -17,7 +17,9 @@
       </ion-col>
       
     </ion-row>
-    <ion-card style="box-shadow: inherit;margin-top: 10%;width: 101%;margin-left: -1%">
+   
+    <ion-content class="ion-padding">
+       <ion-card style="box-shadow: inherit;margin-top: 10%;width: 101%;margin-left: -1%">
       <img src="https://ionicframework.com/docs/demos/api/card/madison.jpg" class="img-left">
       <img src="/assets/ArrowsLeftRight.png" class="img-center">
       <img src="https://ionicframework.com/docs/demos/api/card/madison.jpg" class="img-right">
@@ -26,8 +28,6 @@
 
    
     </p>
-    <ion-content class="ion-padding">
-   
         <p style="margin-top: -18px;">
         <ion-row>
         <ion-col col-12>
