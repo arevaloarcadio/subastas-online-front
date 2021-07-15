@@ -28,7 +28,7 @@
         <img src="assets/get_started-2.svg" style="margin-top: 92px;margin-left: 8px;">
    
 
-        <button type="button" class="btn-primary" @click="() => router.push('/pre_login')"   style="margin-top: 380px;width: 150px;position: absolute;">
+        <button type="button"  style="position: absolute;top: 72%;" class="btn-primary" @click="() => router.push('/pre_login')"  >
           Lets trade!
         </button>
     </ion-slide>
