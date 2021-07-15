@@ -170,7 +170,7 @@
         <span class="text-control" style="position: absolute;width: 254px;height: 72px;top: 17%;font-weight: 400;font-size: 20px;">
         Upgrap es 100% gratuito no pagas ni compras nada, solo intercambias!
         </span>
-         <span class="text-control" style="position: absolute;width: 320px;height: 48px;top: 246px;font-weight: 500;font-size: 20px;">
+         <span class="text-control" style="position: absolute;width: 320px;height: 48px;top: 36%;font-weight: 500;font-size: 20px;">
              ¡Comienza a intercambiar!
         </span>
  
