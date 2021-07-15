@@ -47,7 +47,7 @@
    
            <ion-row>
             <ion-col v-for="n in 6" :key="n"  size="6" >
-                <ion-card class="cursor" @click="redirect_details(n)" style="width: 100%;left: -5%;">
+                <ion-card class="cursor" @click="redirect_details(n)" style="width: 100%;left:-8px;">
                   <div align="center" class="badge-2"> 
                     <span style="position: absolute;left: 15%;top: 20%;">
                     10

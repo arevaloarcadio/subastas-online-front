@@ -19,8 +19,8 @@
     
         <ion-row>
              <ion-col v-for="n in 3" :key="n"  size="6"  >
-                <ion-card style="width: 167px">
-                  <div align="center" class="badge-3"  @click="openPopover" ><svg width="7" height="28" viewBox="0 0 7 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <ion-card style="width: 100%;left:-8px;">
+                  <div align="center" class="badge-2"  style="background:transparent;left: 74%" @click="openPopover($event,n)" ><svg width="7" height="28" viewBox="0 0 7 28" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M3.5 7C5.425 7 7 5.425 7 3.5C7 1.575 5.425 0 3.5 0C1.575 0 0 1.575 0 3.5C0 5.425 1.575 7 3.5 7Z" fill="#32BAB0"/>
                     <path d="M3.5 10.5C1.575 10.5 0 12.075 0 14C0 15.925 1.575 17.5 3.5 17.5C5.425 17.5 7 15.925 7 14C7 12.075 5.425 10.5 3.5 10.5Z" fill="#32BAB0"/>
                     <path d="M0 24.5C0 22.575 1.575 21 3.5 21C5.425 21 7 22.575 7 24.5C7 26.425 5.425 28 3.5 28C1.575 28 0 26.425 0 24.5Z" fill="#32BAB0"/>
@@ -33,7 +33,7 @@
 
                  <ion-card-subtitle  style="color: #000">
                     <ion-row>
-                    <b  style="font-family: Montserrat;font-style: normal;font-weight: bold;font-size: 16px;line-height: 20px;align-items: center;letter-spacing: 0.75px;color: #001D1B;margin-top: -10%;"> 
+                    <b  style="font-family: Montserrat;font-style: normal;font-weight: bold;font-size: 16px;line-height: 20px;align-items: center;letter-spacing: 0.75px;color: #001D1B;margin-top: -15px;"> 
                       Nombre {{n}}
                     </b>
                     </ion-row>  
@@ -41,7 +41,7 @@
                 
                   </ion-card-header>
 
-                  <ion-card-content style="margin-top: -8%;">Ubicación
+                  <ion-card-content style="margin-top: -15px;">Ubicación
                 </ion-card-content>
 
               </ion-card>
@@ -164,12 +164,19 @@ export default defineComponent({
         })
       return modal.present();
     },
-    async openPopover(Event) {
+    async openPopover($event,num) {
+      console.log($event)
+     let position;
+      if (num%2 ==0) {
+        position = "dere"
+      }else{
+        position = "izq"
+      }
       const popover = await popoverController
         .create({
+          event : $event,
           component: PopoverProduct,
-          cssClass: 'my-custom-class',
-          event: Event,
+          cssClass: position == 'dere' ? 'my-products-class-rigth' : 'my-products-class-left' ,
           translucent: true
         })
       await popover.present();
@@ -226,4 +233,20 @@ export default defineComponent({
     position: absolute;
     font-family: Montserrat;font-style: normal;font-weight: normal;font-size: 16px;line-height: 20px;align-items: center;letter-spacing: 0.75px;color: #5B716F;
   }
+
+.my-products-class-rigth .popover-content{
+  width: 160px !important;
+  left: 200px !important;
+  transform-origin: right top !important;
+  height: 92px !important;
+  border-radius: 15px !important;
+}
+
+.my-products-class-left .popover-content{
+  width: 160px !important;
+  left: 26px !important;
+  transform-origin: right top !important;
+  height: 92px !important;
+  border-radius: 15px !important;
+}
 </style>

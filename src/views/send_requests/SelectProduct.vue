@@ -19,6 +19,8 @@
       
     </ion-row>
 
+    
+    <ion-content>
      <ion-card style="box-shadow: inherit;margin-top: 8%;width: 101%;margin-left: -1%">
       <img src="https://ionicframework.com/docs/demos/api/card/madison.jpg" class="img-left">
      
@@ -47,8 +49,6 @@
       </button>
     </p>
 
-    <ion-content>
-   
       <ion-infinite-scroll @ionInfinite="loadData($event)" threshold="100px"  id="infinite-scroll" :disabled="isDisabled">
         <ion-infinite-scroll-content loading-spinner="bubbles" loading-text="Loading more data...">
         </ion-infinite-scroll-content>

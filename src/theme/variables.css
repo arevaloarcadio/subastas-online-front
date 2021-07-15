@@ -784,7 +784,7 @@ color: #001D1B;
     .badge-3{
         position: absolute;
       top: 4%;
-      left: 85%;
+      left: 146px;
     }
   }
   @media (min-width: 1000px){
@@ -812,7 +812,7 @@ color: #001D1B;
       cursor: pointer;
         position: absolute;
       top: 3%;
-      left: 94%;
+      left: 161px;
     }
   }
 

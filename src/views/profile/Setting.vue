@@ -87,7 +87,8 @@
               </label>
           </ion-col>
         </ion-row>
-  
+    <br>
+    <br><br>
     </ion-content>  
   </ion-page>  
 </template>
