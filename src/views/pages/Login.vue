@@ -9,11 +9,8 @@
     <img src="/assets/logo-success.png">
   </div>
   <p>
-   <span class="text-control">Estamos felices de verte otra vez </span> 
+   <span class="text-control" style="font-family: Montserrat;font-style: normal;font-weight: 500;font-size: 20px;line-height: 24px;">Estamos felices de verte <br> otra vez </span> 
    </p>
-    <br>
-    <br>
-    <br>
     <p> 
     <ion-grid>
       <ion-row>
@@ -47,10 +44,10 @@
 
     </ion-grid>
     <br>
-      <a @click="() => router.push('/forget_password')"  class="text-control"> ¿Olvidaste tu contraseña?</a>
+      <a @click="() => router.push('/forget_password')"  style="color : #5B716F" class="text-control"> ¿Olvidaste tu contraseña?</a>
     <br>
     <br>
-    <button type="button" class="btn-primary" @click="() => router.push('/principal')"   style="width: 300px">
+    <button type="button" class="btn-primary" @click="() => router.push('/principal')"   style="width: 180px">
         Iniciar Sesión
     </button> <br><br>
     <a   @click="() => router.push('/pre_login')" class="text-control">Atras</a>

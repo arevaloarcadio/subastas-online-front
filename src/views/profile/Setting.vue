@@ -3,95 +3,104 @@
 
      <ion-row>
        <ion-col>
-        <button @click="$router.go(-1)" >
-          <ion-icon :icon="arrowBack" style="margin-left: 5%;top: 52%;position: absolute;" ></ion-icon>
-        </button>
-        <p style="color: #000">
+        <button @click="$router.go(-1)">
+            <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-left: 3%;top: 43%;position: absolute;">
+              <path d="M27 16H5" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M14 7L5 16L14 25" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+        <p style="color: #000" class="title">
           Preferencias
         </p>
       </ion-col>
     </ion-row>
     <ion-content class="ion-padding">
-     <ion-list>
-     <p class="p-no-center" >
-      <span style="color: #000"> Categorias</span>
-       
-       <br>
-       <br>
+
+     
+      <span style="font-weight: 500;font-size: 16px;line-height: 20px;align-items: center;letter-spacing: 0.75px;color: #000000;"> Categorias</span>
+       <p class="p-no-center" style="font-family: Montserrat;font-style: normal;font-weight: normal;font-size: 16px;line-height: 20px;align-items: center;letter-spacing: 0.75px;color: #5B716F;" >
+     
 
          Se optimizará la plataforma para mostrarte estos productos primero
      </p>
      <div style="background: #E9EBEB;border-radius: 10px; height: 55px">
-       <ion-icon :icon="closeSharp" style="float: right;" ></ion-icon><br>
-       <center><span class="text-control" > Belleza</span> </center>
+         <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-left: 86%;position: absolute;margin-top: 2%;">
+         <path d="M10 1.41L8.59 0L5 3.59L1.41 0L0 1.41L3.59 5L0 8.59L1.41 10L5 6.41L8.59 10L10 8.59L6.41 5L10 1.41Z" fill="#5B716F" fill-opacity="0.5"/>
+        </svg><br>
+       <center><span class="text-control button-category-edit" > Belleza</span> </center>
      </div>
      <br>
       <div style="background: #E9EBEB;border-radius: 10px; height: 55px">
-       <ion-icon :icon="closeSharp" style="float: right;" ></ion-icon><br>
-       <center><span class="text-control" > Deco</span> </center>
+         <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-left: 86%;position: absolute;margin-top: 2%;">
+         <path d="M10 1.41L8.59 0L5 3.59L1.41 0L0 1.41L3.59 5L0 8.59L1.41 10L5 6.41L8.59 10L10 8.59L6.41 5L10 1.41Z" fill="#5B716F" fill-opacity="0.5"/>
+        </svg><br>
+       <center><span class="text-control button-category-edit"  > Deco</span> </center>
      </div>
      <br>
      <div style="background: #E9EBEB;border-radius: 10px; height: 55px">
-       <ion-icon :icon="closeSharp" style="float: right;" ></ion-icon><br>
-       <center><span class="text-control" > Juguetes</span> </center>
+        <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-left: 86%;position: absolute;margin-top: 2%;">
+         <path d="M10 1.41L8.59 0L5 3.59L1.41 0L0 1.41L3.59 5L0 8.59L1.41 10L5 6.41L8.59 10L10 8.59L6.41 5L10 1.41Z" fill="#5B716F" fill-opacity="0.5"/>
+        </svg>
+        <br>
+       <center><span class="text-control button-category-edit" > Juguetes</span> </center>
      </div>
      <br>
       <div style="background: #E9EBEB;border-radius: 10px; height: 55px">
        <br>
-       <center><span class="text-control" > <b>+</b></span> </center>
+       <center>
+        <span class="text-control" >
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+           <path d="M14 8H8V14H6V8H0V6H6V0H8V6H14V8Z" fill="#32BAB0"/>
+        </svg>
+          </span> 
+        </center>
      </div>
-     <p class="p-no-center" style="margin-left: 4px;"  >
-       <span style="color: #000; font-size: 17px"> Solicitudes y respuestas</span>
+      <br>
+       <span style="font-weight: 500;font-size: 16px;line-height: 20px;align-items: center;letter-spacing: 0.75px;color: #000000;"> Solicitudes y respuestas</span>
     
        <br>
        <br>
-
+      <p class="p-no-center" style="margin-left: 2px;margin-top: -12px"  >
        Decide como te pueden contactar
      </p>
       <ion-row>
           <ion-col>
-            <p class="p-no-center"  :class="{'checked': chat}">
-              Habilitar el chat para todas las propuestas
+            <p class="p-no-center text-edit-profile"  :class="{'checked': chat}">
+              Habilitar el chat para <br>todas las propuestas
             </p>
           </ion-col>
-          <ion-col>
-              <label class="c-switch c-switch-3d c-switch-primary">
-                <input class="c-switch-input"  id="private" type="checkbox"  @click="checked('enable_chat')" v-model="chat"><span class="c-switch-slider" style="margin-top: 40%;"></span>
+          <ion-col size="2">
+              <label class="c-switch c-switch-3d c-switch-primary" style="margin-left: 32%;">
+                <input class="c-switch-input"  id="private" type="checkbox"  @click="checked('enable_chat')" v-model="chat"><span class="c-switch-slider" ></span>
               </label>
           </ion-col>
-        </ion-row>
+        </ion-row><br>
         <ion-row>
           <ion-col>
-            <p class="p-no-center" :class="{'checked': proposal}">
-             Decidir que propuestas acepto
+            <p class="p-no-center  text-edit-profile" :class="{'checked': proposal}">
+             Decidir que propuestas <br> acepto
             </p>
           </ion-col>
-          <ion-col>
-              <label class="c-switch c-switch-3d c-switch-primary">
-                <input class="c-switch-input"  id="private" type="checkbox" @click="checked('proposal')" v-model="proposal"><span class="c-switch-slider" style="margin-top: 40%;"></span>
+          <ion-col size="2">
+              <label class="c-switch c-switch-3d c-switch-primary" style="margin-left: 32%;">
+                <input class="c-switch-input"  id="private" type="checkbox" @click="checked('proposal')" v-model="proposal"><span class="c-switch-slider"></span>
               </label>
           </ion-col>
         </ion-row>
-     </ion-list>
-         <ion-infinite-scroll @ionInfinite="loadData($event)" threshold="100px"  id="infinite-scroll" :disabled="isDisabled">
-        <ion-infinite-scroll-content loading-spinner="bubbles" loading-text="Loading more data...">
-        </ion-infinite-scroll-content>
-      </ion-infinite-scroll>
+  
     </ion-content>  
   </ion-page>  
 </template>
 
 
-<script lang="ts" >
+<script>
   
 import { arrowBack,closeSharp } from 'ionicons/icons';
 import { defineComponent,ref } from 'vue';
 import { 
 
   IonContent, 
-  IonInfiniteScroll, 
-  IonInfiniteScrollContent,
-  IonList,
+
   IonPage
  } from '@ionic/vue';
 
@@ -99,9 +108,7 @@ export default defineComponent({
   components: {
  
     IonContent, 
-    IonInfiniteScroll, 
-    IonInfiniteScrollContent,
-    IonList,
+ 
     IonPage
   },
  setup() {
@@ -173,6 +180,23 @@ export default defineComponent({
 
    .checked{
     color: #32BAB0;
+   }
+   .button-category-edit {
+    font-family: Montserrat;
+font-style: normal;
+font-weight: 600;
+font-size: 16px;
+line-height: 20px;
+
+align-items: center;
+text-align: center;
+letter-spacing: 0.75px;
+
+color: #32BAB0;
+   }
+
+   .text-edit-profile{
+    font-style: normal;font-weight: normal;font-size: 16px;line-height: 20px;align-items: center;letter-spacing: 0.75px;margin-top: -1%;    margin-left: -1%;
    }
 </style>
 

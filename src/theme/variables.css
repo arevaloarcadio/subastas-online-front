@@ -89,10 +89,25 @@ http://ionicframework.com/docs/theming/ */
   --ion-toolbar-color: var(--ion-color-primary-contrast);
 }
 
-@font-face {
+
+.my-custom-class{
+      margin-top: -99px;
+   
+}
+
+.modal-wrapper{
+      -webkit-transition: opacity 400ms ease-in;
+    -moz-transition: opacity 400ms ease-in;
+    transition: opacity 400ms ease-in;
+}
+
+/*@font-face {
   font-family: 'Montserrat';
   src: url('montserrat.ttf') format('truetype');
-}
+}*/
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
 
 body{
    font-family: 'Montserrat';
@@ -120,7 +135,7 @@ p{
 
 font-family: Montserrat;
 font-style: normal;
-font-weight: 100;
+font-weight: normal;
 font-size: 16px;
 line-height: 20px;
 text-align: center;
@@ -133,7 +148,7 @@ color: #5B716F;
 .p-no-center{
   font-family: Montserrat;
   font-style: normal;
-  font-weight: 150;
+  font-weight: normal;
   font-size: 16px;
   line-height: 20px;
   text-align: left;
@@ -142,15 +157,17 @@ color: #5B716F;
 }
 
 .btn-primary{
-  width: 150px;
-  padding: 16px 28px;
+width: 151px;
+height: 52px;
   background: #32BAB0;
   border-radius: 10px;
   color: #FFFFFF;
   font-family: Montserrat;
-  font-style: normal;
-  font-weight: 100;
-  line-height: 20px;
+font-style: normal;
+font-weight: 500;
+font-size: 16px;
+line-height: 20px;
+
 }
 
 .btn-category{
@@ -161,9 +178,12 @@ color: #5B716F;
   color: #001D1B;
   font-family: Montserrat;
   font-style: normal;
-  font-weight: 100;
+  font-weight: 600;
   font-size: 16px;
-  margin: 2%;width: 90%;line-height: 250%
+  margin: 2%;width: 90%;line-height: 250%;
+
+
+
 }
 
 .btn-category-active{
@@ -174,7 +194,7 @@ color: #5B716F;
   color: #001D1B;
   font-family: Montserrat;
   font-style: normal;
-  font-weight: 100;
+  font-weight: 600;
   font-size: 16px;
   line-height: 20px;
   margin: 2%;width: 90%;line-height: 250%
@@ -182,14 +202,19 @@ color: #5B716F;
 
 
 .btn-line{
-padding: 16px 28px;
+
 background: #EAFFFD;
 border: 1px solid #32BAB0;
 box-sizing: border-box;
 border-radius: 10px;
 color: #32BAB0;
 font-family: Montserrat;
-width: 150px;
+width: 151px;
+height: 52px;
+font-style: normal;
+font-weight: 500;
+font-size: 16px;
+line-height: 20px;
 }
 
 .eclipse{
@@ -203,7 +228,7 @@ width: 150px;
   color: #32BAB0;
   font-family: Montserrat;
   font-style: normal;
-  font-weight: 100;
+  font-weight: normal;
 }
 
 .form-control{
@@ -222,7 +247,7 @@ width: 150px;
 .c-switch {
   display: inline-block;
   width: 40px;
-  height: 26px;
+  height: 23px;
 }
 
 .c-switch-input {
@@ -247,8 +272,9 @@ width: 150px;
   top: 2px;
   left: 2px;
   box-sizing: border-box;
-  width: 20px;
-  height: 20px;
+  width: 40px;
+  height: 23px;
+
   content: "";
   background-color: #fff;
   border: 1px solid #d8dbe0;
@@ -377,14 +403,14 @@ html:not([dir=rtl]) .c-switch-label .c-switch-slider::after {
 }
 
 .c-switch[class*="-3d"] .c-switch-slider {
-  background-color: #ebedef;
+  background-color: grey;
   border-radius: 50em;
 }
 .c-switch[class*="-3d"] .c-switch-slider::before {
   top: -1px;
-  left: -1px;
-  width: 26px;
-  height: 26px;
+  left: 2.5px;
+  width: 22.5px;
+  height: 23px;
   border: 0;
   border-radius: 50em;
   box-shadow: 0 2px 5px rgba(0, 0, 21, 0.3);
@@ -707,7 +733,31 @@ html:not([dir=rtl]) .c-switch-label .c-switch-slider::after {
 }
 
 .cursor{
-  cursor: pointer
+  cursor: pointer;
+  border-radius: 10px;
+
+}
+ion-card {
+
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  width: 167px;
+  
+  height: 209px;
+}
+
+.card-content-md {
+   font-family: Montserrat;
+font-style: normal;
+font-weight: normal;
+font-size: 14px;
+line-height: 17px;
+/* identical to box height */
+
+display: flex;
+align-items: center;
+letter-spacing: 0.75px;
+
+color: #001D1B;
 }
 
   @media (max-width: 1000px){
@@ -724,10 +774,12 @@ html:not([dir=rtl]) .c-switch-label .c-switch-slider::after {
       background: rgba(50, 186, 176, 0.6);
       border-radius: 4px;
       position: absolute;
-      width: 35px;
+      width: 57px;
+      height: 31px;
       color: #fff;
       top: 4%;
-      left: 68%;
+      font-weight: 500;
+      left: 60%;
     }
     .badge-3{
         position: absolute;
@@ -749,12 +801,13 @@ html:not([dir=rtl]) .c-switch-label .c-switch-slider::after {
       background: rgba(50, 186, 176, 0.6);
       border-radius: 4px;
       position: absolute;
-      width: 35px;
+      width: 57px;
+      height: 31px;
       color: #fff;
-      top: 3%;
-      left: 80%;
+      top: 4%;
+      font-weight: 500;
+      left: 85%;
     }
-
     .badge-3{
       cursor: pointer;
         position: absolute;
@@ -765,7 +818,7 @@ html:not([dir=rtl]) .c-switch-label .c-switch-slider::after {
 
   @media (max-width: 1000px){
     .buttons-details{
-     margin-top: 40%
+     margin-top: 90px;
     }
   }
 
@@ -876,6 +929,8 @@ ion-select::part(icon) {
     background-color: #fff;
     transition: color 0.3s ease-in-out 0s;
     font-size: 16px;
+    font-weight : 600;
+
 }
 
 .container{
@@ -889,18 +944,23 @@ ion-select::part(icon) {
 
 .input-text{
   background-color: transparent;
-    color: rgb(60, 74, 91);
-    font-family: Montserrat;
-    font-size: 14px;
-    letter-spacing: 0.4px;
-    line-height: 3px;
-    border: 0px;
-    border-radius: 8px;
-    box-sizing: border-box;
-    margin: 0px;
-    padding: 12px 14px;
-    transition: background-color 0.3s ease-in-out 0s;
-    width: 100%;
+  font-size: 14px;
+  letter-spacing: 0.4px;
+  line-height: 3px;
+  border: 0px;
+  border-radius: 8px;
+  box-sizing: border-box;
+  margin: 0px;
+  padding: 12px 14px;
+  transition: background-color 0.3s ease-in-out 0s;
+  width: 100%;
+  height : 55px;
+  font-family: Montserrat;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 20px;
+  color: #32BAB0;
 }
 
 .input-container{
@@ -926,3 +986,39 @@ ion-select::part(icon) {
 
 input:focus{ outline: none; }
 textarea:focus{ outline: none; }
+
+.title{
+
+font-family: Montserrat;
+font-style: normal;
+
+font-size: 20px;
+line-height: 24px;
+font-weight: 700;
+align-items: center;
+letter-spacing: 0.75px;
+
+
+color: #000000;
+}
+
+.sub-title{
+  font-family: Montserrat;font-style: normal;font-weight: normal;font-size: 16px;line-height: 20px;color: #5B716F;
+}
+
+.text-radio{
+  font-family: Montserrat;
+font-style: normal;
+font-weight: 500;
+font-size: 16px;
+line-height: 20px;
+/* identical to box height */
+
+display: flex;
+align-items: center;
+letter-spacing: 0.75px;
+
+color: #5B716F;
+
+}
+

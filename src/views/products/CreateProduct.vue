@@ -2,14 +2,17 @@
 <ion-page>
    <ion-row>
        <ion-col>
-        <button @click="redirect('/principal')" >
-          <ion-icon :icon="arrowBack" style="margin-left: 5%;top: 37%;position: absolute;" ></ion-icon>
-        </button>
+        <button @click="$router.go(-1)">
+            <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-left: 3%;top: 32%;position: absolute;">
+              <path d="M27 16H5" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M14 7L5 16L14 25" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
           
-          <p style="color: #000">
+          <p style="color: #000" class="title">
             Publicar un producto
           </p>
-          <p style="font-size: 13px;">
+          <p class="sub-title">
             ¿Qué quieres cambiar?
           </p>
       </ion-col>
@@ -44,13 +47,13 @@
               <ion-row>
                 <ion-col>
                   <ion-item  lines="none">
-                    <p>Nuevo</p>
+                    <p class="text-radio">Nuevo</p>
                     <ion-radio color="success" slot="start" value="biff"></ion-radio>
                   </ion-item>
                     </ion-col>
                      <ion-col>
                   <ion-item  lines="none">
-                    <p>Usado</p>
+                    <p class="text-radio">Usado</p>
                     <ion-radio color="success" slot="start" value="griff"></ion-radio>
                   </ion-item>
                   </ion-col>
@@ -62,12 +65,19 @@
 
         <ion-row> 
             <ion-col col-12>
-              <div class="container" @click="takePhoto" style="cursor: pointer;">
+              <div class="container"   style="cursor: pointer;">
          
-                <div  class="input-container">
-                         <label class="label-input" style="margin-top: 3%;">Selecciona una foto</label>
-                  <img src="/assets/PlusCircle2.png" style="margin-left:85%">
+                <div  class="input-container" v-if="takenImageUrl == null">
+                  <label class="label-input" style="margin-top: 18px;" @click="setOpen(true)">Selecciona una foto</label>
+                  <img src="/assets/PlusCircle2.png" style="margin-left:85%" @click="setOpen(true)">
                   <input class="input-text">
+                </div>
+                <div  class="input-container" v-else>
+                   <svg @click="() => takenImageUrl = null" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" style="position: absolute; margin-left: 92%;margin-top: -165px;">
+              <path d="M20 3.02962L17.18 0.292725L10 7.26113L2.82 0.292725L0 3.02962L7.18 9.99803L0 16.9664L2.82 19.7033L10 12.7349L17.18 19.7033L20 16.9664L12.82 9.99803L20 3.02962Z" fill="#000" fill-opacity="0.5"/>
+              </svg>
+
+                <img :src="takenImageUrl" style="height: 200px;width: 100%;">
                 </div>
               </div>
             </ion-col>
@@ -86,8 +96,12 @@
         <br>
         <br>
         <center>
-          <button type="button" class="btn-primary" @click="redirect('/create/details/product')" style="width: 300px">
-            Añadir categoría
+          <button type="button" class="btn-primary" @click="redirect('/create/details/product')" style="width: 215px">
+            <span style="position: fixed;margin-left:-76px;margin-top: -8px;">Añadir categoría</span>
+
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" style="position: fixed;margin-left: 68px;margin-top: -6px;">
+              <path d="M0 9H12.17L6.58 14.59L8 16L16 8L8 0L6.59 1.41L12.17 7H0V9Z" fill="#E6EFFF"/>
+            </svg>
           </button>
          </center>     
       </ion-list>
@@ -96,14 +110,25 @@
         </ion-infinite-scroll-content>
       </ion-infinite-scroll>
     </ion-content>    
+
+    <ion-modal
+        :is-open="isOpenRef"
+        :enterAnimation="enterAnimation"
+        :leaveAnimation="leaveAnimation"  
+        css-class="my-custom-class"
+        @didDismiss="setOpen(false)"
+        @ionModalWillDismiss="setOpen(false)"
+      >
+    <ModalUpload @get="getPhoto($event)" ></ModalUpload>
+  </ion-modal>
   </ion-page>  
 </template>
 
 
-<script lang="ts">
+<script >
 
 import { repeat,arrowBack,camera } from 'ionicons/icons';
-import ModalDetail from '@/views/products/ModalDetail'
+import ModalUpload from './ModalUpload'
 import { 
 
   IonContent, 
@@ -111,7 +136,9 @@ import {
   IonInfiniteScrollContent,
   modalController,
   IonList,
-  IonPage
+  IonPage,
+  createAnimation,
+  IonModal
  } from '@ionic/vue';
 
 import { Plugins, CameraResultType, CameraSource } from '@capacitor/core';
@@ -122,12 +149,13 @@ import { defineComponent, ref } from 'vue';
 
 export default defineComponent({
   components: {
- 
+    ModalUpload,
     IonContent, 
     IonInfiniteScroll, 
     IonInfiniteScrollContent,
     IonList,
-    IonPage
+    IonPage,
+    IonModal
   },
   setup() {
     const isDisabled = ref(false);
@@ -158,15 +186,24 @@ export default defineComponent({
     }
 
     pushData();
+    const isOpenRef = ref(false);
+    const setOpen = (state) => isOpenRef.value = state;
 
-    return {
+    return {  
       isDisabled,
       toggleInfiniteScroll,
       loadData,
       items,
       repeat,
       arrowBack,
-      camera
+      camera,
+      isOpenRef,
+      setOpen
+    }
+  },
+  data(){
+    return{
+      takenImageUrl : null
     }
   },
   methods:{
@@ -174,14 +211,38 @@ export default defineComponent({
       this.$router.push({path: path});
     },
     async openModal() {
+    
       const modal = await modalController
         .create({
-          component: ModalDetail,
+          component: ModalUpload,
           keyboardClose : true,
-          cssClass: 'my-custom-class',
+          enterAnimation: this.enterAnimation,
+          leaveAnimation: this.leaveAnimation  
         })
       return modal.present();
     },
+    enterAnimation : function () {
+      let baseEl = document
+        const backdropAnimation = createAnimation()
+        .addElement(baseEl.querySelector('ion-backdrop'))
+        .fromTo('opacity', '0.01', 'var(--backdrop-opacity)');
+
+      const wrapperAnimation = createAnimation()
+        .addElement(baseEl.querySelector('.modal-wrapper'))
+        .keyframes([
+          { offset: 0, opacity: '0', transform: 'scale(0)' },
+          { offset: 1, opacity: '0.99', transform: 'scale(1)' }
+        ]);
+
+      return createAnimation()
+            .addElement(baseEl)
+            .easing('ease-out')
+            .duration(500)
+            .addAnimation([backdropAnimation, wrapperAnimation]);
+    },
+    leaveAnimation  : function () {
+       return this.enterAnimation(document).direction('reverse');
+    }, 
     async takePhoto() {
       const photo = await Camera.getPhoto({
         resultType: CameraResultType.Uri,
@@ -191,6 +252,10 @@ export default defineComponent({
 
       this.takenImageUrl = photo.webPath;
     },
+    getPhoto($event){
+      this.takenImageUrl = $event.takenImageUrl;
+      this.setOpen(false)
+    }
   }
 });
 

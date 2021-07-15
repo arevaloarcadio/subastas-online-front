@@ -1,20 +1,23 @@
 <template>
 
        <ion-content class="ion-padding"> 
-        
-            <span class="text-control" style="margin-left: 5%;font-size: 24px;">Verificación </span> 
             <br>
-             <p class="p-no-center" style="margin-left: 5%;float: left;"> 
-           Hemos enviado un codigo a tu telefono
+         <br>
+         <br>
+            <span class="text-control" style="margin-left: 5%;font-size: 24px;font-family: Montserrat;font-style: normal;font-weight: 600;font-size: 24px;line-height: 29px;color: #32BAB0;">Verificación </span> 
+            <br>
+             <p class="p-no-center" style="margin-left: 5%;float: left;font-family: Montserrat;font-style: normal;font-weight: normal;font-size: 16px;line-height: 20px;color: #5B716F;margin-top:0%"> 
+           Hemos enviado un codigo a  tu <br> telefono
             </p>
             <br>
-            <br>
+            <br>   <br>
             <p> 
-              <img src="/assets/phone.png">
+              <Phone style="margin-top: 13%;"></Phone>
+           
     
 
             </p>
-            <div  ref="footer" class="footer" style="background:#32BAB0;height: 45%; width: 100%;border-radius: 24px 24px 0 0 ;">
+            <div  ref="footer" class="footer" style="background:#32BAB0;height: 290.21px; width: 100%;border-radius: 24px 24px 0 0 ;">
               
               <input type="number" id="code-1" maxlength="1" v-on:keyup="change_input($event,1)" class="input-validate-code" style="margin-left: -2%"> 
               <input type="number" id="code-2"  maxlength="1" v-on:keyup="change_input($event,2)" class="input-validate-code">
@@ -40,9 +43,10 @@
 import { loadingController,toastController  } from '@ionic/vue';
 import { defineComponent } from 'vue';
 import axios from 'axios';
+import Phone from './Phone'
 
 export default defineComponent({
-
+  components : {Phone},
   name: "Register",
   data() {
     return {

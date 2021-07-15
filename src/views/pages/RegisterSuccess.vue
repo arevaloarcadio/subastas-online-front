@@ -1,18 +1,20 @@
 <template>
      <ion-content class="ion-padding"> 
+      <br>
   <div align="center"> 
     <br>
     <img src="/assets/logo-success.png">
   </div>
+  <br><br>
   <p>
-    <span class="text-control" >Te has registrado exitosamente</span> 
+    <span class="text-control" style="font-weight: 500;font-size: 20px;line-height: 24px;">Te has registrado <br> exitosamente</span> 
   </p>
   <div align="center"> 
     <br>
     <img src="/assets/success.png">
   </div>
   <p>  
-  <button type="button" class="btn-primary" @click="redirect()" style="width: 300px">
+  <button type="button" class="btn-primary" @click="redirect()" style="width: 150px">
 
       Continuar
   </button>

@@ -2,39 +2,42 @@
 <ion-page>
    <ion-row>
       <ion-col>
-        <button @click="redirect({path :'/principal'})" >
-          <ion-icon :icon="arrowBack" style="margin-left: 5%;top: 52%;position: absolute;" ></ion-icon>
-        </button>
-        <p style="color: #000">
+        <button @click="$router.go(-1)">
+            <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-left: 3%;top: 43%;position: absolute;">
+              <path d="M27 16H5" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M14 7L5 16L14 25" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+        <p style="color: #000" class="title">
           Notificaciones
         </p>
       </ion-col>
     </ion-row>
     <ion-content>
-      <ion-list>
+
         <br>
         <p v-if="nofitications.length == 0" style="font-weight: 400">
          Actualmente no hay notifaciones
         </p>
         <template v-else  v-for="nofitication in nofitications" :key="nofitication">
-          <ion-card @click="redirect({name : nofitication.type , params : { productId : nofitication.id }})">
+          <div style="box-shadow:inherit;margin-left: 0%;height: 99px" @click="redirect({name : nofitication.type , params : { productId : nofitication.id }})">
             <ion-row>
               <ion-col>
                 <img style="border-radius: 15px 15px 15px 15px;" :src="nofitication.photo" >
               </ion-col>
               <ion-col style="margin-left: -40%;">
-                <b style="color: #000;font-family: Montserrat; font-weight: 600">{{nofitication.data}}</b>
-                <div style="position: absolute;top: 70px;">
+                <p class="p-no-center data-notification" style="margin-top: 2%;margin-left: -7%;">{{nofitication.data}}</p>
+                <div style="position: absolute;left: -11px; top: 65px;" class="last-message-notification">
                   {{nofitication.date_last_message}}
                </div>
-               <div style="position: absolute;top: 70px;left: 150px;color: #FF0000">
+               <div style="position: absolute;top: 65px;left: 162px;color: #FF0000" class="delete">
                 Eliminar
                </div>
               </ion-col>
             </ion-row>
-          </ion-card>
+          </div>
         </template>
-      </ion-list>
+
       <ion-infinite-scroll @ionInfinite="loadData($event)" threshold="100px"  id="infinite-scroll" :disabled="isDisabled">
         <ion-infinite-scroll-content loading-spinner="bubbles" loading-text="Loading more data...">
         </ion-infinite-scroll-content>
@@ -54,7 +57,7 @@ import {
   IonInfiniteScroll, 
   IonInfiniteScrollContent,
   modalController,
-  IonList,
+
   IonPage
  } from '@ionic/vue';
 
@@ -70,7 +73,7 @@ export default defineComponent({
     IonContent, 
     IonInfiniteScroll, 
     IonInfiniteScrollContent,
-    IonList,
+
     IonPage
   },
   setup() {
@@ -120,7 +123,7 @@ export default defineComponent({
         {
           id : 1,
           photo : '/assets/products/product-2.png',
-          data : 'Tu solicitud ha sido aceptada',
+          data :  'Has recibido una solicitud de cambio',
           date_last_message : 'Hace 30 minutos', 
           type : 'request'
           
@@ -128,7 +131,7 @@ export default defineComponent({
         {
           id : 2,
           photo :  '/assets/products/product-1.png',
-          data : 'Has recibido una solicitud de cambio',
+          data :  'Tu solicitud ha sido aceptada',
           date_last_message : '7 min',
           type : 'request.accepted'
         },
@@ -181,55 +184,54 @@ export default defineComponent({
 </script>
 
 
-<style type="text/css">
+<style scoped="">
 
-.item-has-focus{
-
-  --highlight-background :#32BAB0 ;
-}
-
-.alert-radio-inner.sc-ion-alert-md{
-  background-color : #32BAB0;
-}
-
-[aria-checked=true].sc-ion-alert-md .alert-radio-icon.sc-ion-alert-md {
-    border-color: #32BAB0;
-}
-
-.alert-radio-label.sc-ion-alert-md{
-  color: #5B716F;
-}
-
-[aria-checked=true].sc-ion-alert-md .alert-radio-label.sc-ion-alert-md{
-    color: #5B716F;
-}
-
-.alert-button.sc-ion-alert-md{
-  color : #32BAB0;
-}
-.radio-checked{
---color-checked :#32BAB0 !important; 
-
-
-}
- .ion-activated{
---color-checked :#32BAB0; 
- }
-
-.ion-color-success {
-    --ion-color-base: #32BAB0 !important;
-    --ion-color-base-rgb: var(--ion-color-success-rgb, 45, 211, 111) !important;
-    --ion-color-contrast: var(--ion-color-success-contrast, #fff) !important;
-    --ion-color-contrast-rgb: var(--ion-color-success-contrast-rgb, 255, 255, 255) !important;
-    --ion-color-shade:  #32BAB0;
-    --ion-color-tint: #32BAB0;
-}
 input[type="file"] {
   display: none;
 }
 
 
-   
+.data-notification{
+    font-family: Montserrat;
+font-style: normal;
+font-weight: normal;
+font-size: 16px;
+line-height: 20px;
+
+align-items: center;
+letter-spacing: 0.75px;
+
+color: #000000;
+
+   }
+.last-message-notification{
+   font-family: Montserrat;
+font-style: normal;
+font-weight: normal;
+font-size: 12px;
+line-height: 15px;
+/* identical to box height */
+
+
+align-items: center;
+letter-spacing: 0.75px;
+
+color: #000000;
+}
+
+.delete{
+  font-family: Montserrat;
+font-style: normal;
+font-weight: normal;
+font-size: 16px;
+line-height: 20px;
+/* identical to box height */
+
+
+align-items: center;
+text-align: right;
+letter-spacing: 0.75px;
+}
 </style>
 
 

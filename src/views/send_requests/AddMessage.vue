@@ -2,19 +2,22 @@
   <ion-page>
     <ion-row>
        <ion-col>
-        <button @click="$router.go(-1)" >
-          <ion-icon :icon="arrowBack" style="margin-left: 5%;top: 37%;position: absolute;" ></ion-icon>
-        </button>
-          <p style="color: #000">
+       <button @click="$router.go(-1)">
+            <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-left: 3%;top: 22%;position: absolute;">
+              <path d="M27 16H5" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M14 7L5 16L14 25" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+          <p style="color: #000" class="title">
             Enviar solicitud
-          </p>
-          <p>
-           Selecciona uno o más de tus productos
+          </p><br>
+          <p class="sub-title" style="width: 80%;margin-left: 10%;font-weight: 500;">
+           Agrega un mensaje que describa tu oferta
           </p>
       </ion-col>
       
     </ion-row>
-    <ion-card style=" height: 25%;">
+    <ion-card style="box-shadow: inherit;margin-top: 10%;width: 101%;margin-left: -1%">
       <img src="https://ionicframework.com/docs/demos/api/card/madison.jpg" class="img-left">
       <img src="/assets/ArrowsLeftRight.png" class="img-center">
       <img src="https://ionicframework.com/docs/demos/api/card/madison.jpg" class="img-right">
@@ -24,25 +27,25 @@
    
     </p>
     <ion-content class="ion-padding">
-      <ion-list>
-        <p>
+   
+        <p style="margin-top: -18px;">
         <ion-row>
         <ion-col col-12>
           <div class="container">
             <label class="label-input">Mensaje</label>
             <div  class="input-container">
-              <textarea style="line-height: 38px;" class="input-text" placeholder="Que tal si intercambiamos">  </textarea>
+              <textarea style="line-height: 38px;height: 120.55px" class="input-text" placeholder="Que tal si intercambiamos">  </textarea>
             </div>
           </div>
         </ion-col>
       </ion-row>
          
           <br>
-          <button type="button" class="btn-primary" @click="redirect({name : 'success.requests'})" style="width: 250px">
+          <button type="button" class="btn-primary" @click="redirect({name : 'success.requests'})" style="width: 200px">
               Enviar Solicitud
           </button>
        </p>
-      </ion-list>
+
       <ion-infinite-scroll @ionInfinite="loadData($event)" threshold="100px"  id="infinite-scroll" :disabled="isDisabled">
         <ion-infinite-scroll-content loading-spinner="bubbles" loading-text="Loading more data...">
         </ion-infinite-scroll-content>
@@ -51,7 +54,7 @@
   </ion-page>
 </template>
 
-<script lang="ts">
+<script >
 
 import { repeat,arrowBack } from 'ionicons/icons';
 import ModalDetail from '@/views/products/ModalDetail'
@@ -61,7 +64,6 @@ import {
   IonInfiniteScroll, 
   IonInfiniteScrollContent,
   modalController,
-  IonList,
   IonPage
  } from '@ionic/vue';
 import { defineComponent, ref } from 'vue';
@@ -72,7 +74,7 @@ export default defineComponent({
     IonContent, 
     IonInfiniteScroll, 
     IonInfiniteScrollContent,
-    IonList,
+
     IonPage
   },
   setup() {
@@ -133,19 +135,21 @@ export default defineComponent({
 </script>
 <style type="text/css">
  .img-left{
-  margin-left: -8%;
-  width: 40%;
-  height: 100%;
+margin-left: -15%;
+ width: 181px;
+height: 210px;
   float: left;
   border-radius: 30px 30px 30px 30px;
+
  }
  .img-right{
-  margin-right: -8%;
-  width: 40%;
-  height: 100%;
+margin-right: -15%;
+  width: 181px;
+height: 210px;
   float: right;
   border-radius: 30px 30px 30px 30px;
  }
+
 
    @media (max-width: 1000px){
     .img-center{

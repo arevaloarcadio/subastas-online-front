@@ -2,13 +2,17 @@
 <ion-page>
    <ion-row>
       <ion-col>
-        <button @click="$router.go(-1)" >
-          <ion-icon :icon="arrowBack" style="margin-left: 5%;top: 37%;position: absolute;" ></ion-icon>
-        </button>
-        <p style="color: #000">
+        <button @click="$router.go(-1)">
+            <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-left: 3%;top: 32%;position: absolute;">
+              <path d="M27 16H5" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M14 7L5 16L14 25" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+        
+        <p style="color: #000" class="title">
           Camisas
         </p>
-        <p style="font-weight: 100">
+        <p style="font-weight: 500;font-size: 16px;line-height: 20px;align-items: center;text-align: center;letter-spacing: 0.75px;color: #5B716F;">
           Juan Camilo
         </p>
         <button @click="redirect({name : 'request.accepted.rejected'})"  style="margin-left: 85%;top: 30%;position: absolute;background: #fff">
@@ -16,34 +20,31 @@
         </button>
       </ion-col>
     </ion-row>
+
     <ion-content>
-      <ion-list>
+   
           <div class="content"  style="float: left;width: 100%;">
               
               <div class="messages" id="chat">
                <small style="margin-top:2%"></small>
                 <ul v-for="message in messages" :key="message">
-                  <li class="replies">
+                  <li :class="{'replies' :  user_chat.id != message.user_sent_id ,'sent' : user_chat.id != message.user_replies_id}">
                     <p>{{message.data}}</p>
                   </li>
-                  <li class="sent" style="margin-left:-2%">
-                    <p>{{message.data}}</p>
-                  </li>
-                  <li class="replies">
-                    <p>{{message.data}}</p>
-                  </li>
-                  <li class="sent" style="margin-left:-2%">
-                    <p>{{message.data}}</p>
-                  </li>
+                
                 </ul>
+              
+                <center>
+                 <ion-badge style="background: rgba(50, 186, 176, 0.3);
+                  border-radius: 10px;font-family: Montserrat;font-style: normal;font-weight: normal;font-size: 16px;line-height: 20px;color: #5B716F;" color="primary">Has aceptado el cambio</ion-badge>
+                </center>
 
               </div>
 
             
             </div>
 
-      </ion-list>
-     
+       
       <ion-infinite-scroll @ionInfinite="loadData($event)" threshold="100px"  id="infinite-scroll" :disabled="isDisabled">
         <ion-infinite-scroll-content loading-spinner="bubbles" loading-text="Loading more data...">
         </ion-infinite-scroll-content>
@@ -51,10 +52,15 @@
     </ion-content>
      <div class="message-input">
           <div class="wrap">
-              <span><ion-icon slot="start" :icon="cameraOutline" style="margin-top: 6%;margin-left: -10%;"></ion-icon></span>
-          <input type="text" placeholder="Escribe un mensaje" >
+              <span>
+                <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-top: 18px;    margin-left: -43px;">
+                <path d="M22.75 22.75H5.25C4.78587 22.75 4.34075 22.5656 4.01256 22.2374C3.68437 21.9092 3.5 21.4641 3.5 21V8.75C3.5 8.28587 3.68437 7.84075 4.01256 7.51256C4.34075 7.18437 4.78587 7 5.25 7H8.74936L10.4994 4.375H17.4994L19.2494 7H22.75C23.2141 7 23.6592 7.18437 23.9874 7.51256C24.3156 7.84075 24.5 8.28587 24.5 8.75V21C24.5 21.4641 24.3156 21.9092 23.9874 22.2374C23.6592 22.5656 23.2141 22.75 22.75 22.75Z" stroke="#5B716F" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M14 18.375C16.1746 18.375 17.9375 16.6121 17.9375 14.4375C17.9375 12.2629 16.1746 10.5 14 10.5C11.8254 10.5 10.0625 12.2629 10.0625 14.4375C10.0625 16.6121 11.8254 18.375 14 18.375Z" stroke="#5B716F" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </span>
+          <input type="text" placeholder="Escribe algo" >
              
-          <button><img src="/assets/send.png"></button>
+          <button><img src="/assets/send.png" style="margin-left: -30px;"></button>
           </div>
       </div>   
   </ion-page>  
@@ -70,7 +76,7 @@ import {
   IonContent, 
   IonInfiniteScroll, 
   IonInfiniteScrollContent,
-  IonList,
+
   IonPage
  } from '@ionic/vue';
 
@@ -86,7 +92,7 @@ export default defineComponent({
     IonContent, 
     IonInfiniteScroll, 
     IonInfiniteScrollContent,
-    IonList,
+
     IonPage
   },
   setup() {
@@ -137,8 +143,8 @@ export default defineComponent({
       messages : 
       [
         {
-          user_sent_id : 1 ,
-          user_replies_id  : 2,
+          user_sent_id : 2 ,
+          user_replies_id  : 1,
           data : 'Me gustaria intercambiar mi camisa'
         },
         {
@@ -744,22 +750,35 @@ body {
   font-size: 0.9em;
 }
 #app .content .messages ul li:nth-last-child(1) {
-  margin-bottom: 34px;
+
 }
 #app .content .messages ul li.sent img {
   margin: 6px 8px 0 0;
 }
 #app .content .messages ul li.sent p {
-  background: #32BAB0;
+  background: #E9EBEB;
   color: #f5f5f5;
+   margin-left: -44px;
+   height: 50px;
+   text-align: revert;
+   color: #000;
+   border-radius: 10px 10px 10px 0px;
+   margin-top: -5%;
+
 }
 #app .content .messages ul li.replies img {
   float: right;
   margin: 6px 0 0 8px;
 }
 #app .content .messages ul li.replies p {
-  background: #f5f5f5;
+  background: #E9EBEB;
   float: right;
+  width: 269px;
+  height: 50px;
+text-align: revert;
+color: #000;
+border-radius: 10px 10px 0px 10px;
+margin-top: -18px;
 }
 #app .content .messages ul li img {
   width: 30px;
@@ -772,7 +791,7 @@ body {
   display: inline-block;
   padding: 10px 15px;
   border-radius: 20px;
-  max-width: 205px;
+  max-width: 269px;
   line-height: 130%;
 }
 @media screen and (min-width: 1000px) {
@@ -786,6 +805,7 @@ body {
   bottom: 8%;
   width: 100%;
   z-index: 99;
+  margin-left: 3%;
 }
  .message-input .wrap {
   position: relative;
@@ -797,8 +817,14 @@ body {
   width: calc(100% - 90px);
   padding: 11px 32px 10px 8px;
   font-size: 0.8em;
-  color: #32465a;
+  color: #000000;
   padding-left: 6%;
+  background: #E9EBEB;
+border-radius: 30px;
+width: 284px;
+height: 53px;
+margin-left: 12px
+
 }
 @media screen and (max-width: 1000px) {
 
@@ -808,6 +834,9 @@ body {
       margin-left: 5%;
   background: #E9EBEB;
 border-radius: 30px;
+margin-top: 1%;
+    padding-left: 5%;
+    width: 78%;
   }
    .message-input {
   position: absolute;
@@ -819,12 +848,13 @@ border-radius: 30px;
 }
 @media screen and (min-width: 1000px) {
   .message-input .wrap input {
-      margin-top: 0.3%;
+    
     padding-left: 3%;
     margin-left: 2%;
     background: #E9EBEB;
     border-radius: 30px;
       bottom: 10%;
+        width: 78%;
   }
 }
  .message-input .wrap input:focus {
@@ -846,9 +876,7 @@ border-radius: 30px;
     right: 65px;
   }
 }
-.message-input .wrap .attachment:hover {
-  opacity: 1;
-}
+
  .message-input .wrap button {
   float: right;
   border: none;
@@ -863,9 +891,7 @@ border-radius: 30px;
     padding: 16px 0;
   }
 }
- .message-input .wrap button:hover {
-  background: #32BAB0;
-}
+
  .message-input .wrap button:focus {
   outline: none;
 }

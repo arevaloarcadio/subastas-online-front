@@ -4,9 +4,9 @@
          <br>
          <br>
          <br>
-            <span class="text-control" style="margin-left: 5%;font-size: 24px;">Registro </span> 
+            <span class="text-control" style="margin-left: 5%;font-size: 24px; font-family: Montserrat;font-style: normal;font-weight: 500;font-size: 24px;line-height: 29px;color: #32BAB0;">Registro </span> 
             <br>
-             <p class="p-no-center" style="margin-left: 5%;float: left;"> 
+             <p class="p-no-center" style="margin-left: 5%;float: left;font-family: Montserrat;font-style: normal;font-weight: 500;font-size: 16px;line-height: 20px;color: #5B716F;margin-top: 0%;"> 
             Ingresa tu número de teléfono, te enviaremos un código 
             </p>
             <br>
@@ -14,12 +14,14 @@
             <br>
             <br>
             <p> 
-              <img src="/assets/phone.png">
+              <Phone></Phone>
+
+             
             <ion-grid>
-               <ion-row>
+               <ion-row style="margin-top: 3%;">
                   <ion-col size="4">
                     <img src="/assets/Bitmap.png" style="z-index: 1000;z-index: 1000;position: absolute;top: 36%; left: 18%;">
-                    <ion-select  :interface-options="customActionSheetOptions" interface="action-sheet" style="background: #32BAB0;border-radius: 10px;color: #32BAB0;font-family: Montserrat;width: 110%" value="+31" ok-text="Seleccionar" cancel-text="Cerrar">
+                    <ion-select id="ionSelectPhoneCode" :interface-options="customActionSheetOptions" interface="action-sheet" style="background: #32BAB0;border-radius: 10px;color: #32BAB0;font-family: Montserrat;width: 110%" value="+31" ok-text="Seleccionar" cancel-text="Cerrar">
                     <ion-select-option value="+56">+56</ion-select-option>
                     <ion-select-option value="+31">+31</ion-select-option>
                   </ion-select>
@@ -36,12 +38,12 @@
           
             <br>
             <br>
-              <button type="button" class="btn-primary" @click="redirect({name : 'verify.phone'})" style="width: 150px">
+              <button type="button" class="btn-primary" @click="redirect({name : 'verify.phone'})" style="width: 177px">
                   Verificar
               </button>
             <br>
             <br>
-            <a  @click="redirect({path: '/pre_login'})" class="text-control">Atras</a>
+            <!--<a  @click="redirect({path: '/pre_login'})" class="text-control">Atras</a>-->
             </p>
       </ion-content>          
 
@@ -51,9 +53,10 @@
 import { loadingController,toastController,IonRow,IonGrid,IonCol,IonSelect, IonSelectOption  } from '@ionic/vue';
 import { defineComponent } from 'vue';
 import axios from 'axios';
+import Phone from './Phone'
 
 export default defineComponent({
-  components: { IonRow,IonGrid,IonCol,IonSelect, IonSelectOption},
+  components: { Phone,IonRow,IonGrid,IonCol,IonSelect, IonSelectOption},
   name: "Register",
   data() {
     return {
@@ -67,6 +70,11 @@ export default defineComponent({
   },
   mounted(){
     this.type = this.$route.query.type;
+    
+    let svg = '<svg width="12" height="7" viewBox="0 0 12 7" fill="none" xmlns="http://www.w3.org/2000/svg" style="position:absolute;margin-left: 38%">'+
+                '<path d="M11 1L6 6L1 1" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>'+
+              '</svg>'          
+    document.querySelector('#ionSelectPhoneCode').shadowRoot.innerHTML = svg 
   },
   methods: {
     redirect(poth){
@@ -135,15 +143,11 @@ ion-select::part(text) {
     border-radius: 10px;
     color: #fff;
     font-family: Montserrat;
-    margin-left: 50%
+    margin-left: 58%;
 }
 
 ion-select::part(icon) {
-  color: #fff;
-  opacity: 1;
-
-    left: 75%;
-    position: absolute;
+ display: none;
 }
 
 .label-input1{

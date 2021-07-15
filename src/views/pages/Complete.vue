@@ -1,17 +1,19 @@
 <template>
 
       <div  class="preload" align="center" >
-        <img src="/assets/logo-white.png" :style="style.img">
+
+        <img src="/assets/logo-white.png" style="margin-top: 20%;width: 183.2px;height: 98.24px;">
         <br>
         <br>
         <br>
-        <img src="/assets/amico.png" >
+        <br>
+        <img src="/assets/amico.png" ><br><br><br><br>
         <p style="font-size: 72px;font-family: Montserrat;color: #fff;" class="top">
           5462
         </p>
-        <p class="inter">
+        <p class="inter" style="font-size: 20px;line-height: 24px;">
        
-          Intercambios disponibles<br><br>
+          Intercambios <br>disponibles<br><br>
           <button type="button" class="btn-line"  @click="redirect('login')"> Iniciar Sesión</button>
         </p>
       </div> 

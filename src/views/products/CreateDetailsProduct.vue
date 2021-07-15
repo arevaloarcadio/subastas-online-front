@@ -2,14 +2,17 @@
 <ion-page>
    <ion-row>
        <ion-col>
-        <button @click="redirect()" >
-          <ion-icon :icon="arrowBack" style="margin-left: 5%;top: 52%;position: absolute;" ></ion-icon>
-        </button>
+        <button @click="$router.go(-1)">
+            <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-left: 3%;top: 32%;position: absolute;">
+              <path d="M27 16H5" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M14 7L5 16L14 25" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
           
-          <p style="color: #000">
+          <p style="color: #000" class="title">
             Publicar un producto
           </p>
-          <p>
+          <p class="sub-title"  style="margin-top: -3%;">
             Detalles del producto
           </p>
       </ion-col>
@@ -23,14 +26,10 @@
             <div class="container">
               <label class="label-input">Seleccione una categoria</label>
               <div  class="input-container">
-                <ion-select  :interface-options="customActionSheetOptions" interface="action-sheet"  class="input-text" style="color: #32BAB0;" >
-                <ion-select-option value="Hogar">Hogar</ion-select-option>
-                <ion-select-option value="Técnología">Técnología</ion-select-option>
-                <ion-select-option value="Calzado">Calzado</ion-select-option>
-                <ion-select-option value="Accesorios">Accesorios</ion-select-option>
-                <ion-select-option value="Deportes">Deportes</ion-select-option>
-                <ion-select-option value="Videojuegos">Videojuegos</ion-select-option>
-              </ion-select>
+                 <input type="text" style="font-size: 18px; font-family: Montserrat;font-style: normal;font-weight: normal;font-size: 16px;line-height: 20px;" v-model="category" class="input-text" readonly="" @click="setOpen(true, $event)">
+                <svg width="22" height="12" viewBox="0 0 22 12" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-right: 4%;" @click="setOpen(true, $event)">
+                 <path d="M21 1L11 11L1 1" stroke="#5B716F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
               </div>
             </div>
           </ion-col>
@@ -48,26 +47,31 @@
           </ion-col>
         </ion-row>
    
+            <ion-row class="container" style="border-radius: 10px" >
+              <div class="input-container" style="height: 55px; width: 97%;margin-left: 1.5%;">
+              
+                    <img src="/assets/Bitmap.png" class="select-country">
+                    <ion-select id="ionSelectCountry" :interface-options="customActionSheetOptions" interface="action-sheet" style="background: #32BAB0;border-radius: 10px;color: #32BAB0;font-family: Montserrat;width: 83px;height: 100%;"  ok-text="Seleccionar" cancel-text="Cerrar" @ionChange="getCountry($event)">
+                    <ion-select-option value="Peru">Peru</ion-select-option>
+                  </ion-select>
+       
+                <ion-col size="8">
+                  <div style="margin-left: -13%;">
+                    <div   >
+                      <input type="text" style="font-size: 18px; font-family: Montserrat;font-style: normal;font-weight: normal;font-size: 16px;line-height: 20px;" v-model="country" class="input-text">
+                    </div>
+                  </div>
+                </ion-col>
+              </div>  
+            </ion-row>
         <ion-row>
           <ion-col col-12>
             <div class="container">
-              <label class="label-input">Selecciona tu pais</label>
               <div  class="input-container">
-                <ion-select  :interface-options="customActionSheetOptions" interface="action-sheet"  class="input-text" style="color: #32BAB0;" >
-                <ion-select-option value="Peru">Peru</ion-select-option>
-              </ion-select>
-              </div>
-            </div>
-          </ion-col>
-        </ion-row> 
-
-        <ion-row>
-          <ion-col col-12>
-            <div class="container">
-              <label class="label-input">Selecciona tu Provincia</label>
-              <div  class="input-container">
-                <ion-select  :interface-options="customActionSheetOptions" interface="action-sheet"  class="input-text" style="color: #32BAB0;" >
-                <ion-select-option value="Peru">Peru</ion-select-option>
+                 <input type="text" style="font-size: 18px; font-family: Montserrat;font-style: normal;font-weight: normal;font-size: 16px;line-height: 20px;" v-model="city" class="input-text" >
+                <ion-select  :interface-options="customActionSheetOptions" interface="action-sheet" v-model="select_city" style="color: #32BAB0;width: 20%;"  @ionChange="getCity($event)" >
+                <ion-select-option value="Roterdam">Roterdam</ion-select-option>
+                <ion-select-option value="Rote">Rote</ion-select-option>
               </ion-select>
               </div>
             </div>
@@ -91,7 +95,7 @@
         <br>
         <br>
         <center>
-          <button type="button" class="btn-primary" @click="redirect()" style="width: 300px">
+          <button type="button" class="btn-primary" @click="redirect()" style="width: 124px;">
             Publicar
           </button>
          </center>     
@@ -100,15 +104,32 @@
         <ion-infinite-scroll-content loading-spinner="bubbles" loading-text="Loading more data...">
         </ion-infinite-scroll-content>
       </ion-infinite-scroll>
-    </ion-content>    
+    </ion-content>   
+ <ion-popover
+    :is-open="isOpenRef"
+    css-class="my-class"
+    :event="event"
+    :translucent="true"
+    :showBackdrop="false"
+    :keyboardClose="true"
+    :backdropDismiss="false"
+    @ionPopoverWillDismiss="setOpen(false)"
+    @ionPopoverDidDismiss="setOpen(false)"
+    >
+    <PopoverSelectCategory  @category="category_($event)"></PopoverSelectCategory> 
+  
+  </ion-popover>
+  
   </ion-page>  
 </template>
 
 
-<script lang="ts">
+<script>
 
 import { repeat,arrowBack,camera } from 'ionicons/icons';
 import ModalDetail from '@/views/products/ModalDetail'
+import PopoverSelectCategory from './PopoverSelectCategory'
+
 import { 
 
   IonContent, 
@@ -116,7 +137,8 @@ import {
   IonInfiniteScrollContent,
   modalController,
   IonList,
-  IonPage
+  IonPage,
+  IonPopover 
  } from '@ionic/vue';
 
 import { Plugins, CameraResultType, CameraSource } from '@capacitor/core';
@@ -131,8 +153,10 @@ export default defineComponent({
     IonContent, 
     IonInfiniteScroll, 
     IonInfiniteScrollContent,
+    PopoverSelectCategory,
     IonList,
-    IonPage
+    IonPage,
+    IonPopover 
   },
   setup() {
     const isDisabled = ref(false);
@@ -164,6 +188,16 @@ export default defineComponent({
 
     pushData();
 
+
+    const isOpenRef = ref(false);
+    const event_ref = ref();
+    const setOpen = (state,event = null) => {
+     
+      event_ref.value = event; 
+      isOpenRef.value = state;
+      
+    }
+
     return {
       isDisabled,
       toggleInfiniteScroll,
@@ -171,12 +205,46 @@ export default defineComponent({
       items,
       repeat,
       arrowBack,
-      camera
+      camera,
+      isOpenRef, 
+      setOpen, 
+      event
     }
+  },
+  data(){
+    return{
+      country : null,
+      city :'Roterdam',
+      category :null
+    }
+  },
+  mounted(){
+    let svg = '<svg width="12" height="7" viewBox="0 0 12 7" fill="none" xmlns="http://www.w3.org/2000/svg">'+
+                '<path d="M11 1L6 6L1 1" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>'+
+              '</svg>'
+
+
+    document.querySelector('#ionSelectCountry').shadowRoot.innerHTML = svg 
+  
+
+   
+
   },
   methods:{
     redirect() {
-      this.$router.push({path: '/create/product'});
+      this.$router.push({path: '/principal'});
+    },
+    getCountry(ev){
+      this.country = ev.target.value;
+    },
+    getCity(ev){
+      console.log(ev)
+      this.city = ev.target.value;
+    },
+    category_(category){
+      console.log(category)
+      this.category = category.category;
+      this.setOpen(false)
     },
     async openModal() {
       const modal = await modalController
@@ -249,5 +317,97 @@ input[type="file"] {
   display: none;
 }
 </style>
+
+
+<style scoped="">
+
+ion-select::part(text) {
+  display: none;
+    padding: 5px 12px;
+    background: #32BAB0;
+    border: 1px solid #32BAB0;
+    box-sizing: border-box;
+    border-radius: 10px;
+    color: #fff;
+    font-family: Montserrat;
+    margin-left: 50%
+}
+
+ion-select::part(icon) {
+   display: none;
+}
+.ion-select2 {
+    color: #32BAB0;
+    opacity: 1;
+
+    left: 65%;
+    position: absolute;
+}
+
+
+
+.container1{
+
+   background-color: #F3F3F3;
+    padding-top: 8px;
+    position: relative;
+    border-radius: 8px;
+
+}
+
+.input-text1{
+  background-color: transparent;
+    color: rgb(60, 74, 91);
+
+    font-size: 14px;
+    letter-spacing: 0.4px;
+    line-height: 3px;
+    border: 0px;
+    border-radius: 8px;
+    box-sizing: border-box;
+    margin: 0px;
+    padding: 12px 14px;
+    transition: background-color 0.3s ease-in-out 0s;
+    width: 100%;
+
+/* identical to box height */
+
+
+
+}
+
+.input-container1{
+      border-color: rgb(188, 202, 216);
+    border-radius: 8px;
+    border-style: solid;
+    border-width: 2px;
+    -webkit-box-align: center;
+    align-items: center;
+    display: flex;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    position: relative;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease-in-out 0s;
+    border: 0px solid rgba(91, 113, 111, 0.8);
+}
+
+
+.input-container1:hover{
+  border-color: rgb(1 4 8);
+}
+
+.select-country{
+  z-index: 1000;position: absolute;top: 36%; left: 15px;
+
+
+}
+
+ion-alert{
+  display: none;
+}
+
+</style>
+
 
 

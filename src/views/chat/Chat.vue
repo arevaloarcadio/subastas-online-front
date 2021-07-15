@@ -2,38 +2,42 @@
 <ion-page>
    <ion-row>
       <ion-col>
-        <button @click="redirect('/principal')" >
-          <ion-icon :icon="arrowBack" style="margin-left: 5%;top: 52%;position: absolute;" ></ion-icon>
-        </button>
-        <p style="color: #000">
+        <button @click="$router.go(-1)">
+            <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-left: 3%;top: 43%;position: absolute;">
+              <path d="M27 16H5" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M14 7L5 16L14 25" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+        
+        <p style="color: #000" class="title">
           Chat
         </p>
       </ion-col>
     </ion-row>
     <ion-content>
-      <ion-list>
+   
         <br>
         <p v-if="messages.length == 0">
          Cuando alguien inicie negociación por tu producto o tu inicies negociación se habilitará el chat
         </p>
         <template v-else>
-          <ion-card v-for="message in messages" :key="message"  @click="redirect({name : 'request.chat' , params : { productId : message.productId }})">
-            <ion-row>
+          <ion-card style="box-shadow: inherit;width: 100%;left: -3%;height: 99px" v-for="(message,key) in messages" :key="message"  @click="redirect({name : 'request.chat' , params : { productId : message.productId }})">
+            <ion-row :class="{'col'  : key%2 == 0}">
               <ion-col>
-                <img style="border-radius: 15px 15px 15px 15px;" :src="message.photo" >
+                <img style="border-radius: 15px 15px 15px 15px;margin-left: 2%;" :src="message.photo" >
               </ion-col>
 
               <ion-col class="col-chat">
-                <p class="p-no-center" style="color: #000;font-family: Montserrat;">{{message.product}} 
-                <img v-show="message.active" style="border-radius: 15px 15px 15px 15px;" src="/assets/active.png" > </p>
-             
-                <small style="font-size: 13px">{{message.last_message}}</small>
+                <p class="p-no-center" style="color: #000;font-family: Montserrat;font-weight: 500;font-size: 16px;margin-left: 8%;margin-top: 11%;line-height: 1.5;width: 205px;">{{message.product}} 
+                <img v-show="message.active" style="border-radius: 15px 15px 15px 15px;margin-left: 2%;" src="/assets/active.png" >
+                <br><span style="font-size: 16px;font-weight: 400;">{{message.last_message}}</span></p>
               </ion-col>
+              <span style="font-weight: 300;margin-top: 62px;margin-right: 25px;">7 min</span>
             </ion-row>
             
           </ion-card>
         </template>
-      </ion-list>
+  
       <ion-infinite-scroll @ionInfinite="loadData($event)" threshold="100px"  id="infinite-scroll" :disabled="isDisabled">
         <ion-infinite-scroll-content loading-spinner="bubbles" loading-text="Loading more data...">
         </ion-infinite-scroll-content>
@@ -53,7 +57,7 @@ import {
   IonInfiniteScroll, 
   IonInfiniteScrollContent,
   modalController,
-  IonList,
+
   IonPage
  } from '@ionic/vue';
 
@@ -69,7 +73,7 @@ export default defineComponent({
     IonContent, 
     IonInfiniteScroll, 
     IonInfiniteScrollContent,
-    IonList,
+   
     IonPage
   },
   setup() {
@@ -127,7 +131,7 @@ export default defineComponent({
         {
           productId : 2,
           photo : '/assets/Guitar.png',
-          product : 'Camisa',
+          product : 'Guitarra C-30',
           last_message : 'Me gustaria intercambiar mi camisa...',
           date_last_message : '7 min', 
           active : false
@@ -218,6 +222,10 @@ input[type="file"] {
      .col-chat{
     margin-left: -36%;margin-top:-6%
     }
+  }
+
+  .col{
+    background: rgba(233, 235, 235, 0.5);
   }
 </style>
 

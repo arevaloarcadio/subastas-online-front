@@ -1,72 +1,62 @@
 <template>
 
-     <ion-content class="ion-padding"> 
-  <p  style="font-weight: 500;color: #001D1B" > 
+     <ion-content class="ion-padding">
+       <br> 
+  <p class="p-no-center"  style="margin-top: 8%;font-weight: 500;font-size: 20px;line-height: 24px;color: #001D1B;" > 
     Selecciona al menos 3 categorias de productos
   </p>
   <br>
-  <br>
 
-    <a class="text-control" style="float: right;cursor: pointer;"  @click="redirect()"> Siguiente</a>
-    <br>
-    <br>
-    <center>
-      <button type="button" :class="{'category-large' : true,'btn-category-active':category.Belleza,'btn-category':!category.Belleza}"  @click="select_category('Belleza')" style="line-height: 250%;">
+    <a class="text-control" style="float: right;cursor: pointer;font-weight: 600"  @click="redirect()"> Siguiente</a>
+  <div te style="left:1%;top:1%;position: absolute;">
+      <button type="button" :class="{'category-large' : true,'btn-category-active':category.Belleza,'btn-category':!category.Belleza}"  @click="select_category('Belleza')" :style="styles.belleza">
         Belleza
       </button>
-    </center>
-    <ion-grid>
-      <ion-row>
-        <ion-col>
-           <button type="button"  :class="{'category-large' : true,'btn-category-active':category.Deco,'btn-category':!category.Deco}"   @click="select_category('Deco')" >
+  
+    
+           <button type="button"  :class="{'category-large' : true,'btn-category-active':category.Deco,'btn-category':!category.Deco}"   @click="select_category('Deco')" 
+           :style="styles.deco" >
             Deco
           </button>
-        </ion-col>
-        <ion-col >
-           <button type="button" :class="{'category-large' : true,'btn-category-active':category.Tecnologia,'btn-category':!category.Tecnologia}"  @click="select_category('Tecnologia')" >
+     
+           <button type="button" :class="{'category-large' : true,'btn-category-active':category.Tecnologia,'btn-category':!category.Tecnologia}"  @click="select_category('Tecnologia')"  :style="styles.tecnologia">
             Tecnologia
           </button>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
-    <center>
-      <button type="button"  :class="{'category-large' : true,'btn-category-active':category.Accesorios,'btn-category':!category.Accesorios}"   @click="select_category('Accesorios')" >
-        Accesorios
-      </button>
-    </center>
-     <ion-grid>
-      <ion-row>
-        <ion-col>
-           <button type="button" :class="{'category-large' : true,'btn-category-active':category.Calzado,'btn-category':!category.Calzado}"  @click="select_category('Calzado')">
+       
+  
+          <button type="button"  :class="{'category-large' : true,'btn-category-active':category.Accesorios,'btn-category':!category.Accesorios}"   @click="select_category('Accesorios')" :style="styles.accesorios">
+            Accesorios
+          </button>
+ 
+    
+           <button type="button" :class="{'category-large' : true,'btn-category-active':category.Calzado,'btn-category':!category.Calzado}"  @click="select_category('Calzado')" :style="styles.calzado">
             Calzado
           </button>
-        </ion-col>
-        <ion-col >
-           <button type="button"  :class="{'category-large' : true,'btn-category-active':category.Deportes,'btn-category':!category.Deportes}"  @click="select_category('Deportes')"  >
+        
+           <button type="button"  :class="{'category-large' : true,'btn-category-active':category.Deportes,'btn-category':!category.Deportes}"  @click="select_category('Deportes')"  :style="styles.deportes">
             Deportes
           </button>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
-    <center>
-      <button type="button" :class="{'category-large' : true,'btn-category-active':category.Videojuegos,'btn-category':!category.Videojuegos}"  @click="select_category('Videojuegos')" >
+  
+   
+      <button type="button" :class="{'category-large' : true,'btn-category-active':category.Videojuegos,'btn-category':!category.Videojuegos}"  @click="select_category('Videojuegos')" :style="styles.videojuegos" >
          Videojuegos
       </button>
-    </center>
-    <p>
-    <center>Omitir</center>
-    </p>
+ </div>
+  <div align="center" style="margin-top:177%">
+   Omitir
+  </div>
   </ion-content>
-
+   
+ 
 </template>
 
 <script>
-import { loadingController,toastController,IonRow,IonGrid,IonCol  } from '@ionic/vue';
+import { loadingController,toastController  } from '@ionic/vue';
 import { defineComponent } from 'vue';
 import axios from 'axios';
 
 export default defineComponent({
-  components: {IonRow,IonGrid,IonCol},
+  //components: {IonRow,IonGrid,IonCol},
   name: "Register",
   data() {
     return {
@@ -84,11 +74,81 @@ export default defineComponent({
         Calzado :false,
         Deportes :false,
         Videojuegos :false
-      }
+      },
+      styles : {
+        belleza : {
+          'position': 'absolute',
+          'width': '339px',
+          'height': '94px',
+          'left': '16px',
+          'top': '193px'
+        },
+        deco : {
+          'position': 'absolute',
+          'width': '167px',
+          'height': '94px',
+          'left': '16px',
+          'top': '298px'
+        },
+        tecnologia : {
+          'position': 'absolute',
+          'width': '167px',
+          'height': '202px',
+          'left': '194px',
+          'top': '298px'
+        },
+        accesorios : {
+          'position': 'absolute',
+          'width': '167px',
+          'height': '94px',
+          'left': '16px',
+          'top': '406px'
+        },
+        calzado : {
+          'position': 'absolute',
+          'width': '167px',
+          'height': '94px',
+          'left': '194px',
+          'top': '511px'
+        },
+        deportes : {
+          'position': 'absolute',
+          'width': '167px',
+          'height': '94px',
+          'left': '194px',
+          'top': '615px'
+        },
+        videojuegos : {
+          'position': 'absolute',
+          'width': '167px',
+          'height': '198px',
+          'left': '16px',
+          'top': '511px'
+        }
+      },
     };
+  },
+  created(){
+
   },
   mounted(){
     this.type = this.$route.query.type;
+    const width = window.screen.width;
+    const styles = this.styles;
+
+    styles.belleza['width'] =  width * 0.92 +'px'
+    styles.deco['width'] =  width * 0.4453 +'px'
+    styles.tecnologia['width'] =  width * 0.4453 +'px'
+    
+    styles.accesorios['width'] =   width * 0.4453 +'px'
+    styles.deportes['width'] =  width * 0.4453 +'px'
+    styles.calzado['width'] =  width * 0.4453 +'px'
+    styles.videojuegos['width'] = width * 0.4453 +'px'
+
+    styles.tecnologia['left'] =   width * 0.5173 +'px'
+    styles.deportes['left'] =  width * 0.5173 +'px'
+    styles.calzado['left'] =  width * 0.5173 +'px'
+
   },
   methods: {
     select_category(category){
@@ -185,9 +245,10 @@ export default defineComponent({
 
 .category-large {
    margin: 2% !important;
-   width: 94% !important;
-   margin-left:-1% !important;
+   margin-left:-1%;
 }
+
+
 </style>
 
 

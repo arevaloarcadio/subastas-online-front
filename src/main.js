@@ -26,6 +26,7 @@ import '@ionic/vue/css/display.css';
 import './theme/vue-multiselect.min.css';
 
 
+import './theme/flexboxgrid.css';
 /* Theme variables */
 
 import './theme/core.css';

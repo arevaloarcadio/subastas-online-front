@@ -1,41 +1,54 @@
 <template>
 <ion-page>
-   <ion-row>
-      <ion-col>
-        <button @click="redirect('/principal')" >
-          <ion-icon :icon="arrowBack" style="margin-left: 5%;top: 52%;position: absolute;" ></ion-icon>
-        </button>
-          <p style="color: #000">
-           Publicaciones guardadas
-          </p>
-      </ion-col>
-    </ion-row>
-    
-    <ion-content>
-      <ion-list>
-        <ion-row>
-             <ion-col v-for="n in 2" :key="n"  size="6" size-sm >
-                <ion-card>
-                  <div align="center" class="badge-2">   <ion-icon :icon="repeat"></ion-icon>10</div>
-                  <ion-img src="https://ionicframework.com/docs/demos/api/card/madison.jpg"></ion-img>
+  
+  <p style="color: #000" class="title">
+   Publicaciones guardadas
+  </p>
+    <ion-content >
+     <ion-row style="position: absolute;margin-top: 8%;">
+       <ion-col v-for="n in 2" :key="n"  size="6"  >
+        <ion-card class="cursor" @click="redirect_details(n)" style="width: 98%;left: -3%;">
+          <div align="center" class="badge-2"  v-if="n%2!=0" style="left: 63%;"> 
+            <span style="position: absolute;left: 15%;top: 20%;">
+            10
+            </span>
+            <svg  style="position: absolute;top: 15%;" width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M16.5 12.375L19.25 15.125L16.5 17.875" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M2.75 15.125H19.25" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M5.5 9.625L2.75 6.875L5.5 4.125" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M19.25 6.875H2.75" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
 
-                  <ion-card-header>
-                  <img style="float: right;" src="/assets/Tag-Green-2.png">
-                  <ion-card-subtitle  style="color: #000">
-                    <ion-row> 
-                      Nombre {{n}}
-                    </ion-row>  
-                  </ion-card-subtitle>
-                
-                  </ion-card-header>
+          </div>
+           <img src="https://ionicframework.com/docs/demos/api/card/madison.jpg" style="width: auto;height: 143px;border-radius: 0px 10px 0px 0px;width: 100%;">
 
-                  <ion-card-content>  Ubicación
-                </ion-card-content>
+            <ion-card-header>
 
-              </ion-card>
+         <ion-card-subtitle  style="color: #000">
+            <ion-row style="margin-top: -14px;">
+              <ion-col>
+            <b  style="font-family: Montserrat;font-style: normal;font-weight: bold;font-size: 16px;line-height: 20px;align-items: center;letter-spacing: 0.75px;color: #001D1B;margin-top: -15px;margin-left: -4px;"> 
+              Nombre {{n}}
+            </b>
             </ion-col>
-          </ion-row>
-      </ion-list>
+            <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" style="position: absolute;left: 87%;">
+            <rect width="32" height="32" fill="white"/>
+            <path d="M25 28L15.9991 23L7 28V5C7 4.73478 7.10536 4.48043 7.29289 4.29289C7.48043 4.10536 7.73478 4 8 4H24C24.2652 4 24.5196 4.10536 24.7071 4.29289C24.8946 4.48043 25 4.73478 25 5V28Z" fill="#32BAB0" stroke="#32BAB0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+
+            </ion-row>  
+          </ion-card-subtitle>
+        
+          </ion-card-header>
+
+          <ion-card-content style="margin-top:-15px">Ubicación
+        </ion-card-content>
+        <br>
+      </ion-card>
+    </ion-col>
+  </ion-row>
+       
+
       <ion-infinite-scroll @ionInfinite="loadData($event)" threshold="100px"  id="infinite-scroll" :disabled="isDisabled">
         <ion-infinite-scroll-content loading-spinner="bubbles" loading-text="Loading more data...">
         </ion-infinite-scroll-content>
@@ -45,7 +58,7 @@
 </template>
 
 
-<script lang="ts">
+<script >
 
 import { repeat,arrowBack,camera } from 'ionicons/icons';
 import ModalDetail from '@/views/products/ModalDetail'
@@ -55,7 +68,7 @@ import {
   IonInfiniteScroll, 
   IonInfiniteScrollContent,
   modalController,
-  IonList,
+ 
   IonPage
  } from '@ionic/vue';
 
@@ -71,7 +84,7 @@ export default defineComponent({
     IonContent, 
     IonInfiniteScroll, 
     IonInfiniteScrollContent,
-    IonList,
+
     IonPage
   },
   setup() {

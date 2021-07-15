@@ -2,35 +2,46 @@
   <ion-page>
     <ion-row>
        <ion-col>
-        <button @click="$router.push({name : 'profile'})" >
+
+        <button @click="$router.go(-1)">
+            <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-left: 3%;top: 43%;position: absolute;">
+              <path d="M27 16H5" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M14 7L5 16L14 25" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
           
-          <ion-icon :icon="arrowBack" style="margin-left: 5%;top: 52%;position: absolute;" ></ion-icon>
-        </button>
-          
-          <p  style="color: #000">
+          <p  style="color: #000" class="title">
             Mis Productos
           </p>
       </ion-col>
     </ion-row>
      <ion-content>
-      <ion-list>
+    
         <ion-row>
-             <ion-col v-for="n in 3" :key="n"  size="6" size-sm >
-                <ion-card>
-                  <div align="center" class="badge-3"  @click="openPopover" ><img src="/assets/more_vertical.png" > </div>
-                  <ion-img src="https://ionicframework.com/docs/demos/api/card/madison.jpg"></ion-img>
+             <ion-col v-for="n in 3" :key="n"  size="6"  >
+                <ion-card style="width: 167px">
+                  <div align="center" class="badge-3"  @click="openPopover" ><svg width="7" height="28" viewBox="0 0 7 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M3.5 7C5.425 7 7 5.425 7 3.5C7 1.575 5.425 0 3.5 0C1.575 0 0 1.575 0 3.5C0 5.425 1.575 7 3.5 7Z" fill="#32BAB0"/>
+                    <path d="M3.5 10.5C1.575 10.5 0 12.075 0 14C0 15.925 1.575 17.5 3.5 17.5C5.425 17.5 7 15.925 7 14C7 12.075 5.425 10.5 3.5 10.5Z" fill="#32BAB0"/>
+                    <path d="M0 24.5C0 22.575 1.575 21 3.5 21C5.425 21 7 22.575 7 24.5C7 26.425 5.425 28 3.5 28C1.575 28 0 26.425 0 24.5Z" fill="#32BAB0"/>
+                    </svg>
+                     </div>
+                  
+                  <img src="https://ionicframework.com/docs/demos/api/card/madison.jpg" style="width: auto;height: 143px;">
 
-                  <ion-card-header>
-                 
-                  <ion-card-subtitle  style="color: #000">
-                    <ion-row> 
+                   <ion-card-header>
+
+                 <ion-card-subtitle  style="color: #000">
+                    <ion-row>
+                    <b  style="font-family: Montserrat;font-style: normal;font-weight: bold;font-size: 16px;line-height: 20px;align-items: center;letter-spacing: 0.75px;color: #001D1B;margin-top: -10%;"> 
                       Nombre {{n}}
+                    </b>
                     </ion-row>  
                   </ion-card-subtitle>
                 
                   </ion-card-header>
 
-                  <ion-card-content>  Ubicación
+                  <ion-card-content style="margin-top: -8%;">Ubicación
                 </ion-card-content>
 
               </ion-card>
@@ -38,37 +49,56 @@
    
             <ion-col  size="6" size-sm >
               <ion-card class="card">
-
+                 <p class="text-add">Agregar</p>
                 <div style="margin-top: 15%">
+
                  <center>
-                    Agregar
-                  <button class="button-add-2"><img class="img-add-2" src="/assets/FAB.png">
+                
+                  <button class="button-add-2">
+
+                      <svg  style="margin-top: 33px;" width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <g filter="url(#filter0_d)">
+                        <rect x="24" y="8" width="32" height="32" rx="16" fill="#32BAB0"/>
+                        </g>
+                        <g clip-path="url(#clip0)">
+                        <path d="M46.5714 24.5713H40.5714V30.5713H38.5714V24.5713H32.5714V22.5713H38.5714V16.5713H40.5714V22.5713H46.5714V24.5713Z" fill="white"/>
+                        </g>
+                        <defs>
+                        <filter id="filter0_d" x="0" y="0" width="80" height="80" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+                        <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+                        <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"/>
+                        <feOffset dy="16"/>
+                        <feGaussianBlur stdDeviation="12"/>
+                        <feColorMatrix type="matrix" values="0 0 0 0 0.211765 0 0 0 0 0.482353 0 0 0 0 0.960784 0 0 0 0.2 0"/>
+                        <feBlend mode="multiply" in2="BackgroundImageFix" result="effect1_dropShadow"/>
+                        <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow" result="shape"/>
+                        </filter>
+                        <clipPath id="clip0">
+                        <rect width="22.8571" height="22.8571" fill="white" transform="translate(28.5714 12.5713)"/>
+                        </clipPath>
+                        </defs>
+                        </svg>
                   </button>
                 </center>
                 </div>
               </ion-card>
             </ion-col>
           </ion-row>
-      </ion-list>
-      <ion-infinite-scroll @ionInfinite="loadData($event)" threshold="100px"  id="infinite-scroll" :disabled="isDisabled">
-        <ion-infinite-scroll-content loading-spinner="bubbles" loading-text="Loading more data...">
-        </ion-infinite-scroll-content>
-      </ion-infinite-scroll>
+    
     </ion-content> 
   </ion-page>
 </template>
 
-<script lang="ts">
+<script>
 
 import { repeat,arrowBack } from 'ionicons/icons';
 import ModalDetail from '@/views/products/ModalDetail'
 import PopoverProduct from './PopoverProduct.vue'
 import { 
   IonContent, 
-  IonInfiniteScroll, 
-  IonInfiniteScrollContent,
+ 
   modalController,
-  IonList,
+
   IonPage,
   popoverController
  } from '@ionic/vue';
@@ -79,9 +109,7 @@ export default defineComponent({
   components: {
  
     IonContent, 
-    IonInfiniteScroll, 
-    IonInfiniteScrollContent,
-    IonList,
+  
     IonPage
   },
   setup() {
@@ -190,5 +218,12 @@ export default defineComponent({
     .card{
       height: 94%;
     }
+  }
+
+  .text-add{
+        top: 13%;
+        left: 53px;
+    position: absolute;
+    font-family: Montserrat;font-style: normal;font-weight: normal;font-size: 16px;line-height: 20px;align-items: center;letter-spacing: 0.75px;color: #5B716F;
   }
 </style>

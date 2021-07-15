@@ -3,34 +3,35 @@
 
     <div align="center" class="eclipse"> 
       <br>
-      <img src="/assets/logo-white.png">
+      <img src="/assets/logo-white.png" style="margin-top: 38px;">
     </div>
-     <p>
+     <p style="font-family: Montserrat;font-style: normal;font-weight: normal;font-size: 16px;line-height: 20px;text-align: center;">
       <center>
-       Regístrate o ingresa para comenzar
+       Regístrate o ingresa para  <br> comenzar
      </center>
      <br>
      <br>
-      <button type="button" class="btn-primary" @click="() => router.push('/select_type_register')">Registro</button>
+      <button type="button" class="btn-primary" @click="() => router.push('/select_type_register')" style="width: 170px">Registro</button>
      <br>
      <br>
-      <button type="button" class="btn-line"  @click="() => router.push('/login')">Iniciar Sesión</button>
+      <button type="button" class="btn-line"  @click="() => router.push('/login')"  style="width: 170px">Iniciar Sesión</button>
       <br>
      <br>
      <br>
      <ion-grid>
       <ion-row>
         <ion-col col-4>
-          <img src="/assets/icon-facebook.png" >
+          <img src="/assets/icon-facebook.png" style="margin-left: 62%;" >
 
         </ion-col>
         <p><b>o</b></p>
         <ion-col col-4>
-          <img src="/assets/icon-google.png" >
+          <img src="/assets/icon-google.png" style="margin-right: 62%;margin-top: 2%;">
         </ion-col>
       </ion-row>
     </ion-grid>
-      <a href="/login" class="text-control"> Continuar como invitado</a>
+    <br>
+      <a class="text-control" style="font-weight: 600;font-size: 16px;line-height: 20px;"> Continuar como invitado</a>
     </p>  
  </ion-page> 
 </template>

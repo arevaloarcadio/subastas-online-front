@@ -4,9 +4,10 @@
          <br>
          <br>
          <br>
-            <span class="text-control" style="margin-left: 13%;font-size: 24px;">Registro </span> 
+          <br>
+             <span class="text-control" style="margin-left: 4%;font-style: normal;font-weight: 600;font-size: 24px;line-height: 29px;">Registro </span> 
             <br>
-             <p style="margin-left: 13%;float: left;"> 
+             <p style="margin-left: 4%;margin-top: 1.5%; float: left;font-weight: 500;"> 
             Ubicación
             </p>
             <br>
@@ -18,15 +19,15 @@
 
                 <ion-row>
                   <ion-col size="4">
-                    <img src="/assets/Bitmap.png" style="z-index: 1000;z-index: 1000;position: absolute;top: 36%; left: 16%;">
-                    <ion-select  :interface-options="customActionSheetOptions" interface="action-sheet" style="background: #32BAB0;border-radius: 10px;color: #32BAB0;font-family: Montserrat;width: 110%;height: 100%;"  ok-text="Seleccionar" cancel-text="Cerrar" @ionChange="getCountry($event)">
+                    <img src="/assets/Bitmap.png" class="select-country">
+                    <ion-select id="ionSelectCountry" :interface-options="customActionSheetOptions" interface="action-sheet" style="background: #32BAB0;border-radius: 10px;color: #32BAB0;font-family: Montserrat;width: 81%;height: 100%;"  ok-text="Seleccionar" cancel-text="Cerrar" @ionChange="getCountry($event)">
                     <ion-select-option value="Peru">Peru</ion-select-option>
                   </ion-select>
                 </ion-col>
                 <ion-col size="8">
-                  <div class="container1">
-                    <div  class="input-container1">
-                      <input type="text" v-model="country" placeholder="Selecciona tu pais" class="input-text1">
+                  <div class="container1" style="margin-left: -13%;">
+                    <div  class="input-container1" >
+                      <input type="text" style="font-size: 18px;" v-model="country" placeholder="Selecciona tu pais" class="input-text1">
                     </div>
                   </div>
                 </ion-col>
@@ -39,10 +40,10 @@
                   <div class="container1">
                     <div  class="input-container1">
 
-                      <input type="text" v-model="city"  placeholder="Selecciona tu cuidad" class="input-text1">
-                        <ion-select ref="ionSelectCity" v-model="filter"   :interface-options="customActionSheetOptions"  @ionChange="getCity($event)" interface="action-sheet" v-show="true"  ok-text="Seleccionar" cancel-text="Cerrar" style="width: 50%;" >
-                    <ion-select-option value="Cuidad">Cuidad</ion-select-option>
-                  </ion-select>
+                      <input type="text"  style="font-size: 18px;" v-model="city"  placeholder="Selecciona tu cuidad" class="input-text1">
+                      <ion-select id="ionSelectCity" ref="ionSelectCity" v-model="filter"  :interface-options="customActionSheetOptions"  @ionChange="getCity($event)" interface="action-sheet" v-show="true"  ok-text="Seleccionar" cancel-text="Cerrar" style="width: 20%;" >
+                        <ion-select-option value="Cuidad">Cuidad</ion-select-option>
+                      </ion-select>
                     </div>
                   </div>
                 </ion-col>
@@ -52,23 +53,20 @@
             
             <br>
             <br>
-              <button type="button" class="btn-primary" @click="redirect()" style="width: 300px">
+              <button type="button" class="btn-primary" @click="redirect()" style="width: 138px">
                   Continuar
               </button>
-         <br>
-            <br>
-               ¿Tiene cuenta?
-               <br>
-               <a href="/login" class="text-control"> Iniciar Sesión</a>
+        
             </p>
       </ion-content>          
 
 </template>
 
-<script>
+<script >
 import { loadingController,toastController,IonRow,IonGrid,IonCol,IonSelect, IonSelectOption  } from '@ionic/vue';
 import { defineComponent } from 'vue';
-import axios from 'axios';
+import axios from 'axios'
+//import { injectStyles } from 'shadow-dom-inject-styles';
 
 export default defineComponent({
   components: { IonRow,IonGrid,IonCol,IonSelect, IonSelectOption},
@@ -87,6 +85,17 @@ export default defineComponent({
   },
   mounted(){
     this.type = this.$route.query.type;
+    
+    let svgCity = '<svg width="12" height="7" viewBox="0 0 12 7" fill="none" xmlns="http://www.w3.org/2000/svg">'+
+                '<path d="M11 1L6 6L1 1" stroke="#32BAB0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>'+
+              '</svg>'
+
+    let svgCountry = '<svg width="12" height="7" viewBox="0 0 12 7" fill="none" xmlns="http://www.w3.org/2000/svg">'+
+                '<path d="M11 1L6 6L1 1" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>'+
+              '</svg>'          
+    document.querySelector('#ionSelectCity').shadowRoot.innerHTML = svgCity 
+    document.querySelector('#ionSelectCountry').shadowRoot.innerHTML =  svgCountry 
+    
   },
   methods: {
     redirect(){
@@ -164,10 +173,13 @@ ion-select::part(text) {
 }
 
 ion-select::part(icon) {
-  color: #32BAB0;
-  opacity: 1;
+   display: none;
+}
+.ion-select2 {
+    color: #32BAB0;
+    opacity: 1;
 
-    left: 75%;
+    left: 65%;
     position: absolute;
 }
 
@@ -193,7 +205,7 @@ ion-select::part(icon) {
    background-color: #F3F3F3;
     padding-top: 8px;
     position: relative;
-
+    border-radius: 8px;
 
 }
 
@@ -232,6 +244,12 @@ ion-select::part(icon) {
 
 .input-container1:hover{
   border-color: rgb(1 4 8);
+}
+
+.select-country{
+  z-index: 1000;position: absolute;top: 36%; left: 16%;
+
+
 }
 
 

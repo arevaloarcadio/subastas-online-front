@@ -2,41 +2,46 @@
   <ion-page>
     <ion-row>
        <ion-col>
-        <button @click="$router.go(-1)" >
-          <ion-icon :icon="arrowBack" style="margin-left: 5%;top: 27%;position: absolute;" ></ion-icon>
-        </button>
-          <p style="color: #000">
+        <button @click="$router.go(-1)">
+            <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-left: 3%;top: 24%;position: absolute;">
+              <path d="M27 16H5" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M14 7L5 16L14 25" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+          <p style="color: #000" class="title">
             Enviar solicitud
           </p>
-            <p>
+            <p style="margin-top: 10%;">
           <span class="text-control" style="font-weight: 600;font-size: 22px;">
                 Usuario
               </span>
           </p>
-          <p>
+          <p style="font-weight: 500;font-size: 16px;line-height: 20px;align-items: center;text-align: center;letter-spacing: 0.75px;color: #5B716F;">
           Ha aceptado tu oferta
           </p>
          
       </ion-col>
     </ion-row>
     <ion-content class="ion-padding">
-      <ion-list>
+    
         <p>
-          <img  src="/assets/success.png">
+         <svg width="178" height="178" viewBox="0 0 178 178" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="89" cy="89" r="89" fill="#32BAB0"/>
+          <path d="M122.375 66.75L76.4844 116.813L55.625 94.0568" stroke="#FFF9F1" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+
           <br>
           <br>
-         Ahora puedes  usar el chat
+            <span style="font-weight: 500;font-size: 16px;line-height: 20px;align-items: center;text-align: center;letter-spacing: 0.75px;color: #5B716F;">
+           Ahora puedes  usar <br>el chat
+           </span>
           <br>
           <br>
-          <button type="button" class="btn-primary" @click="redirect({path : '/principal'})" style="width: 200px">
+          <button type="button" class="btn-primary" @click="redirect({path : '/principal'})" style="width: 137px;margin-top: 5%;">
               Abrir chat
           </button>
         </p>
-      </ion-list>
-      <ion-infinite-scroll @ionInfinite="loadData($event)" threshold="100px"  id="infinite-scroll" :disabled="isDisabled">
-        <ion-infinite-scroll-content loading-spinner="bubbles" loading-text="Loading more data...">
-        </ion-infinite-scroll-content>
-      </ion-infinite-scroll>
+    
     </ion-content>
   </ion-page>
 </template>
@@ -48,10 +53,9 @@ import ModalDetail from '@/views/products/ModalDetail'
 import { 
 
   IonContent, 
-  IonInfiniteScroll, 
-  IonInfiniteScrollContent,
+
   modalController,
-  IonList,
+
   IonPage
  } from '@ionic/vue';
 import { defineComponent, ref } from 'vue';
@@ -60,9 +64,7 @@ export default defineComponent({
   components: {
  
     IonContent, 
-    IonInfiniteScroll, 
-    IonInfiniteScrollContent,
-    IonList,
+  
     IonPage
   },
   setup() {

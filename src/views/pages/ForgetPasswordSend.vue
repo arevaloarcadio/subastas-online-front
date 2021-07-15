@@ -2,15 +2,17 @@
 
      <ion-content class="ion-padding"> 
 
-  <div align="center"> 
-    <br>
+  <div align="center" style="margin-top: 38%"> 
+   
+
     <img src="/assets/logo-success.png">
+    <br><br><br><br>
   </div>
-  <p>
+  <p style="font-family: Montserrat;font-style: normal;font-weight: 400;font-size: 16px;line-height: 22px;text-align: center;letter-spacing: -0.01em;color: #000000;">
  Recibirá un enlace para crear una nueva contraseña por correo electrónico.
    <br>  <br>
      <br>
-    <button type="button" class="btn-primary" @click="() => router.push('/login')"   style="width: 150px">
+    <button type="button" class="btn-primary" @click="() => router.push('/login')"   style="width: 140px">
        Regresar
     </button> 
    </p>

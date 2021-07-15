@@ -3,17 +3,17 @@
   <ion-content class="ion-padding">
  <br>
  <br>
- <br>
-   <span class="text-control" style="margin-left: 13%;font-size: 24px;">Registro </span> 
+ <br> <br> 
+   <span class="text-control" style="margin-left: 4%;font-style: normal;font-weight: 600;font-size: 24px;line-height: 29px;">Registro </span> 
     <br>
-     <p style="margin-left: 13%;float: left;"> 
+     <p style="margin-left: 4%;margin-top: 1.5%; float: left;font-weight: 500;"> 
     Crea tu cuenta
     </p>
     <br>
     <br>
     <br>
     <br>
-    <p> 
+   
     <ion-grid>
         <ion-row>
         <ion-col col-12>
@@ -68,19 +68,23 @@
           </ion-col>
       </ion-row>
     </ion-grid>
-  
-    <br>
-    <br>
-      <button type="button" class="btn-primary" @click="redirect()" style="width: 200px">
+     <p> 
+      <button type="button" class="btn-primary" @click="redirect()" style="width: 200px;margin-top: 1%">
       
           Registrarme
       </button>
       <br>
-      <br>
-      ¿Tienes una cuenta?
-       <br>
-       <a href="/login" class="text-control"> Inicia sesión aquí</a>
+      <br><br>
     </p>
+    <center>
+      <span style="color: #000 ;font-weight: 400;line-height: 40px;" >
+      ¿Tienes una cuenta?
+      </span>
+
+       <br>        
+       <a  @click="() => $router.push({path : '/login'})" class="text-control" style="font-weight: 600"> Inicia sesión aquí</a>
+       </center> 
+
     </ion-content>    
  
 </template>

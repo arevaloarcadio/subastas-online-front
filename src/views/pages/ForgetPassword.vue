@@ -6,7 +6,7 @@
     <br>
     <img src="/assets/logo-green.png">
   </div>
-  <p class="p-no-center" style="margin-left: 2%;font-family: Montserrat;font-style: normal;font-weight: normal;font-size: 24px;line-height: 36px;letter-spacing: -0.01em;color: #001211;">
+  <p class="p-no-center" style="font-family: Montserrat;font-style: normal;font-weight: normal;font-size: 24px;line-height: 36px;color: #001211;">
   Recuperación de contraseña
    </p>
 

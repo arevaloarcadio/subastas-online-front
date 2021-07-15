@@ -2,42 +2,43 @@
   <ion-page>
     <ion-row>
        <ion-col>
-        <button @click="$router.go(-1)" >
-          <ion-icon :icon="arrowBack" style="margin-left: 5%;top: 52%;position: absolute;" ></ion-icon>
-        </button>
-          <p style="color: #000">
+        <button @click="$router.go(-1)">
+            <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-left: 3%;top: 20%;position: absolute;">
+              <path d="M27 16H5" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M14 7L5 16L14 25" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+          <p style="color: #000" class="title">
             Enviar solicitud
           </p>
-          <p>
+          <br>
+          <p style="font-family: Montserrat;font-style: normal;font-weight: 500;font-size: 16px;line-height: 20px;color: #5B716F;">
           Hemos enviado tu oferta a
           </p>
            <p>
-          <span class="text-control" style="font-weight: 600;font-size: 22px;">
+          <span class="text-control" style="font-weight: 500;font-size: 20px;">
                 Usuario
               </span>
           </p>
       </ion-col>
     </ion-row>
     <ion-content class="ion-padding">
-      <ion-list>
-        <p>
-          <img  src="/assets/bi_clock.png">
+  
+        <p style="font-family: Montserrat;font-style: normal;font-weight: 500;font-size: 16px;line-height: 20px;align-items: center;text-align: center;letter-spacing: 0.75px;color: #5B716F;">
+          <img  src="/assets/bi_clock.png" style="margin-top: -5%;">
           <br>
           <br>
-          Te avisaremos cuando la
-          acepte y habilitaremos 
+
+          Te avisaremos cuando la <br>
+          acepte y habilitaremos  <br>
           el chat
           <br>
           <br>
-          <button type="button" class="btn-primary" @click="redirect({path : '/principal'})" style="width: 200px">
+          <button type="button" class="btn-primary" @click="redirect({path : '/principal'})" style="width: 200px;font-family: Montserrat;font-style: normal;font-weight: 500;font-size: 16px;line-height: 20px;color: #FFFFFF;">
               Regresar al home
           </button>
         </p>
-      </ion-list>
-      <ion-infinite-scroll @ionInfinite="loadData($event)" threshold="100px"  id="infinite-scroll" :disabled="isDisabled">
-        <ion-infinite-scroll-content loading-spinner="bubbles" loading-text="Loading more data...">
-        </ion-infinite-scroll-content>
-      </ion-infinite-scroll>
+     
     </ion-content>
   </ion-page>
 </template>
@@ -49,10 +50,8 @@ import ModalDetail from '@/views/products/ModalDetail'
 import { 
 
   IonContent, 
-  IonInfiniteScroll, 
-  IonInfiniteScrollContent,
+
   modalController,
-  IonList,
   IonPage
  } from '@ionic/vue';
 import { defineComponent, ref } from 'vue';
@@ -61,9 +60,7 @@ export default defineComponent({
   components: {
  
     IonContent, 
-    IonInfiniteScroll, 
-    IonInfiniteScrollContent,
-    IonList,
+  
     IonPage
   },
   setup() {

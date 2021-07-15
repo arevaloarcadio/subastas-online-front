@@ -2,72 +2,102 @@
 <ion-page>
    <ion-row>
        <ion-col>
-        <button @click="redirect('/principal')" >
-          <ion-icon :icon="arrowBack" style="margin-left: 5%;top: 24%;position: absolute;" ></ion-icon>
-        </button>
-          
-          <p style="color: #000">
+        <br>
+          <p style="color: #000" class="title">
            Mis intercambios
           </p>
           <p>
-            <button style="background: #fff"> <img src="/assets/see_products.png"></button>
+            <button style="background: #fff"> 
+              <SvgProducts></SvgProducts>  
+            </button>
           </p>
       </ion-col>
-
     </ion-row>
 
-    <ion-row>
+    <ion-row style="    margin-top: -25px;" >
       <ion-col size="8">
-        <div style="margin-left: 10%">
-        <small class="small-filters" v-for="filter in filters" :key="filter">{{filter}}<span style="color:  rgba(91, 113, 111, 0.6);" @click="removeFilter(filter)">x</span></small>&nbsp;&nbsp;
+        <div style="margin-left: 16px;width: 120%;">
+        <ion-row  style="margin-left: -20px;">
+          <span  v-for="filter in filters" :key="filter" class="small-filters" :style="styles[filter]"><span :style="styles[filter].span">{{filter}}</span><span style="color:  rgba(91, 113, 111, 0.6);" @click="removeFilter(filter)">
+            <svg v-if="filter != 'Por confirmar'" width="9" height="9" viewBox="0 0 9 9" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin: 9%;margin-left: 84%;">
+              <path d="M9 1.269L7.731 0L4.5 3.231L1.269 0L0 1.269L3.231 4.5L0 7.731L1.269 9L4.5 5.769L7.731 9L9 7.731L5.769 4.5L9 1.269Z" fill="#5B716F" fill-opacity="0.6" />
+            </svg>
+            <svg v-else width="9" height="9" viewBox="0 0 9 9" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-top: 7%;" >
+              <path d="M9 1.269L7.731 0L4.5 3.231L1.269 0L0 1.269L3.231 4.5L0 7.731L1.269 9L4.5 5.769L7.731 9L9 7.731L5.769 4.5L9 1.269Z" fill="#5B716F" fill-opacity="0.6" />
+            </svg>
+          </span></span>
+        </ion-row>
         </div>
       </ion-col>
       <ion-col size="4">
-        <ion-label style="color: #32BAB0;font-family: Montserrat; font-style: normal;color: #000" @click="() => $refs.ionSelectFilter.click()">Filtrar</ion-label>
+        <ion-label style="color: #32BAB0;font-style: normal;color: #000;margin-left: 50%;font-weight: 500"  @click="setOpen(true, $event)">Filtrar</ion-label>
       </ion-col>
     </ion-row>
     <ion-content>
-      <ion-list>
-        <ion-card style=" height: 20%;">
-          <ion-row>
+    
+        <ion-card style="height: 138px;width: 95%; background: #FFFFFF;box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.08);border-radius: 16px;">
+          <ion-row >
             <ion-col>
-              <img style="border-radius: 15px 30px 15px 15px;" src="https://ionicframework.com/docs/demos/api/card/madison.jpg" >
+              <img style="border-radius: 15px 30px 15px 15px;width: 177px;height: 209px;" src="https://ionicframework.com/docs/demos/api/card/madison.jpg" >
             </ion-col>
             <ion-col><br>
 
             <b style="color: #000;font-family: Montserrat;">Nombre de producto</b><br>
-            <small>Pais, Cuidad</small> <br>
-            <span class="text-control" style="position: absolute;top: 76%;">Enviada</span>
+              <p class="p-no-center" style="margin-top: 2%; font-family: Montserrat;font-style: normal;font-weight: normal;font-size: 14px;line-height: 17px;letter-spacing: 0.75px;color: #001D1B;">Pais, Cuidad </p> <br>
+            <span class="text-control" style="position: absolute;top: 50%;font-weight: 500">Enviada</span>
             </ion-col>
           </ion-row>
           
         </ion-card>
-        <ion-card style=" height: 25%;">
+        <ion-card style="height: 138px;width: 95%; background: #FFFFFF;box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.08);border-radius: 16px;">
           <ion-row>
             <ion-col>
-              <img style="border-radius: 15px 30px 15px 15px;" src="https://ionicframework.com/docs/demos/api/card/madison.jpg" >
+              <img style="border-radius: 15px 30px 15px 15px;width: 177px;height: 209px;" src="https://ionicframework.com/docs/demos/api/card/madison.jpg" >
             </ion-col>
             <ion-col><br>
 
             <b style="color: #000;font-family: Montserrat;">Nombre de producto</b><br>
-            <small>Pais, Cuidad</small> <br>
-            <span class="text-control" style="position: absolute;top: 76%;">Recibida</span>
+            <p class="p-no-center" style="margin-top: 2%; font-family: Montserrat;font-style: normal;font-weight: normal;font-size: 14px;line-height: 17px;letter-spacing: 0.75px;color: #001D1B;">Pais, Cuidad </p><br>
+            <span class="text-control"  style="position: absolute;top: 50%;font-weight: 500">Recibida</span>
             </ion-col>
           </ion-row>
           
         </ion-card>
-      </ion-list>
+          <ion-card style="height: 138px;width: 95%;box-shadow: inherit; background: #FFFFFF;box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.08);border-radius: 16px;">
+          <ion-row>
+            <ion-col>
+              <img style="border-radius: 15px 30px 15px 15px;width: 177px;height: 209px;" src="https://ionicframework.com/docs/demos/api/card/madison.jpg" >
+            </ion-col>
+            <ion-col><br>
+
+            <b style="color: #000;font-family: Montserrat;">Nombre de producto</b><br>
+              <p class="p-no-center" style="margin-top: 2%; font-size: 14px;line-height: 17px;letter-spacing: 0.75px;color: #001D1B;">Pais, Cuidad </p> <br>
+            <span class="text-control"  style="position: absolute;top: 50%;font-weight: 500">Por Confirmar</span>
+            </ion-col>
+          </ion-row>
+          
+        </ion-card>
+
+   
       <ion-infinite-scroll @ionInfinite="loadData($event)" threshold="100px"  id="infinite-scroll" :disabled="isDisabled">
         <ion-infinite-scroll-content loading-spinner="bubbles" loading-text="Loading more data...">
         </ion-infinite-scroll-content>
       </ion-infinite-scroll>
     </ion-content>    
-    <ion-select  ref="ionSelectFilter"   multiple="true" style="position: absolute;left: -15%;top: 164px;" v-show="false" @ionChange="filter_($event)" v-model="filter" ok-text="Seleccionar" cancel-text="Cerrar">
-            <ion-select-option value="Enviadas">Enviadas</ion-select-option>
-            <ion-select-option value="Recibidas">Recibidas</ion-select-option>
-            <ion-select-option value="Rechazados">Rechazados</ion-select-option>
-            <ion-select-option value="confirmar">Por confirmar</ion-select-option>
-          </ion-select>
+    <ion-popover
+    :is-open="isOpenRef"
+    css-class="my-custom-class"
+    :event="event"
+    :translucent="true"
+    :showBackdrop="false"
+    :keyboardClose="true"
+    :backdropDismiss="false"
+    @ionPopoverWillDismiss="setOpen(false)"
+    @ionPopoverDidDismiss="setOpen(false)"
+    >
+
+    <PopoverFilter  ref="PopoverFilter" @select="filter_($event)"></PopoverFilter>
+  </ion-popover>
   </ion-page>  
 </template>
 
@@ -82,28 +112,64 @@ import {
   IonInfiniteScroll, 
   IonInfiniteScrollContent,
   modalController,
-  IonList,
-  IonPage
+  popoverController,
+  IonPage,IonPopover 
  } from '@ionic/vue';
+import PopoverFilter from './PopoverFilter.vue'
 
 import { Plugins, CameraResultType, CameraSource } from '@capacitor/core';
 
 const { Camera } = Plugins;
 
 import { defineComponent, ref } from 'vue';
+import SvgProducts from './SvgProducts'
 
 export default defineComponent({
   components: {
- 
+    SvgProducts,
     IonContent, 
     IonInfiniteScroll, 
     IonInfiniteScrollContent,
-    IonList,
+  IonPopover ,
+  PopoverFilter,
     IonPage
   },
   data(){
     return{
-       filters : [] 
+       filters : [] ,
+       styles : {
+        'Enviadas' : {'width' : '97px', 
+          span :{
+            'position': 'absolute',
+            'margin': '4px',
+            'margin-left': '3%'
+          }
+        },
+        'Recibidas' : {'width' : '97px', 
+          span :{
+            'position': 'absolute',
+            'margin': '4px',
+            'margin-left': '3%'
+          }
+        },
+        'Rechazados' : {
+          'width' : '120px' , 
+          span :{
+            'position': 'absolute',
+            'margin': '4px',
+             'margin-left': '3%'
+          }
+        },
+        'Por confirmar' : {
+          'width' : '125px' , 
+          span : {    
+            'margin-left': '7%'
+            //'margin': '-6px',
+            //'margin-top': '1%',
+            //'margin-left': '1%'
+          }
+        },
+      }
     }
   },
   setup() {
@@ -136,6 +202,21 @@ export default defineComponent({
 
     pushData();
 
+    const isOpenRef = ref(false);
+    const event_ref = ref();
+    const setOpen = (state,event = null) => {
+     
+      event_ref.value = event; 
+      isOpenRef.value = state;
+      if(event !=null){
+         console.log(this.filters)
+        for(let filter in this.filters){
+
+          this.$refs.PopoverFilter.filters[filter] = true 
+        }
+      }
+    }
+    
     return {
       isDisabled,
       toggleInfiniteScroll,
@@ -143,19 +224,29 @@ export default defineComponent({
       items,
       repeat,
       arrowBack,
-      camera
+      camera,
+      isOpenRef, setOpen, event
     }
   },
   methods:{
-    filter_(ev){
-      this.filters = ev.target.value
+    filter_(filter){
+     let value =  filter.filter
+    var index = this.filters.indexOf(value);
+    if (index !== -1) {
+      this.filters.splice(index, 1);
+    }else{
+      this.filters.push(value)
+
+    }
+
+    this.setOpen(false)
       //this.$refs.ionSelectFilter.value = ''
     },
     removeFilter(filter){
       var index = this.filters.indexOf(filter);
       if (index !== -1) {
         this.filters.splice(index, 1);
-        this.$refs.ionSelectFilter.value = this.filters
+        
       }
     },
     redirect(path) {
@@ -171,6 +262,7 @@ export default defineComponent({
       return modal.present();
     },
     async takePhoto() {
+
       const photo = await Camera.getPhoto({
         resultType: CameraResultType.Uri,
         source: CameraSource.Camera,
@@ -179,6 +271,19 @@ export default defineComponent({
 
       this.takenImageUrl = photo.webPath;
     },
+    async openPopover(Event) {
+      const popover = await popoverController
+        .create({
+          component: PopoverFilter,
+          cssClass: 'my-custom-class',
+          event: Event,
+          translucent: true
+        })
+      await popover.present();
+
+      const { role } = await popover.onDidDismiss();
+      console.log('onDidDismiss resolved with role', role);
+    }
   }
 });
 
@@ -276,13 +381,29 @@ ion-select::part(icon) {
 
 
 .small-filters{
-  width: auto;
-   background: #FFFFFF;
-   border: 1px solid #32BAB0;
-   box-sizing: border-box;
-   border-radius: 8px;
-   margin-left: 1%;
+  background: #FFFFFF;
+  border: 1px solid #32BAB0;
+  box-sizing: border-box;
+  border-radius: 8px;
+  margin-left: 1%;
+  height: 27px;
+  font-weight: 400;
+  font-size: 14px;
+  margin-left: 4%;
 }
+
+
+
 </style>
 
 
+<style type="text/css">
+.my-custom-class .popover-content{
+  width: 160px !important;
+  left: 189.5px !important;
+  transform-origin: right top !important;
+  height: 150px !important;
+  border-radius: 15px !important;
+}
+
+</style>
