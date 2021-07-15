@@ -119,7 +119,7 @@
         @didDismiss="setOpen(false)"
         @ionModalWillDismiss="setOpen(false)"
       >
-    <ModalUpload @get="getPhoto($event)" ></ModalUpload>
+    <ModalUpload @get="getPhoto($event)" @close="setOpen(false)" ></ModalUpload>
   </ion-modal>
   </ion-page>  
 </template>

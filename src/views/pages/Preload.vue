@@ -2,7 +2,7 @@
   <ion-page>
       <ion-content class="ion-padding">
 <div v-if="preload" class="preload" align="center" >
-    <img src="/assets/logo-preload.png" :style="style.img">
+    <img src="/assets/logo-preload.svg" :style="style.img">
     <ion-grid>
       <ion-row>
         <ion-col col-6>
