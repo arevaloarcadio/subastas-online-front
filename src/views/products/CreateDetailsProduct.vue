@@ -98,7 +98,8 @@
           <button type="button" class="btn-primary" @click="redirect()" style="width: 124px;">
             Publicar
           </button>
-         </center>     
+         </center> 
+           <br><br><br><br>     
       </ion-list>
 
     </ion-content>   

@@ -103,7 +103,8 @@
               <path d="M0 9H12.17L6.58 14.59L8 16L16 8L8 0L6.59 1.41L12.17 7H0V9Z" fill="#E6EFFF"/>
             </svg>
           </button>
-         </center>     
+         </center>    
+         <br><br><br><br> 
       </ion-list>
  
     </ion-content>    

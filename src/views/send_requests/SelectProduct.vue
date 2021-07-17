@@ -48,7 +48,7 @@
         Enviar Mensaje
       </button>
     </p>
-
+  <br><br><br><br> 
   
     </ion-content>
   </ion-page>

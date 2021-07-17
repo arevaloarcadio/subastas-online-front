@@ -15,7 +15,7 @@
               </center>
           </ion-col>
           <ion-col col-2 class="cursor">
-             <img src="/assets/Tag.svg" style="margin-top: 5%;" @click="redirect('/saved_posts')">
+             <img src="/assets/tag.svg" style="margin-top: 5%;" @click="redirect('/saved_posts')">
              <center>
                 <div v-show="path == '/saved_posts'" style="background:#32BAB0;height: 13px; width: 50%;border-radius: 100px 100px 0 0 ;"></div>
               </center>
