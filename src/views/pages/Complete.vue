@@ -2,7 +2,7 @@
 
       <div  class="preload" align="center" >
 
-        <img src="/assets/logo-white.png" style="margin-top: 20%;width: 183.2px;height: 98.24px;">
+        <img src="/assets/logo-white.png" style="margin-top: 106px;width: 183.2px;height: 98.24px;">
         <br>
         <br>
         <br>
@@ -63,20 +63,20 @@ background: #32BAB0;
 
   @media (max-width: 1000px){
     .top{
-      margin-top:-30%;
+      margin-top:-116px;
     }
     .inter{
-      font-family: Montserrat;color: #fff;margin-top:-13%; 
+      font-family: Montserrat;color: #fff;margin-top:-35px; 
     }
   }
 
   @media (min-width: 1000px){
     .top{
-      margin-top:-5%; 
+      margin-top:-116px; 
     }
 
      .inter{
-      font-family: Montserrat;color: #fff;margin-top:-2%;
+      font-family: Montserrat;color: #fff;margin-top:-35px;
     }
   }
 </style>

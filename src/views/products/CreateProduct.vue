@@ -105,10 +105,7 @@
           </button>
          </center>     
       </ion-list>
-      <ion-infinite-scroll @ionInfinite="loadData($event)" threshold="100px"  id="infinite-scroll" :disabled="isDisabled">
-        <ion-infinite-scroll-content loading-spinner="bubbles" loading-text="Loading more data...">
-        </ion-infinite-scroll-content>
-      </ion-infinite-scroll>
+ 
     </ion-content>    
 
     <ion-modal
@@ -132,8 +129,7 @@ import ModalUpload from './ModalUpload'
 import { 
 
   IonContent, 
-  IonInfiniteScroll, 
-  IonInfiniteScrollContent,
+
   modalController,
   IonList,
   IonPage,
@@ -151,8 +147,7 @@ export default defineComponent({
   components: {
     ModalUpload,
     IonContent, 
-    IonInfiniteScroll, 
-    IonInfiniteScrollContent,
+
     IonList,
     IonPage,
     IonModal

@@ -19,9 +19,14 @@
     </ion-row>
    
     <ion-content>
-       <ion-card style="box-shadow: inherit;margin-top: 10%;width: 101%;margin-left: -1%">
+       <ion-card style="box-shadow: inherit;margin-top: 11%;width: 101%;margin-left: -1%">
       <img src="https://ionicframework.com/docs/demos/api/card/madison.jpg" class="img-left">
-      <img src="/assets/ArrowsLeftRight.png" class="img-center">
+       <svg width="49" height="49" viewBox="0 0 49 49" fill="none" xmlns="http://www.w3.org/2000/svg" class="img-center">
+      <path d="M36.75 27.5625L42.875 33.6875L36.75 39.8125" stroke="#5B716F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M6.125 33.6875H42.875" stroke="#5B716F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M12.25 21.4375L6.125 15.3125L12.25 9.1875" stroke="#5B716F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M42.875 15.3125H6.125" stroke="#5B716F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
       <img src="https://ionicframework.com/docs/demos/api/card/madison.jpg" class="img-right">
     </ion-card>
     <p>  
@@ -48,10 +53,6 @@
           </button>
        </p>
 
-      <ion-infinite-scroll @ionInfinite="loadData($event)" threshold="100px"  id="infinite-scroll" :disabled="isDisabled">
-        <ion-infinite-scroll-content loading-spinner="bubbles" loading-text="Loading more data...">
-        </ion-infinite-scroll-content>
-      </ion-infinite-scroll>
     </ion-content>
   </ion-page>
 </template>
@@ -63,8 +64,7 @@ import ModalDetail from '@/views/products/ModalDetail'
 import { 
 
   IonContent, 
-  IonInfiniteScroll, 
-  IonInfiniteScrollContent,
+
   modalController,
   IonPage
  } from '@ionic/vue';
@@ -74,8 +74,7 @@ export default defineComponent({
   components: {
  
     IonContent, 
-    IonInfiniteScroll, 
-    IonInfiniteScrollContent,
+ 
 
     IonPage
   },
@@ -138,7 +137,7 @@ export default defineComponent({
 <style type="text/css">
  .img-left{
 margin-left: -15%;
- width: 181px;
+  width: 50%;
 height: 210px;
   float: left;
   border-radius: 30px 30px 30px 30px;
@@ -146,7 +145,7 @@ height: 210px;
  }
  .img-right{
 margin-right: -15%;
-  width: 181px;
+  width: 50%;
 height: 210px;
   float: right;
   border-radius: 30px 30px 30px 30px;
@@ -156,7 +155,7 @@ height: 210px;
    @media (max-width: 1000px){
     .img-center{
      position: absolute;
-     left:45%;
+     left:43%;
      top: 38%;
     }
   }
@@ -164,7 +163,7 @@ height: 210px;
   @media (min-width: 1000px){
      .img-center{
      position: absolute;
-     left:49%;
+     left:43%;
      top: 38%;
     }
   }

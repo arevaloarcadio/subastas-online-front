@@ -3,7 +3,7 @@
     <ion-row>
        <ion-col>
         <button @click="$router.go(-1)">
-            <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-left: 3%;top: 89px;position: absolute;">
+            <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-left: 3%;top: 40px;position: absolute;">
               <path d="M27 16H5" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
               <path d="M14 7L5 16L14 25" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
@@ -17,7 +17,7 @@
     <ion-content >
   
         <ion-card style="width: 95%;">
-            <div align="center" class="badge-2" style="top: 5%;left: 79%;"> 
+            <div align="center" class="badge" style="top: 5%;left: 79%;"> 
                     <span style="position: absolute;left: 15%;top: 20%;">
                     10
                     </span>
@@ -197,4 +197,6 @@ background: #FFFFFF;
 box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.08);
 border-radius: 10px;
 }
+
+
 </style>

@@ -3,7 +3,7 @@
 <ion-content class="ion-padding"> 
   <br><br><br>
   <div align="center">
-    <span class="text-control" style="font-weight: 500;font-size: 20px;line-height: 24px;">¿Como quieres que funcione <br>el chat?  </span> 
+    <span class="text-control" style="font-weight: 500;font-size: 20px;line-height: 24px;">¿Cómo quieres que funcione <br>el chat?  </span> 
     <br><br><br> <br>
     <ion-grid>
         <ion-row>

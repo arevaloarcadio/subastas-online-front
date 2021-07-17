@@ -49,10 +49,7 @@
       </button>
     </p>
 
-      <ion-infinite-scroll @ionInfinite="loadData($event)" threshold="100px"  id="infinite-scroll" :disabled="isDisabled">
-        <ion-infinite-scroll-content loading-spinner="bubbles" loading-text="Loading more data...">
-        </ion-infinite-scroll-content>
-      </ion-infinite-scroll>
+  
     </ion-content>
   </ion-page>
 </template>
@@ -64,8 +61,7 @@ import ModalDetail from '@/views/products/ModalDetail'
 import { 
 
   IonContent, 
-  IonInfiniteScroll, 
-  IonInfiniteScrollContent,
+
   modalController,
 
   IonPage
@@ -76,8 +72,7 @@ export default defineComponent({
   components: {
  
     IonContent, 
-    IonInfiniteScroll, 
-    IonInfiniteScrollContent,
+ 
 
     IonPage
   },
@@ -140,7 +135,7 @@ export default defineComponent({
 <style type="text/css">
  .img-left{
   margin-left: -20%;
- width: 181px;
+  width: 50%;
 height: 210px;
   float: left;
   border-radius: 30px 30px 30px 30px;
@@ -148,7 +143,7 @@ height: 210px;
  }
  .img-right{
 margin-right: -20%;
-  width: 181px;
+  width: 50%;
 height: 210px;
   float: right;
   border-radius: 30px 30px 30px 30px;
@@ -157,7 +152,7 @@ height: 210px;
    @media (max-width: 1000px){
     .img-center{
      position: absolute;
-     left:45%;
+     left:43%;
      top: 38%;
     }
   }
@@ -165,7 +160,7 @@ height: 210px;
   @media (min-width: 1000px){
      .img-center{
      position: absolute;
-     left:49%;
+     left:43%;
      top: 38%;
     }
   }

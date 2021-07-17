@@ -760,15 +760,17 @@ letter-spacing: 0.75px;
 color: #001D1B;
 }
 
-  @media (max-width: 1000px){
+  @media (max-width: 420px){
     .badge{
-      background: rgba(50, 186, 176, 0.6);
+         background: rgba(50, 186, 176, 0.6);
       border-radius: 4px;
       position: absolute;
-      width: 35px;
+      width: 57px;
+      height: 31px;
       color: #fff;
       top: 4%;
-      left: 80%;
+      font-weight: 500;
+      margin-left: 10px;
     }
     .badge-2{
       background: rgba(50, 186, 176, 0.6);
@@ -779,7 +781,7 @@ color: #001D1B;
       color: #fff;
       top: 4%;
       font-weight: 500;
-      left: 60%;
+      margin-left: 60%;
     }
     .badge-3{
         position: absolute;
@@ -787,15 +789,17 @@ color: #001D1B;
       left: 146px;
     }
   }
-  @media (min-width: 1000px){
-   .badge{
-      background: rgba(50, 186, 176, 0.6);
+  @media (max-width: 340px){
+    .badge{
+       background: rgba(50, 186, 176, 0.6);
       border-radius: 4px;
       position: absolute;
-      width: 35px;
+      width: 57px;
+      height: 31px;
       color: #fff;
-      top: 3%;
-      left: 95%;
+      top: 4%;
+      font-weight: 500;
+      margin-left: -6px;
     }
     .badge-2{
       background: rgba(50, 186, 176, 0.6);
@@ -806,7 +810,67 @@ color: #001D1B;
       color: #fff;
       top: 4%;
       font-weight: 500;
-      left: 85%;
+      margin-left: 56%;
+    }
+    .badge-3{
+        position: absolute;
+      top: 4%;
+      left: 146px;
+    }
+  }
+  @media (min-width: 420px){
+   .badge{
+    background: rgba(50, 186, 176, 0.6);
+      border-radius: 4px;
+      position: absolute;
+      width: 57px;
+      height: 31px;
+      color: #fff;
+      top: 4%;
+      font-weight: 500;
+      margin-left:10px;
+    }
+    .badge-2{
+      background: rgba(50, 186, 176, 0.6);
+      border-radius: 4px;
+      position: absolute;
+      width: 57px;
+      height: 31px;
+      color: #fff;
+      top: 4%;
+      font-weight: 500;
+       margin-left: 68%;
+    }
+    .badge-3{
+      cursor: pointer;
+        position: absolute;
+      top: 3%;
+      left: 161px;
+    }
+  }
+
+  @media (min-width: 500px){
+   .badge{
+      background: rgba(50, 186, 176, 0.6);
+      border-radius: 4px;
+      position: absolute;
+      width: 57px;
+      height: 31px;
+      color: #fff;
+      top: 4%;
+      font-weight: 500;
+      margin-left:33px;
+    }
+    .badge-2{
+      background: rgba(50, 186, 176, 0.6);
+      border-radius: 4px;
+      position: absolute;
+      width: 57px;
+      height: 31px;
+      color: #fff;
+      top: 4%;
+      font-weight: 500;
+       margin-left: 71%;
     }
     .badge-3{
       cursor: pointer;
@@ -986,6 +1050,8 @@ ion-select::part(icon) {
 
 input:focus{ outline: none; }
 textarea:focus{ outline: none; }
+button:focus{ outline: none; }
+body:focus{ outline: none; }
 
 .title{
 

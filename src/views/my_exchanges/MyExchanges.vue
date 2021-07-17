@@ -79,10 +79,7 @@
         </ion-card>
 
    
-      <ion-infinite-scroll @ionInfinite="loadData($event)" threshold="100px"  id="infinite-scroll" :disabled="isDisabled">
-        <ion-infinite-scroll-content loading-spinner="bubbles" loading-text="Loading more data...">
-        </ion-infinite-scroll-content>
-      </ion-infinite-scroll>
+   <br><br><br><br>
     </ion-content>    
     <ion-popover
     :is-open="isOpenRef"
@@ -109,8 +106,7 @@ import ModalDetail from '@/views/products/ModalDetail'
 import { 
 
   IonContent, 
-  IonInfiniteScroll, 
-  IonInfiniteScrollContent,
+
   modalController,
   popoverController,
   IonPage,IonPopover 
@@ -128,8 +124,7 @@ export default defineComponent({
   components: {
     SvgProducts,
     IonContent, 
-    IonInfiniteScroll, 
-    IonInfiniteScrollContent,
+
   IonPopover ,
   PopoverFilter,
     IonPage

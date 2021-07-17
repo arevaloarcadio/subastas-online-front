@@ -31,11 +31,12 @@
             <label class="label-input">Contraseña</label>
             <div  class="input-container">
               <input :type="show_password ? 'text' : 'password'"  class="input-text">
-               <span  style="z-index: 500;cursor: pointer;left: 90%; position: absolute;"  @click="show_password =! show_password" v-if="show_password">
-                  <ion-icon :icon="eyeOffOutline"></ion-icon>
+               <span  style="z-index: 500;cursor: pointer;left: 90%; position: absolute;"  @click="show_password =! show_password" v-if="!show_password">
+                 
+                  <img src="assets/hide.svg">
                 </span>
                 <span style="z-index: 500;cursor: pointer;left: 90%; position: absolute;" @click="show_password =! show_password" v-else >
-                  <ion-icon :icon="eyeOutline"></ion-icon>
+                  <img src="assets/show.svg">
                 </span>
             </div>
           </div>
@@ -62,6 +63,7 @@ import { eyeOutline,eyeOffOutline } from 'ionicons/icons';
 import { defineComponent } from 'vue';
 import axios from 'axios';
 import { useRouter } from 'vue-router';
+
 export default defineComponent({
   components: { IonRow,IonGrid,IonCol, },
   name: "Register",

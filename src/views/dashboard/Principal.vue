@@ -33,9 +33,9 @@
       <center>
            <!--<ion-searchbar style="color: #5B716F;background: rgba(233, 235, 235, 0.5);border-radius: 10px;text-align: left;"  placeholder="Buscar" @click="openModal"></ion-searchbar>-->
             <div class="container1" style="width: 90%;">
-              <div  class="input-container1">
-                <input type="text"  placeholder="Buscar"  class="input-text1" @click="openModal" style="margin-top: -2%;margin-top: -3%;">
-                <svg  style="margin-right: 7%;" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <div  class="input-container1" style="height: 55px;">
+                <input type="text"  placeholder="Buscar"  class="input-text1" @click="openModal" style="height: 55px; margin-top: -2%;margin-top: -3%;">
+                <svg  style="margin-right:30px;" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M18.2928 19.7071C18.6834 20.0976 19.3165 20.0976 19.707 19.7071C20.0976 19.3166 20.0976 18.6834 19.7071 18.2929L18.2928 19.7071ZM14.1903 12.7761C13.7998 12.3856 13.1666 12.3856 12.7761 12.7761C12.3856 13.1666 12.3856 13.7998 12.7761 14.1903L14.1903 12.7761ZM19.7071 18.2929L14.1903 12.7761L12.7761 14.1903L18.2928 19.7071L19.7071 18.2929ZM14.1903 14.1903C15.6936 12.6871 16.625 10.6076 16.625 8.3125H14.625C14.625 10.0559 13.9196 11.6327 12.7761 12.7761L14.1903 14.1903ZM16.625 8.3125C16.625 3.72164 12.9034 0 8.31251 0V2C11.7989 2 14.625 4.8262 14.625 8.3125H16.625ZM8.31251 0C3.72164 0 0 3.72163 0 8.3125H2C2 4.8262 4.82621 2 8.31251 2V0ZM0 8.3125C0 12.9034 3.72164 16.625 8.31251 16.625V14.625C4.8262 14.625 2 11.7988 2 8.3125H0ZM8.31251 16.625C10.6076 16.625 12.6871 15.6935 14.1903 14.1903L12.7761 12.7761C11.6327 13.9196 10.0559 14.625 8.31251 14.625V16.625Z" fill="#96A7AF"/>
                 </svg>
             </div>
@@ -45,7 +45,7 @@
     </div>
     <ion-content class="ion-padding">
    
-           <ion-row>
+           <ion-row style="margin-top: -18px;">
             <ion-col v-for="n in 6" :key="n"  size="6" >
                 <ion-card class="cursor" @click="redirect_details(n)" style="width: 100%;left:-8px;">
                   <div align="center" class="badge-2"> 

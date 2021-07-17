@@ -3,7 +3,7 @@
      <ion-content class="ion-padding">
        <br> 
   <p class="p-no-center"  style="margin-top: 8%;font-weight: 500;font-size: 20px;line-height: 24px;color: #001D1B;" > 
-    Selecciona al menos 3 categorias de productos
+    Selecciona al menos 3 categorías de productos
   </p>
   <br>
 
@@ -42,7 +42,7 @@
          Videojuegos
       </button>
  </div>
-  <div align="center" style="margin-top:177%">
+  <div align="center" style="margin-top:613px">
    Omitir
   </div>
   </ion-content>

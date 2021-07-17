@@ -20,14 +20,15 @@
         <ion-row>
              <ion-col v-for="n in 3" :key="n"  size="6"  >
                 <ion-card style="width: 100%;left:-8px;">
-                  <div align="center" class="badge-2"  style="background:transparent;left: 74%" @click="openPopover($event,n)" ><svg width="7" height="28" viewBox="0 0 7 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <div align="center" class="points"  style="background:transparent;" @click="openPopover($event,n)" >
+                    <svg width="7" height="28" viewBox="0 0 7 28" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M3.5 7C5.425 7 7 5.425 7 3.5C7 1.575 5.425 0 3.5 0C1.575 0 0 1.575 0 3.5C0 5.425 1.575 7 3.5 7Z" fill="#32BAB0"/>
                     <path d="M3.5 10.5C1.575 10.5 0 12.075 0 14C0 15.925 1.575 17.5 3.5 17.5C5.425 17.5 7 15.925 7 14C7 12.075 5.425 10.5 3.5 10.5Z" fill="#32BAB0"/>
                     <path d="M0 24.5C0 22.575 1.575 21 3.5 21C5.425 21 7 22.575 7 24.5C7 26.425 5.425 28 3.5 28C1.575 28 0 26.425 0 24.5Z" fill="#32BAB0"/>
                     </svg>
                      </div>
                   
-                  <img src="https://ionicframework.com/docs/demos/api/card/madison.jpg" style="width: auto;height: 143px;">
+                  <img src="https://ionicframework.com/docs/demos/api/card/madison.jpg" style="width: 100%;height: 143px;">
 
                    <ion-card-header>
 
@@ -94,6 +95,7 @@
 import { repeat,arrowBack } from 'ionicons/icons';
 import ModalDetail from '@/views/products/ModalDetail'
 import PopoverProduct from './PopoverProduct.vue'
+
 import { 
   IonContent, 
  
@@ -165,7 +167,7 @@ export default defineComponent({
       return modal.present();
     },
     async openPopover($event,num) {
-      console.log($event)
+
      let position;
       if (num%2 ==0) {
         position = "dere"
@@ -235,18 +237,32 @@ export default defineComponent({
   }
 
 .my-products-class-rigth .popover-content{
-  width: 160px !important;
-  left: 200px !important;
+  width: 154px !important;
+ 
   transform-origin: right top !important;
-  height: 92px !important;
+  height: 95px !important;
   border-radius: 15px !important;
 }
 
 .my-products-class-left .popover-content{
-  width: 160px !important;
-  left: 26px !important;
+  width: 154px !important;
+  left: 30px  !important;
   transform-origin: right top !important;
-  height: 92px !important;
+  height: 97px !important;
   border-radius: 15px !important;
 }
+
+.points{
+    background: rgba(50, 186, 176, 0.6);
+    border-radius: 4px;
+    position: absolute;
+    width: 57px;
+    height: 31px;
+    color: #fff;
+    top: 4%;
+    font-weight: 500;
+    margin-left: 75%
+}
+
+
 </style>

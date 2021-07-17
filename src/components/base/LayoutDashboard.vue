@@ -9,31 +9,31 @@
         <ion-row>
           <ion-col col-2 class="cursor">
           
-              <img src="/assets/Compass.png" @click="redirect('/principal')">
+              <img src="/assets/Compass.svg" @click="redirect('/principal')">
               <center>
                 <div v-show="path == '/principal'" style="background:#32BAB0;height: 13px; width: 50%;border-radius: 100px 100px 0 0 ;"></div>
               </center>
           </ion-col>
           <ion-col col-2 class="cursor">
-             <img src="/assets/Tag.png" style="margin-top: 5%;" @click="redirect('/saved_posts')">
+             <img src="/assets/Tag.svg" style="margin-top: 5%;" @click="redirect('/saved_posts')">
              <center>
                 <div v-show="path == '/saved_posts'" style="background:#32BAB0;height: 13px; width: 50%;border-radius: 100px 100px 0 0 ;"></div>
               </center>
           </ion-col>
           <ion-col col-2>
-             <img src="/assets/PlusCircle.png" class="cursor" @click="redirect('/create/product')">
+             <img src="/assets/plus_circle.svg" class="cursor" @click="redirect('/create/product')">
              <center>
                 <div v-show="path == '/create/product' || path == '/create/details/product'" style="background:#32BAB0;height: 13px; width: 50%;border-radius: 100px 100px 0 0 ;"></div>
               </center>
           </ion-col>
           <ion-col col-2>
-             <img src="/assets/ArrowsLeftRight.png" class="cursor" @click="redirect('/my_exchanges')">
+             <img src="/assets/ArrowsLeftRight.svg" class="cursor" @click="redirect('/my_exchanges')">
              <center>
                 <div v-show="path == '/my_exchanges'" style="background:#32BAB0;height: 13px; width: 50%;border-radius: 100px 100px 0 0 ;"></div>
               </center>
           </ion-col>
           <ion-col col-2>
-             <img src="/assets/ChatCircleDots.png" class="cursor" @click="redirect('/chat/policies/terms')">
+             <img src="/assets/ChatCircleDots.svg" class="cursor" @click="redirect('/chat/policies/terms')">
              <center>
                 <div v-show="path == '/chat'" style="background:#32BAB0;height: 13px; width: 50%;border-radius: 100px 100px 0 0 ;"></div>
               </center>

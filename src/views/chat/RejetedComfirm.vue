@@ -10,7 +10,7 @@
           </button>-->
           
           <p style="color: #000;width: 80%;margin-left: 10%;font-family: Montserrat;font-style: normal;font-weight: normal;font-size: 20px;line-height: 24px;text-align: center;color: #000000;"  class="title">
-            ¿Estas seguro de <br> aceptar el cambio?
+            ¿Estas seguro de  <br>rechazar el cambio?
           </p>
       </ion-col>
       
@@ -70,10 +70,7 @@
     <ion-content class="ion-padding">
       <ion-list >
       </ion-list>
-      <ion-infinite-scroll @ionInfinite="loadData($event)" threshold="100px"  id="infinite-scroll" :disabled="isDisabled">
-        <ion-infinite-scroll-content loading-spinner="bubbles" loading-text="Loading more data...">
-        </ion-infinite-scroll-content>
-      </ion-infinite-scroll>
+
     </ion-content>
   </ion-page>
 </template>
@@ -85,8 +82,7 @@ import ModalDetail from '@/views/products/ModalDetail'
 import { 
 
   IonContent, 
-  IonInfiniteScroll, 
-  IonInfiniteScrollContent,
+
   modalController,
   IonList,
   IonPage
@@ -97,8 +93,7 @@ export default defineComponent({
   components: {
  
     IonContent, 
-    IonInfiniteScroll, 
-    IonInfiniteScrollContent,
+ 
     IonList,
     IonPage
   },

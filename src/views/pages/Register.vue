@@ -41,11 +41,11 @@
               <label class="label-input">Contraseña</label>
               <div  class="input-container">
                 <input :type="show_password ? 'text' : 'password'"  class="input-text" v-model="password">
-                 <span  style="z-index: 500;cursor: pointer;left: 90%; position: absolute;"  @click="show_password =! show_password" v-if="show_password">
-                    <ion-icon :icon="eyeOffOutline"></ion-icon>
+                 <span  style="z-index: 500;cursor: pointer;left: 90%; position: absolute;"  @click="show_password =! show_password" v-if="!show_password">
+                    <img src="assets/hide.svg">
                   </span>
                   <span style="z-index: 500;cursor: pointer;left: 90%; position: absolute;" @click="show_password =! show_password" v-else >
-                    <ion-icon :icon="eyeOutline"></ion-icon>
+                    <img src="assets/show.svg">
                   </span>
               </div>
             </div>
@@ -58,10 +58,10 @@
               <div  class="input-container">
                 <input :type="show_password_confirmation ? 'text' : 'password'"  class="input-text" v-model="password_confirmacion">
                  <span  style="z-index: 500;cursor: pointer;left: 90%; position: absolute;"  @click="show_password_confirmation =! show_password_confirmation" v-if="show_password_confirmation">
-                    <ion-icon :icon="eyeOffOutline"></ion-icon>
+                    <img src="assets/hide.svg">
                   </span>
                   <span style="z-index: 500;cursor: pointer;left: 90%; position: absolute;" @click="show_password_confirmation =! show_password_confirmation" v-else >
-                    <ion-icon :icon="eyeOutline"></ion-icon>
+                     <img src="assets/show.svg">
                   </span>
               </div>
             </div>
@@ -90,13 +90,13 @@
 </template>
 
 <script>
-import { loadingController,toastController,IonIcon,IonRow,IonGrid,IonCol  } from '@ionic/vue';
+import { loadingController,toastController,IonRow,IonGrid,IonCol  } from '@ionic/vue';
 import { defineComponent } from 'vue';
 import axios from 'axios';
 import { eyeOutline,eyeOffOutline } from 'ionicons/icons';
 
 export default defineComponent({
-  components: { IonIcon,IonRow,IonGrid,IonCol },
+  components: { IonRow,IonGrid,IonCol },
   name: "Register",
   setup(){
     return{

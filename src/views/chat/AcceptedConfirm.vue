@@ -59,10 +59,7 @@
     <ion-content class="ion-padding">
       <ion-list >
       </ion-list>
-      <ion-infinite-scroll @ionInfinite="loadData($event)" threshold="100px"  id="infinite-scroll" :disabled="isDisabled">
-        <ion-infinite-scroll-content loading-spinner="bubbles" loading-text="Loading more data...">
-        </ion-infinite-scroll-content>
-      </ion-infinite-scroll>
+  
     </ion-content>
   </ion-page>
 </template>
@@ -74,8 +71,7 @@ import ModalDetail from '@/views/products/ModalDetail'
 import { 
 
   IonContent, 
-  IonInfiniteScroll, 
-  IonInfiniteScrollContent,
+ 
   modalController,
   IonList,
   IonPage
@@ -86,8 +82,7 @@ export default defineComponent({
   components: {
  
     IonContent, 
-    IonInfiniteScroll, 
-    IonInfiniteScrollContent,
+
     IonList,
     IonPage
   },

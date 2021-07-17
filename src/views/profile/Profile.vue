@@ -48,10 +48,7 @@
             <p class="p-no-center" @click="redirect({path : '/login'})" style="color: #000;margin-top: 0.2%;"> Salir</p>
           </ion-row>
   
-      <ion-infinite-scroll @ionInfinite="loadData($event)" threshold="100px"  id="infinite-scroll" :disabled="isDisabled">
-        <ion-infinite-scroll-content loading-spinner="bubbles" loading-text="Loading more data...">
-        </ion-infinite-scroll-content>
-      </ion-infinite-scroll>
+
       </ion-content>
     </ion-page>  
  </div>
@@ -65,8 +62,7 @@ import { arrowBack } from 'ionicons/icons';
 import { 
 
   IonContent, 
-  IonInfiniteScroll, 
-  IonInfiniteScrollContent,
+
   IonPage
  } from '@ionic/vue';
 import { defineComponent } from 'vue';
@@ -74,8 +70,7 @@ import { defineComponent } from 'vue';
 export default defineComponent({
    components: {
     IonContent, 
-    IonInfiniteScroll, 
-    IonInfiniteScrollContent,
+
     IonPage
   },
   setup() {
