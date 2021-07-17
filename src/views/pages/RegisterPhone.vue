@@ -71,7 +71,7 @@ export default defineComponent({
   mounted(){
     this.type = this.$route.query.type;
     
-    let svg = '<svg width="12" height="7" viewBox="0 0 12 7" fill="none" xmlns="http://www.w3.org/2000/svg" style="position:absolute;margin-left: 48px;">'+
+    let svg = '<svg width="12" height="7" viewBox="0 0 12 7" fill="none" xmlns="http://www.w3.org/2000/svg" style="position:absolute;margin-left: 35px;">'+
                 '<path d="M11 1L6 6L1 1" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>'+
               '</svg>'          
     document.querySelector('#ionSelectPhoneCode').shadowRoot.innerHTML = svg 
