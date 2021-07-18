@@ -41,11 +41,11 @@
               <label class="label-input">Contraseña</label>
               <div  class="input-container">
                 <input :type="show_password ? 'text' : 'password'"  class="input-text" v-model="password">
-                 <span  style="z-index: 500;cursor: pointer;left: 90%; position: absolute;"  @click="show_password =! show_password" v-if="!show_password">
-                    <img src="assets/hide.svg">
+                 <span  style="z-index: 500;cursor: pointer;left: 90%; position: absolute;"  @click="show_password =! show_password" v-if="show_password">
+                    <img src="assets/show.svg">
                   </span>
                   <span style="z-index: 500;cursor: pointer;left: 90%; position: absolute;" @click="show_password =! show_password" v-else >
-                    <img src="assets/show.svg">
+                    <img src="assets/hide.svg">
                   </span>
               </div>
             </div>
@@ -58,10 +58,10 @@
               <div  class="input-container">
                 <input :type="show_password_confirmation ? 'text' : 'password'"  class="input-text" v-model="password_confirmacion">
                  <span  style="z-index: 500;cursor: pointer;left: 90%; position: absolute;"  @click="show_password_confirmation =! show_password_confirmation" v-if="show_password_confirmation">
-                    <img src="assets/hide.svg">
+                    <img src="assets/show.svg">
                   </span>
                   <span style="z-index: 500;cursor: pointer;left: 90%; position: absolute;" @click="show_password_confirmation =! show_password_confirmation" v-else >
-                     <img src="assets/show.svg">
+                     <img src="assets/hide.svg">
                   </span>
               </div>
             </div>
