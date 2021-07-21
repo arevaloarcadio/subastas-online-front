@@ -70,21 +70,10 @@
               Te puede interesar...
             </p>
         
-            <ion-row style="position: absolute;margin-top: 8%;">
-               <ion-col v-for="n in 2" :key="n"  size="6"  >
-                <ion-card class="cursor" @click="redirect_details(n)" style="width: 100%;left: -5%;">
-                  <!--<div align="center" class="badge-2"> 
-                    <span style="position: absolute;left: 15%;top: 20%;">
-                    10
-                    </span>
-                    <svg  style="position: absolute;top: 15%;" width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M16.5 12.375L19.25 15.125L16.5 17.875" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    <path d="M2.75 15.125H19.25" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    <path d="M5.5 9.625L2.75 6.875L5.5 4.125" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    <path d="M19.25 6.875H2.75" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-
-                  </div>-->
+            <div style="position: absolute;margin-top: 8%;">
+            
+                <div v-for="n in 2" :key="n"  class="cursor" @click="redirect_details(n)" style="width: 50%;left: -5%;">
+                
                    <img src="https://ionicframework.com/docs/demos/api/card/madison.jpg" style="width: auto;height: 143px;border-radius: 0px 10px 0px 0px;width: 100%;">
 
                     <ion-card-header>
@@ -101,10 +90,10 @@
 
                   <ion-card-content style="margin-top:-15px">Ubicación
                 </ion-card-content>
-                <br>
-              </ion-card>
-            </ion-col>
-          </ion-row>
+              
+              </div>
+          
+          </div>
 
     </ion-content>
   </ion-page>

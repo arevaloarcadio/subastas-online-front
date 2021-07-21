@@ -84,7 +84,7 @@
               <ion-row>
                 <ion-col>
                   <ion-item  lines="none">
-                    <p class="p-no-center">Mostrar mi dirección solo al <br> aceptar el intercambio</p>
+                    <p class="p-no-center" style="font-family: Montserrat;font-style: normal;font-weight: 500;font-size: 16px;line-height: 20px;align-items: center;color: #5B716F;">Mostrar mi dirección solo al <br> aceptar el intercambio</p>
                     <ion-radio color="success" slot="start" value="biff"></ion-radio>
                   </ion-item>
                 </ion-col>

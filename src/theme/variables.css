@@ -94,6 +94,11 @@ http://ionicframework.com/docs/theming/ */
 
    
 }
+ion-checkbox {
+      --border-radius: 15px;
+      --size : 28px;
+}
+
 
 .modal-wrapper{
       -webkit-transition: opacity 400ms ease-in;

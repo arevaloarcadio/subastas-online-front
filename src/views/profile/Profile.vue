@@ -20,9 +20,9 @@
           <ion-avatar style="margin-left: 5%">
             <img src="/assets/avatar.png">
           </ion-avatar>
-          <ion-col >
-              <span class="text-control">Nombre del Usuario</span> 
-              <p class="p-no-center" @click="redirect({name : 'edit.profile'})"  style="cursor: pointer; margin-top: 1%">
+          <ion-col style="margin-left: 7px;margin-top: 3px;" >
+              <span class="text-control" style="font-weight: 500;font-size: 20px;line-height: 24px;align-items: center;text-align: center;letter-spacing: 0.75px;color: #32BAB0;">Nombre del Usuario</span> 
+              <p class="p-no-center" @click="redirect({name : 'edit.profile'})"  style="cursor: pointer; margin-top: 1%;font-style: normal;font-weight: normal;font-size: 16px;line-height: 20px;letter-spacing: 0.75px;color: #5B716F;">
                 Editar perfil
               </p>
 

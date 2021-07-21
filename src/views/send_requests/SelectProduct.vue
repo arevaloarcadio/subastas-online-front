@@ -33,7 +33,7 @@
 
       <div class="img-right" style="background: #6ACFC7;"></div>
     </ion-card>
-    
+    <br><br>
     <ion-card style=" height: 149px; width: 100%; overflow: auto;white-space: nowrap;box-shadow: inherit;margin-left: 0%;" >
      
       <template v-for="n in 6" :key="n"> 
@@ -43,6 +43,7 @@
        <button class="button-add"><img class="img-add" src="/assets/FAB.png">
        </button>
     </ion-card>
+    <br>
     <p>  
       <button type="button" class="btn-primary" @click="redirect({name : 'add_message.requests'})" style="width: 181px">
         Enviar Mensaje
@@ -134,7 +135,7 @@ export default defineComponent({
 </script>
 <style type="text/css">
  .img-left{
-  margin-left: -20%;
+  margin-left: -58px;
   width: 50%;
 height: 210px;
   float: left;
@@ -142,28 +143,19 @@ height: 210px;
 
  }
  .img-right{
-margin-right: -20%;
+margin-right: -58px;
   width: 50%;
 height: 210px;
   float: right;
   border-radius: 30px 30px 30px 30px;
  }
-
-   @media (max-width: 1000px){
-    .img-center{
-     position: absolute;
-     left:43%;
-     top: 38%;
+   .img-center{
+    position: absolute;
+    left: 44%;
+    top: 80px;
     }
-  }
 
-  @media (min-width: 1000px){
-     .img-center{
-     position: absolute;
-     left:43%;
-     top: 38%;
-    }
-  }
+  
 
 div.scrollmenu {
   background-color: #333;

@@ -24,16 +24,15 @@
             <ion-row>
               <ion-col>
                 <img style="border-radius: 15px 15px 15px 15px;" :src="nofitication.photo" >
-              </ion-col>
-              <ion-col style="margin-left: -40%;">
-                <p class="p-no-center data-notification" style="margin-top: 2%;margin-left: -7%;">{{nofitication.data}}</p>
-                <div style="position: absolute;left: -11px; top: 65px;" class="last-message-notification">
+                 <p class="p-no-center data-notification" style="margin-top: -77px; margin-left: 88px;position: absolute;" >{{nofitication.data}}</p>
+                <div class="last-message-notification" style="position: absolute; margin-left: 88px;margin-top: -24px;">
                   {{nofitication.date_last_message}}
                </div>
-               <div style="position: absolute;top: 65px;left: 162px;color: #FF0000" class="delete">
+               <div style="color: #FF0000;margin-top: -24px;position: absolute;    margin-left: 74%;" class="delete">
                 Eliminar
                </div>
               </ion-col>
+             
             </ion-row>
           </div>
         </template>
@@ -132,21 +131,21 @@ export default defineComponent({
           id : 2,
           photo :  '/assets/products/product-1.png',
           data :  'Tu solicitud ha sido aceptada',
-          date_last_message : '7 min',
+          date_last_message : 'Hace 30 minutos', 
           type : 'request.accepted'
         },
         {
           id : 3,
           photo :  '/assets/products/product-3.png',
           data : 'Tu solicitud ha sido rechazada',
-          date_last_message : '1 hora',
+          date_last_message : 'Hace 30 minutos', 
           type : 'request.rejected'
         },
         {
           id : 3,
           photo :  '/assets/products/product-3.png',
           data : 'Tienes un nuevo mensaje de bateria',
-          date_last_message : '1 hora',
+          date_last_message :'Hace 30 minutos', 
           type : 'request.chat'
         },    
       ]

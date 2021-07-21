@@ -3,7 +3,7 @@
    <ion-row>
       <ion-col>
         <button @click="$router.go(-1)">
-            <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-left: 3%;top: 32%;position: absolute;">
+            <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-left: 3%;top: 36%;position: absolute;">
               <path d="M27 16H5" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
               <path d="M14 7L5 16L14 25" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
@@ -12,10 +12,10 @@
         <p style="color: #000" class="title">
           Camisas
         </p>
-        <p style="font-weight: 500;font-size: 16px;line-height: 20px;align-items: center;text-align: center;letter-spacing: 0.75px;color: #5B716F;">
+        <p style="font-weight: 500;font-size: 16px;line-height: 20px;align-items: center;text-align: center;letter-spacing: 0.75px;color: #5B716F;margin-top: -18px;">
           Juan Camilo
         </p>
-        <button @click="redirect({name : 'request.accepted.rejected'})"  style="margin-left: 85%;top: 30%;position: absolute;background: #fff">
+        <button @click="redirect({name : 'request.accepted.rejected'})"  style="margin-left: 85%;top: 39%;position: absolute;background: #fff">
           <img src="/assets/ArrowsLeftRightGreenLow.png">
         </button>
       </ion-col>
@@ -60,7 +60,7 @@
               </span>
           <input type="text" placeholder="Escribe algo" >
              
-          <button><img src="/assets/send.png" style="margin-left: -30px;"></button>
+          <button><img src="/assets/button-send.svg" style="margin-left: -56px;margin-top: -13px;"></button>
           </div>
       </div>   
   </ion-page>  
@@ -764,6 +764,7 @@ body {
    color: #000;
    border-radius: 10px 10px 10px 0px;
    margin-top: -5%;
+       padding-top: 6px;
 
 }
 #app .content .messages ul li.replies img {
@@ -779,6 +780,7 @@ text-align: revert;
 color: #000;
 border-radius: 10px 10px 0px 10px;
 margin-top: -18px;
+    padding-top: 6px;
 }
 #app .content .messages ul li img {
   width: 30px;
@@ -802,7 +804,7 @@ margin-top: -18px;
  .message-input {
   position: absolute;
   
-  bottom: 8%;
+ bottom: -8px;
   width: 100%;
   z-index: 99;
   margin-left: 3%;
@@ -831,7 +833,7 @@ margin-left: 12px
   .message-input .wrap input {
         margin-top: 3%;
       padding-left: 6%;
-      margin-left: 5%;
+      margin-left: 2px;
   background: #E9EBEB;
 border-radius: 30px;
 margin-top: 1%;
@@ -841,7 +843,7 @@ margin-top: 1%;
    .message-input {
   position: absolute;
   
-  bottom: 12%;
+  bottom: -8px;
   width: 100%;
   z-index: 99;
 }

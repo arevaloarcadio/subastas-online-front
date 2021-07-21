@@ -172,12 +172,7 @@ const routes = [
         meta : {layout : 'LayoutDashboard'},
         component: RequestRejected,
       },
-      {
-        path: '/chat/view/:productId',
-        name: 'request.chat',
-        meta : {layout : 'LayoutDashboard'},
-        component: ChatView
-      }, 
+      
       {
         path: '/request/confirm/:productId',
         name: 'request.accepted.rejected',
@@ -294,7 +289,13 @@ const routes = [
     path: '/chat/policies/terms',
     name: 'chat.policies.terms',
     component: PoliciesAndTerms,
-  }
+  },
+  {
+    path: '/chat/view/:productId',
+    name: 'request.chat',
+    meta : {layout : 'LayoutDashboard'},
+    component: ChatView
+  }, 
 ]
 
 const router = createRouter({

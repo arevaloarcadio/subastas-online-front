@@ -11,31 +11,42 @@
           
               <img src="/assets/Compass.svg" @click="redirect('/principal')">
               <center>
-                <div v-show="path == '/principal'" style="background:#32BAB0;height: 13px; width: 50%;border-radius: 100px 100px 0 0 ;z-index: 12;"></div>
+                 <svg v-show="path == '/principal'"  width="41" height="14" viewBox="0 0 41 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M0 24.9998C0 13.678 9.17816 0 20.5 0C31.8218 0 41 13.678 41 24.9998C41 36.3217 31.8218 16.5 20.5 16.5C9.17816 16.5 0 36.3217 0 24.9998Z" fill="#32BAB0"/>
+                </svg>
+                
               </center>
           </ion-col>
           <ion-col col-2 class="cursor">
              <img src="/assets/tag.svg" style="margin-top: 5%;" @click="redirect('/saved_posts')">
              <center>
-                <div v-show="path == '/saved_posts'" style="background:#32BAB0;height: 13px; width: 50%;border-radius: 100px 100px 0 0 ;z-index: 12;"></div>
+               <svg v-show="path == '/saved_posts'"   width="41" height="14" viewBox="0 0 41 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M0 24.9998C0 13.678 9.17816 0 20.5 0C31.8218 0 41 13.678 41 24.9998C41 36.3217 31.8218 16.5 20.5 16.5C9.17816 16.5 0 36.3217 0 24.9998Z" fill="#32BAB0"/>
+                </svg>
               </center>
           </ion-col>
           <ion-col col-2>
              <img src="/assets/plus_circle.svg" class="cursor" @click="redirect('/create/product')">
              <center>
-                <div v-show="path == '/create/product' || path == '/create/details/product'" style="background:#32BAB0;height: 13px; width: 50%;border-radius: 100px 100px 0 0 ;z-index: 12;"></div>
+              <svg v-show="path == '/create/product' || path == '/create/details/product'"  width="41" height="14" viewBox="0 0 41 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M0 24.9998C0 13.678 9.17816 0 20.5 0C31.8218 0 41 13.678 41 24.9998C41 36.3217 31.8218 16.5 20.5 16.5C9.17816 16.5 0 36.3217 0 24.9998Z" fill="#32BAB0"/>
+              </svg>
               </center>
           </ion-col>
           <ion-col col-2>
              <img src="/assets/ArrowsLeftRight.svg" class="cursor" @click="redirect('/my_exchanges')">
              <center>
-                <div v-show="path == '/my_exchanges'" style="background:#32BAB0;height: 13px; width: 50%;border-radius: 100px 100px 0 0 ;z-index: 12;"></div>
+               <svg v-show="path == '/my_exchanges'"  width="41" height="14" viewBox="0 0 41 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M0 24.9998C0 13.678 9.17816 0 20.5 0C31.8218 0 41 13.678 41 24.9998C41 36.3217 31.8218 16.5 20.5 16.5C9.17816 16.5 0 36.3217 0 24.9998Z" fill="#32BAB0"/>
+                </svg>
               </center>
           </ion-col>
           <ion-col col-2>
              <img src="/assets/ChatCircleDots.svg" class="cursor" @click="redirect('/chat/policies/terms')">
              <center>
-                <div v-show="path == '/chat'" style="background:#32BAB0;height: 13px; width: 50%;border-radius: 100px 100px 0 0 ;z-index: 12;"></div>
+                <svg v-show="path == '/chat'"   width="41" height="14" viewBox="0 0 41 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M0 24.9998C0 13.678 9.17816 0 20.5 0C31.8218 0 41 13.678 41 24.9998C41 36.3217 31.8218 16.5 20.5 16.5C9.17816 16.5 0 36.3217 0 24.9998Z" fill="#32BAB0"/>
+                </svg>
               </center>
           </ion-col>
         </ion-row>

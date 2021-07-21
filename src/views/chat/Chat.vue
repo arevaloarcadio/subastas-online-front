@@ -16,23 +16,25 @@
     </ion-row>
     <ion-content>
    
-        <br>
+    
         <p v-if="messages.length == 0">
          Cuando alguien inicie negociación por tu producto o tu inicies negociación se habilitará el chat
         </p>
         <template v-else>
-          <ion-card style="box-shadow: inherit;width: 100%;left: -3%;height: 99px" v-for="(message,key) in messages" :key="message"  @click="redirect({name : 'request.chat' , params : { productId : message.productId }})">
+          <ion-card style="box-shadow: inherit;width: 100%;left: -11px;height: 99px" v-for="(message,key) in messages" :key="message"  @click="redirect({name : 'request.chat' , params : { productId : message.productId }})">
             <ion-row :class="{'col'  : key%2 == 0}">
-              <ion-col>
-                <img style="border-radius: 15px 15px 15px 15px;margin-left: 2%;margin-top: 6px;" :src="message.photo" >
+              <ion-col  >
+                <img style="border-radius: 15px 15px 15px 15px;margin-left: 5px;margin-top: 6px;" :src="message.photo" >
+                  <p class="p-no-center" style="margin-top: -82px; margin-left: 92px;position: absolute;font-family: Montserrat;font-style: normal;font-weight: 500;font-size: 16px;line-height: 20px;align-items: center;letter-spacing: 0.75px;color: #001D1B;" >
+                    {{message.product}} 
+                    <img v-show="message.active" style="    border-radius: 15px;margin-left: 5px;position: absolute;margin-top: 4px;" src="/assets/active.png" ></p> 
+                
+                <span style="font-size: 16px;font-weight: 400;margin-top: 35px;position: absolute;    margin-left: 5px;">{{message.last_message}}</span>
+              
+              <span style="font-weight: 300;margin-top: 62px;margin-left: 61%;">7 min</span>
               </ion-col>
 
-              <ion-col class="col-chat">
-                <p class="p-no-center" style="color: #000;font-family: Montserrat;font-weight: 500;font-size: 16px;margin-left: 8%;margin-top: 30px;line-height: 1.5;width: 205px;">{{message.product}} 
-                <img v-show="message.active" style="border-radius: 15px 15px 15px 15px;margin-left: 2%;" src="/assets/active.png" >
-                <br><span style="font-size: 16px;font-weight: 400;">{{message.last_message}}</span></p>
-              </ion-col>
-              <span style="font-weight: 300;margin-top: 62px;margin-right: 25px;">7 min</span>
+          
             </ion-row>
             
           </ion-card>

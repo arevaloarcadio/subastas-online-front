@@ -35,7 +35,7 @@
           <br>
         <ion-row>
         <ion-col>
-          <div class="container" style="width: 88%;margin-left: 26px;">
+          <div class="container" style="width: 93%;margin-left: 14px;">
             <label class="label-input">Mensaje</label>
             <div  class="input-container" >
               <textarea style="line-height: 38px;height: 120.55px" class="input-text" placeholder="Que tal si intercambiamos">  </textarea>
@@ -133,7 +133,7 @@ export default defineComponent({
 </script>
 <style type="text/css">
  .img-left{
-margin-left: -15%;
+  margin-left: -58px;
   width: 50%;
 height: 210px;
   float: left;
@@ -141,29 +141,18 @@ height: 210px;
 
  }
  .img-right{
-margin-right: -15%;
+margin-right: -58px;
   width: 50%;
 height: 210px;
   float: right;
   border-radius: 30px 30px 30px 30px;
  }
-
-
-   @media (max-width: 1000px){
-    .img-center{
-     position: absolute;
-     left:43%;
-     top: 38%;
+   .img-center{
+    position: absolute;
+    left: 44%;
+    top: 80px;
     }
-  }
 
-  @media (min-width: 1000px){
-     .img-center{
-     position: absolute;
-     left:43%;
-     top: 38%;
-    }
-  }
 
 div.scrollmenu {
   background-color: #333;

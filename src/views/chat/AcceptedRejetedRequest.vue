@@ -15,58 +15,41 @@
       
     </ion-row>-->
      <br><br><br>
-     <svg width="70" height="56" viewBox="0 0 70 56" fill="none" xmlns="http://www.w3.org/2000/svg" style="position: absolute;margin-left: 41%;margin-top: 160px;z-index: 10000;">
-            <g filter="url(#filter0_d)">
-            <path d="M13.0998 27.0469C12.4271 27.0462 11.7725 27.2646 11.235 27.669C10.6974 28.0734 10.3062 28.6418 10.1204 29.2884C9.93466 29.9349 9.96446 30.6243 10.2053 31.2524C10.4462 31.8804 10.885 32.413 11.4554 32.7695L19.7793 41.0934C20.067 41.3809 20.4085 41.6089 20.7844 41.7644C21.1602 41.9199 21.563 41.9999 21.9697 41.9998C22.3765 41.9996 22.7792 41.9194 23.1549 41.7636C23.5307 41.6078 23.872 41.3795 24.1595 41.0918C24.447 40.8041 24.6751 40.4626 24.8306 40.0867C24.9861 39.7109 25.0661 39.3081 25.0659 38.9014C25.0658 38.4946 24.9855 38.0919 24.8297 37.7162C24.674 37.3404 24.4457 36.9991 24.158 36.7116L20.6866 33.2433H44.0664C44.8877 33.2433 45.6754 32.9171 46.2561 32.3363C46.8369 31.7556 47.1631 30.9679 47.1631 30.1466C47.1631 29.3254 46.8369 28.5377 46.2561 27.957C45.6754 27.3762 44.8877 27.05 44.0664 27.05H13.0998V27.0469Z" fill="#32BAB0"/>
-            <path d="M56.4965 20.9529C57.1692 20.9536 57.8238 20.7352 58.3613 20.3308C58.8988 19.9264 59.2901 19.3579 59.4758 18.7114C59.6616 18.0649 59.6318 17.3755 59.3909 16.7474C59.1501 16.1193 58.7113 15.5868 58.1408 15.2302L49.817 6.9064C49.2359 6.32575 48.448 5.99971 47.6266 6C46.8051 6.00029 46.0174 6.32689 45.4368 6.90795C44.8561 7.48901 44.5301 8.27694 44.5303 9.09839C44.5306 9.91984 44.8572 10.7075 45.4383 11.2882L48.9097 14.7565H25.5298C24.7085 14.7565 23.9209 15.0827 23.3402 15.6634C22.7594 16.2442 22.4332 17.0318 22.4332 17.8531C22.4332 18.6744 22.7594 19.4621 23.3402 20.0428C23.9209 20.6235 24.7085 20.9498 25.5298 20.9498H56.4965V20.9529Z" fill="#32BAB0"/>
-            </g>
-            <defs>
-            <filter id="filter0_d" x="0" y="0" width="69.5963" height="55.9998" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
-            <feFlood flood-opacity="0" result="BackgroundImageFix"/>
-            <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"/>
-            <feOffset dy="4"/>
-            <feGaussianBlur stdDeviation="5"/>
-            <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.1 0"/>
-            <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow"/>
-            <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow" result="shape"/>
-            </filter>
-            </defs>
-            </svg>
-
-    <ion-card  style="box-shadow: inherit;width: 87%;left: 4%;height: 161px;">
-       <ion-row>
-   
-             <img style="border-radius: 10px 10px 0px 0px;width: 84px;height: 77px;margin-left: 59px;margin-top: 70px;" src="https://ionicframework.com/docs/demos/api/card/madison.jpg">
-     
-         <ion-col>
-       
-         
-      
-        </ion-col>
-
-          <img style="border-radius: 10px 10px 0px 0px;width: 84px;height: 77px;margin-right: 59px;margin-top: 71px;" src="https://ionicframework.com/docs/demos/api/card/madison.jpg">
-   
-      </ion-row>
-     
-      
-      
-    </ion-card>
     
-    <p style="margin-top: -13px;">  
-      <ion-row>
-        <ion-col>
-           <button type="button" class="btn-primary" style="line-height: 15px;width: 121px;margin-left: 46px;" @click="redirect({name : 'request.confirm.accepted' , params : { productId : $route.params.productId}})" >
+
+  
+    <div style="display: flex;justify-content: center;">
+      <img style="border-radius: 10px 10px 0px 0px;width: 84px;height: 77px;margin-left: 59px;" src="https://ionicframework.com/docs/demos/api/card/madison.jpg">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      <svg width="62" height="50" viewBox="0 0 62 50" fill="none" xmlns="http://www.w3.org/2000/svg" style="position: absolute;margin-top: 17px;">
+        <g filter="url(#filter0_d)">
+        <path d="M13.3322 23.4951C12.7854 23.4946 12.2532 23.6721 11.8162 24.0009C11.3791 24.3297 11.0611 24.7918 10.91 25.3174C10.759 25.843 10.7832 26.4035 10.9791 26.9142C11.1749 27.4248 11.5317 27.8578 11.9954 28.1476L18.7627 34.9149C18.9966 35.1486 19.2742 35.334 19.5798 35.4604C19.8853 35.5869 20.2128 35.6519 20.5435 35.6518C20.8742 35.6517 21.2016 35.5864 21.5071 35.4598C21.8125 35.3331 22.09 35.1475 22.3238 34.9136C22.5575 34.6797 22.7429 34.402 22.8694 34.0965C22.9958 33.7909 23.0608 33.4635 23.0607 33.1328C23.0606 32.8021 22.9953 32.4747 22.8687 32.1692C22.742 31.8638 22.5564 31.5862 22.3225 31.3525L19.5003 28.5328H38.5081C39.1758 28.5328 39.8161 28.2676 40.2883 27.7954C40.7604 27.3233 41.0256 26.6829 41.0256 26.0152C41.0256 25.3475 40.7604 24.7072 40.2883 24.235C39.8161 23.7629 39.1758 23.4976 38.5081 23.4976H13.3322V23.4951Z" fill="#32BAB0"/>
+        <path d="M48.6142 18.5404C49.1611 18.541 49.6932 18.3635 50.1303 18.0347C50.5673 17.7059 50.8854 17.2437 51.0364 16.7181C51.1874 16.1925 51.1632 15.632 50.9674 15.1214C50.7715 14.6108 50.4148 14.1778 49.951 13.888L43.1838 7.12069C42.7114 6.64863 42.0708 6.38355 41.4029 6.38379C40.7351 6.38403 40.0947 6.64955 39.6226 7.12195C39.1506 7.59435 38.8855 8.23493 38.8857 8.90277C38.886 9.57061 39.1515 10.211 39.6239 10.6831L42.4461 13.5028H23.4384C22.7707 13.5028 22.1303 13.768 21.6582 14.2401C21.186 14.7123 20.9208 15.3526 20.9208 16.0203C20.9208 16.688 21.186 17.3284 21.6582 17.8005C22.1303 18.2727 22.7707 18.5379 23.4384 18.5379H48.6142V18.5404Z" fill="#32BAB0"/>
+        </g>
+        <defs>
+        <filter id="filter0_d" x="0.812134" y="0.383789" width="60.3222" height="49.268" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+        <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+        <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"/>
+        <feOffset dy="4"/>
+        <feGaussianBlur stdDeviation="5"/>
+        <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.1 0"/>
+        <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow"/>
+        <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow" result="shape"/>
+        </filter>
+        </defs>
+        </svg>
+
+       <img style="border-radius: 10px 10px 0px 0px;width: 84px;height: 77px;margin-right: 59px;" src="https://ionicframework.com/docs/demos/api/card/madison.jpg">
+    </div>  
+    <br>
+    <div  style="display: flex;justify-content: center;">
+      <button type="button" class="btn-primary" style="line-height: 15px;width: 121px;" @click="redirect({name : 'request.confirm.accepted' , params : { productId : $route.params.productId}})" >
             Aceptar
-          </button>
-        </ion-col>
-         <ion-col>
-           <button type="button" class="btn-line" style="width: 121px;margin-left: -31px;" @click="redirect({name : 'request.confirm.rejected' , params : { productId : $route.params.productId}})" >
-            Rechazar
-          </button>
-        </ion-col>
-      </ion-row>
-      <br>
-    </p>
+      </button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      <button type="button" class="btn-line" style="line-height: 15px;width: 121px;" @click="redirect({name : 'request.confirm.rejected' , params : { productId : $route.params.productId}})" >
+        Rechazar
+      </button>
+    </div>
+
     <ion-content class="ion-padding">
       <ion-list >
       </ion-list>

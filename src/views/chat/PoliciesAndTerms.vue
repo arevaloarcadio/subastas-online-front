@@ -8,12 +8,12 @@
 
   <ion-row>
     <ion-col size="2">
-      <ion-checkbox color="primary" style="margin-top: 27px;margin-left: 25px;"></ion-checkbox>
+      <ion-checkbox color="primary" style="margin-top: 20px;margin-left: 16px;"></ion-checkbox>
     </ion-col>
 
     <ion-col >
       <p class="p-no-center">
-        Acepto las <span class="text-control" @click="openModal"><u>Políticas y Términos</u></span> <br>de uso de la aplicación
+        Acepto las <span class="text-control" @click="openModal"><u>Políticas y Términos <br>de uso</u></span> de la aplicación
       </p>
     </ion-col>
 

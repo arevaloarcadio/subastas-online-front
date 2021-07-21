@@ -48,41 +48,14 @@
               </ion-card>
             </ion-col>
    
-            <ion-col  size="6" size-sm >
-              <ion-card class="card">
-                 <p class="text-add">Agregar</p>
-                <div style="margin-top: 15%">
-
-                 <center>
-                
-                  <button class="button-add-2">
-
-                      <svg  style="margin-top: 33px;" width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <g filter="url(#filter0_d)">
-                        <rect x="24" y="8" width="32" height="32" rx="16" fill="#32BAB0"/>
-                        </g>
-                        <g clip-path="url(#clip0)">
-                        <path d="M46.5714 24.5713H40.5714V30.5713H38.5714V24.5713H32.5714V22.5713H38.5714V16.5713H40.5714V22.5713H46.5714V24.5713Z" fill="white"/>
-                        </g>
-                        <defs>
-                        <filter id="filter0_d" x="0" y="0" width="80" height="80" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
-                        <feFlood flood-opacity="0" result="BackgroundImageFix"/>
-                        <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"/>
-                        <feOffset dy="16"/>
-                        <feGaussianBlur stdDeviation="12"/>
-                        <feColorMatrix type="matrix" values="0 0 0 0 0.211765 0 0 0 0 0.482353 0 0 0 0 0.960784 0 0 0 0.2 0"/>
-                        <feBlend mode="multiply" in2="BackgroundImageFix" result="effect1_dropShadow"/>
-                        <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow" result="shape"/>
-                        </filter>
-                        <clipPath id="clip0">
-                        <rect width="22.8571" height="22.8571" fill="white" transform="translate(28.5714 12.5713)"/>
-                        </clipPath>
-                        </defs>
-                        </svg>
-                  </button>
+            <ion-col  size="6">
+              <ion-card class="card" style="width: 95%;">
+                <center>
+                  <br><br>
+                 Agregar<br><br>
+                 <img src="assets/button-add.svg">
                 </center>
-                </div>
-              </ion-card>
+             </ion-card>
             </ion-col>
           </ion-row>
     
@@ -205,11 +178,12 @@ export default defineComponent({
     .add{
        height: 90.5%;
     }
-    .card{
-          height: 90%;
-    }
+   
   }
-
+   .card{
+          height: 210px;
+    }
+  
   @media (min-width: 1000px){
     .button-add-2{
       width: 90%;
@@ -224,9 +198,7 @@ export default defineComponent({
     .add{
       margin-top: 92.5%;
     }
-    .card{
-      height: 94%;
-    }
+   
   }
 
   .text-add{
