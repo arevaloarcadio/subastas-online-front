@@ -15,7 +15,7 @@
           </p>
       </ion-col>
     </ion-row>
-     <ion-content>
+     <ion-content class="ion-padding">
     
         <ion-row>
              <ion-col v-for="n in 3" :key="n"  size="6"  >

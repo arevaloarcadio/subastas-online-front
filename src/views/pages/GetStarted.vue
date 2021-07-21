@@ -56,7 +56,7 @@ export default defineComponent({
 </script>
 
 
-<style type="text/css">
+<style>
 
 .item-has-focus{
 
