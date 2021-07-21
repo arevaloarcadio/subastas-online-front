@@ -17,7 +17,7 @@
     <ion-content class="ion-padding">
 
      
-      <span style="font-weight: 500;font-size: 16px;line-height: 20px;align-items: center;letter-spacing: 0.75px;color: #000000;"> Categorias</span>
+      <span style="font-weight: 500;font-size: 16px;line-height: 20px;align-items: center;letter-spacing: 0.75px;color: #000000;"> Categorías</span>
        <p class="p-no-center" style="font-family: Montserrat;font-style: normal;font-weight: normal;font-size: 16px;line-height: 20px;align-items: center;letter-spacing: 0.75px;color: #5B716F;" >
      
 

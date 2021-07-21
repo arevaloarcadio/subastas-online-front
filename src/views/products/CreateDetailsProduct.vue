@@ -84,8 +84,9 @@
               <ion-row>
                 <ion-col>
                   <ion-item  lines="none">
-                    <p class="p-no-center" style="font-family: Montserrat;font-style: normal;font-weight: 500;font-size: 16px;line-height: 20px;align-items: center;color: #5B716F;">Mostrar mi dirección solo al <br> aceptar el intercambio</p>
-                    <ion-radio color="success" slot="start" value="biff"></ion-radio>
+                    <p class="p-no-center" style="font-family: Montserrat;font-style: normal;font-weight: 500;font-size: 16px;line-height: 20px;align-items: center;color: #5B716F;">Mostrar mi dirección solo al 
+                      <br> aceptar el intercambio</p>
+                    <ion-radio color="success" slot="start" value="biff" style="margin-top: -3px;"></ion-radio>
                   </ion-item>
                 </ion-col>
                </ion-row>
@@ -214,7 +215,7 @@ export default defineComponent({
     }
   },
   mounted(){
-    let svg = '<svg width="12" height="7" viewBox="0 0 12 7" fill="none" xmlns="http://www.w3.org/2000/svg">'+
+    let svg = '<svg style="margin-left:14px" width="12" height="7" viewBox="0 0 12 7" fill="none" xmlns="http://www.w3.org/2000/svg">'+
                 '<path d="M11 1L6 6L1 1" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>'+
               '</svg>'
 
@@ -400,6 +401,30 @@ ion-select::part(icon) {
 
 ion-alert{
   display: none;
+}
+
+ion-radio {
+  color: transparent;
+}
+ion-radio::part(mark){
+
+ height: 14px;
+  width: 14px;
+  background: #32BAB0;
+/* Shadow Blue · 16dp */
+box-sizing: border-box;
+box-shadow: 0px 16px 24px rgba(54, 123, 245, 0.2);
+border-radius: 99px;
+
+}
+ion-radio::part(container){
+    border: 0.5px solid #5B716F;
+background: #E9EBEB;
+  color: #CEFFFB;
+  height: 28px;
+  width: 28px;
+   border-width: 1px;
+
 }
 
 </style>
