@@ -24,7 +24,7 @@
          <ion-row>
           <ion-col col-12>
             <div class="container">
-              <label class="label-input">Seleccione una categoria</label>
+              <label class="label-input">Seleccione una categoría</label>
               <div  class="input-container">
                  <input type="text" style="font-size: 18px; font-family: Montserrat;font-style: normal;font-weight: normal;font-size: 16px;line-height: 20px;" v-model="category" class="input-text" readonly="" @click="setOpen(true, $event)">
                 <svg width="22" height="12" viewBox="0 0 22 12" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-right: 4%;" @click="setOpen(true, $event)">

@@ -9,42 +9,42 @@
         <ion-row>
           <ion-col col-2 class="cursor">
           
-              <img src="/assets/Compass.svg" @click="redirect('/principal')">
+              <img src="/assets/Compass.svg" style="margin-bottom: -36px;" @click="redirect('/principal')">
               <center>
-                 <svg v-show="path == '/principal'"  width="41" height="14" viewBox="0 0 41 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                 <svg class="active" v-show="path == '/principal'"  width="41" height="14" viewBox="0 0 41 14" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M0 24.9998C0 13.678 9.17816 0 20.5 0C31.8218 0 41 13.678 41 24.9998C41 36.3217 31.8218 16.5 20.5 16.5C9.17816 16.5 0 36.3217 0 24.9998Z" fill="#32BAB0"/>
                 </svg>
                 
               </center>
           </ion-col>
           <ion-col col-2 class="cursor">
-             <img src="/assets/tag.svg" style="margin-top: 5%;" @click="redirect('/saved_posts')">
+             <img src="/assets/tag.svg"  style="margin-bottom: -31px;" @click="redirect('/saved_posts')">
              <center>
-               <svg v-show="path == '/saved_posts'"   width="41" height="14" viewBox="0 0 41 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+               <svg class="active" v-show="path == '/saved_posts'"   width="41" height="14" viewBox="0 0 41 14" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M0 24.9998C0 13.678 9.17816 0 20.5 0C31.8218 0 41 13.678 41 24.9998C41 36.3217 31.8218 16.5 20.5 16.5C9.17816 16.5 0 36.3217 0 24.9998Z" fill="#32BAB0"/>
                 </svg>
               </center>
           </ion-col>
           <ion-col col-2>
-             <img src="/assets/plus_circle.svg" class="cursor" @click="redirect('/create/product')">
+             <img src="/assets/plus_circle.svg" style="margin-bottom: -34px;" class="cursor" @click="redirect('/create/product')">
              <center>
-              <svg v-show="path == '/create/product' || path == '/create/details/product'"  width="41" height="14" viewBox="0 0 41 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <svg class="active" v-show="path == '/create/product' || path == '/create/details/product'"  width="41" height="14" viewBox="0 0 41 14" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M0 24.9998C0 13.678 9.17816 0 20.5 0C31.8218 0 41 13.678 41 24.9998C41 36.3217 31.8218 16.5 20.5 16.5C9.17816 16.5 0 36.3217 0 24.9998Z" fill="#32BAB0"/>
               </svg>
               </center>
           </ion-col>
           <ion-col col-2>
-             <img src="/assets/ArrowsLeftRight.svg" class="cursor" @click="redirect('/my_exchanges')">
+             <img src="/assets/ArrowsLeftRight.svg" style="margin-bottom: -34px;" class="cursor" @click="redirect('/my_exchanges')">
              <center>
-               <svg v-show="path == '/my_exchanges'"  width="41" height="14" viewBox="0 0 41 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+               <svg class="active" v-show="path == '/my_exchanges'"  width="41" height="14" viewBox="0 0 41 14" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M0 24.9998C0 13.678 9.17816 0 20.5 0C31.8218 0 41 13.678 41 24.9998C41 36.3217 31.8218 16.5 20.5 16.5C9.17816 16.5 0 36.3217 0 24.9998Z" fill="#32BAB0"/>
                 </svg>
               </center>
           </ion-col>
           <ion-col col-2>
-             <img src="/assets/ChatCircleDots.svg" class="cursor" @click="redirect('/chat/policies/terms')">
+             <img src="/assets/ChatCircleDots.svg" style="margin-bottom: -34px;" class="cursor" @click="redirect('/chat/policies/terms')">
              <center>
-                <svg v-show="path == '/chat'"   width="41" height="14" viewBox="0 0 41 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <svg class="active" v-show="path == '/chat'"   width="41" height="14" viewBox="0 0 41 14" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M0 24.9998C0 13.678 9.17816 0 20.5 0C31.8218 0 41 13.678 41 24.9998C41 36.3217 31.8218 16.5 20.5 16.5C9.17816 16.5 0 36.3217 0 24.9998Z" fill="#32BAB0"/>
                 </svg>
               </center>
@@ -98,6 +98,7 @@ export default {
   background-color: #fff;
   color: white;
   text-align: center;
+  height: 87px;
 }
 div.scroll {
   overflow: auto;
@@ -114,5 +115,8 @@ div.scroll {
 .slide-fade-leave-to {
   transform: translateX(20px);
   opacity: 0;
+}
+.active{
+  margin-bottom: -43px;
 }
 </style>

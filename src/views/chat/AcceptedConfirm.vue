@@ -10,7 +10,7 @@
           </button>-->
           
           <p style="color: #000;width: 80%;margin-left: 10%;font-family: Montserrat;font-style: normal;font-weight: normal;font-size: 20px;line-height: 24px;text-align: center;color: #000000;"  class="title">
-            ¿Estas seguro de <br> aceptar el cambio?
+            ¿Estás seguro de <br> aceptar el cambio?
           </p>
       </ion-col>
       
@@ -41,7 +41,7 @@
     <br><br>
     <div  style="display: flex;justify-content: center;">
         <button type="button" class="btn-primary" style="line-height: 15px;width: 200px;" @click="redirect({name : 'add_message.requests'})" >
-        Si, estoy seguro
+        Sí, estoy seguro
       </button>
     </div>
   

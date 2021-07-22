@@ -27,7 +27,7 @@
                 <img style="border-radius: 15px 15px 15px 15px;margin-left: 5px;margin-top: 6px;" :src="message.photo" >
                   <p class="p-no-center" style="margin-top: -82px; margin-left: 92px;position: absolute;font-family: Montserrat;font-style: normal;font-weight: 500;font-size: 16px;line-height: 20px;align-items: center;letter-spacing: 0.75px;color: #001D1B;" >
                     {{message.product}} 
-                    <img v-show="message.active" style="    border-radius: 15px;margin-left: 5px;position: absolute;margin-top: 4px;" src="/assets/active.png" ></p> 
+                    <img v-show="message.active"  src="/assets/active.png" ></p> 
                 
                 <span style="font-size: 16px;font-weight: 400;margin-top: 35px;position: absolute;    margin-left: 5px;">{{message.last_message}}</span>
               
