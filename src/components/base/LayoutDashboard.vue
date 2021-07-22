@@ -5,9 +5,9 @@
     </transition>
 
     <div class="footer">
-      <ion-grid>
+     
         <ion-row>
-          <ion-col col-2 class="cursor">
+          <ion-col class="cursor">
           
               <img src="/assets/Compass.svg" style="margin-bottom: -36px;" @click="redirect('/principal')">
               <center>
@@ -50,19 +50,19 @@
               </center>
           </ion-col>
         </ion-row>
-      </ion-grid>
+  
     </div>
   </div>
 </template>
 
 <script>
 
-import { IonRow,IonGrid,IonCol   } from '@ionic/vue';
+import { IonRow,IonCol   } from '@ionic/vue';
 
 
 
 export default {
-  components: { IonRow,IonGrid,IonCol },
+  components: { IonRow,IonCol },
   name: "LayoutDashboard",
  
   data() {
@@ -93,7 +93,7 @@ export default {
 .footer {
   position: fixed;
   left: 0;
-  bottom: 0;
+  bottom: -9px;
   width: 100%;
   background-color: #fff;
   color: white;

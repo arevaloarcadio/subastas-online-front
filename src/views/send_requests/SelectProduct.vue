@@ -40,6 +40,7 @@
           <img src="https://ionicframework.com/docs/demos/api/card/madison.jpg" style="border-radius: 30px 30px 30px 30px; width: 128px;height: 149px;" >&nbsp;
 
       </template>
+      &nbsp;
        <button class="button-add"><img class="img-add" src="/assets/FAB.png">
        </button>
     </ion-card>
@@ -168,7 +169,7 @@ div.scrollmenu {
   @media (max-width: 1000px){
     .button-add{
       height:100%;
-      width: 35%;
+      width: 128px;
       position: absolute;
       background: #fff;
       box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
@@ -182,7 +183,7 @@ div.scrollmenu {
   @media (min-width: 1000px){
     .button-add{
       height:100%;
-      width: 35%;
+     width: 128px;
       position: absolute;
       background: #fff;
       box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);

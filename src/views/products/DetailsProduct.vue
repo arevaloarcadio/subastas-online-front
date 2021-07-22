@@ -66,13 +66,94 @@
            
           </div>
 
-       <p class="p-no-center"  style="float: left;margin-left: 2%;font-weight: 500;font-size: 16px;line-height: 20px;align-items: center;letter-spacing: 0.75px;color: #000000;">
+        <p class="p-no-center"  style="float: left;margin-left: 2%;font-weight: 500;font-size: 16px;line-height: 20px;align-items: center;letter-spacing: 0.75px;color: #000000;">
               Te puede interesar...
-            </p>
-        
-            <div style="position: absolute;margin-top: 8%;">
+        </p>
+     
+          <ion-slides pager="true" :options="slideOpts" style="margin-top: 16%;">
+            <ion-slide>
+           
+                <ion-card class="cursor" @click="redirect_details(n)" style="width:50%;">
+                  <img src="https://ionicframework.com/docs/demos/api/card/madison.jpg" style="width: auto;height: 143px;border-radius: 0px 10px 0px 0px;width: 100%;">
+                  <ion-card-header>
+
+                 <ion-card-subtitle  style="color: #000">
+                    <ion-row>
+                    <b  style="font-family: Montserrat;font-style: normal;font-weight: bold;font-size: 16px;line-height: 20px;align-items: center;letter-spacing: 0.75px;color: #001D1B;margin-top: -15px;"> 
+                      Nombre {{n}}
+                    </b>
+                    </ion-row>  
+                  </ion-card-subtitle>
+                
+                  </ion-card-header>
+
+                  <ion-card-content style="margin-top:-15px">Ubicación
+                </ion-card-content>
+
+              </ion-card>
+              <ion-card class="cursor" style="width:50%;">
+                  <img src="https://ionicframework.com/docs/demos/api/card/madison.jpg" style="width: auto;height: 143px;border-radius: 0px 10px 0px 0px;width: 100%;">
+                  <ion-card-header>
+
+                 <ion-card-subtitle  style="color: #000">
+                    <ion-row>
+                    <b  style="font-family: Montserrat;font-style: normal;font-weight: bold;font-size: 16px;line-height: 20px;align-items: center;letter-spacing: 0.75px;color: #001D1B;margin-top: -15px;"> 
+                      Nombre {{n}}
+                    </b>
+                    </ion-row>  
+                  </ion-card-subtitle>
+                
+                  </ion-card-header>
+
+                  <ion-card-content style="margin-top:-15px">Ubicación
+                </ion-card-content>
+
+              </ion-card>
+            </ion-slide>
+            <ion-slide>
+               <ion-card class="cursor" style="width:50%;">
+                  <img src="https://ionicframework.com/docs/demos/api/card/madison.jpg" style="width: auto;height: 143px;border-radius: 0px 10px 0px 0px;width: 100%;">
+                  <ion-card-header>
+
+                 <ion-card-subtitle  style="color: #000">
+                    <ion-row>
+                    <b  style="font-family: Montserrat;font-style: normal;font-weight: bold;font-size: 16px;line-height: 20px;align-items: center;letter-spacing: 0.75px;color: #001D1B;margin-top: -15px;"> 
+                      Nombre {{n}}
+                    </b>
+                    </ion-row>  
+                  </ion-card-subtitle>
+                
+                  </ion-card-header>
+
+                  <ion-card-content style="margin-top:-15px">Ubicación
+                </ion-card-content>
+
+              </ion-card>
+              <ion-card class="cursor"  style="width:50%;">
+                  <img src="https://ionicframework.com/docs/demos/api/card/madison.jpg" style="width: auto;height: 143px;border-radius: 0px 10px 0px 0px;width: 100%;">
+                  <ion-card-header>
+
+                 <ion-card-subtitle  style="color: #000">
+                    <ion-row>
+                    <b  style="font-family: Montserrat;font-style: normal;font-weight: bold;font-size: 16px;line-height: 20px;align-items: center;letter-spacing: 0.75px;color: #001D1B;margin-top: -15px;"> 
+                      Nombre {{n}}
+                    </b>
+                    </ion-row>  
+                  </ion-card-subtitle>
+                
+                  </ion-card-header>
+
+                  <ion-card-content style="margin-top:-15px">Ubicación
+                </ion-card-content>
+
+              </ion-card>
+            </ion-slide>
+
+          </ion-slides>
+          
+            <!--<div style="position: absolute;margin-top: 8%;">
             
-                <div v-for="n in 2" :key="n"  class="cursor" @click="redirect_details(n)" style="width: 50%;left: -5%;">
+                <div v-for="n in 2" :key="n"  class="cursor" @click="redirect_details(n)" style="width: 100%;">
                 
                    <img src="https://ionicframework.com/docs/demos/api/card/madison.jpg" style="width: auto;height: 143px;border-radius: 0px 10px 0px 0px;width: 100%;">
 
@@ -93,9 +174,13 @@
               
               </div>
           
-          </div>
+          </div>-->
 
+
+   
+    
     </ion-content>
+
   </ion-page>
 </template>
 
@@ -104,20 +189,20 @@
 import { repeat,arrowBack } from 'ionicons/icons';
 import ModalDetail from '@/views/products/ModalDetail'
 import { 
-
   IonContent, 
   modalController,
-
-  IonPage
+  IonPage,
+  IonSlides,
+  IonSlide,
  } from '@ionic/vue';
+
 import { defineComponent, ref } from 'vue';
 
 export default defineComponent({
   components: {
- 
     IonContent, 
- 
-  
+    IonSlides,
+    IonSlide,
     IonPage
   },
   setup() {
@@ -148,6 +233,11 @@ export default defineComponent({
       }, 500);
     }
 
+    const slideOpts = {
+      initialSlide: 0,
+      speed: 400
+    };
+ 
     pushData();
 
     return {
@@ -156,7 +246,8 @@ export default defineComponent({
       loadData,
       items,
       repeat,
-      arrowBack
+      arrowBack,
+      slideOpts
     }
   },
   methods:{
@@ -175,17 +266,34 @@ export default defineComponent({
 });
 
 </script>
-<style scoped="">
-ion-card{
-
-width: 345px;
-height: 257px;
+<style >
 
 
-background: #FFFFFF;
-box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.08);
-border-radius: 10px;
+.swiper-container {
+     height: 270px;
 }
 
+.swiper-pagination-fraction, .swiper-pagination-custom, .swiper-container-horizontal>.swiper-pagination-bullets {
+    bottom: 45px;
+    left: 0;
+    width: 100%;
+    display: none !important;
+}
 
+.swiper-pagination-bullet-active {
+    background: #5B716F  !important;
+}
+
+.swiper-pagination-bullet {
+    width: 13px;
+    height: 13px;
+    display: inline-block;
+    border-radius: 100%;
+    background: #32BAB0;
+    opacity: inherit;
+  
+}
+.swiper-wrapper{
+    margin-top: -29px !important;
+}
 </style>

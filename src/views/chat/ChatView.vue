@@ -60,7 +60,7 @@
               </span>
           <input type="text" placeholder="Escribe algo" >
              
-          <button><img src="/assets/button-send.svg" style="margin-left: -56px;margin-top: -13px;"></button>
+          <button style="background: #fff;"><img src="/assets/button-send.svg" style="margin-left: -56px;margin-top: -13px;"></button>
           </div>
       </div>   
   </ion-page>  

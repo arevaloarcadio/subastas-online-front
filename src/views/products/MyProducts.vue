@@ -15,7 +15,7 @@
           </p>
       </ion-col>
     </ion-row>
-     <ion-content>
+     <ion-content class="ion-padding">
     
         <ion-row>
              <ion-col v-for="n in 3" :key="n"  size="6"  >
@@ -52,13 +52,13 @@
               <ion-card class="card" style="width: 95%;">
                 <center>
                   <br><br>
-                 Agregar<br><br>
+                 <span style="font-style: normal;font-weight: 400;font-size: 16px;line-height: 20px;align-items: center;letter-spacing: 0.75px;color: #5B716F;">Agregar</span><br><br>
                  <img src="assets/button-add.svg">
                 </center>
              </ion-card>
             </ion-col>
           </ion-row>
-    
+      <br>     <br>
     </ion-content> 
   </ion-page>
 </template>
@@ -233,7 +233,9 @@ export default defineComponent({
     color: #fff;
     top: 4%;
     font-weight: 500;
-    margin-left: 75%
+    margin-left: 75%;
+
+
 }
 
 

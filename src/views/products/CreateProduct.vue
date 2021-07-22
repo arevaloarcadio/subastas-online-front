@@ -48,13 +48,13 @@
                 <ion-col>
                   <ion-item  lines="none">
                     <p class="text-radio">Nuevo</p>
-                    <ion-radio color="success" slot="start" value="biff"></ion-radio>
+                    <ion-radio  color="success" slot="start" value="biff"></ion-radio>
                   </ion-item>
                     </ion-col>
                      <ion-col>
                   <ion-item  lines="none" style="margin-left: -27px;">
                     <p class="text-radio">Usado</p>
-                    <ion-radio color="success" slot="start" value="griff"></ion-radio>
+                    <ion-radio  color="success" slot="start" value="griff"></ion-radio>
                   </ion-item>
                   </ion-col>
                </ion-row>
@@ -97,7 +97,7 @@
         <br>
         <center>
           <button type="button" class="btn-primary" @click="redirect('/create/details/product')" style="width: 215px">
-            <span style="position: fixed;margin-left:-76px;margin-top: -8px;">Añadir categoría</span>
+            <span style="position: fixed;margin-left:-76px;margin-top: -8px;font-style: normal;font-weight: 400;font-size: 16px;line-height: 20px;color: #FFFFFF;">Añadir categoría</span>
 
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" style="position: fixed;margin-left: 68px;margin-top: -6px;">
               <path d="M0 9H12.17L6.58 14.59L8 16L16 8L8 0L6.59 1.41L12.17 7H0V9Z" fill="#E6EFFF"/>
@@ -303,6 +303,22 @@ export default defineComponent({
 }
 input[type="file"] {
   display: none;
+}
+
+ion-radio{
+ border-style: solid;
+  border-width: 6px;
+  border-radius: 15px;
+  color: #CEFFFB;
+  height: 28px;
+  width: 28px;
+
+}
+
+ion-radio::part(mark){
+
+  width: 18px ;
+  height: 14px ;
 }
 </style>
 
