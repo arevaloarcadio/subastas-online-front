@@ -82,7 +82,7 @@ export default defineComponent({
       country : null,
       city : null,
       countries : null,
-      flag : null
+      flag : 'https://restcountries.eu/data/afg.svg'
     };
   },
   mounted(){

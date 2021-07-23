@@ -93,7 +93,7 @@ export default {
 .footer {
   position: fixed;
   left: 0;
-  bottom: -9px;
+  bottom: -5px;
   width: 100%;
   background-color: #fff;
   color: white;
@@ -117,6 +117,6 @@ div.scroll {
   opacity: 0;
 }
 .active{
-  margin-bottom: -43px;
+  margin-bottom: -41px;
 }
 </style>
