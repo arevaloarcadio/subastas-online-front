@@ -50,9 +50,9 @@
             <ion-row class="container" style="border-radius: 10px" >
               <div class="input-container" style="height: 55px; width: 97%;margin-left: 1.5%;">
               
-                    <img src="/assets/Bitmap.png" class="select-country">
+                    <img :src="flag" class="select-country" style="width: 20px;height: 16px">
                     <ion-select id="ionSelectCountry" :interface-options="customActionSheetOptions" interface="action-sheet" style="background: #32BAB0;border-radius: 10px;color: #32BAB0;font-family: Montserrat;width: 83px;height: 100%;"  ok-text="Seleccionar" cancel-text="Cerrar" @ionChange="getCountry($event)">
-                    <ion-select-option value="Peru">Peru</ion-select-option>
+                      <ion-select-option v-for="country in countries" :key="country" :value="country.name">{{country.name}}</ion-select-option>
                   </ion-select>
        
                 <ion-col size="8">
@@ -128,7 +128,7 @@
 import { repeat,arrowBack,camera } from 'ionicons/icons';
 import ModalDetail from '@/views/products/ModalDetail'
 import PopoverSelectCategory from './PopoverSelectCategory'
-
+import axios from 'axios'
 import { 
 
   IonContent, 
@@ -152,7 +152,8 @@ export default defineComponent({
     PopoverSelectCategory,
     IonList,
     IonPage,
-    IonPopover 
+    IonPopover,
+
   },
   setup() {
     const isDisabled = ref(false);
@@ -211,10 +212,12 @@ export default defineComponent({
     return{
       country : null,
       city :'Roterdam',
-      category :null
+      category :null,
+      flag : null
     }
   },
   mounted(){
+
     let svg = '<svg style="margin-left:14px" width="12" height="7" viewBox="0 0 12 7" fill="none" xmlns="http://www.w3.org/2000/svg">'+
                 '<path d="M11 1L6 6L1 1" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>'+
               '</svg>'
@@ -222,7 +225,7 @@ export default defineComponent({
 
     document.querySelector('#ionSelectCountry').shadowRoot.innerHTML = svg 
   
-
+    this.getCountries()
    
 
   },
@@ -241,6 +244,28 @@ export default defineComponent({
       console.log(category)
       this.category = category.category;
       this.setOpen(false)
+    },
+    getCountries(){
+      
+      const awsAxios = axios.create({
+          transformRequest: (data, headers) => {
+              // Remove all shared headers
+              delete headers.common;
+              // or just the auth header
+              delete headers['auth-token']
+          }
+      });
+
+      awsAxios
+      .get("https://restcountries.eu/rest/v2/all")
+      .then(res => {
+        this.countries = res.data
+        this.country = this.countries[0].name
+        this.flag = this.countries[0].flag
+       })
+      .catch(err => {
+        console.log(err)
+      });
     },
     async openModal() {
       const modal = await modalController

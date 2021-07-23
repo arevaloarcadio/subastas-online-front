@@ -19,9 +19,9 @@
 
                 <ion-row>
                   <ion-col size="4">
-                    <img src="/assets/Bitmap.png" class="select-country">
+                    <img :src="flag" class="select-country" style="width: 20px;height: 16px">
                     <ion-select id="ionSelectCountry" :interface-options="customActionSheetOptions" interface="action-sheet" style="background: #32BAB0;border-radius: 10px;color: #32BAB0;font-family: Montserrat;width: 81%;height: 100%;"  ok-text="Seleccionar" cancel-text="Cerrar" @ionChange="getCountry($event)">
-                    <ion-select-option value="Peru">Peru</ion-select-option>
+                      <ion-select-option v-for="country in countries" :key="country" :value="country.name">{{country.name}}</ion-select-option>
                   </ion-select>
                 </ion-col>
                 <ion-col size="8">
@@ -80,7 +80,9 @@ export default defineComponent({
       password: null,
       password_confirmacion: null,
       country : null,
-      city : null
+      city : null,
+      countries : null,
+      flag : null
     };
   },
   mounted(){
@@ -95,17 +97,45 @@ export default defineComponent({
               '</svg>'          
     document.querySelector('#ionSelectCity').shadowRoot.innerHTML = svgCity 
     document.querySelector('#ionSelectCountry').shadowRoot.innerHTML =  svgCountry 
-    
+
+    this.getCountries()
   },
   methods: {
     redirect(){
        this.$router.push({path: 'success'});
     },
     getCountry(ev){
+      const country_selected = this.countries.filter(function(country) {
+        if(country.name == ev.target.value){
+           return country
+        }
+      });
+      this.flag = country_selected[0].flag
       this.country = ev.target.value;
     },
     getCity(ev){
       this.city = ev.target.value;
+    },
+    getCountries(){
+      
+      const awsAxios = axios.create({
+          transformRequest: (data, headers) => {
+              // Remove all shared headers
+              delete headers.common;
+              // or just the auth header
+              delete headers['auth-token']
+          }
+      });
+
+      awsAxios
+      .get("https://restcountries.eu/rest/v2/all")
+      .then(res => {
+        this.countries = res.data
+        this.flag = this.countries[0].flag
+       })
+      .catch(err => {
+        console.log(err)
+      });
     },
     async register() {
 

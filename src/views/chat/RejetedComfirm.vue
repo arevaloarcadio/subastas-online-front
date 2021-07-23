@@ -10,7 +10,7 @@
           </button>-->
           
           <p style="color: #000;width: 80%;margin-left: 10%;font-family: Montserrat;font-style: normal;font-weight: normal;font-size: 20px;line-height: 24px;text-align: center;color: #000000;"  class="title">
-            ¿Estas seguro de  <br>rechazar el cambio?
+            ¿Estás seguro de  <br>rechazar el cambio?
           </p>
       </ion-col>
       

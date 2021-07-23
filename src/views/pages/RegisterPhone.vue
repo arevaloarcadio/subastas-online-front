@@ -20,10 +20,10 @@
             <ion-grid>
                <ion-row style="margin-top: 3%;">
                   <ion-col size="4">
-                    <img src="/assets/Bitmap.png" style="z-index: 1000;z-index: 1000;position: absolute;top: 36%; left: 18%;">
-                    <ion-select id="ionSelectPhoneCode" :interface-options="customActionSheetOptions" interface="action-sheet" style="background: #32BAB0;border-radius: 10px;color: #32BAB0;font-family: Montserrat;width: 110%" value="+31" ok-text="Seleccionar" cancel-text="Cerrar">
-                    <ion-select-option value="+56">+56</ion-select-option>
-                    <ion-select-option value="+31">+31</ion-select-option>
+                    <img :src="flag" style="z-index: 1000;z-index: 1000;position: absolute;top: 36%; left: 18%;width: 20px;height: 16px">
+                    <ion-select id="ionSelectPhoneCode" :interface-options="customActionSheetOptions" @ionChange="getValueCode($event)" interface="action-sheet" style="background: #32BAB0;border-radius: 10px;color: #32BAB0;font-family: Montserrat;width: 110%"  ok-text="Seleccionar" cancel-text="Cerrar">
+                    <ion-select-option v-for="code in codes" :key="code" :value="code.value">{{code.text}}</ion-select-option>
+                   
                   </ion-select>
                 </ion-col>
                 <ion-col size="8">
@@ -60,6 +60,10 @@ export default defineComponent({
   name: "Register",
   data() {
     return {
+      countries : null,
+      codes :null,
+      code : null,
+      flag : null,
       type : null,
       first_name: null,
       last_name: null,
@@ -71,14 +75,74 @@ export default defineComponent({
   mounted(){
     this.type = this.$route.query.type;
     
-    let svg = '<svg width="12" height="7" viewBox="0 0 12 7" fill="none" xmlns="http://www.w3.org/2000/svg" style="position:absolute;margin-left: 28px;">'+
-                '<path d="M11 1L6 6L1 1" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>'+
-              '</svg>'          
-    document.querySelector('#ionSelectPhoneCode').shadowRoot.innerHTML = svg 
+   
+    this.getCountry()
   },
   methods: {
     redirect(poth){
       this.$router.push(poth);
+    },
+    getCountry(){
+      
+      const awsAxios = axios.create({
+          transformRequest: (data, headers) => {
+              // Remove all shared headers
+              delete headers.common;
+              // or just the auth header
+              delete headers['auth-token']
+          }
+      });
+
+      awsAxios
+      .get("https://restcountries.eu/rest/v2/all")
+      .then(res => {
+        this.countries = res.data
+    
+        this.getCodes()
+      })
+      .catch(err => {
+        console.log(err)
+      });
+    },
+    getCodes(){
+
+      this.codes = this.countries.map(function(country) {
+        if(country.callingCodes[0] != null){
+          return {
+            value : '+'+country.callingCodes[0], 
+            text : '+'+country.callingCodes[0]+' - '+country.name,
+            flag : country.flag   
+          }
+        }
+      });
+      
+      this.flag =  this.codes[0].flag
+      let svg = '<div class="select-text-2" part="text-2">'+this.codes[0].value+'</div>'+
+       '<svg width="12" height="7" viewBox="0 0 12 7" fill="none" xmlns="http://www.w3.org/2000/svg" style="position:absolute;margin-left: 52px;">'+
+                '<path d="M11 1L6 6L1 1" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>'+
+              '</svg>'          
+ 
+    document.querySelector('#ionSelectPhoneCode').shadowRoot.innerHTML = svg 
+    },
+    getValueCode($event){
+      const code = this.countries.filter(function(country) {
+        
+        if('+'+country.callingCodes[0] == $event.target.value){
+     
+          return {
+            text : '+'+country.callingCodes[0],
+            flag : country.flag
+          }
+        }
+      });
+  
+      this.flag = code[0].flag
+      let svg = '<div class="select-text-2" part="text-2">+'+code[0].callingCodes[0]+'</div>'+
+       '<svg width="12" height="7" viewBox="0 0 12 7" fill="none" xmlns="http://www.w3.org/2000/svg" style="position:absolute;margin-left: 52px;">'+
+                '<path d="M11 1L6 6L1 1" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>'+
+              '</svg>'          
+ 
+    document.querySelector('#ionSelectPhoneCode').shadowRoot.innerHTML = svg 
     },
     async register() {
 
@@ -136,6 +200,12 @@ export default defineComponent({
 
 
 ion-select::part(text) {
+    display: none;
+
+}
+
+ion-select::part(text-2) {
+   
     padding: 5px 12px;
     background: #32BAB0;
     border: 1px solid #32BAB0;
@@ -143,9 +213,8 @@ ion-select::part(text) {
     border-radius: 10px;
     color: #fff;
     font-family: Montserrat;
-    margin-left: 58%;
+  
 }
-
 ion-select::part(icon) {
  display: none;
 }

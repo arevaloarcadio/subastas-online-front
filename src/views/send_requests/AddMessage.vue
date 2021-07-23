@@ -3,22 +3,23 @@
     <ion-row>
        <ion-col>
        <button @click="$router.go(-1)">
-            <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-left: 3%;top: 22%;position: absolute;">
+            <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-left: 3%;top: 42%;position: absolute;">
               <path d="M27 16H5" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
               <path d="M14 7L5 16L14 25" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
           </button>
           <p style="color: #000" class="title">
             Enviar solicitud
-          </p><br>
-          <p class="sub-title" style="width: 80%;margin-left: 10%;font-weight: 500;">
-           Agrega un mensaje que <br> describa tu oferta
           </p>
       </ion-col>
       
     </ion-row>
    
      <ion-content>
+      <br>
+          <p class="sub-title" style="width: 80%;margin-left: 10%;font-weight: 500;">
+           Agrega un mensaje que <br> describa tu oferta
+          </p>
        <ion-card style="box-shadow: inherit;margin-top: 11%;width: 101%;margin-left: -1%">
       <img src="https://ionicframework.com/docs/demos/api/card/madison.jpg" class="img-left">
        <svg width="49" height="49" viewBox="0 0 49 49" fill="none" xmlns="http://www.w3.org/2000/svg" class="img-center">

@@ -17,7 +17,7 @@
 
         <br>
         <p v-if="nofitications.length == 0" style="font-weight: 400">
-         Actualmente no hay notifaciones
+         Actualmente no hay notificaciones
         </p>
         <template v-else  v-for="nofitication in nofitications" :key="nofitication">
           <div style="box-shadow:inherit;margin-left: 0%;height: 99px" @click="redirect({name : nofitication.type , params : { productId : nofitication.id }})">

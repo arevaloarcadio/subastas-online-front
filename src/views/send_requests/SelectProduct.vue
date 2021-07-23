@@ -3,7 +3,7 @@
     <ion-row>
        <ion-col>
        <button @click="$router.go(-1)">
-            <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-left: 3%;top: 20%;position: absolute;">
+            <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-left: 3%;top: 42%;position: absolute;">
               <path d="M27 16H5" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
               <path d="M14 7L5 16L14 25" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
@@ -11,16 +11,17 @@
           <p style="color: #000" class="title">
             Enviar solicitud
           </p>
-          <br><br>
-          <p class="sub-title" style="width: 80%;margin-left: 10%;font-weight: 500;">
-           Selecciona uno o  más <br> de tus productos
-          </p>
+        
       </ion-col>
       
     </ion-row>
 
     
     <ion-content>
+        <br><br>
+          <p class="sub-title" style="width: 80%;margin-left: 10%;font-weight: 500;">
+           Selecciona uno o  más <br> de tus productos
+          </p>
      <ion-card style="box-shadow: inherit;margin-top: 8%;width: 101%;margin-left: -1%">
       <img src="https://ionicframework.com/docs/demos/api/card/madison.jpg" class="img-left">
      

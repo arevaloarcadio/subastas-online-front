@@ -40,7 +40,7 @@
     <ion-row>
       <ion-col>
         <p class="p-no-center"    style="float: left;margin-left: 6%;font-family: Montserrat;font-style: normal;font-weight: normal;font-size: 20px;line-height: 24px;color: #000000;">
-          Categoria:
+          Categoría:
         </p>
       </ion-col>
       <ion-col> 
