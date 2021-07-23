@@ -213,7 +213,7 @@ export default defineComponent({
       country : null,
       city :'Roterdam',
       category :null,
-      flag : null
+      flag : 'https://restcountries.eu/data/afg.svg'
     }
   },
   mounted(){

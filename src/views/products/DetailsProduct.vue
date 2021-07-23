@@ -150,7 +150,7 @@
             </ion-slide>
 
           </ion-slides>
-          
+          <br><br>
             <!--<div style="position: absolute;margin-top: 8%;">
             
                 <div v-for="n in 2" :key="n"  class="cursor" @click="redirect_details(n)" style="width: 100%;">

@@ -63,7 +63,7 @@ export default defineComponent({
       countries : null,
       codes :null,
       code : null,
-      flag : null,
+      flag : 'https://restcountries.eu/data/afg.svg',
       type : null,
       first_name: null,
       last_name: null,
