@@ -118,7 +118,7 @@ export default defineComponent({
       
       this.flag =  this.codes[0].flag
       let svg = '<div class="select-text-2" part="text-2">'+this.codes[0].value+'</div>'+
-       '<svg width="12" height="7" viewBox="0 0 12 7" fill="none" xmlns="http://www.w3.org/2000/svg" style="position:absolute;margin-left: 52px;">'+
+       '<svg width="12" height="7" viewBox="0 0 12 7" fill="none" xmlns="http://www.w3.org/2000/svg" style="position:absolute;margin-left: 30px;">'+
                 '<path d="M11 1L6 6L1 1" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>'+
               '</svg>'          
  
@@ -138,7 +138,7 @@ export default defineComponent({
   
       this.flag = code[0].flag
       let svg = '<div class="select-text-2" part="text-2">+'+code[0].callingCodes[0]+'</div>'+
-       '<svg width="12" height="7" viewBox="0 0 12 7" fill="none" xmlns="http://www.w3.org/2000/svg" style="position:absolute;margin-left: 52px;">'+
+       '<svg width="12" height="7" viewBox="0 0 12 7" fill="none" xmlns="http://www.w3.org/2000/svg" style="position:absolute;margin-left: 30px;">'+
                 '<path d="M11 1L6 6L1 1" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>'+
               '</svg>'          
  
