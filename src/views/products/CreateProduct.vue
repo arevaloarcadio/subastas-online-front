@@ -24,7 +24,7 @@
           <div class="container">
             <label class="label-input">Nombre</label>
             <div  class="input-container">
-              <input type="" name="" class="input-text">
+              <input type="text" name="" v-model="nombre" class="input-text">
             </div>
           </div>
         </ion-col>
@@ -35,7 +35,7 @@
           <div class="container">
             <label class="label-input" style="font-family: Montserrat;font-style: normal;font-weight: 500;font-size: 16px;line-height: 20px;color: #32BAB0;">Descripción</label>
             <div  class="input-container">
-              <input type="" name="" class="input-text">
+              <input type="text" name="" v-model="descripcion" class="input-text">
             </div>
           </div>
         </ion-col>
@@ -43,18 +43,18 @@
        
         <ion-row>
           <ion-col >
-             <ion-radio-group value="biff">
+             <ion-radio-group value="Nuevo" v-model="estado">
               <ion-row>
                 <ion-col>
                   <ion-item  lines="none">
                     <p class="text-radio">Nuevo</p>
-                    <ion-radio  color="success" slot="start" value="biff"></ion-radio>
+                    <ion-radio  color="success" slot="start" value="Nuevo" @click="estado ='Nuevo'"></ion-radio>
                   </ion-item>
                     </ion-col>
                      <ion-col>
                   <ion-item  lines="none" style="margin-left: -27px;">
                     <p class="text-radio">Usado</p>
-                    <ion-radio  color="success" slot="start" value="griff"></ion-radio>
+                    <ion-radio  color="success" slot="start"  value="Usado" @click="estado ='Usado'"></ion-radio>
                   </ion-item>
                   </ion-col>
                </ion-row>
@@ -88,7 +88,7 @@
               <div class="container">
                 <label class="label-input">¿Qué quieres a cambio? </label>
                 <div  class="input-container">
-                  <input type="" name="" class="input-text">
+                  <input type="text" v-model="to_change" class="input-text">
                 </div>
               </div>
             </ion-col>
@@ -96,7 +96,7 @@
         <br>
         <br>
         <center>
-          <button type="button" class="btn-primary" @click="redirect('/create/details/product')" style="width: 215px">
+          <button type="button" class="btn-primary" @click="redirect()" style="width: 215px">
             <span style="position: fixed;margin-left:-76px;margin-top: -8px;font-style: normal;font-weight: 400;font-size: 16px;line-height: 20px;color: #FFFFFF;">Añadir categoría</span>
 
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" style="position: fixed;margin-left: 68px;margin-top: -6px;">
@@ -128,9 +128,7 @@
 import { repeat,arrowBack,camera } from 'ionicons/icons';
 import ModalUpload from './ModalUpload'
 import { 
-
   IonContent, 
-
   modalController,
   IonList,
   IonPage,
@@ -143,12 +141,12 @@ import { Plugins, CameraResultType, CameraSource } from '@capacitor/core';
 const { Camera } = Plugins;
 
 import { defineComponent, ref } from 'vue';
+import toast from '@/toast'
 
 export default defineComponent({
   components: {
     ModalUpload,
     IonContent, 
-
     IonList,
     IonPage,
     IonModal
@@ -199,12 +197,31 @@ export default defineComponent({
   },
   data(){
     return{
-      takenImageUrl : null
+      takenImageUrl : null,
+      estado : null,
+      nombre : null,
+      descripcion : null,
+      image : null,
+      to_change : null
     }
   },
   methods:{
-    redirect(path) {
-      this.$router.push({path: path});
+    redirect() {
+
+      if(this.estado == null || this.nombre == null || this.descripcion == null || this.image == null){
+         toast.openToast("Complete los campos restantes","success",2000);
+         return;
+      }
+
+      let data = {
+        estado : this.estado,
+        nombre: this.nombre,
+        descripcion: this.descripcion,
+        image: this.image,
+        to_change : this.to_change == null ? '' : this.to_change
+      };
+
+      this.$router.push({path: '/create/details/product' , query : {...data}});
     },
     async openModal() {
     
@@ -249,9 +266,23 @@ export default defineComponent({
       this.takenImageUrl = photo.webPath;
     },
     getPhoto($event){
-      this.takenImageUrl = $event.takenImageUrl;
+      this.image = this.dataURLtoFile($event.dataUrl,'file');
+      this.takenImageUrl = $event.dataUrl;
       this.setOpen(false)
-    }
+    },
+    dataURLtoFile : function(dataurl, filename) {
+        var arr = dataurl.split(','),
+            mime = arr[0].match(/:(.*?);/)[1],
+            bstr = atob(arr[1]), 
+            n = bstr.length, 
+            u8arr = new Uint8Array(n);
+            
+        while(n--){
+            u8arr[n] = bstr.charCodeAt(n);
+        }
+        
+        return new File([u8arr], filename, {type:mime});
+    },
   }
 });
 

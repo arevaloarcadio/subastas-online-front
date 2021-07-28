@@ -5,12 +5,12 @@ import store from '@/plugins/store'
 import axios from 'axios'
 
 
-axios.defaults.baseURL = 'http://localhost:3000';
+axios.defaults.baseURL = 'http://localhost:4000';
 
 axios.interceptors.request.use(config => {
   config.headers['X-Requested-With'] = 'XMLHttpRequest';
   if (jwtToken.getToken()) {
-    config.headers['auth-token'] = jwtToken.getToken();
+    config.headers['x-access-token'] = jwtToken.getToken();
   }
   return config;
 }, error => {

@@ -20,7 +20,7 @@
           <div class="container">
             <label class="label-input">Nombre</label>
             <div  class="input-container">
-              <input type="" name="" class="input-text">
+              <input type="text" v-model="name" class="input-text">
             </div>
           </div>
         </ion-col>
@@ -30,7 +30,7 @@
           <div class="container">
             <label class="label-input">Email</label>
             <div  class="input-container">
-              <input type="" name="" class="input-text">
+              <input type="text" v-model="email" class="input-text">
             </div>
           </div>
         </ion-col>
@@ -69,7 +69,7 @@
       </ion-row>
     </ion-grid>
      <p> 
-      <button type="button" class="btn-primary" @click="redirect()" style="width: 200px;margin-top: 1%">
+      <button type="button" class="btn-primary" @click="register()" style="width: 200px;margin-top: 1%">
       
           Registrarme
       </button>
@@ -90,10 +90,11 @@
 </template>
 
 <script>
-import { loadingController,toastController,IonRow,IonGrid,IonCol  } from '@ionic/vue';
+import { IonRow,IonGrid,IonCol  } from '@ionic/vue';
 import { defineComponent } from 'vue';
-import axios from 'axios';
+//import axios from 'axios';
 import { eyeOutline,eyeOffOutline } from 'ionicons/icons';
+import toast from '@/toast'
 
 export default defineComponent({
   components: { IonRow,IonGrid,IonCol },
@@ -106,8 +107,7 @@ export default defineComponent({
   data() {
     return {
       type : null,
-      first_name: null,
-      last_name: null,
+      name : null,
       email: null,
       password: null,
       password_confirmacion: null,
@@ -123,51 +123,25 @@ export default defineComponent({
       this.$router.push({path: 'select_country'});
     },
     async register() {
+    
+    if(this.name == null || this.email  == null || this.password  == null || this.password_confirmacion == null){
+      toast.openToast("Complete los campos restante","success",2000);
+      return;
+    }
 
-       const loading = await loadingController.create({
-          cssClass: 'my-custom-class',
-          message: 'Por Favor Espere..',
-         });
+    if( this.password  != this.password_confirmacion){
+      toast.openToast("Contraseña no coincide","success",2000);
+      return;
+    }
 
-      await loading.present();
-
-     let data = {
-        first_name: this.first_name,
-        last_name: this.last_name,
+    let data = {
+        name : this.name,
         email: this.email,
         password: this.password,
-        password_confirmacion: this.password_confirmacion,
      };
 
-    axios
-      .post("/register",data)
-      .then(res => {
-        if(!res.data.error)
-          this.openToast(res.data.data,'success')
-        else
-          this.openToast('Error Interno','warning')
-      })
-      .catch(err => {
-        if(err.response.type == 'validation'){
-          this.openToast(err.response.data.data,'warning')
-        }else{
-           this.openToast(err.response.data.data,'danger')
-        }
-      });
-
-     await loading.dismiss()
-    },
-    async openToast(message,color) {
-      const toast = await toastController
-        .create({
-          position : 'top',
-          color : color,
-          message: message,
-          duration: 2000
-        })
-
-      return toast.present();
-    },
+      this.$router.push({path: 'select_country' , query :{...data}});
+    }
   }
 });
 </script>

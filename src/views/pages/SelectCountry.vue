@@ -53,7 +53,7 @@
             
             <br>
             <br>
-              <button type="button" class="btn-primary" @click="redirect()" style="width: 138px">
+              <button type="button" class="btn-primary" @click="register()" style="width: 138px">
                   Continuar
               </button>
         
@@ -63,9 +63,10 @@
 </template>
 
 <script >
-import { loadingController,toastController,IonRow,IonGrid,IonCol,IonSelect, IonSelectOption  } from '@ionic/vue';
+import { IonRow,IonGrid,IonCol,IonSelect, IonSelectOption  } from '@ionic/vue';
 import { defineComponent } from 'vue';
 import axios from 'axios'
+import toast from '@/toast'
 //import { injectStyles } from 'shadow-dom-inject-styles';
 
 export default defineComponent({
@@ -74,11 +75,9 @@ export default defineComponent({
   data() {
     return {
       type : null,
-      first_name: null,
-      last_name: null,
+      name: null,
       email: null,
       password: null,
-      password_confirmacion: null,
       country : null,
       city : null,
       countries : null,
@@ -86,7 +85,6 @@ export default defineComponent({
     };
   },
   mounted(){
-    this.type = this.$route.query.type;
     
     let svgCity = '<svg width="12" height="7" viewBox="0 0 12 7" fill="none" xmlns="http://www.w3.org/2000/svg">'+
                 '<path d="M11 1L6 6L1 1" stroke="#32BAB0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>'+
@@ -99,11 +97,14 @@ export default defineComponent({
     document.querySelector('#ionSelectCountry').shadowRoot.innerHTML =  svgCountry 
 
     this.getCountries()
+
+
+    this.name = this.$route.query.name;
+    this.email = this.$route.query.email;
+    this.password = this.$route.query.password;
+
   },
   methods: {
-    redirect(){
-       this.$router.push({path: 'success'});
-    },
     getCountry(ev){
       const country_selected = this.countries.filter(function(country) {
         if(country.name == ev.target.value){
@@ -139,49 +140,28 @@ export default defineComponent({
     },
     async register() {
 
-       const loading = await loadingController.create({
-          cssClass: 'my-custom-class',
-          message: 'Por Favor Espere..',
-         });
+      let loading = await toast.showLoading()
 
       await loading.present();
 
-     let data = {
-        first_name: this.first_name,
-        last_name: this.last_name,
+    
+    axios.post('/signup/mobile',{
+        name: this.name,
         email: this.email,
-        password: this.password,
-        password_confirmacion: this.password_confirmacion,
-     };
-
-    axios
-      .post("/register",data)
+        password : this.password,
+        pais : this.country,
+        city : this.city,
+        rol : 'customer',
+        singin_method : 'email'
+     })
       .then(res => {
-        if(!res.data.error)
-          this.openToast(res.data.data,'success')
-        else
-          this.openToast('Error Interno','warning')
+        loading.dismiss()
+         this.$router.push({path: 'success',query : {customer_id : res.data.user.id }});
       })
       .catch(err => {
-        if(err.response.type == 'validation'){
-          this.openToast(err.response.data.data,'warning')
-        }else{
-           this.openToast(err.response.data.data,'danger')
-        }
+        console.log(err)
+         toast.openToast("Error al registrar","error",2000)
       });
-
-     await loading.dismiss()
-    },
-    async openToast(message,color) {
-      const toast = await toastController
-        .create({
-          position : 'top',
-          color : color,
-          message: message,
-          duration: 2000
-        })
-
-      return toast.present();
     },
   }
 });

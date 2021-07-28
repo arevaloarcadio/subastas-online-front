@@ -105,6 +105,7 @@
 <script >
 import { repeat,notifications,personOutline,add,logOut } from 'ionicons/icons';
 import ModalSearch from '@/views/dashboard/ModalSearch'
+import { mapGetters } from 'vuex'
 
 import { 
 
@@ -174,6 +175,11 @@ export default defineComponent({
       add,
       logOut
     }
+  },
+  computed : {
+    ...mapGetters([
+        'getUser'
+    ]),
   },
   methods:{
     redirect_details(id) {

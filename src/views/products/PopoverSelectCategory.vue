@@ -1,6 +1,6 @@
 <template>
 	<div style="margin-left: 5%;margin-top: 20px">	
-		<ion-row style="cursor: pointer;" @click="select('Hogar')" :class="{'item-popover' : true , 'active' : filters['Enviadas'] == true}">
+		<!--<ion-row style="cursor: pointer;" @click="select('Hogar')" :class="{'item-popover' : true , 'active' : filters['Enviadas'] == true}">
 			Hogar
 		</ion-row>
 		
@@ -22,6 +22,9 @@
 	
 		<ion-row style="cursor: pointer;" @click="select('Videojuegos')" :class="{'item-popover' : true , 'active' : filters['Por confirmar'] == true}">
 			Videojuegos
+		</ion-row>-->
+		<ion-row style="cursor: pointer;" v-for="category in categories" :key="category" @click="select(category)" class="item-popover">
+			{{category.name}}
 		</ion-row>
 	</div>	
 </template>
@@ -29,12 +32,13 @@
 <script>
 
 import { defineComponent } from 'vue';
-
+import axios from 'axios'
 
 export default defineComponent({
 name: 'Popover',
 data(){
 	return{
+		categories : null,
 		filters : {
 			'Enviadas' : false,
 			'Recibidas' : false,
@@ -43,11 +47,24 @@ data(){
 		}
 	}
 },
+mounted(){
+	this.getCategories()
+},
 methods : {
 select(category) {
-	console.log(category)
-this.$emit("category",{category:category})
-}
+console.log(category)
+this.$emit("category",category)
+},
+getCategories(){
+     axios
+      .get("categories")
+      .then(res => {
+        this.categories = res.data
+       })
+      .catch(err => {
+        console.log(err)
+      });
+    },
 }
 });
 </script>

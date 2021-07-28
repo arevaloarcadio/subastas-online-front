@@ -16,10 +16,13 @@ export const UNSET_USER = 'UNSET_USER';
 */
 const state = {
 	user: {
-id :null, 
-first_name : null, 
-last_name : null,
-email : null,
+		id :null, 
+		name : null, 
+		email : null,
+		city : null,
+		dir : null,
+		phone : null,
+		validate_phone : null,
 	}
 };
 
@@ -31,15 +34,21 @@ email : null,
 const mutations = {
 	[SET_USER](state, payload) {
 		state.user.id = payload.user.id;
-		state.user.firstname = payload.user.first_name;
-		state.user.lastname = payload.user.last_name;
+		state.user.name = payload.user.name;
 		state.user.email = payload.user.email;
+		state.user.city = payload.user.city;
+		state.user.dir = payload.user.dir;
+		state.user.phone = payload.user.phone;
+		state.user.validate_phone = payload.user.validate_phone;
 	},
 	[UNSET_USER](state) {
 		state.user.id = null;
-		state.user.first_name = null;
-		state.user.last_name = null;
+		state.user.name = null;
 		state.user.email = null;
+		state.user.city = null;
+		state.user.dir = null;
+		state.user.phone = null;
+		state.user.validate_phone = null;
 	}
 };
 

@@ -7,7 +7,7 @@
   </p>
   <br>
 
-    <a class="text-control" style="float: right;cursor: pointer;font-weight: 600"  @click="redirect()"> Siguiente</a>
+    <a class="text-control" style="float: right;cursor: pointer;font-weight: 600"  @click="registerCategories()"> Siguiente</a>
   <div te style="left:1%;top:1%;position: absolute;">
       <button type="button" :class="{'category-large' : true,'btn-category-active':category.Belleza,'btn-category':!category.Belleza}"  @click="select_category('Belleza')" :style="styles.belleza">
         Belleza
@@ -42,7 +42,7 @@
          Videojuegos
       </button>
  </div>
-  <div align="center" style="margin-top:613px">
+  <div align="center" style="margin-top:613px" @click="redirect()">
    Omitir
   </div>
   </ion-content>
@@ -51,15 +51,17 @@
 </template>
 
 <script>
-import { loadingController,toastController  } from '@ionic/vue';
 import { defineComponent } from 'vue';
 import axios from 'axios';
+import toast from '@/toast'
+
 
 export default defineComponent({
   //components: {IonRow,IonGrid,IonCol},
   name: "Register",
   data() {
     return {
+      customer_id : null,
       type : null,
       first_name: null,
       last_name: null,
@@ -75,6 +77,7 @@ export default defineComponent({
         Deportes :false,
         Videojuegos :false
       },
+      categories : [],
       styles : {
         belleza : {
           'position': 'absolute',
@@ -132,7 +135,7 @@ export default defineComponent({
 
   },
   mounted(){
-    this.type = this.$route.query.type;
+    this.customer_id = this.$route.query.customer_id;
     const width = window.screen.width;
     const styles = this.styles;
 
@@ -153,56 +156,51 @@ export default defineComponent({
   methods: {
     select_category(category){
       this.category[category] = this.category[category] ? false : true
+      
+      let deleted = false;
+      
+      for (var i = 0; i < this.categories.length; i++) {
+        if(category == this.categories[i]){
+           this.categories.splice(i,true)
+           deleted = true
+        }
+      }
+      if(!deleted){
+        this.categories.push(category)
+      }
+      console.log(this.categories)
     },
     redirect(){
        this.$router.push({path: 'config_chat'});
     },
-    async register() {
+    async registerCategories() {
 
-       const loading = await loadingController.create({
-          cssClass: 'my-custom-class',
-          message: 'Por Favor Espere..',
-         });
+      if(this.categories.length < 3){
+        toast.openToast("Selecciona al menos 3 categorías de productos","error",2000);
+        return;
+      }
+  
+      let loading = await toast.showLoading()
 
       await loading.present();
 
-     let data = {
-        first_name: this.first_name,
-        last_name: this.last_name,
-        email: this.email,
-        password: this.password,
-        password_confirmacion: this.password_confirmacion,
-     };
-
-    axios
-      .post("/register",data)
+     axios
+      .post("/categories/customer",{
+        categories_ids : this.categories,
+        customer_id : this.customer_id
+       })
       .then(res => {
-        if(!res.data.error)
-          this.openToast(res.data.data,'success')
-        else
-          this.openToast('Error Interno','warning')
+        console.log(res)
+        loading.dismiss()
+        this.$router.push({path: 'config_chat', query : {customer_id : this.customer_id}});
       })
       .catch(err => {
-        if(err.response.type == 'validation'){
-          this.openToast(err.response.data.data,'warning')
-        }else{
-           this.openToast(err.response.data.data,'danger')
-        }
+        console.log(err)
+        loading.dismiss()
       });
 
-     await loading.dismiss()
-    },
-    async openToast(message,color) {
-      const toast = await toastController
-        .create({
-          position : 'top',
-          color : color,
-          message: message,
-          duration: 2000
-        })
 
-      return toast.present();
-    },
+    }
   }
 });
 </script>

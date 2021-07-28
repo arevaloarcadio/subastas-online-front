@@ -94,6 +94,23 @@ http://ionicframework.com/docs/theming/ */
 
    
 }
+
+.loading{
+
+}
+
+.toats-success{
+--background : #FFFFFF;
+}
+
+.toats-error{
+--background : #FFFFFF;
+}
+
+.toats-warning{
+--background : #FFFFFF;
+}
+
 ion-checkbox {
       --border-radius: 15px;
       --size : 28px;

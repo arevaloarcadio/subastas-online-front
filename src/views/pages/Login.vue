@@ -18,7 +18,7 @@
           <div class="container">
             <label class="label-input">Email</label>
             <div  class="input-container">
-              <input type="" name="" class="input-text">
+              <input type="text" name="" v-model="email" class="input-text">
             </div>
           </div>
         </ion-col>
@@ -30,7 +30,7 @@
           <div class="container">
             <label class="label-input">Contraseña</label>
             <div  class="input-container">
-              <input :type="show_password ? 'text' : 'password'"  class="input-text">
+              <input :type="show_password ? 'text' : 'password'"  class="input-text" v-model="password">
                <span  style="z-index: 500;cursor: pointer;left: 90%; position: absolute;"  @click="show_password =! show_password" v-if="show_password">
                  
                   <img src="assets/show.svg">
@@ -48,7 +48,7 @@
       <a @click="() => router.push('/forget_password')"  style="color : #5B716F" class="text-control"> ¿Olvidaste tu contraseña?</a>
     <br>
     <br>
-    <button type="button" class="btn-primary" @click="() => router.push('/principal')"   style="width: 180px">
+    <button type="button" class="btn-primary" @click="signIn"   style="width: 180px">
         Iniciar Sesión
     </button> <br><br>
     <a   @click="() => router.push('/pre_login')" class="text-control">Atras</a>
@@ -58,14 +58,19 @@
 </template>
 
 <script>
-import { loadingController,toastController,IonRow,IonGrid,IonCol  } from '@ionic/vue';
+import { IonRow,IonGrid,IonCol  } from '@ionic/vue';
 import { eyeOutline,eyeOffOutline } from 'ionicons/icons';
 import { defineComponent } from 'vue';
 import axios from 'axios';
 import { useRouter } from 'vue-router';
+import toast from '@/toast'
+import jwtToken from "@/plugins/jwt/jwt-token";
+import {mapActions} from "vuex";
+import user from "@/plugins/jwt/user";
+
 
 export default defineComponent({
-  components: { IonRow,IonGrid,IonCol, },
+  components: { IonRow,IonGrid,IonCol},
   name: "Register",
   setup() {
       const router = useRouter();
@@ -74,64 +79,38 @@ export default defineComponent({
   data() {
     return {
       email: null,
-      password: 'password',
+      password: null,
       show_password : false,
     };
   },
-
-  mounted(){
-    this.type = this.$route.query.type;
-  },
   methods: {
-    redirect(path){
-      this.$router.push(path);
-    },
-    async register() {
+  ...mapActions([
+          'setAuthUser',
+      ]),
+    async signIn() {
 
-       const loading = await loadingController.create({
-          cssClass: 'my-custom-class',
-          message: 'Por Favor Espere..',
-         });
+    let loading = await toast.showLoading()
 
-      await loading.present();
+    await loading.present(); 
 
-     let data = {
-        first_name: this.first_name,
-        last_name: this.last_name,
-        email: this.email,
-        password: this.password,
-        password_confirmacion: this.password_confirmacion,
-     };
-
-    axios
-      .post("/register",data)
+      axios
+      .post("/signin/mobile",{
+        email : this.email,
+        password : this.password
+       })
       .then(res => {
-        if(!res.data.error)
-          this.openToast(res.data.data,'success')
-        else
-          this.openToast('Error Interno','warning')
+        console.log(res.data)
+        loading.dismiss()
+        user.setUser(res.data.user)
+        jwtToken.setToken(res.data.token);
+        this.setAuthUser(res.data.user)
+        this.$router.push({path: '/principal'});
       })
       .catch(err => {
-        if(err.response.type == 'validation'){
-          this.openToast(err.response.data.data,'warning')
-        }else{
-           this.openToast(err.response.data.data,'danger')
-        }
+        console.log(err)
+        loading.dismiss()
       });
-
-     await loading.dismiss()
-    },
-    async openToast(message,color) {
-      const toast = await toastController
-        .create({
-          position : 'top',
-          color : color,
-          message: message,
-          duration: 2000
-        })
-
-      return toast.present();
-    },
+    }
   }
 });
 </script>

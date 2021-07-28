@@ -14,7 +14,7 @@
           </ion-col>
           <ion-col>
               <label class="c-switch c-switch-3d c-switch-primary" style="margin-left: 50%;">
-                <input class="c-switch-input"  id="private" type="checkbox" checked="" v-model="group_private"><span class="c-switch-slider" style="margin-top: 40%;"></span>
+                <input class="c-switch-input"  id="private" type="checkbox" checked="true" v-model="enable_chat_all_proposal"><span class="c-switch-slider" style="margin-top: 40%;"></span>
               </label>
           </ion-col>
         </ion-row>
@@ -26,12 +26,12 @@
           </ion-col>
           <ion-col>
               <label class="c-switch c-switch-3d c-switch-primary" style="margin-left: 50%;">
-                <input class="c-switch-input"  id="private" type="checkbox" v-model="group_private"><span class="c-switch-slider" style="margin-top: 40%;"></span>
+                <input class="c-switch-input"  id="private" type="checkbox"   v-model="decide_proposal_accept"><span class="c-switch-slider" style="margin-top: 40%;"></span>
               </label>
           </ion-col>
         </ion-row>
        </ion-grid>
-       <button type="button" class="btn-primary" @click="redirect()" >
+       <button type="button" class="btn-primary" @click="register()" >
           Continuar
       </button>
     </div>
@@ -42,28 +42,44 @@
 <script>
 
 import { defineComponent } from 'vue';
-
 import {IonRow,IonGrid,IonCol } from '@ionic/vue';
+import axios from 'axios';
+import toast from '@/toast'
 
 export default defineComponent({
   components: { IonGrid, IonRow,IonCol  },
   name: "Chat",
   data() {
     return {
-      type : null,
-      first_name: null,
-      last_name: null,
-      email: null,
-      password: null,
-      password_confirmacion: null,
+      decide_proposal_accept : false,
+      enable_chat_all_proposal : true,
+      customer_id : null
     };
   },
   mounted(){
-
+     this.customer_id = this.$route.query.customer_id;
   },
   methods: {
-    redirect(){
-      this.$router.push({path: 'complete'});
+    async register(){
+      let loading = await toast.showLoading()
+
+      await loading.present(); 
+      
+      axios
+      .post("/chat/config",{
+        decide_proposal_accept : this.decide_proposal_accept,
+        enable_chat_all_proposal : this.enable_chat_all_proposal,
+        customer_id : this.customer_id
+       })
+      .then(res => {
+        console.log(res)
+        loading.dismiss()
+        this.$router.push({path: 'complete'});
+      })
+      .catch(err => {
+        console.log(err)
+        loading.dismiss()
+      });
     }
   }
 });

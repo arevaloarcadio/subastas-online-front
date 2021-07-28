@@ -1,8 +1,8 @@
 import { createApp } from 'vue'
 import Layout from './App.vue'
 import router from './router';
-import store from './store';
 import vuex from './plugins/store';
+
 import './plugins/axios'
 import './theme/variables.css';
 //import axios_ from 'axios'
@@ -40,7 +40,6 @@ const app = createApp(Layout)
   .use(IonicVue)
   .use(router)
   .use(vuex)
-  .use(store)
 
   //.use(Socketio, {
     //connection: axios_.defaults.baseURL,

@@ -24,16 +24,14 @@
 </template>
 
 <script>
-import { loadingController,toastController } from '@ionic/vue';
 import { defineComponent } from 'vue';
-import axios from 'axios';
 
 export default defineComponent({
 
   name: "Register",
   data() {
     return {
-      type : null,
+      customer_id : null,
       first_name: null,
       last_name: null,
       email: null,
@@ -42,57 +40,11 @@ export default defineComponent({
     };
   },
   mounted(){
-    this.type = this.$route.query.type;
+    this.customer_id = this.$route.query.customer_id;
   },
   methods: {
     redirect(){
-      this.$router.push({path: 'select_category'});
-    },
-    async register() {
-
-       const loading = await loadingController.create({
-          cssClass: 'my-custom-class',
-          message: 'Por Favor Espere..',
-         });
-
-      await loading.present();
-
-     let data = {
-        first_name: this.first_name,
-        last_name: this.last_name,
-        email: this.email,
-        password: this.password,
-        password_confirmacion: this.password_confirmacion,
-     };
-
-    axios
-      .post("/register",data)
-      .then(res => {
-        if(!res.data.error)
-          this.openToast(res.data.data,'success')
-        else
-          this.openToast('Error Interno','warning')
-      })
-      .catch(err => {
-        if(err.response.type == 'validation'){
-          this.openToast(err.response.data.data,'warning')
-        }else{
-           this.openToast(err.response.data.data,'danger')
-        }
-      });
-
-     await loading.dismiss()
-    },
-    async openToast(message,color) {
-      const toast = await toastController
-        .create({
-          position : 'top',
-          color : color,
-          message: message,
-          duration: 2000
-        })
-
-      return toast.present();
+      this.$router.push({path: 'select_category',query : {customer_id : this.customer_id}});
     },
   }
 });

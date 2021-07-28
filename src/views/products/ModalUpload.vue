@@ -41,25 +41,20 @@ export default defineComponent({
     }
   },
   methods: {
-  search(filter){
-    alert(filter)
-  },  
-  async closeModal() {
-      //const modal = await modalController
-      //return modal.dismiss();
+    search(filter){
+      alert(filter)
+    },  
+    async closeModal() {
         this.$emit("close")
     },
     async takePhoto(source) {
-
       const photo = await Camera.getPhoto({
-        resultType: CameraResultType.Uri,
+        resultType: CameraResultType.DataUrl,
         source: source == 'camara'  ? CameraSource.Camera  : CameraSource.Photos,
         quality: 60
       });
-
-      this.takenImageUrl = photo.webPath;
-      console.log(this.takenImageUrl )
-      this.$emit("get",{takenImageUrl : this.takenImageUrl})
+      this.takenImageUrl = photo;
+      this.$emit("get",this.takenImageUrl)
       this.closeModal()
     },
   }

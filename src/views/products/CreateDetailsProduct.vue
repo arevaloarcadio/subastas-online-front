@@ -80,13 +80,13 @@
 
         <ion-row>
           <ion-col >
-             <ion-radio-group value="biff">
+             <ion-radio-group>
               <ion-row>
                 <ion-col>
                   <ion-item  lines="none">
                     <p class="p-no-center" style="font-family: Montserrat;font-style: normal;font-weight: 500;font-size: 16px;line-height: 20px;align-items: center;color: #5B716F;">Mostrar mi dirección solo al 
                       <br> aceptar el intercambio</p>
-                    <ion-radio color="success" slot="start" value="biff" style="margin-top: -3px;"></ion-radio>
+                    <ion-radio color="success" slot="start" checked="false" ref="show_direction"  @click="radio" style="margin-top: -3px;"></ion-radio>
                   </ion-item>
                 </ion-col>
                </ion-row>
@@ -213,7 +213,12 @@ export default defineComponent({
       country : null,
       city :'Roterdam',
       category :null,
-      flag : 'https://restcountries.eu/data/afg.svg'
+      category_id : null,
+      flag : 'https://restcountries.eu/data/afg.svg',
+      estado : null,
+      nombre : null,
+      descripcion : null,
+      image : null
     }
   },
   mounted(){
@@ -226,10 +231,18 @@ export default defineComponent({
     document.querySelector('#ionSelectCountry').shadowRoot.innerHTML = svg 
   
     this.getCountries()
-   
+    
+    this.estado = this.$route.query.estado;
+    this.nombre = this.$route.query.nombre;
+    this.descripcion = this.$route.query.descripcion;
+    this.image = this.$route.query.image;
 
   },
   methods:{
+    radio(){
+      this.$refs.show_direction.checked =! this.$refs.show_direction.checked
+      this.$refs.show_direction.checked ? this.$refs.show_direction.classList.remove('radio-checked') : this.$refs.show_direction.classList.add('radio-checked')
+    },
     redirect() {
       this.$router.push({path: '/principal'});
     },
@@ -241,8 +254,8 @@ export default defineComponent({
       this.city = ev.target.value;
     },
     category_(category){
-      console.log(category)
-      this.category = category.category;
+      this.category = category.name;
+      this.category_id =  category.id
       this.setOpen(false)
     },
     getCountries(){
