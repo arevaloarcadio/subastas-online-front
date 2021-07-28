@@ -247,10 +247,17 @@ export default defineComponent({
       this.$router.push({path: '/principal'});
     },
     getCountry(ev){
+       const country = this.countries.filter(function(country) {
+        if(country.name == ev.target.value){
+          return country
+        }
+      });
+
+      this.flag = country[0].flag
       this.country = ev.target.value;
     },
     getCity(ev){
-      console.log(ev)
+      
       this.city = ev.target.value;
     },
     category_(category){
