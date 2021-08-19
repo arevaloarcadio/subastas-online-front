@@ -24,6 +24,7 @@ const state = {
 		dir : null,
 		phone : null,
 		validate_phone : null,
+		get_started : true
 	}
 };
 
@@ -42,6 +43,7 @@ const mutations = {
 		state.user.dir = payload.user.dir;
 		state.user.phone = payload.user.phone;
 		state.user.validate_phone = payload.user.validate_phone;
+		state.user.get_started = false
 	},
 	[UNSET_USER](state) {
 		state.user.id = null;

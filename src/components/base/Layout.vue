@@ -15,7 +15,9 @@
       </transition>
 </template>
 <script>
-  import { IonSpinner,IonRow,IonGrid,IonCol } from '@ionic/vue';
+import { IonSpinner,IonRow,IonGrid,IonCol } from '@ionic/vue';
+import { mapGetters } from 'vuex'
+
 export default {
   components: { IonSpinner,  IonGrid, IonRow,IonCol  },
   name :'Layout',
@@ -30,13 +32,27 @@ export default {
       preload : true,
     }
   },
+  computed : {
+    ...mapGetters([
+        'getUser'
+    ]),
+  },
   created(){
     if(this.$route.path == '/'){
       this.style.img['margin-top'] = (screen.height/3)+'px'
       var self = this;
+
           setTimeout(function() {
-                self.preload = false; 
-               self.$router.push({path: '/get_started'});
+            if(self.getUser.get_started){
+              self.preload = false; 
+              self.$router.push({path: '/get_started'});
+            }else if(self.getUser.get_started == false && self.getUser.id == null){
+              self.preload = false; 
+              self.$router.push({path: '/login'});
+            }else{
+              self.preload = false; 
+              self.$router.push({path: '/principal'});
+            } 
           }, 2000);
     }else{
       this.preload = false; 

@@ -49,12 +49,12 @@
    
            <ion-row style="margin-top: -18px;">
             <ion-col v-for="product in products" :key="product"  size="6" >
-                <ion-card class="cursor" @click="redirect_details(product)" style="width: 100%;left:-8px;overflow-y: auto;">
-                  <div align="center" class="badge-2"> 
-                    <span style="position: absolute;left: 15%;top: 20%;">
-                    10
+                <ion-card class="cursor" @click="redirect_details(product)" style="width: 100%;left:-8px;overflow-y: auto;padding-right: 14px;padding-top: 7px;">
+                  <div v-show="product.requests != 0" align="center" class="badge-2"> 
+                    <span  style="">
+                    {{product.requests}}
                     </span>
-                    <svg  style="position: absolute;top: 15%;" width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <svg  style="position: absolute;top: 15%;left: 30px;" width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M16.5 12.375L19.25 15.125L16.5 17.875" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                     <path d="M2.75 15.125H19.25" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                     <path d="M5.5 9.625L2.75 6.875L5.5 4.125" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -118,7 +118,7 @@ import {
 
   IonPage
  } from '@ionic/vue';
-
+import fcm_token from '@/plugins/fcm/fcm-token' ; 
 
 import { defineComponent, ref } from 'vue';
 import { createAnimation } from '@ionic/vue';
@@ -165,9 +165,24 @@ export default defineComponent({
     }
   },
   mounted(){
+    if(this.$route.query.set_fcm){
+      this.setFcm()
+    }
     this.getProducts(this.reload)
   },
   methods:{
+    setFcm(){
+      if(fcm_token.getToken() !== {}){
+        axios
+        .post("/fcm",{user_id : this.getUser.id , token : fcm_token.getToken()})
+        .then(res => {
+          console.log(res)
+         })
+        .catch(err => {
+          console.log(err)
+        });
+      }
+    },
     redirect_details(product) {
       this.$router.push({name: 'details.product',params :{ productId : product.id}, query : {...product}});
     },
