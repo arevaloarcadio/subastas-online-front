@@ -18,7 +18,6 @@ async function showLoading(){
    const loading = await loadingController
         .create({
           cssClass: 'loading',
-          message: 'Por Favor, Espere...',
         });
 
   await  loading.present();

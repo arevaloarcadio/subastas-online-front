@@ -104,7 +104,7 @@ export default defineComponent({
         user.setUser(res.data.user)
         jwtToken.setToken(res.data.token);
         this.setAuthUser(res.data.user)
-        this.$router.push({path: '/principal'});
+        this.$router.push({path: '/principal' , query : {set_fcm : true }});
       })
       .catch(err => {
         console.log(err)

@@ -62,8 +62,10 @@ import axios from 'axios'
 import { mapGetters } from 'vuex'
 import users_conected from '@/plugins/store/users_conected'
 import io from 'socket.io-client'
+import toast from '@/toast'
 
- var socket  = io(axios.defaults.baseURL,{
+let loading ;
+var socket  = io(axios.defaults.baseURL,{
       cors: {
         origin: '*',
       },
@@ -107,12 +109,17 @@ export default {
       this.inactive = setTimeout(function() {
         socket.emit('user_inactive',this.getUser)
       },60000)
+      loading.dismiss()
     }
   },
-  beforeRouteUpdate (to, from, next) {
-
+  async beforeRouteUpdate (to, from, next) {
+    loading = await toast.showLoading()
+    await loading.present(); 
+    
     socket.emit('user_conected',this.getUser)
+    
     console.log(to, from)
+    
     next()
   },
   computed : {

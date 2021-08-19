@@ -17,21 +17,47 @@ import { IonApp } from '@ionic/vue';
 import { defineComponent } from 'vue';
 import LayoutDashboard from './components/base/LayoutDashboard';
 import Layout from './components/base/Layout';
+import fcm_token from '@/plugins/fcm/fcm-token' ; 
+import { Plugins } from '@capacitor/core';
+const { PushNotifications } = Plugins;
 
 export default defineComponent({
-name: 'App',
-components: {
-IonApp,
-LayoutDashboard,
-Layout
-},
-data(){
-return {
-route : this.$route
-}
-},
-mounted(){
-console.log(this.$route.meta.layout)
+	name: 'App',
+	components: {
+		IonApp,
+		LayoutDashboard,
+		Layout
+	},
+	data(){
+		return {
+			route : this.$route
+		}
+	},
+	mounted(){
+	PushNotifications.register();
+
+	PushNotifications.requestPermission().then(result => {
+	alert("result " + JSON.stringify(result));
+	fcm_token.set_token(result.token)
+	});
+	// Add registration error if there are.
+	PushNotifications.addListener("registrationError", (error) => {
+	console.log(`error on register ${JSON.stringify(error)}`);
+	});
+	// Add Notification received
+	PushNotifications.addListener("pushNotificationReceived",(notification) => {
+			console.log(`notification ${JSON.stringify(notification)}`);
+	}
+	);
+	// Add Action performed
+	PushNotifications.addListener(
+	"pushNotificationActionPerformed",
+	async (notification) => {
+		alert("notification " + notification)
+			console.log("notification succeeded");
+	}
+	);
+
 }
 });
 </script>

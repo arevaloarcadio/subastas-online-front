@@ -45,7 +45,7 @@
 
           <ion-row style="margin-left: 5%">
             <img src="/assets/SignOut.png" style="height: 10%;color :#001D1B">&nbsp;&nbsp;
-            <p class="p-no-center" @click="redirect({path : '/login'})" style="color: #000;margin-top: 0.2%;"> Salir</p>
+            <p class="p-no-center" @click="deleteFcm" style="color: #000;margin-top: 0.2%;"> Salir</p>
           </ion-row>
   
 
@@ -64,6 +64,17 @@ import { defineComponent } from 'vue';
 import axios from 'axios'
 import { mapGetters } from "vuex";
 import BasePublic from '@/plugins/store/utils'
+import jwtToken from '@/plugins/jwt/jwt-token';
+import fcm_token from '@/plugins/fcm/fcm-token' ; 
+import io from 'socket.io-client'
+import toast from '@/toast'
+
+var socket  = io(axios.defaults.baseURL,{
+  cors: {
+    origin: '*',
+  },
+  withCredentials : false
+});
 
 export default defineComponent({
    components: {
@@ -73,7 +84,7 @@ export default defineComponent({
   },
   setup() {
     return {
-      arrowBack
+      arrowBack,
     }
   },
   computed : {
@@ -84,7 +95,8 @@ export default defineComponent({
   data(){
     return{
       BasePublic,
-      user : this.getUser 
+      user : this.getUser,
+      loading : null 
     }
   },
   created(){
@@ -93,6 +105,41 @@ export default defineComponent({
   methods:{
     redirect(path) {
       this.$router.push(path);
+    },
+    async deleteFcm(){
+      this.loading = await toast.showLoading()
+      
+      this.loading.present(); 
+
+      if(fcm_token.getToken() === null || fcm_token.getToken() === {}){
+        return this.logout()
+      }
+      
+      axios
+        .delete("/fcm/"+this.getUser.id+"/"+fcm_token.getToken())
+        .then(res => {
+            this.loading.dismiss()
+            console.log(res)
+            socket.emit("user_inactive",this.getUser.id)
+         })
+        .catch(err => {
+          console.log(err)
+        }).finally(()=>{
+          this.logout()
+        });
+    },
+    logout(){
+      
+      jwtToken.removeToken();
+      
+      fcm_token.removeToken()
+
+      this.$store.dispatch('unsetAuthUser')
+      .then(() => {
+        this.$router.push({path: '/login'});
+      });
+   
+      this.loading.dismiss()  
     },
     getCustomer(){
      axios

@@ -96,9 +96,17 @@ http://ionicframework.com/docs/theming/ */
 }
 
 .loading{
+  --background : transparent;
 
 }
+.loading ion-spinner {
+    transform: scale(3);
+}
 
+.loading-wrapper.sc-ion-loading-md{
+    -webkit-box-shadow: inherit;
+    box-shadow: inherit;
+}
 .toats-success{
 --background : #FFFFFF;
 }
