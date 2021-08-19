@@ -4,7 +4,7 @@ import router from './router';
 import vuex from './plugins/store';
 
 import './plugins/axios'
-import axios from 'axios'
+
 import './theme/variables.css';
 //import axios_ from 'axios'
 import { IonicVue } from '@ionic/vue';
@@ -36,7 +36,6 @@ import './theme/core.css';
 import 'animate.css';
 
 
-console.log( axios.defaults.baseURL)
 const app = createApp(Layout)
   .use(IonicVue)
   .use(router)

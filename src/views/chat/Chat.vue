@@ -27,7 +27,7 @@
                 <img style="border-radius: 15px 15px 15px 15px;margin-left: 5px;margin-top: 6px;width: 81px;height: 80px;" :src="BasePublic+message.photo" >
                   <p class="p-no-center" style="margin-top: -82px; margin-left: 92px;font-family: Montserrat;font-style: normal;font-weight: 500;font-size: 16px;line-height: 20px;align-items: center;letter-spacing: 0.75px;color: #001D1B;" >
                     {{message.product_name}} 
-                    <img v-show="message.active"  src="/assets/active.png" >
+                    <img v-show="user_online[message.product_id_user]"  src="/assets/active.png" >
                   </p> 
                 <p class="p-no-center" style="font-size: 16px;font-weight: 400;margin-left: 92px;margin-top: -14px; ">
                   {{message.last_message.message}}
@@ -68,6 +68,16 @@ const { Camera } = Plugins;
 import { defineComponent, ref } from 'vue';
 import axios from 'axios'
 import { mapGetters } from 'vuex'
+import io from 'socket.io-client'
+import users_conected from '@/plugins/store/users_conected'
+
+var socket  = io(axios.defaults.baseURL,{
+  cors: {
+    origin: '*',
+  },
+  withCredentials : false
+});
+
 
 export default defineComponent({
   components: {
@@ -118,7 +128,8 @@ export default defineComponent({
     return {
       moment,
       BasePublic,
-      messages : []
+      messages : [],
+      user_online : []
     }
   },
   computed : {
@@ -130,7 +141,22 @@ export default defineComponent({
     this.getChats()
   },
   mounted(){
-  
+    socket.on("connection")
+
+    socket.on('new_message', (message) => {
+      if(message.id_sender == this.getUser.id || message.id_receiver == this.getUser.id)
+        this.getChats()
+    });
+    
+    socket.on('users_conected', (user) => {
+       users_conected.add(user)
+       this.user_online[user.id] = true
+    });
+    
+    socket.on('users_inactive', (user) => {
+      users_conected.remove(user)
+      this.user_online[user.id] = false
+    });
   },
   methods:{
     redirect(path) {

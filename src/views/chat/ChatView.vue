@@ -30,7 +30,8 @@
               
               <div class="messages" id="chat">
                <small style="margin-top:2%"></small>
-                <ul v-for="message in messages" :key="message">
+               <template v-for="message in messages" :key="message">
+                <ul v-if="message.type == 'message'">
                   <li v-if="!message.is_file" :class="{'replies' :  getUser.id == message.id_sender ,'sent' : getUser.id == message.id_receiver}">
                     <p >{{message.message}}</p>
                    
@@ -38,12 +39,12 @@
                    <img v-else :class="{'img-right' :  getUser.id == message.id_sender ,'img-left' : getUser.id == message.id_receiver}" :src="BasePublic+message.message">
                 
                 </ul>
-              
-                <center>
-                 <!--<ion-badge style="background: rgba(50, 186, 176, 0.3);
-                  border-radius: 10px;font-family: Montserrat;font-style: normal;font-weight: normal;font-size: 16px;line-height: 20px;color: #5B716F;" color="primary">Has aceptado el cambio</ion-badge>-->
+          
+                <center v-else-if="message.type=='accepted'" >
+                 <ion-badge style="background: rgba(50, 186, 176, 0.3);
+                  border-radius: 10px;font-family: Montserrat;font-style: normal;font-weight: normal;font-size: 16px;line-height: 20px;color: #5B716F;" color="primary">{{message.message}}</ion-badge>
                 </center>
-
+              </template> 
               </div>
 
             
@@ -105,11 +106,12 @@ import axios from 'axios'
 import { mapGetters } from 'vuex'
 import ModalUpload from '../products/ModalUpload'
 import BasePublic from '@/plugins/store/utils'
+import send_notification from '@/plugins/fcm/send_notification'
 import io from 'socket.io-client'
 
 var ChatView
 
-    var socket  = io("http://localhost:4000",{
+    var socket  = io(axios.defaults.baseURL,{
       cors: {
         origin: '*',
       },
@@ -121,7 +123,7 @@ var ChatView
     socket.on('new_message', (message) => {
       if(message.id_sender == ChatView.getUser.id || message.id_receiver == ChatView.getUser.id)
         ChatView.getMessages()
-        document.getElementById('chat-body').scrollTop = document.getElementById('chat-body').scrollHeight;
+        document.getElementById('chat').scrollTop = document.getElementById('chat').scrollHeight;
     });
     
 export default defineComponent({
@@ -185,7 +187,6 @@ export default defineComponent({
     
   },
   mounted(){
-    this.scroll()
   },
   computed : {
     ...mapGetters([
@@ -193,10 +194,7 @@ export default defineComponent({
     ]),
   },
   methods:{
-     scroll(){
-      var scroll =  document.querySelector('ion-content').scrollToBottom()
-      console.log(scroll)
-    },
+   
     redirect(path) {
       this.$router.push(path);
     },
@@ -217,6 +215,12 @@ export default defineComponent({
          })
         .catch(err => {
           console.log(err)
+        }).finally(()=> {
+            document.getElementById('chat').scrollTop = document.getElementById('chat').scrollHeight;
+          setTimeout(function () {
+             document.getElementById('chat').scrollTop = document.getElementById('chat').scrollHeight;
+          },500)
+        
         });
     }, 
     getPhoto($event){
@@ -234,7 +238,8 @@ export default defineComponent({
         id_sender : this.getUser.id,
         id_receiver :   this.customer_id,
         message : this.message,
-        is_file : is_file
+        is_file : is_file,
+        type : 'message'
       }
       
       socket.emit('chat_message',new_message);
@@ -246,24 +251,25 @@ export default defineComponent({
         data.append('id_sender',this.getUser.id);
         data.append('id_receiver', this.customer_id);
         data.append('message',this.file);
-        data.append('is_file',is_file);  
+        data.append('is_file',is_file);
+        data.append('type', 'message');    
       }else{
         data = {
           id_sender : this.getUser.id,
           id_receiver :   this.customer_id,
           message : this.message,
-          is_file : is_file
+          is_file : is_file,
+          type : 'message'
         }
       }
-      
-     
       
       axios.
        post('/chat/message',data,{'Content-Type': 'multipart/form-data'})
         .then(() => {
-          this.message = null
-          this.messages.push(new_message)
-         })
+           this.message = null
+           this.getMessages()
+           send_notification.send('Upgrap','Nuevo Mensaje',new_message,this.customer_id)
+          })
         .catch(err => {
           console.log(err)
         });

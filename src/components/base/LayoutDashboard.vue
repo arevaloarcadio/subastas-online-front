@@ -6,50 +6,50 @@
 
     <div class="footer">
      
-        <ion-row>
-          <ion-col class="cursor">
-          
-              <img src="/assets/Compass.svg" style="margin-bottom: -36px;" @click="redirect('/principal')">
-              <center>
-                 <svg class="active" v-show="path == '/principal'"  width="41" height="14" viewBox="0 0 41 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M0 24.9998C0 13.678 9.17816 0 20.5 0C31.8218 0 41 13.678 41 24.9998C41 36.3217 31.8218 16.5 20.5 16.5C9.17816 16.5 0 36.3217 0 24.9998Z" fill="#32BAB0"/>
-                </svg>
-                
-              </center>
-          </ion-col>
-          <ion-col col-2 class="cursor">
-             <img src="/assets/tag.svg"  style="margin-bottom: -31px;" @click="redirect('/saved_posts')">
-             <center>
-               <svg class="active" v-show="path == '/saved_posts'"   width="41" height="14" viewBox="0 0 41 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M0 24.9998C0 13.678 9.17816 0 20.5 0C31.8218 0 41 13.678 41 24.9998C41 36.3217 31.8218 16.5 20.5 16.5C9.17816 16.5 0 36.3217 0 24.9998Z" fill="#32BAB0"/>
-                </svg>
-              </center>
-          </ion-col>
-          <ion-col col-2>
-             <img src="/assets/plus_circle.svg" style="margin-bottom: -34px;" class="cursor" @click="redirect('/create/product')">
-             <center>
-              <svg class="active" v-show="path == '/create/product' || path == '/create/details/product'"  width="41" height="14" viewBox="0 0 41 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M0 24.9998C0 13.678 9.17816 0 20.5 0C31.8218 0 41 13.678 41 24.9998C41 36.3217 31.8218 16.5 20.5 16.5C9.17816 16.5 0 36.3217 0 24.9998Z" fill="#32BAB0"/>
+    <ion-row>
+        <ion-col class="cursor">
+        
+            <img src="/assets/Compass.svg" style="margin-bottom: -36px;" @click="redirect('/principal')">
+            <center>
+               <svg class="active" v-show="path == '/principal'"  width="41" height="14" viewBox="0 0 41 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M0 24.9998C0 13.678 9.17816 0 20.5 0C31.8218 0 41 13.678 41 24.9998C41 36.3217 31.8218 16.5 20.5 16.5C9.17816 16.5 0 36.3217 0 24.9998Z" fill="#32BAB0"/>
               </svg>
-              </center>
-          </ion-col>
-          <ion-col col-2>
-             <img src="/assets/ArrowsLeftRight.svg" style="margin-bottom: -34px;" class="cursor" @click="redirect('/my_exchanges')">
-             <center>
-               <svg class="active" v-show="path == '/my_exchanges'"  width="41" height="14" viewBox="0 0 41 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M0 24.9998C0 13.678 9.17816 0 20.5 0C31.8218 0 41 13.678 41 24.9998C41 36.3217 31.8218 16.5 20.5 16.5C9.17816 16.5 0 36.3217 0 24.9998Z" fill="#32BAB0"/>
-                </svg>
-              </center>
-          </ion-col>
-          <ion-col col-2>
-             <img src="/assets/ChatCircleDots.svg" style="margin-bottom: -34px;" class="cursor" @click="redirect(chat)">
-             <center>
-                <svg class="active" v-show="path == '/chat'"   width="41" height="14" viewBox="0 0 41 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M0 24.9998C0 13.678 9.17816 0 20.5 0C31.8218 0 41 13.678 41 24.9998C41 36.3217 31.8218 16.5 20.5 16.5C9.17816 16.5 0 36.3217 0 24.9998Z" fill="#32BAB0"/>
-                </svg>
-              </center>
-          </ion-col>
-        </ion-row>
+              
+            </center>
+        </ion-col>
+        <ion-col col-2 class="cursor">
+           <img src="/assets/tag.svg"  style="margin-bottom: -31px;" @click="redirect('/saved_posts')">
+           <center>
+             <svg class="active" v-show="path == '/saved_posts'"   width="41" height="14" viewBox="0 0 41 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M0 24.9998C0 13.678 9.17816 0 20.5 0C31.8218 0 41 13.678 41 24.9998C41 36.3217 31.8218 16.5 20.5 16.5C9.17816 16.5 0 36.3217 0 24.9998Z" fill="#32BAB0"/>
+              </svg>
+            </center>
+        </ion-col>
+        <ion-col col-2>
+           <img src="/assets/plus_circle.svg" style="margin-bottom: -34px;" class="cursor" @click="redirect('/create/product')">
+           <center>
+            <svg class="active" v-show="path == '/create/product' || path == '/create/details/product'"  width="41" height="14" viewBox="0 0 41 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M0 24.9998C0 13.678 9.17816 0 20.5 0C31.8218 0 41 13.678 41 24.9998C41 36.3217 31.8218 16.5 20.5 16.5C9.17816 16.5 0 36.3217 0 24.9998Z" fill="#32BAB0"/>
+            </svg>
+            </center>
+        </ion-col>
+        <ion-col col-2>
+           <img src="/assets/ArrowsLeftRight.svg" style="margin-bottom: -34px;" class="cursor" @click="redirect('/my_exchanges')">
+           <center>
+             <svg class="active" v-show="path == '/my_exchanges'"  width="41" height="14" viewBox="0 0 41 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M0 24.9998C0 13.678 9.17816 0 20.5 0C31.8218 0 41 13.678 41 24.9998C41 36.3217 31.8218 16.5 20.5 16.5C9.17816 16.5 0 36.3217 0 24.9998Z" fill="#32BAB0"/>
+              </svg>
+            </center>
+        </ion-col>
+        <ion-col col-2>
+           <img src="/assets/ChatCircleDots.svg" style="margin-bottom: -34px;" class="cursor" @click="redirect(chat)">
+           <center>
+              <svg class="active" v-show="path == '/chat'"   width="41" height="14" viewBox="0 0 41 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M0 24.9998C0 13.678 9.17816 0 20.5 0C31.8218 0 41 13.678 41 24.9998C41 36.3217 31.8218 16.5 20.5 16.5C9.17816 16.5 0 36.3217 0 24.9998Z" fill="#32BAB0"/>
+              </svg>
+            </center>
+        </ion-col>
+      </ion-row>
   
     </div>
   </div>
@@ -60,6 +60,15 @@
 import { IonRow,IonCol   } from '@ionic/vue';
 import axios from 'axios'
 import { mapGetters } from 'vuex'
+import users_conected from '@/plugins/store/users_conected'
+import io from 'socket.io-client'
+
+ var socket  = io(axios.defaults.baseURL,{
+      cors: {
+        origin: '*',
+      },
+      withCredentials : false
+    });
 
 export default {
   components: { IonRow,IonCol },
@@ -69,18 +78,42 @@ export default {
     return {
       path :null,
       from : null,
-      chat : '/chat/policies/terms'
+      chat : '/chat/policies/terms',
+      inactive : null
     };
   },
   mounted(){
     this.path = this.$route.path
     this.getAcceptedTerms()
+
+    this.inactive = setTimeout(function() {
+      socket.emit('user_inactive',this.getUser)
+    },60000)
+
+    socket.on("connection")
+
+    socket.on('users_conected', (user) => {
+       users_conected.add(user)
+    });
+    
+    socket.on('users_inactive', (user) => {
+       users_conected.remove(user)
+    });
   },
   watch: {
     $route(to, from) {
       this.path = to.path
       this.from = from.path
+      this.inactive = setTimeout(function() {
+        socket.emit('user_inactive',this.getUser)
+      },60000)
     }
+  },
+  beforeRouteUpdate (to, from, next) {
+
+    socket.emit('user_conected',this.getUser)
+    console.log(to, from)
+    next()
   },
   computed : {
     ...mapGetters([

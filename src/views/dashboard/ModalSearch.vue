@@ -33,28 +33,28 @@
 
           <div class="row">
             <div class="col"  style="width:50%;">
-               <img src="/assets/tecnology.svg" style="width:100%;" @click="search('tecnologia')">
+               <img src="/assets/tecnology.svg" style="width:100%;" @click="search('Tecnologia')">
             </div>
               <div class="col" style="width:50%;">
-               <img src="/assets/beatiful.svg"   style="width:100%;" @click="search('tecnologia')">
+               <img src="/assets/beatiful.svg"   style="width:100%;" @click="search('Belleza')">
             </div>
               
           </div>
         <div class="row">
           
-          <img src="/assets/tools.svg" style="width:100%;margin-top: -5%;" @click="search('herramientas')">
+          <img src="/assets/tools.svg" style="width:100%;margin-top: -5%;" @click="search('Herramientas')">
         </div>
         <div class="row top-xs">
           <div class="col-xs-6"  style="width:50%;margin-top: -1%;">
               <div class="box">
-                     <img  src="/assets/home.svg" style="width: 115%;max-width: 115%;margin-left: -5%;" @click="search('hogar')">
+                     <img  src="/assets/home.svg" style="width: 115%;max-width: 115%;margin-left: -5%;" @click="search('Hogar')">
               </div>
                <div class="box" >
-                 <img  src="/assets/collection.svg"  style="width: 129%;max-width: 129%;margin-left: -11%;" @click="search('collecion')">
+                 <img  src="/assets/collection.svg"  style="width: 129%;max-width: 129%;margin-left: -11%;" @click="search('Collecionable')">
                     
               </div>
           </div>
-          <img src="/assets/books.svg" style="width:50%;margin-top: -2%;" @click="search('libros')">
+          <img src="/assets/books.svg" style="width:50%;margin-top: -2%;" @click="search('Libros')">
       </div>
    
  </ion-content>
@@ -78,8 +78,9 @@ export default defineComponent({
     }
   },
   methods: {
-  search(filter){
-    alert(filter)
+  async search(filter){
+    const modal = await modalController
+    return modal.dismiss(filter);
   },  
   async closeModal() {
       const modal = await modalController

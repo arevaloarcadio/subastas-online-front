@@ -183,7 +183,17 @@ export default defineComponent({
           enterAnimation: this.enterAnimation,
           leaveAnimation: this.leaveAnimation  
         })
-      return modal.present();
+
+
+   
+       modal.present();
+
+      modal.onDidDismiss().then((data) => {
+        this.filter = data.data
+        this.reload=0;
+        this.getProducts(this.reload,true);
+      })
+
     },
     enterAnimation : function () {
       let baseEl = document
@@ -207,11 +217,11 @@ export default defineComponent({
     leaveAnimation  : function () {
        return this.enterAnimation(document).direction('reverse');
     },
-   getProducts(offset){
+   getProducts(offset,reload = false){
     axios
-      .get("/products/14/"+offset)
+      .post("/products/6/"+offset+"/"+this.getUser.id,{filter : this.filter})
       .then(res => {
-        this.products.push(...res.data)
+        reload == false ? this.products.push(...res.data) : this.products = res.data
        })
       .catch(err => {
         console.log(err)
