@@ -268,7 +268,7 @@ export default defineComponent({
         .then(() => {
            this.message = null
            this.getMessages()
-           send_notification.send('Upgrap','Nuevo Mensaje',new_message,this.customer_id)
+           send_notification.send('Nuevo Mensaje - '+this.getUser.name,new_message.message,{data : new_message},this.customer_id)
           })
         .catch(err => {
           console.log(err)

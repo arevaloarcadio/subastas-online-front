@@ -15,36 +15,28 @@ send_notification.send = function (title,body,data,user_id) {
     }).finally(() => {
 
       if(fcms != null ){
-
-        const awsAxios = axios.create({
-          transformRequest: (data, headers) => {
-             delete headers.common;
-          }
-        });
-        
         fcms.forEach((fcm) =>{
-           let send_data = {
-            notification :{
-              title : title,
-              body : body,
-            },
-            data : data,
-            to : fcm.token
-          }
-          
-          awsAxios.post('https://fcm.googleapis.com/fcm/send', send_data, {
-            headers: {
-              "Content-Type": "application/json",
-              "Authorization" : "key=AAAAIBySC0A:APA91bHXO2m_L4HE1LmXuOkZIsTm961V0eqZ8VJY-8g4aQjg_QZ4OLcyGcLOJsJQMRnaCiGxpobShtWJe1PSLrwNB2-glk3FEWKWBNyGC0NkcpMBC2J7i7ygFHJm3n78ZoAzo825ygVh",
+        
+            var xhttp = new XMLHttpRequest();
+            xhttp.open("POST", "https://fcm.googleapis.com/fcm/send", true);
+            xhttp.setRequestHeader("Content-type", "application/json");
+            xhttp.setRequestHeader("Authorization", 'key=AAAAIBySC0A:APA91bHXO2m_L4HE1LmXuOkZIsTm961V0eqZ8VJY-8g4aQjg_QZ4OLcyGcLOJsJQMRnaCiGxpobShtWJe1PSLrwNB2-glk3FEWKWBNyGC0NkcpMBC2J7i7ygFHJm3n78ZoAzo825ygVh');
+            let res = {
+              'notification': {
+                'title': title,
+                'body': body 
+              },
+              ...data,
+              'to': fcm.token,
+              "priority": "high"
             }
-          }
-          ).then(resp => {
-          console.log(resp.data)
-          })
-          .catch(err => {
-          console.log(err)
-          });
 
+            xhttp.onreadystatechange = function () {
+              if (this.readyState == 4 && this.status == 200) {
+                console.log(xhttp.responseText)
+              }
+            };
+            xhttp.send(JSON.stringify(res))
         }) 
       }
     });

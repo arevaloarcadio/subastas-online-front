@@ -77,6 +77,7 @@ import axios from 'axios';
 import BasePublic from '@/plugins/store/utils'
 import toast from '@/toast'
 import { mapGetters } from 'vuex'
+import send_notification from '@/plugins/fcm/send_notification'
 
 export default defineComponent({
   components: {
@@ -204,6 +205,7 @@ export default defineComponent({
           loading.dismiss()
           console.log(res)
           toast.openToast("Producto rechazado existosamente","success",2000);
+          send_notification.send('Tu Producto ha sido rechazado',this.product_customer.name,{data:'request'},this.request.id_user)
           this.$router.push({path : '/principal'})
          })
         .catch(err => {
