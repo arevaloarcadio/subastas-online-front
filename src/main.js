@@ -4,6 +4,7 @@ import router from './router';
 import vuex from './plugins/store';
 
 import './plugins/axios'
+import axios from 'axios'
 import './theme/variables.css';
 //import axios_ from 'axios'
 import { IonicVue } from '@ionic/vue';
@@ -35,24 +36,32 @@ import './theme/core.css';
 import 'animate.css';
 
 
-
+console.log( axios.defaults.baseURL)
 const app = createApp(Layout)
   .use(IonicVue)
   .use(router)
   .use(vuex)
-
-  //.use(Socketio, {
-    //connection: axios_.defaults.baseURL,
-    //options: {
+  /*.use(Socketio, {
+    connection: axios.defaults.baseURL,
+    options: {
         // Your Socket.io options here
-    //}
-//})
+    }
+})*/
 
 
 
 
 //app.component('base-layout', BaseLayout);
-  
+ /*router.beforeEach((to, from, next) => {
+  if (to.matched.some(record => record.meta.reuse === false)) {
+    app.key = to.path
+  } else {
+    app.key = null
+  }
+  next()
+})*/
+
 router.isReady().then(() => {
   app.mount('#app');
 });
+

@@ -20,6 +20,7 @@ const state = {
 		name : null, 
 		email : null,
 		city : null,
+		pais : null,
 		dir : null,
 		phone : null,
 		validate_phone : null,
@@ -37,6 +38,7 @@ const mutations = {
 		state.user.name = payload.user.name;
 		state.user.email = payload.user.email;
 		state.user.city = payload.user.city;
+		state.user.pais = payload.user.pais;
 		state.user.dir = payload.user.dir;
 		state.user.phone = payload.user.phone;
 		state.user.validate_phone = payload.user.validate_phone;
@@ -46,6 +48,7 @@ const mutations = {
 		state.user.name = null;
 		state.user.email = null;
 		state.user.city = null;
+		state.user.pais = null;
 		state.user.dir = null;
 		state.user.phone = null;
 		state.user.validate_phone = null;

@@ -1,29 +1,15 @@
 <template>
-<ion-app v-if="route.meta.layout =='LayoutDashboard'">
-	
-	<LayoutDashboard></LayoutDashboard>
-<!--<transition name="slide-fade">
-
-<ion-router-outlet/>
-</transition>-->
-</ion-app>
-
-<ion-app  v-if="route.meta.layout =='Layout'">
-
-<!--<transition name="slide-fade">
-
-<ion-router-outlet/>
-</transition>-->
-<Layout></Layout>
-</ion-app>
-
-<ion-app v-else>
-<transition name="slide-fade" >
-<router-view></router-view>
-</transition>
-</ion-app>
-
-
+	<ion-app v-if="route.meta.layout =='LayoutDashboard'">
+		<LayoutDashboard></LayoutDashboard>
+	</ion-app>
+	<ion-app  v-if="route.meta.layout =='Layout'">
+		<Layout></Layout>
+	</ion-app>
+	<ion-app v-else>
+		<transition name="slide-fade">
+			<router-view></router-view>
+		</transition>
+	</ion-app>
 </template>
 
 <script>

@@ -48,8 +48,8 @@
     <ion-content class="ion-padding">
    
            <ion-row style="margin-top: -18px;">
-            <ion-col v-for="n in 6" :key="n"  size="6" >
-                <ion-card class="cursor" @click="redirect_details(n)" style="width: 100%;left:-8px;">
+            <ion-col v-for="product in products" :key="product"  size="6" >
+                <ion-card class="cursor" @click="redirect_details(product)" style="width: 100%;left:-8px;overflow-y: auto;">
                   <div align="center" class="badge-2"> 
                     <span style="position: absolute;left: 15%;top: 20%;">
                     10
@@ -63,20 +63,21 @@
 
                   </div>
              
-                  <img src="https://ionicframework.com/docs/demos/api/card/madison.jpg" style="width: auto;height: 143px;border-radius: 0px 10px 0px 0px;width: 100%;">
+                  <img :src="BasePublic+product.photo" style="width: auto;height: 143px;border-radius: 0px 10px 0px 0px;width: 100%;">
+                  
                   <ion-card-header>
 
                  <ion-card-subtitle  style="color: #000">
                     <ion-row>
                     <b  style="font-family: Montserrat;font-style: normal;font-weight: bold;font-size: 16px;line-height: 20px;align-items: center;letter-spacing: 0.75px;color: #001D1B;margin-top: -15px;"> 
-                      Nombre {{n}}
+                       {{product.name}}
                     </b>
                     </ion-row>  
                   </ion-card-subtitle>
                 
                   </ion-card-header>
 
-                  <ion-card-content style="margin-top:-15px">Ubicación
+                  <ion-card-content style="margin-top:-15px">{{product.pais}}, {{product.city}}
                 </ion-card-content>
 
               </ion-card>
@@ -106,7 +107,8 @@
 import { repeat,notifications,personOutline,add,logOut } from 'ionicons/icons';
 import ModalSearch from '@/views/dashboard/ModalSearch'
 import { mapGetters } from 'vuex'
-
+import axios from 'axios'
+import BasePublic from '@/plugins/store/utils'
 import { 
 
   IonContent, 
@@ -138,37 +140,11 @@ export default defineComponent({
     const toggleInfiniteScroll = () => {
       isDisabled.value = !isDisabled.value;
     }
-    const items = ref([]);
-    const pushData = () => {
-      const max = items.value.length + 20;
-      const min = max - 20;
-      for (let i = min; i < max; i++) {
-        items.value.push(i);
-      }
-    }
-
-    const loadData = (ev) => {
-      setTimeout(() => {
-        pushData();
-        console.log('Loaded data');
-        ev.target.complete();
-
-        // App logic to determine if all data is loaded
-        // and disable the infinite scroll
-        if (items.value.length == 1000) {
-          ev.target.disabled = true;
-        }
-      }, 500);
-    }
-
-    pushData();
-
+    
 
     return {
       isDisabled,
       toggleInfiniteScroll,
-      loadData,
-      items, 
       repeat,
       notifications,
       personOutline,
@@ -181,9 +157,19 @@ export default defineComponent({
         'getUser'
     ]),
   },
+  data(){
+    return {
+      BasePublic,
+      products :[],
+      reload : 0
+    }
+  },
+  mounted(){
+    this.getProducts(this.reload)
+  },
   methods:{
-    redirect_details(id) {
-      this.$router.push({name: 'details.product',params :{ productId : id}});
+    redirect_details(product) {
+      this.$router.push({name: 'details.product',params :{ productId : product.id}, query : {...product}});
     },
     redirect(path) {
      this.$router.push(path);
@@ -220,8 +206,27 @@ export default defineComponent({
     },
     leaveAnimation  : function () {
        return this.enterAnimation(document).direction('reverse');
+    },
+   getProducts(offset){
+    axios
+      .get("/products/14/"+offset)
+      .then(res => {
+        this.products.push(...res.data)
+       })
+      .catch(err => {
+        console.log(err)
+      });
+    },
+    loadData (ev) {
+      this.reload+=14;
+      this.getProducts(this.reload);
+      ev.target.complete();
+      if (this.products.length == 150) {
+        ev.target.disabled = true;
+        this.isDisabled = ev.target.disabled 
+      }
     }
-}
+  }
 });
 
 </script>

@@ -131,6 +131,7 @@ export default defineComponent({
       awsAxios
       .get("https://restcountries.eu/rest/v2/all")
       .then(res => {
+        console.log(res.data)
         this.countries = res.data
         this.flag = this.countries[0].flag
        })

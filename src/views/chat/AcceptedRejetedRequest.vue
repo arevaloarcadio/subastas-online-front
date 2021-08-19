@@ -19,7 +19,7 @@
 
   
     <div style="display: flex;justify-content: center;">
-      <img style="border-radius: 10px 10px 0px 0px;width: 84px;height: 77px;margin-left: 59px;" src="https://ionicframework.com/docs/demos/api/card/madison.jpg">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      <img style="border-radius: 10px 10px 0px 0px;width: 84px;height: 77px;margin-left: 59px;" :src="BasePublic+product_customer?.photo">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
       <svg width="62" height="50" viewBox="0 0 62 50" fill="none" xmlns="http://www.w3.org/2000/svg" style="position: absolute;margin-top: 17px;">
         <g filter="url(#filter0_d)">
         <path d="M13.3322 23.4951C12.7854 23.4946 12.2532 23.6721 11.8162 24.0009C11.3791 24.3297 11.0611 24.7918 10.91 25.3174C10.759 25.843 10.7832 26.4035 10.9791 26.9142C11.1749 27.4248 11.5317 27.8578 11.9954 28.1476L18.7627 34.9149C18.9966 35.1486 19.2742 35.334 19.5798 35.4604C19.8853 35.5869 20.2128 35.6519 20.5435 35.6518C20.8742 35.6517 21.2016 35.5864 21.5071 35.4598C21.8125 35.3331 22.09 35.1475 22.3238 34.9136C22.5575 34.6797 22.7429 34.402 22.8694 34.0965C22.9958 33.7909 23.0608 33.4635 23.0607 33.1328C23.0606 32.8021 22.9953 32.4747 22.8687 32.1692C22.742 31.8638 22.5564 31.5862 22.3225 31.3525L19.5003 28.5328H38.5081C39.1758 28.5328 39.8161 28.2676 40.2883 27.7954C40.7604 27.3233 41.0256 26.6829 41.0256 26.0152C41.0256 25.3475 40.7604 24.7072 40.2883 24.235C39.8161 23.7629 39.1758 23.4976 38.5081 23.4976H13.3322V23.4951Z" fill="#32BAB0"/>
@@ -38,7 +38,7 @@
         </defs>
         </svg>
 
-       <img style="border-radius: 10px 10px 0px 0px;width: 84px;height: 77px;margin-right: 59px;" src="https://ionicframework.com/docs/demos/api/card/madison.jpg">
+       <img style="border-radius: 10px 10px 0px 0px;width: 84px;height: 77px;margin-right: 59px;"  :src="BasePublic+product_user?.photo">
     </div>  
     <br>
     <div  style="display: flex;justify-content: center;">
@@ -63,20 +63,18 @@
 import { repeat,arrowBack } from 'ionicons/icons';
 import ModalDetail from '@/views/products/ModalDetail'
 import { 
-
   IonContent, 
-
   modalController,
   IonList,
   IonPage
  } from '@ionic/vue';
 import { defineComponent, ref } from 'vue';
+import axios from 'axios'
+import BasePublic from '@/plugins/store/utils'
 
 export default defineComponent({
   components: {
- 
     IonContent, 
-
     IonList,
     IonPage
   },
@@ -119,8 +117,18 @@ export default defineComponent({
       arrowBack
     }
   },
-  mounted(){
-    console.log(this.$router)
+  data(){
+    return{
+      BasePublic,
+      request_id : null,
+      request : null,
+      product_customer : null,
+      product_user : null 
+    }
+  },
+  created(){
+    this.request_id = this.$route.params.productId
+    this.getRequest()
   },
   methods:{
     redirect(path) {
@@ -134,7 +142,42 @@ export default defineComponent({
           cssClass: 'my-custom-class',
         })
       return modal.present();
-    }
+    },
+    getRequest(){
+      axios
+        .get("/requests/"+this.request_id)
+        .then(res => {
+          this.request = res.data
+          console.log(res.data)
+         })
+        .catch(err => {
+          console.log(err)
+        })
+        .finally(() => {
+          this.getProductUser()
+          this.getProductCustomer()
+        });
+    },
+    getProductUser(){
+      axios
+        .get("/products/"+this.request.product_user_id)
+        .then(res => {
+          this.product_user = res.data
+         })
+        .catch(err => {
+          console.log(err)
+        });
+    },
+    getProductCustomer(){
+      axios
+         .get("/products/"+this.request.product_customer_id)
+        .then(res => {
+          this.product_customer = res.data
+         })
+        .catch(err => {
+          console.log(err)
+        });
+    } 
   }
 });
 

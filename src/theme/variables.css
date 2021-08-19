@@ -902,17 +902,11 @@ color: #001D1B;
     }
   }
 
-  @media (max-width: 1000px){
     .buttons-details{
      margin-top: 90px;
     }
-  }
 
-  @media (min-width: 1000px){
-    .buttons-details{
-     margin-top: 4%
-    }
-  }
+
 
 .hr {
   border-bottom: 1px solid #ccc;

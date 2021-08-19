@@ -28,6 +28,8 @@ const CreateProduct = () =>  import('@/views/products/CreateProduct')
 const DetailsProduct = () =>  import('@/views/products/DetailsProduct')
 const CreateDetailsProduct = () =>  import('@/views/products/CreateDetailsProduct')
 const MyProducts = () =>  import('@/views/products/MyProducts')
+const EditDetailsProduct = () =>  import('@/views/products/EditDetailsProduct')
+const EditProduct = () =>  import('@/views/products/EditProduct')
 
 //Send Request
 const AddMessage = () =>  import('@/views/send_requests/AddMessage')
@@ -48,6 +50,7 @@ const RejetedComfirm = () =>  import('@/views/chat/RejetedComfirm')
 const Profile = () =>  import('@/views/profile/Profile')
 const Setting = () =>  import('@/views/profile/Setting')
 const EditProfile = () =>  import('@/views/profile/EditProfile')
+const ModalEditCategory = () =>  import('@/views/profile/ModalEditCategory')
 
 const Notification = () =>  import('@/views/notifications/Notification')
 const Request = () =>  import('@/views/notifications/Request')
@@ -71,8 +74,8 @@ const routes = [
       {
         path: '/details/:productId',
         name: 'details.product',
-        meta : {layout : 'LayoutDashboard'},
-        component: DetailsProduct,
+        meta : {layout : 'LayoutDashboard',reuse: false},
+        component: DetailsProduct, 
       },
       {
         path: '/create/product',
@@ -85,6 +88,18 @@ const routes = [
         name: 'create.details.product',
         meta : {layout : 'LayoutDashboard'},
         component: CreateDetailsProduct,
+      },
+      {
+        path: '/edit/product/:productId',
+        name: 'edit.product',
+        meta : {layout : 'LayoutDashboard'},
+        component: EditProduct,
+      },
+      {
+        path: '/edit/details/product/:productId/:newFile',
+        name: 'edit.details.product',
+        meta : {layout : 'LayoutDashboard'},
+        component: EditDetailsProduct,
       },
       {
         path: '/send_requests/select_product/:productId',
@@ -137,6 +152,12 @@ const routes = [
         component: EditProfile,
       },
       {
+        path: '/edit/categories',
+        name: 'edit.categories',
+        meta : {layout : 'LayoutDashboard'},
+        component: ModalEditCategory,
+      },
+      {
         path: '/my_products',
         name: 'my.products',
         meta : {layout : 'LayoutDashboard'},
@@ -155,19 +176,19 @@ const routes = [
         component: Notification,
       },
       {
-        path: '/request/:productId',
+        path: '/request/:requestId',
         name: 'request',
         meta : {layout : 'LayoutDashboard'},
         component: Request,
       },
       {
-        path: '/request/accepted/:productId',
+        path: '/request/accepted/:requestId',
         name: 'request.accepted',
         meta : {layout : 'LayoutDashboard'},
         component: RequestAccepted,
       },  
       {
-        path: '/request/rejected/:productId',
+        path: '/request/rejected/:requestId',
         name: 'request.rejected',
         meta : {layout : 'LayoutDashboard'},
         component: RequestRejected,
@@ -295,6 +316,11 @@ const routes = [
     name: 'request.chat',
     meta : {layout : 'LayoutDashboard'},
     component: ChatView
+  },
+  {
+    path: '/edit/categories/:userId',
+    name: 'edit.categories',
+    component: ModalEditCategory,
   }, 
 ]
 

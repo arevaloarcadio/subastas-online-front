@@ -7,11 +7,11 @@
 <path d="M0 24.5C0 22.575 1.575 21 3.5 21C5.425 21 7 22.575 7 24.5C7 26.425 5.425 28 3.5 28C1.575 28 0 26.425 0 24.5Z" fill="#32BAB0"/>
 </svg>
 </div>-->
-<ion-row style="cursor: pointer;" >
+<ion-row style="cursor: pointer;" @click="select_product()">
 Editar
 </ion-row>
 <br>
-<ion-row style="cursor: pointer;color: #FF0000;">
+<ion-row style="cursor: pointer;color: #FF0000;" @click="delete_product()">
 Eliminar
 </ion-row>
 </ion-content>
@@ -23,13 +23,22 @@ import { defineComponent } from 'vue';
 
 export default defineComponent({
 name: 'Popover',
+props : ['product'],
 components: { IonContent },
 methods :{
-async  redirect() {
-const popover = await popoverController	
-await popover.onDidDismiss();
-
-}
-}
+	async redirect() {
+			const popover = await popoverController	
+			await popover.onDidDismiss();
+	},
+	async select_product(){
+		const popover = await popoverController	
+		popover.dismiss({product : this.product,methods :'edit'})
+	},
+	async delete_product(){
+		const popover = await popoverController	
+		popover.dismiss({product_id : this.product.id,methods :'delete'})
+	}
+},
+	
 });
 </script>

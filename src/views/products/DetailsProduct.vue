@@ -29,121 +29,130 @@
                     </svg>
 
                   </div>
-        <img src="https://ionicframework.com/docs/demos/api/card/madison.jpg" style="width: 112%;height: 257px;">
+        <img :src="BasePublic+product.photo" style="width: 112%;height: 257px;">
         </ion-card>
-         <ion-row>
-             <ion-col>
-              <span class="text-control" style="margin-left: 8px;position: absolute;font-weight: 500;font-size: 20px;line-height: 24px;align-items: center;color: #32BAB0;">
-                Nombre de Producto
-              </span>
-               <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-left: 87%;">
-            <path d="M25 28L15.9991 23L7 28V5C7 4.73478 7.10536 4.48043 7.29289 4.29289C7.48043 4.10536 7.73478 4 8 4H24C24.2652 4 24.5196 4.10536 24.7071 4.29289C24.8946 4.48043 25 4.73478 25 5V28Z" stroke="#32BAB0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
+         <ion-row style="margin-top: -13px;">
+            <ion-col size="8">
+              <p class="p-no-center" style="padding-left: 10px;">
+                <span class="text-control" style="font-weight: 500;font-size: 20px;line-height: 24px;align-items: center;color: #32BAB0;">
+                 {{product.name}}
+                </span>
+              </p>
+          </ion-col>
+            <ion-col  size="2">
+            
+               <svg v-if="!saved" width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" @click="savePost()" style="margin-left: 132%;margin-top: 14px;">
+                <path d="M25 28L15.9991 23L7 28V5C7 4.73478 7.10536 4.48043 7.29289 4.29289C7.48043 4.10536 7.73478 4 8 4H24C24.2652 4 24.5196 4.10536 24.7071 4.29289C24.8946 4.48043 25 4.73478 25 5V28Z" stroke="#32BAB0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                
+                <svg v-if="saved" width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" @click="deletePost()" style="margin-left: 132%;margin-top: 14px;">
+                  <rect width="32" height="32" fill="white"/>
+                  <path d="M25 28L15.9991 23L7 28V5C7 4.73478 7.10536 4.48043 7.29289 4.29289C7.48043 4.10536 7.73478 4 8 4H24C24.2652 4 24.5196 4.10536 24.7071 4.29289C24.8946 4.48043 25 4.73478 25 5V28Z" fill="#32BAB0" stroke="#32BAB0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
             </ion-col>
-           
-
           </ion-row>
-          <p style="float: left;margin-left: 4%;font-size: 16px;line-height: 20px;align-items: center;letter-spacing: 0.75px;color: #5B716F;    margin-top: -2%; ">
-            Dirección, Pais
-          </p>
-          <br>
-          <span class="text-control" style="margin-left: 4%; font-weight: 400;font-family: Montserrat;font-style: normal;font-weight: normal;font-size: 20px;line-height: 24px;color: #32BAB0;margin-left: -129px;">
+          
+          <p  class="p-no-center" style="margin-left: 16px;font-size: 16px;line-height: 20px;align-items: center;letter-spacing: 0.75px;color: #5B716F;       margin-top: -15px;; ">
+            {{product.pais}}, {{product.city}}
+             <br><br>  
+          <span class="text-control" style=" font-weight: 400;font-family: Montserrat;font-style: normal;font-weight: normal;font-size: 20px;line-height: 24px;color: #32BAB0;">
              Descripción 
-          </span>
-          <br>
-          <p class="p-no-center" style="float: left;margin-left: 4%;font-size: 16px;line-height: 20px;letter-spacing: 0.02em;color: #5B716F;margin-top: 6px;">
-            bicicleta especial para adultos mayores con poco uso bicicleta especial para adultos mayores con poco uso
+          </span><br>
+          <span>
+           {{product.description}}
+         </span>
           </p>
-          <div align="center" class="buttons-details">
-          <ion-row>
-              <ion-col   size="6">  
-                <button type="button" class="btn-line"  style="width: 151px" @click="openModal">Mas Información</button>
+          <div align="center">
+          <ion-row >
+              <ion-col   size="6"> 
+                <button type="button" class="btn-line"  style="width: 151px;" @click="openModal">Mas Información</button>
               </ion-col>
               <ion-col   size="6" >  
-                <button type="button" class="btn-primary" style="width: 151px" @click="redirect({ name : 'select_product.requests',params : { productId : 1} })" >Me Interesa</button>
+                  <button type="button" class="btn-primary" style="width: 151px" @click="redirect({ name : 'select_product.requests',params : { productId : product.id}, query : { ...product } })" >Me Interesa</button>
               </ion-col>
             </ion-row>
            
           </div>
 
-        <p class="p-no-center"  style="float: left;margin-left: 2%;font-weight: 500;font-size: 16px;line-height: 20px;align-items: center;letter-spacing: 0.75px;color: #000000;">
+        <p class="p-no-center"  style="font-style: normal;font-weight: bold;font-size: 16px;line-height: 18px;align-items: center;letter-spacing: 0.75px;color: #000000;margin-left: 12px;">
               Te puede interesar...
         </p>
      
-          <ion-slides pager="true" :options="slideOpts" style="margin-top: 16%;">
+          <ion-slides pager="true" :options="slideOpts" v-if="productsByCategory">
             <ion-slide>
            
-                <ion-card class="cursor" @click="redirect_details(n)" style="width:50%;">
-                  <img src="https://ionicframework.com/docs/demos/api/card/madison.jpg" style="width: auto;height: 143px;border-radius: 0px 10px 0px 0px;width: 100%;">
+                <ion-card class="cursor"  @click="redirect_details(productsByCategory[0])" style="width:50%;overflow-y: auto;">
+                  <img :src="BasePublic+productsByCategory[0].photo" style="width: auto;height: 143px;border-radius: 0px 10px 0px 0px;width: 100%;">
                   <ion-card-header>
 
-                 <ion-card-subtitle  style="color: #000">
+                   <ion-card-subtitle  style="color: #000">
                     <ion-row>
-                    <b  style="font-family: Montserrat;font-style: normal;font-weight: bold;font-size: 16px;line-height: 20px;align-items: center;letter-spacing: 0.75px;color: #001D1B;margin-top: -15px;"> 
-                      Nombre {{n}}
+                    <b  style="font-family: Montserrat;font-style: normal;font-weight: bold;font-size: 16px;line-height: 20px;letter-spacing: 0.75px;color: #001D1B;margin-top: -15px;text-align: left;"> 
+                       {{productsByCategory[0].name}}
                     </b>
                     </ion-row>  
                   </ion-card-subtitle>
                 
                   </ion-card-header>
-
-                  <ion-card-content style="margin-top:-15px">Ubicación
+                
+                  
+                  <ion-card-content style="margin-top:-15px;text-align: left;">{{productsByCategory[0].pais}}, {{productsByCategory[1].city}}
                 </ion-card-content>
 
               </ion-card>
-              <ion-card class="cursor" style="width:50%;">
-                  <img src="https://ionicframework.com/docs/demos/api/card/madison.jpg" style="width: auto;height: 143px;border-radius: 0px 10px 0px 0px;width: 100%;">
+              <ion-card class="cursor" style="width:50%;overflow-y: auto;" @click="redirect_details(productsByCategory[0])">
+                  <img :src="BasePublic+productsByCategory[1].photo" style="width: auto;height: 143px;border-radius: 0px 10px 0px 0px;width: 100%;">
                   <ion-card-header>
 
                  <ion-card-subtitle  style="color: #000">
                     <ion-row>
-                    <b  style="font-family: Montserrat;font-style: normal;font-weight: bold;font-size: 16px;line-height: 20px;align-items: center;letter-spacing: 0.75px;color: #001D1B;margin-top: -15px;"> 
-                      Nombre {{n}}
+                    <b  style="font-family: Montserrat;font-style: normal;font-weight: bold;font-size: 16px;line-height: 20px;letter-spacing: 0.75px;color: #001D1B;margin-top: -15px;text-align: left;"> 
+                      {{productsByCategory[1].name}}
                     </b>
                     </ion-row>  
                   </ion-card-subtitle>
                 
                   </ion-card-header>
 
-                  <ion-card-content style="margin-top:-15px">Ubicación
+                  <ion-card-content style="margin-top:-15px;text-align: left;">{{productsByCategory[1].pais}}, {{productsByCategory[1].city}}
                 </ion-card-content>
 
               </ion-card>
             </ion-slide>
             <ion-slide>
-               <ion-card class="cursor" style="width:50%;">
-                  <img src="https://ionicframework.com/docs/demos/api/card/madison.jpg" style="width: auto;height: 143px;border-radius: 0px 10px 0px 0px;width: 100%;">
+               <ion-card class="cursor" style="width:50%;overflow-y: auto;" @click="redirect_details(productsByCategory[2])">
+                  <img :src="BasePublic+productsByCategory[2].photo" style="width: auto;height: 143px;border-radius: 0px 10px 0px 0px;width: 100%;">
                   <ion-card-header>
 
                  <ion-card-subtitle  style="color: #000">
                     <ion-row>
-                    <b  style="font-family: Montserrat;font-style: normal;font-weight: bold;font-size: 16px;line-height: 20px;align-items: center;letter-spacing: 0.75px;color: #001D1B;margin-top: -15px;"> 
-                      Nombre {{n}}
+                    <b style="font-family: Montserrat;font-style: normal;font-weight: bold;font-size: 16px;line-height: 20px;letter-spacing: 0.75px;color: #001D1B;margin-top: -15px;text-align: left;"> 
+                    {{productsByCategory[2].name}}
                     </b>
                     </ion-row>  
                   </ion-card-subtitle>
                 
                   </ion-card-header>
 
-                  <ion-card-content style="margin-top:-15px">Ubicación
+                  <ion-card-content style="margin-top:-15px;text-align: left;">{{productsByCategory[2].pais}}, {{productsByCategory[2].city}}
                 </ion-card-content>
 
               </ion-card>
-              <ion-card class="cursor"  style="width:50%;">
-                  <img src="https://ionicframework.com/docs/demos/api/card/madison.jpg" style="width: auto;height: 143px;border-radius: 0px 10px 0px 0px;width: 100%;">
+              <ion-card class="cursor"  style="width:50%;overflow-y: auto;" @click="redirect_details(productsByCategory[3])">
+                  <img :src="BasePublic+productsByCategory[3].photo" style="width: auto;height: 143px;border-radius: 0px 10px 0px 0px;width: 100%;">
                   <ion-card-header>
 
                  <ion-card-subtitle  style="color: #000">
                     <ion-row>
-                    <b  style="font-family: Montserrat;font-style: normal;font-weight: bold;font-size: 16px;line-height: 20px;align-items: center;letter-spacing: 0.75px;color: #001D1B;margin-top: -15px;"> 
-                      Nombre {{n}}
+                    <b  style="font-family: Montserrat;font-style: normal;font-weight: bold;font-size: 16px;line-height: 20px;align-items: center;letter-spacing: 0.75px;color: #001D1B;margin-top: -15px;text-align: left;"> 
+                    {{productsByCategory[3].name}}
                     </b>
                     </ion-row>  
                   </ion-card-subtitle>
                 
                   </ion-card-header>
 
-                  <ion-card-content style="margin-top:-15px">Ubicación
+                  <ion-card-content style="margin-top:-15px;text-align: left;">{{productsByCategory[3].pais}}, {{productsByCategory[3].city}}
                 </ion-card-content>
 
               </ion-card>
@@ -151,30 +160,7 @@
 
           </ion-slides>
           <br><br>
-            <!--<div style="position: absolute;margin-top: 8%;">
-            
-                <div v-for="n in 2" :key="n"  class="cursor" @click="redirect_details(n)" style="width: 100%;">
-                
-                   <img src="https://ionicframework.com/docs/demos/api/card/madison.jpg" style="width: auto;height: 143px;border-radius: 0px 10px 0px 0px;width: 100%;">
-
-                    <ion-card-header>
-
-                 <ion-card-subtitle  style="color: #000">
-                    <ion-row>
-                    <b  style="font-family: Montserrat;font-style: normal;font-weight: bold;font-size: 16px;line-height: 20px;align-items: center;letter-spacing: 0.75px;color: #001D1B;margin-top: -15px;"> 
-                      Nombre {{n}}
-                    </b>
-                    </ion-row>  
-                  </ion-card-subtitle>
-                
-                  </ion-card-header>
-
-                  <ion-card-content style="margin-top:-15px">Ubicación
-                </ion-card-content>
-              
-              </div>
-          
-          </div>-->
+       
 
 
    
@@ -186,81 +172,147 @@
 
 <script >
 
-import { repeat,arrowBack } from 'ionicons/icons';
 import ModalDetail from '@/views/products/ModalDetail'
 import { 
   IonContent, 
   modalController,
   IonPage,
-  IonSlides,
-  IonSlide,
+ // IonSlides,
+  //IonSlide,
  } from '@ionic/vue';
-
-import { defineComponent, ref } from 'vue';
+import BasePublic from '@/plugins/store/utils'
+import { defineComponent } from 'vue';
+import axios from 'axios';
+import { mapGetters } from 'vuex'
 
 export default defineComponent({
   components: {
     IonContent, 
-    IonSlides,
-    IonSlide,
+    //IonSlides,
+    //IonSlide,
     IonPage
   },
-  setup() {
-    const isDisabled = ref(false);
-    const toggleInfiniteScroll = () => {
-      isDisabled.value = !isDisabled.value;
+  data(){
+    return{
+      BasePublic,
+      product : null,
+      productsByCategory : null,
+      saved: false,
+      category : null,
+      user : null
     }
-    const items = ref([]);
-    const pushData = () => {
-      const max = items.value.length + 20;
-      const min = max - 20;
-      for (let i = min; i < max; i++) {
-        items.value.push(i);
+  },
+  created(){
+    this.product = this.$route.query
+    this.getCustomer()
+    this.getCategory()
+    this.getProductsByCategories()
+    this.getSavePost()
+  },
+  computed : {
+    ...mapGetters([
+        'getUser'
+    ]),
+  },
+  watch :{
+    '$route.params.productId'(){
+      this.product = this.$route.query
+      if(this.product.category !== undefined){
+        this.getCustomer()
+        this.getCategory()
+        this.getProductsByCategories()
+        this.getSavePost()  
       }
-    }
-
-    const loadData = (ev) => {
-      setTimeout(() => {
-        pushData();
-        console.log('Loaded data');
-        ev.target.complete();
-
-        // App logic to determine if all data is loaded
-        // and disable the infinite scroll
-        if (items.value.length == 1000) {
-          ev.target.disabled = true;
-        }
-      }, 500);
-    }
-
-    const slideOpts = {
-      initialSlide: 0,
-      speed: 400
-    };
- 
-    pushData();
-
-    return {
-      isDisabled,
-      toggleInfiniteScroll,
-      loadData,
-      items,
-      repeat,
-      arrowBack,
-      slideOpts
     }
   },
   methods:{
     redirect(path) {
       this.$router.push(path);
     },
+    redirect_details(product) {
+      this.$router.push({name: 'details.product',params :{ productId : product.id}, query : {...product}});
+    },
     async openModal() {
       const modal = await modalController
         .create({
           component: ModalDetail,
           keyboardClose : true,
+          componentProps: {
+            user : this.user,
+            category : this.category,
+            product : this.product
+          },
         })
       return modal.present();
+    },
+    getProductsByCategories(){
+     axios
+      .get("/products/category/"+this.product.category)
+      .then(res => {
+        this.productsByCategory = res.data
+       })
+      .catch(err => {
+        console.log(err)
+      });
+    },
+    savePost(){
+     axios
+      .post("/products/save/post",{
+        product_id : this.product.id,
+        user_id : this.getUser.id
+      })
+      .then(res => {
+        console.log(res)
+          this.saved = true
+       })
+      .catch(err => {
+        console.log(err)
+      });
+    },
+    deletePost(){
+     axios
+      .delete("/products/saved/"+this.getUser.id+"/"+this.product.id)
+      .then(res => {
+            this.saved = false
+            console.log(res)
+       })
+      .catch(err => {
+        console.log(err)
+      });
+    },
+    getSavePost(){
+     axios
+      .get("/products/saved/"+this.getUser.id+"/"+this.product.id)
+      .then(res => {
+
+        if(res.data != [])
+          this.saved = true
+        else
+          this.saved = false
+       })
+      .catch(err => {
+        console.log(err)
+      });
+    },
+    getCustomer(){
+     axios
+      .get("/customers/"+this.product.id_user)
+      .then(res => {
+        this.user = res.data
+       })
+      .catch(err => {
+        console.log(err)
+      });
+    },
+    getCategory(){
+     axios
+      .get("/categories/"+this.product.category)
+      .then(res => {
+        this.category = res.data
+       })
+      .catch(err => {
+        console.log(err)
+      });
     }
   }
 });

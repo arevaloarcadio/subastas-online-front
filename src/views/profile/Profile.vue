@@ -18,11 +18,11 @@
 
         <ion-row>
           <ion-avatar style="margin-left: 5%">
-            <img src="/assets/avatar.png">
+            <img :src="BasePublic+user?.photo">
           </ion-avatar>
           <ion-col style="margin-left: 7px;margin-top: 3px;" >
-              <span class="text-control" style="font-weight: 500;font-size: 20px;line-height: 24px;align-items: center;text-align: center;letter-spacing: 0.75px;color: #32BAB0;">Nombre del Usuario</span> 
-              <p class="p-no-center" @click="redirect({name : 'edit.profile'})"  style="cursor: pointer; margin-top: 1%;font-style: normal;font-weight: normal;font-size: 16px;line-height: 20px;letter-spacing: 0.75px;color: #5B716F;">
+              <span class="text-control" style="font-weight: 500;font-size: 20px;line-height: 24px;align-items: center;text-align: center;letter-spacing: 0.75px;color: #32BAB0;">{{user?.name}}</span> 
+              <p class="p-no-center" @click="redirect({name : 'edit.profile'})"  style="cursor: pointer;margin-top: 4px;font-style: normal;font-weight: normal;font-size: 16px;line-height: 20px;letter-spacing: 0.75px;color: #5B716F;">
                 Editar perfil
               </p>
 
@@ -59,13 +59,11 @@
 <script >
   
 import { arrowBack } from 'ionicons/icons';
-import { 
-
-  IonContent, 
-
-  IonPage
- } from '@ionic/vue';
+import { IonContent, IonPage } from '@ionic/vue';
 import { defineComponent } from 'vue';
+import axios from 'axios'
+import { mapGetters } from "vuex";
+import BasePublic from '@/plugins/store/utils'
 
 export default defineComponent({
    components: {
@@ -78,10 +76,35 @@ export default defineComponent({
       arrowBack
     }
   },
+  computed : {
+    ...mapGetters([
+        'getUser'
+    ]),
+  },
+  data(){
+    return{
+      BasePublic,
+      user : this.getUser 
+    }
+  },
+  created(){
+    this.getCustomer()
+  },
   methods:{
     redirect(path) {
       this.$router.push(path);
-    }
+    },
+    getCustomer(){
+     axios
+      .get("/customers/"+this.getUser.id)
+      .then(res => {
+        console.log(res)
+        this.user = res.data
+       })
+      .catch(err => {
+       console.log(err)
+      });
+    },
   }
 });
 

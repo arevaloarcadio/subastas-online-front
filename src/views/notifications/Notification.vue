@@ -16,21 +16,21 @@
     <ion-content>
 
         <br>
-        <p v-if="nofitications.length == 0" style="font-weight: 400">
+        <p v-if="notifications.length == 0" style="font-weight: 400">
          Actualmente no hay notificaciones
         </p>
-        <template v-else  v-for="nofitication in nofitications" :key="nofitication">
-          <div style="box-shadow:inherit;margin-left: 0%;height: 99px" @click="redirect({name : nofitication.type , params : { productId : nofitication.id }})">
+        <template v-else  v-for="notification in notifications" :key="notification">
+          <div style="box-shadow:inherit;margin-left: 0%;height: 99px">
             <ion-row>
               <ion-col>
-                <img style="border-radius: 15px 15px 15px 15px;" :src="nofitication.photo" >
-                 <p class="p-no-center data-notification" style="margin-top: -77px; margin-left: 88px;position: absolute;" >{{nofitication.data}}</p>
-                <div class="last-message-notification" style="position: absolute; margin-left: 88px;margin-top: -24px;">
-                  {{nofitication.date_last_message}}
+                <img  @click="redirect({name : notification.type , params : { requestId : notification.request_id }})" style="border-radius: 15px 15px 15px 15px;width: 81px;height: 80px;" :src="'http://localhost:4000/uploads/'+notification.photo" >
+                 <p  @click="redirect({name : notification.type , params : { requestId : notification.request_id }})" class="data-notification" style="text-align: left;margin-top: -77px;margin-left: 87px;width: 226px" >{{notification.data}}</p>
+                <div class="last-message-notification" style="margin-left: 88px;margin-top: -3px;">
+                   {{moment(notification.created_at, moment.ISO_8601).fromNow()}}
                </div>
-               <div style="color: #FF0000;margin-top: -24px;position: absolute;    margin-left: 74%;" class="delete">
+               <p style="color: #FF0000;margin-top: -17px;margin-right: 24px;" @click="deleteNotification(notification.id)" class="delete p-no-center">
                 Eliminar
-               </div>
+               </p>
               </ion-col>
              
             </ion-row>
@@ -51,12 +51,10 @@
 import { repeat,arrowBack,camera } from 'ionicons/icons';
 import ModalDetail from '@/views/products/ModalDetail'
 import { 
-
   IonContent, 
   IonInfiniteScroll, 
   IonInfiniteScrollContent,
   modalController,
-
   IonPage
  } from '@ionic/vue';
 
@@ -65,14 +63,19 @@ import { Plugins, CameraResultType, CameraSource } from '@capacitor/core';
 const { Camera } = Plugins;
 
 import { defineComponent, ref } from 'vue';
+import BasePublic from '@/plugins/store/utils'
+import { mapGetters } from 'vuex'
+import axios from 'axios'
+import toast from '@/toast'
+import moment from 'moment'
+
+moment.locale('es');
 
 export default defineComponent({
   components: {
- 
     IonContent, 
     IonInfiniteScroll, 
     IonInfiniteScrollContent,
-
     IonPage
   },
   setup() {
@@ -117,7 +120,10 @@ export default defineComponent({
   },
   data(){
     return {
-      nofitications : 
+      moment,
+      BasePublic,
+      notifications : [],
+      nofitications_example : 
       [
         {
           id : 1,
@@ -151,8 +157,16 @@ export default defineComponent({
       ]
     }
   },
+  computed : {
+    ...mapGetters([
+        'getUser'
+    ]),
+  },
+  created(){
+    this.getNotifications()
+  },
   mounted(){
-    console.log(this.nofitications.length)
+    console.log(this.notifications.length)
   },
   methods:{
     redirect(path) {
@@ -177,6 +191,36 @@ export default defineComponent({
 
       this.takenImageUrl = photo.webPath;
     },
+    getNotifications(){
+    axios
+      .get("/notifications/"+this.getUser.id)
+      .then(res => {
+   
+        this.notifications = res.data
+         console.log(this.notifications)
+       })
+      .catch(err => {
+        console.log(err)
+      });
+    },
+    async deleteNotification(uuid){
+    let loading = await toast.showLoading()
+
+    await loading.present(); 
+    
+    axios
+      .delete("/notifications/"+uuid)
+      .then(res => {
+        loading.dismiss()
+        toast.openToast("Notificación eliminado exitosamente","error",2000);
+        this.getNotifications()
+        console.log(res)
+      })
+      .catch(err => {
+        loading.dismiss()
+        console.log(err)
+      });
+    }
   }
 });
 

@@ -42,7 +42,7 @@
               </center>
           </ion-col>
           <ion-col col-2>
-             <img src="/assets/ChatCircleDots.svg" style="margin-bottom: -34px;" class="cursor" @click="redirect('/chat/policies/terms')">
+             <img src="/assets/ChatCircleDots.svg" style="margin-bottom: -34px;" class="cursor" @click="redirect(chat)">
              <center>
                 <svg class="active" v-show="path == '/chat'"   width="41" height="14" viewBox="0 0 41 14" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M0 24.9998C0 13.678 9.17816 0 20.5 0C31.8218 0 41 13.678 41 24.9998C41 36.3217 31.8218 16.5 20.5 16.5C9.17816 16.5 0 36.3217 0 24.9998Z" fill="#32BAB0"/>
@@ -58,8 +58,8 @@
 <script>
 
 import { IonRow,IonCol   } from '@ionic/vue';
-
-
+import axios from 'axios'
+import { mapGetters } from 'vuex'
 
 export default {
   components: { IonRow,IonCol },
@@ -68,22 +68,41 @@ export default {
   data() {
     return {
       path :null,
-      from : null
+      from : null,
+      chat : '/chat/policies/terms'
     };
   },
   mounted(){
     this.path = this.$route.path
+    this.getAcceptedTerms()
   },
-   watch: {
+  watch: {
     $route(to, from) {
       this.path = to.path
       this.from = from.path
     }
   },
+  computed : {
+    ...mapGetters([
+        'getUser'
+    ]),
+  },
   methods: {
     redirect(path) {
       this.$router.push({path: path});
-    }
+    },
+    getAcceptedTerms(){
+      axios
+        .get("/chat/terms/"+this.getUser.id)
+        .then(res => {
+          if(res.data.terms_chat_accepted){
+            this.chat = '/chat'
+          }
+         })
+        .catch(err => {
+          console.log(err)
+        });
+    } 
   }
 };
 </script>

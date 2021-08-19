@@ -52,8 +52,7 @@ mounted(){
 },
 methods : {
 select(category) {
-console.log(category)
-this.$emit("category",category)
+	this.$emit("category",category)
 },
 getCategories(){
      axios

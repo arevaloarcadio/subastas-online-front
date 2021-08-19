@@ -35,21 +35,21 @@
     </ion-row>
     <ion-content>
     
-        <ion-card style="height: 138px;width: 95%; background: #FFFFFF;box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.08);border-radius: 16px;">
+        <ion-card v-for="product in  products" :key="product" style="height: 138px;width: 95%; background: #FFFFFF;box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.08);border-radius: 16px;">
           <ion-row >
             <ion-col>
-              <img style="border-radius: 15px 30px 15px 15px;width: 177px;height: 209px;" src="https://ionicframework.com/docs/demos/api/card/madison.jpg" >
+              <img style="border-radius: 15px 30px 15px 15px;width: 177px;height: 209px;" :src="BasePublic+'uploads/'+product.photo" >
             </ion-col>
             <ion-col><br>
 
-            <b style="color: #000;font-family: Montserrat;">Nombre de producto</b><br>
-              <p class="p-no-center" style="margin-top: 2%; font-family: Montserrat;font-style: normal;font-weight: normal;font-size: 14px;line-height: 17px;letter-spacing: 0.75px;color: #001D1B;">Pais, Cuidad </p> <br>
-            <span class="text-control" style="position: absolute;top: 50%;font-weight: 500">Enviada</span>
+            <b style="color: #000;font-family: Montserrat;">{{product.name}}</b><br>
+              <p class="p-no-center" style="margin-top: 2%; font-family: Montserrat;font-style: normal;font-weight: normal;font-size: 14px;line-height: 17px;letter-spacing: 0.75px;color: #001D1B;">{{product.pais}}, {{product.city}} </p> <br>
+            <span class="text-control" style="position: absolute;top: 50%;font-weight: 500">{{product.status}}</span>
             </ion-col>
           </ion-row>
           
         </ion-card>
-        <ion-card style="height: 138px;width: 95%; background: #FFFFFF;box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.08);border-radius: 16px;">
+        <!--<ion-card style="height: 138px;width: 95%; background: #FFFFFF;box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.08);border-radius: 16px;">
           <ion-row>
             <ion-col>
               <img style="border-radius: 15px 30px 15px 15px;width: 177px;height: 209px;" src="https://ionicframework.com/docs/demos/api/card/madison.jpg" >
@@ -76,7 +76,7 @@
             </ion-col>
           </ion-row>
           
-        </ion-card>
+        </ion-card>-->
 
    
    <br><br><br><br>
@@ -103,6 +103,7 @@
 
 import { repeat,arrowBack,camera } from 'ionicons/icons';
 import ModalDetail from '@/views/products/ModalDetail'
+import BasePublic from '@/plugins/store/utils'
 import { 
 
   IonContent, 
@@ -119,6 +120,8 @@ const { Camera } = Plugins;
 
 import { defineComponent, ref } from 'vue';
 import SvgProducts from './SvgProducts'
+import axios from 'axios'
+import { mapGetters } from 'vuex'
 
 export default defineComponent({
   components: {
@@ -131,16 +134,37 @@ export default defineComponent({
   },
   data(){
     return{
+       BasePublic,
        filters : [] ,
+       products : [],
+       post_filters : [],
+       products_values :{ 
+        'Enviadas' : {
+          name : 'Enviada'
+        },
+        'Recibidas' : {
+          name : 'Recibida'
+        },
+        'Rechazados' : {
+          name : 'Rechazado'
+        },
+        'Por confirmar' : {
+          name : 'Por confirmar'
+        }
+      },
        styles : {
-        'Enviadas' : {'width' : '97px', 
+        'Enviadas' : {
+          value :  'Enviada',
+          'width' : '97px', 
           span :{
             'position': 'absolute',
             'margin': '4px',
             'margin-left': '3%'
           }
         },
-        'Recibidas' : {'width' : '97px', 
+        'Recibidas' : {
+          value :  'Recibida',
+          'width' : '97px', 
           span :{
             'position': 'absolute',
             'margin': '4px',
@@ -148,6 +172,7 @@ export default defineComponent({
           }
         },
         'Rechazados' : {
+          value :  'Rechazado',
           'width' : '120px' , 
           span :{
             'position': 'absolute',
@@ -156,6 +181,7 @@ export default defineComponent({
           }
         },
         'Por confirmar' : {
+          value :  'Por confirmar',
           'width' : '125px' , 
           span : {    
             'margin-left': '7%'
@@ -203,13 +229,7 @@ export default defineComponent({
      
       event_ref.value = event; 
       isOpenRef.value = state;
-      if(event !=null){
-         console.log(this.filters)
-        for(let filter in this.filters){
-
-          this.$refs.PopoverFilter.filters[filter] = true 
-        }
-      }
+     
     }
     
     return {
@@ -223,6 +243,14 @@ export default defineComponent({
       isOpenRef, setOpen, event
     }
   },
+  computed : {
+    ...mapGetters([
+        'getUser'
+    ]),
+  },
+  created(){
+    this.getProducts()
+  },
   methods:{
     filter_(filter){
      let value =  filter.filter
@@ -231,18 +259,23 @@ export default defineComponent({
       this.filters.splice(index, 1);
     }else{
       this.filters.push(value)
+      this.post_filters.push(this.products_values[value].name)
 
     }
-
+    this.getProducts()
     this.setOpen(false)
+
       //this.$refs.ionSelectFilter.value = ''
     },
     removeFilter(filter){
+
       var index = this.filters.indexOf(filter);
-      if (index !== -1) {
+      var index1= this.post_filters.indexOf(this.products_values[filter].name);
+      if (index !== -1 || index1 !== -1) {
         this.filters.splice(index, 1);
-        
+        this.post_filters.splice(index1, 1);
       }
+      this.getProducts()
     },
     redirect(path) {
       this.$router.push({path: path});
@@ -278,7 +311,21 @@ export default defineComponent({
 
       const { role } = await popover.onDidDismiss();
       console.log('onDidDismiss resolved with role', role);
-    }
+    },
+    getProducts(){
+      
+      axios
+        .post("/exchanges/user/"+this.getUser.id,{
+        filters : this.post_filters
+        })
+        .then(res => {
+          console.log(res.data)
+          this.products = res.data
+         })
+        .catch(err => {
+          console.log(err)
+        });
+    },
   }
 });
 

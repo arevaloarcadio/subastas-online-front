@@ -3,7 +3,7 @@
    <ion-row>
        <ion-col>
         <button @click="$router.go(-1)">
-            <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-left: 3%;top: 32%;position: absolute;">
+            <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-left: 3%;top: 44%;position: absolute;">
               <path d="M27 16H5" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
               <path d="M14 7L5 16L14 25" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
@@ -12,9 +12,9 @@
           <p style="color: #000" class="title">
             Publicar un producto
           </p>
-          <p class="sub-title"  style="margin-top: -3%;">
+          <!--<p class="sub-title"  style="margin-top: -3%;">
             Detalles del producto
-          </p>
+          </p>-->
       </ion-col>
     </ion-row>
   <ion-content>
@@ -51,7 +51,7 @@
               <div class="input-container" style="height: 55px; width: 97%;margin-left: 1.5%;">
               
                     <img :src="flag" class="select-country" style="width: 20px;height: 16px">
-                    <ion-select id="ionSelectCountry" :interface-options="customActionSheetOptions" interface="action-sheet" style="background: #32BAB0;border-radius: 10px;color: #32BAB0;font-family: Montserrat;width: 83px;height: 100%;"  ok-text="Seleccionar" cancel-text="Cerrar" @ionChange="getCountry($event)">
+                    <ion-select id="ionSelectCountry" :interface-options="customActionSheetOptions" interface="action-sheet"  style="background: #32BAB0;border-radius: 10px;color: #32BAB0;font-family: Montserrat;width: 83px;height: 100%;"  ok-text="Seleccionar" cancel-text="Cerrar" @ionChange="getCountry($event)">
                       <ion-select-option v-for="country in countries" :key="country" :value="country.name">{{country.name}}</ion-select-option>
                   </ion-select>
        
@@ -97,7 +97,7 @@
         <br>
         <center>
 
-          <button type="button" class="btn-primary" @click="registerProduct()" style="width: 124px;">
+          <button type="button" class="btn-primary" @click="editProduct()" style="width: 124px;">
             Publicar
           </button>
          </center> 
@@ -223,18 +223,24 @@ export default defineComponent({
       address : null
     }
   },
+  created(){
+    this.getCategory()
+    this.getCountries()
+    this.estado = this.$route.query.estado;
+    this.nombre = this.$route.query.nombre;
+    this.descripcion = this.$route.query.descripcion;
+    this.to_change = this.$route.query.to_change ?? null
+    this.$route.params.newFile == 'true' ? this.image = this.dataURLtoFile(this.$route.query.image,'image/png') : this.image = this.$route.query.image
+    
+    this.address = this.$route.query.address;
+    this.city = this.$route.query.city;
+  },
   mounted(){
     let svg = '<svg style="margin-left:14px" width="12" height="7" viewBox="0 0 12 7" fill="none" xmlns="http://www.w3.org/2000/svg">'+
                 '<path d="M11 1L6 6L1 1" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>'+
               '</svg>'
     document.querySelector('#ionSelectCountry').shadowRoot.innerHTML = svg 
-    this.getCountries()
-    this.estado = this.$route.query.estado;
-    this.nombre = this.$route.query.nombre;
-    this.descripcion = this.$route.query.descripcion;
-    this.image = this.dataURLtoFile(this.$route.query.image,'image/png');
-    this.to_change = this.$route.query.to_change ?? null
-    console.log(this.image )
+ 
  },
   computed : {
     ...mapGetters([
@@ -254,7 +260,7 @@ export default defineComponent({
     redirect() {
       this.$router.push({path: '/principal'});
     },
-    async registerProduct(){
+    async editProduct(){
 
     let loading = await toast.showLoading()
 
@@ -265,7 +271,7 @@ export default defineComponent({
     formData.append('estado',this.estado);
     formData.append('nombre',this.nombre);
     formData.append('descripcion',this.descripcion);
-    formData.append('image',this.image);
+    this.$route.params.newFile == 'true' ? formData.append('image',this.image) : null;
     formData.append('show_direction',this.show_direction);
     formData.append('category_id',this.category_id);
     formData.append('country',this.country);
@@ -275,10 +281,9 @@ export default defineComponent({
     formData.append('user_id',this.getUser.id);
   
     axios
-      .post("/products",formData,{'Content-Type': 'multipart/form-data'})
+      .put("/products/"+this.$route.params.productId,formData,{'Content-Type': 'multipart/form-data'})
       .then(res => {
         console.log(res.data)
-
         loading.dismiss()
         this.$router.push({path : '/principal'})
       })
@@ -287,6 +292,19 @@ export default defineComponent({
         loading.dismiss()
       });
     
+    },
+    getCategory(){
+      axios
+      .get("/categories/"+this.$route.query.category)
+      .then(res => {
+        this.category = res.data.name
+        this.category_id = res.data.id
+       
+      })
+      .catch(err => {
+        console.log(err)
+        
+      });
     },
     getCountry(ev){
        const country = this.countries.filter(function(country) {
@@ -297,6 +315,16 @@ export default defineComponent({
 
       this.flag = country[0].flag
       this.country = ev.target.value;
+    },
+    getEditCountry(name){
+       const country = this.countries.filter(function(country) {
+        if(country.name ==name){
+          return country
+        }
+      });
+
+      this.flag = country[0].flag
+      this.country = name;
     },
     getCity(ev){
       this.city = ev.target.value;
@@ -321,8 +349,9 @@ export default defineComponent({
       .get("https://restcountries.eu/rest/v2/all")
       .then(res => {
         this.countries = res.data
-        this.country = this.countries[0].name
-        this.flag = this.countries[0].flag
+        this.getEditCountry(this.$route.query.pais) 
+        //this.country = this.countries[0].name
+        //this.flag = this.countries[0].flag
        })
       .catch(err => {
         console.log(err)

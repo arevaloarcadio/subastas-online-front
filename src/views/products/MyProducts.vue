@@ -18,9 +18,10 @@
      <ion-content class="ion-padding">
     
         <ion-row>
-             <ion-col v-for="n in 3" :key="n"  size="6"  >
-                <ion-card style="width: 100%;left:-8px;">
-                  <div align="center" class="points"  style="background:transparent;" @click="openPopover($event,n)" >
+             <ion-col v-for="product in products" :key="product"  size="6"  >
+              
+                <ion-card style="width: 100%;left:-8px;overflow-y: auto;">
+                  <div align="center" class="points"  style="background:transparent;" @click="openPopover($event,n,product)" >
                     <svg width="7" height="28" viewBox="0 0 7 28" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M3.5 7C5.425 7 7 5.425 7 3.5C7 1.575 5.425 0 3.5 0C1.575 0 0 1.575 0 3.5C0 5.425 1.575 7 3.5 7Z" fill="#32BAB0"/>
                     <path d="M3.5 10.5C1.575 10.5 0 12.075 0 14C0 15.925 1.575 17.5 3.5 17.5C5.425 17.5 7 15.925 7 14C7 12.075 5.425 10.5 3.5 10.5Z" fill="#32BAB0"/>
@@ -28,32 +29,33 @@
                     </svg>
                      </div>
                   
-                  <img src="https://ionicframework.com/docs/demos/api/card/madison.jpg" style="width: 100%;height: 143px;">
+                  <img :src="BasePublic+product.photo" style="width: 100%;height: 143px;">
 
                    <ion-card-header>
 
                  <ion-card-subtitle  style="color: #000">
                     <ion-row>
                     <b  style="font-family: Montserrat;font-style: normal;font-weight: bold;font-size: 16px;line-height: 20px;align-items: center;letter-spacing: 0.75px;color: #001D1B;margin-top: -15px;"> 
-                      Nombre {{n}}
+                     {{product.name}}
                     </b>
                     </ion-row>  
                   </ion-card-subtitle>
                 
                   </ion-card-header>
 
-                  <ion-card-content style="margin-top: -15px;">Ubicación
+                  <ion-card-content style="margin-top: -15px;"> {{product.pais}}, {{product.city}}
                 </ion-card-content>
 
               </ion-card>
+          
             </ion-col>
    
             <ion-col  size="6">
-              <ion-card class="card" style="width: 95%;">
+              <ion-card class="card" style="width: 95%;" @click="() => $router.push({path : '/create/product'})">
                 <center>
                   <br><br>
                  <span style="font-style: normal;font-weight: 400;font-size: 16px;line-height: 20px;align-items: center;letter-spacing: 0.75px;color: #5B716F;">Agregar</span><br><br>
-                 <img src="assets/button-add.svg">
+                 <img src="assets/button-add.svg" @click="() => $router.push({path : '/create/product'})">
                 </center>
              </ion-card>
             </ion-col>
@@ -68,23 +70,21 @@
 import { repeat,arrowBack } from 'ionicons/icons';
 import ModalDetail from '@/views/products/ModalDetail'
 import PopoverProduct from './PopoverProduct.vue'
-
+import axios from 'axios'
+import { mapGetters } from 'vuex'
 import { 
   IonContent, 
- 
   modalController,
-
   IonPage,
   popoverController
  } from '@ionic/vue';
-
+import BasePublic from '@/plugins/store/utils'
 import { defineComponent, ref } from 'vue';
+import toast from '@/toast'
 
 export default defineComponent({
   components: {
- 
     IonContent, 
-  
     IonPage
   },
   setup() {
@@ -126,6 +126,20 @@ export default defineComponent({
       arrowBack
     }
   },
+  computed : {
+    ...mapGetters([
+        'getUser'
+    ]),
+  },
+  data(){
+    return {
+      BasePublic,
+      products : []
+    }
+  },
+  mounted(){
+    this.getProducts()
+  },
   methods:{
     redirect(path) {
       this.$router.push(path);
@@ -139,7 +153,17 @@ export default defineComponent({
         })
       return modal.present();
     },
-    async openPopover($event,num) {
+    getProducts(){
+    axios
+      .get("/products/user/"+this.getUser.id)
+      .then(res => {
+        this.products = res.data
+       })
+      .catch(err => {
+        console.log(err)
+      });
+    },
+    async openPopover($event,num,product) {
 
      let position;
       if (num%2 ==0) {
@@ -152,12 +176,33 @@ export default defineComponent({
           event : $event,
           component: PopoverProduct,
           cssClass: position == 'dere' ? 'my-products-class-rigth' : 'my-products-class-left' ,
-          translucent: true
+          translucent: true,
+          componentProps : {
+            product : product
+          }
         })
+  
       await popover.present();
 
-      const { role } = await popover.onDidDismiss();
-      console.log('onDidDismiss resolved with role', role);
+      var self = this
+      popover.onDidDismiss().then((data) => {
+        console.log(data)
+        if(data.data.methods == 'edit'){
+          self.$router.push({name: 'edit.product', params : {productId :data.data.product.id },query : {...data.data.product}})
+        }else{
+          axios
+            .delete("/products/"+data.data.product_id)
+            .then(res => {
+              console.log(res)
+              this.getProducts()
+              toast.openToast("Producto eliminado exitosamente","success",2000);
+             })
+            .catch(err => {
+              console.log(err)
+      });
+        }
+      })
+
     }
   }
 });

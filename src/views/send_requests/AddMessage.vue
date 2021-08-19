@@ -21,14 +21,14 @@
            Agrega un mensaje que <br> describa tu oferta
           </p>
        <ion-card style="box-shadow: inherit;margin-top: 11%;width: 101%;margin-left: -1%">
-      <img src="https://ionicframework.com/docs/demos/api/card/madison.jpg" class="img-left">
+      <img  :src="BasePublic+'uploads/'+product_photo" class="img-left">
        <svg width="49" height="49" viewBox="0 0 49 49" fill="none" xmlns="http://www.w3.org/2000/svg" class="img-center">
       <path d="M36.75 27.5625L42.875 33.6875L36.75 39.8125" stroke="#5B716F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
       <path d="M6.125 33.6875H42.875" stroke="#5B716F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
       <path d="M12.25 21.4375L6.125 15.3125L12.25 9.1875" stroke="#5B716F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
       <path d="M42.875 15.3125H6.125" stroke="#5B716F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
       </svg>
-      <img src="https://ionicframework.com/docs/demos/api/card/madison.jpg" class="img-right">
+      <img :src="BasePublic+'uploads/'+product_select_photo" class="img-right">
     </ion-card>
    
         <p style="margin-top: -18px;">
@@ -39,14 +39,14 @@
           <div class="container" style="width: 93%;margin-left: 14px;">
             <label class="label-input">Mensaje</label>
             <div  class="input-container" >
-              <textarea style="line-height: 38px;height: 120.55px" class="input-text" placeholder="Que tal si intercambiamos">  </textarea>
+              <textarea style="line-height: 38px;height: 120.55px" v-model="message" class="input-text" placeholder="Que tal si intercambiamos">  </textarea>
             </div>
           </div>
         </ion-col>
       </ion-row>
          
           <br>
-          <button type="button" class="btn-primary" @click="redirect({name : 'success.requests'})" style="width: 200px">
+          <button type="button" class="btn-primary" @click="sendRequest" style="width: 200px">
               Enviar Solicitud
           </button>
        </p>
@@ -59,21 +59,19 @@
 
 import { repeat,arrowBack } from 'ionicons/icons';
 import ModalDetail from '@/views/products/ModalDetail'
+import BasePublic from '@/plugins/store/utils'
 import { 
-
   IonContent, 
-
   modalController,
   IonPage
  } from '@ionic/vue';
 import { defineComponent, ref } from 'vue';
+import axios from 'axios'
+import toast from '@/toast'
 
 export default defineComponent({
   components: {
- 
     IonContent, 
- 
-
     IonPage
   },
   setup() {
@@ -115,9 +113,57 @@ export default defineComponent({
       arrowBack
     }
   },
+  data(){
+    return{
+      BasePublic,
+      message : null,
+      product_id : null,
+      product_photo : null,
+      product_id_user : null,  
+      product_select_id : null,
+      product_select_photo : null,  
+      product_select_id_user : null,
+      user : null
+    }
+  },
+  created(){
+    this.product_id = this.$route.query.product_id
+    this.product_photo = this.$route.query.product_photo
+    this.product_id_user = this.$route.query.product_id_user
+    this.product_select_id = this.$route.query.product_select_id
+    this.product_select_photo = this.$route.query.product_select_photo
+    this.product_select_id_user = this.$route.query.product_select_id_user
+  },
   methods:{
     redirect(path) {
+      //redirect({name : 'success.requests'})
       this.$router.push(path);
+    },
+    async sendRequest(){
+      
+      if( this.message == null ){
+        toast.openToast("Por favor debe enviar un mensaje","error",2000);
+        return;
+      }
+      let loading = await toast.showLoading()
+
+      await loading.present(); 
+
+      let data = {
+        ...this.$route.query,
+        message : this.message
+      }
+
+      axios
+        .post("/requests",data)
+        .then(res => {
+          loading.dismiss()
+          this.redirect({name : 'success.requests', query : {customer_name:res.data.customer.name}})
+         })
+        .catch(err => {
+          loading.dismiss()
+          console.log(err)
+        });
     },
     async openModal() {
       const modal = await modalController

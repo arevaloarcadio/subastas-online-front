@@ -1,14 +1,14 @@
 <template>
 	<div style="margin-left: 5%;margin-top: 5%">	
-		<ion-row style="cursor: pointer;" @click="select('Enviadas')" :class="{'item-popover' : true , 'active' : filters['Enviadas'] == true}">
+		<ion-row style="cursor: pointer;" @click="select('Enviadas')" :class="{'item-popover' : true , 'active' : filters['Enviada'] == true}">
 			Enviadas
 		</ion-row>
 		<br>
-		<ion-row style="cursor: pointer;" @click="select('Recibidas')" :class="{'item-popover' : true , 'active' : filters['Recibidas'] == true}">
+		<ion-row style="cursor: pointer;" @click="select('Recibidas')" :class="{'item-popover' : true , 'active' : filters['Recibida'] == true}">
 			Recibidas
 		</ion-row>
 		<br>
-		<ion-row style="cursor: pointer;" @click="select('Rechazados')" :class="{'item-popover' : true , 'active' : filters['Rechazados'] == true}">
+		<ion-row style="cursor: pointer;" @click="select('Rechazados')" :class="{'item-popover' : true , 'active' : filters['Rechazado'] == true}">
 			Rechazados
 		</ion-row>
 		<br>
@@ -28,9 +28,9 @@ name: 'Popover',
 data(){
 	return{
 		filters : {
-			'Enviadas' : false,
-			'Recibidas' : false,
-			'Rechazados' : false,
+			'Enviada' : false,
+			'Recibida' : false,
+			'Rechazado' : false,
 			'Por confirmar' : false,
 		}
 	}

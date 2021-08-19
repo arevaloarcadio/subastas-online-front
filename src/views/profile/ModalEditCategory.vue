@@ -1,5 +1,6 @@
 <template>
 
+    
      <ion-content class="ion-padding">
        <br> 
   <p class="p-no-center"  style="margin-top: 35px;padding-left: 9px;font-weight: 500;font-size: 20px;line-height: 24px;color: #001D1B;" > 
@@ -7,8 +8,8 @@
   </p>
   <br>
 
-    <a class="text-control" style="float: right;cursor: pointer;font-weight: 600"  @click="registerCategories()"> Siguiente</a>
-  <div style="left:1%;top:1%;position: absolute;">
+    <a class="text-control" style="float: right;cursor: pointer;font-weight: 600"  @click="updateCategories()"> Guardar</a>
+  <div  style="left:1%;top:1%;position: absolute;">
       <button type="button" :class="{'category-large' : true,'btn-category-active':category.Belleza,'btn-category':!category.Belleza}"  @click="select_category('Belleza')" :style="styles.belleza">
         Belleza
       </button>
@@ -41,9 +42,10 @@
       <button type="button" :class="{'category-large' : true,'btn-category-active':category.Videojuegos,'btn-category':!category.Videojuegos}"  @click="select_category('Videojuegos')" :style="styles.videojuegos" >
          Videojuegos
       </button>
+
  </div>
-  <div align="center" style="margin-top:613px" @click="redirect()">
-   Omitir
+  <div align="center" style="margin-top:613px" @click="$router.go(-1)">
+   Atras
   </div>
   </ion-content>
    
@@ -131,11 +133,15 @@ export default defineComponent({
       },
     };
   },
-  created(){
 
+  created(){
+    this.customer_id = this.$route.params.userId
+    this.getCategories()
+  },
+  setup() {
+    return { close }
   },
   mounted(){
-    this.customer_id = this.$route.query.customer_id;
     const width = window.screen.width;
     const styles = this.styles;
 
@@ -173,7 +179,23 @@ export default defineComponent({
     redirect(){
        this.$router.push({path: 'config_chat'});
     },
-    async registerCategories() {
+    getCategories(){
+      axios
+        .get("/categories/customer/"+this.customer_id)
+        .then(res => {
+          const categories = res.data
+          categories.forEach((category) => {
+            this.category[category.name] = true
+            this.categories.push(category.name)
+          })
+        })
+        .catch(err => {
+          console.log(err)
+        }).finally(()=> {
+           
+        });
+    },
+    async updateCategories() {
 
       if(this.categories.length < 3){
         toast.openToast("Selecciona al menos 3 categorías de productos","error",2000);
@@ -185,14 +207,14 @@ export default defineComponent({
       await loading.present();
 
      axios
-      .post("/categories/customer",{
+      .put("/categories/customer/"+this.customer_id,{
         categories_ids : this.categories,
-        customer_id : this.customer_id
        })
       .then(res => {
         console.log(res)
         loading.dismiss()
-        this.$router.push({path: 'config_chat', query : {customer_id : this.customer_id}});
+        toast.openToast("Modificación de categoria exitoso","success",2000);
+        this.$router.go(-1);
       })
       .catch(err => {
         console.log(err)

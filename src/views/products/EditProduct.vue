@@ -3,18 +3,18 @@
    <ion-row>
        <ion-col>
         <button @click="$router.go(-1)">
-            <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-left: 3%;top: 32%;position: absolute;">
+            <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-left: 3%;top: 44%;position: absolute;">
               <path d="M27 16H5" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
               <path d="M14 7L5 16L14 25" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
           </button>
           
           <p style="color: #000" class="title">
-            Publicar un producto
+            Editar producto
           </p>
-          <p class="sub-title">
+          <!--<p class="sub-title">
             ¿Qué quieres cambiar?
-          </p>
+          </p>-->
       </ion-col>
     </ion-row>
   <ion-content>
@@ -43,18 +43,18 @@
        
         <ion-row>
           <ion-col >
-             <ion-radio-group value="Nuevo" v-model="estado">
+             <ion-radio-group :value="estado" >
               <ion-row>
                 <ion-col>
                   <ion-item  lines="none">
                     <p class="text-radio">Nuevo</p>
-                    <ion-radio  color="success" slot="start" value="Nuevo" @click="estado ='nuevo'"></ion-radio>
+                    <ion-radio  color="success" slot="start" value="nuevo" @click="estado ='nuevo'"></ion-radio>
                   </ion-item>
                     </ion-col>
                      <ion-col>
                   <ion-item  lines="none" style="margin-left: -27px;">
                     <p class="text-radio">Usado</p>
-                    <ion-radio  color="success" slot="start"  value="Usado" @click="estado ='usado'"></ion-radio>
+                    <ion-radio  color="success" slot="start"  value="usado" @click="estado ='usado'"></ion-radio>
                   </ion-item>
                   </ion-col>
                </ion-row>
@@ -97,7 +97,7 @@
         <br>
         <center>
           <button type="button" class="btn-primary" @click="redirect()" style="width: 215px">
-            <span style="position: fixed;margin-left:-76px;margin-top: -8px;font-style: normal;font-weight: 400;font-size: 16px;line-height: 20px;color: #FFFFFF;">Añadir categoría</span>
+            <span style="position: fixed;margin-left:-76px;margin-top: -8px;font-style: normal;font-weight: 400;font-size: 16px;line-height: 20px;color: #FFFFFF;">Editar categoría</span>
 
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" style="position: fixed;margin-left: 68px;margin-top: -6px;">
               <path d="M0 9H12.17L6.58 14.59L8 16L16 8L8 0L6.59 1.41L12.17 7H0V9Z" fill="#E6EFFF"/>
@@ -142,6 +142,7 @@ const { Camera } = Plugins;
 
 import { defineComponent, ref } from 'vue';
 import toast from '@/toast'
+import BasePublic from '@/plugins/store/utils'
 
 export default defineComponent({
   components: {
@@ -197,13 +198,23 @@ export default defineComponent({
   },
   data(){
     return{
+      BasePublic,
       takenImageUrl : null,
       estado : 'nuevo',
       nombre : null,
       descripcion : null,
       image : null,
-      to_change : null
+      to_change : null,
+      newFile : false
     }
+  },
+  mounted(){
+    this.estado = this.$route.query.estado
+    this.nombre = this.$route.query.name
+    this.descripcion = this.$route.query.description
+    this.takenImageUrl = BasePublic+this.$route.query.photo
+    this.image = BasePublic+this.$route.query.photo
+    this.to_change = this.$route.query.change
   },
   methods:{
     redirect() {
@@ -218,10 +229,14 @@ export default defineComponent({
         nombre: this.nombre,
         descripcion: this.descripcion,
         image: this.image,
-        to_change : this.to_change == null ? '' : this.to_change
+        to_change : this.to_change == null ? '' : this.to_change,
+        pais : this.$route.query.pais,
+        address : this.$route.query.address,
+        category : this.$route.query.category,
+        city : this.$route.query.city,
       };
 
-      this.$router.push({path: '/create/details/product' , query : {...data}});
+      this.$router.push({name: 'edit.details.product' ,params :{ productId :this.$route.query.id,newFile : this.newFile} ,query : {...data}});
     },
     async openModal() {
     
@@ -267,6 +282,7 @@ export default defineComponent({
     },
     getPhoto($event){
       console.log($event)
+      this.newFile = true
       this.image = $event.dataUrl
       this.takenImageUrl = URL.createObjectURL(this.dataURLtoFile($event.dataUrl,'image'));
       this.setOpen(false)

@@ -3,40 +3,45 @@
    <ion-row>
       <ion-col>
         <button @click="$router.go(-1)">
-            <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-left: 3%;top: 36%;position: absolute;">
+            <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-left: 3%;top: 46px;position: absolute;">
               <path d="M27 16H5" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
               <path d="M14 7L5 16L14 25" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
           </button>
-        
-        <p style="color: #000" class="title">
-          Camisas
+         </ion-col>
+           <ion-col>
+        <p style="color: #000;font-weight: 500;font-size: 20px;margin-top: 34px;" class="title">
+          {{product_name}}
         </p>
         <p style="font-weight: 500;font-size: 16px;line-height: 20px;align-items: center;text-align: center;letter-spacing: 0.75px;color: #5B716F;margin-top: -18px;">
-          Juan Camilo
+         {{customer_name}}
         </p>
-        <button @click="redirect({name : 'request.accepted.rejected'})"  style="margin-left: 85%;top: 39%;position: absolute;background: #fff">
+        </ion-col>
+        <ion-col>
+        <button v-if="exchange =='recibido'" @click="redirect({name : 'request.accepted.rejected' , params : {productId : request_id} , query :{} })"  style="margin-left: 54%;margin-top: 41px;background: transparent;">
           <img src="/assets/ArrowsLeftRightGreenLow.png">
         </button>
       </ion-col>
     </ion-row>
 
-    <ion-content>
+    <ion-content id="chat-body" ref="scroll" :scroll-events="true">
    
           <div class="content"  style="float: left;width: 100%;">
               
               <div class="messages" id="chat">
                <small style="margin-top:2%"></small>
                 <ul v-for="message in messages" :key="message">
-                  <li :class="{'replies' :  user_chat.id != message.user_sent_id ,'sent' : user_chat.id != message.user_replies_id}">
-                    <p>{{message.data}}</p>
+                  <li v-if="!message.is_file" :class="{'replies' :  getUser.id == message.id_sender ,'sent' : getUser.id == message.id_receiver}">
+                    <p >{{message.message}}</p>
+                   
                   </li>
+                   <img v-else :class="{'img-right' :  getUser.id == message.id_sender ,'img-left' : getUser.id == message.id_receiver}" :src="BasePublic+message.message">
                 
                 </ul>
               
                 <center>
-                 <ion-badge style="background: rgba(50, 186, 176, 0.3);
-                  border-radius: 10px;font-family: Montserrat;font-style: normal;font-weight: normal;font-size: 16px;line-height: 20px;color: #5B716F;" color="primary">Has aceptado el cambio</ion-badge>
+                 <!--<ion-badge style="background: rgba(50, 186, 176, 0.3);
+                  border-radius: 10px;font-family: Montserrat;font-style: normal;font-weight: normal;font-size: 16px;line-height: 20px;color: #5B716F;" color="primary">Has aceptado el cambio</ion-badge>-->
                 </center>
 
               </div>
@@ -53,30 +58,41 @@
      <div class="message-input">
           <div class="wrap">
               <span>
-                <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-top: 18px;    margin-left: -43px;">
+                <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg"  @click="setOpen(true)" style="margin-top: 18px;    margin-left: -43px;">
                 <path d="M22.75 22.75H5.25C4.78587 22.75 4.34075 22.5656 4.01256 22.2374C3.68437 21.9092 3.5 21.4641 3.5 21V8.75C3.5 8.28587 3.68437 7.84075 4.01256 7.51256C4.34075 7.18437 4.78587 7 5.25 7H8.74936L10.4994 4.375H17.4994L19.2494 7H22.75C23.2141 7 23.6592 7.18437 23.9874 7.51256C24.3156 7.84075 24.5 8.28587 24.5 8.75V21C24.5 21.4641 24.3156 21.9092 23.9874 22.2374C23.6592 22.5656 23.2141 22.75 22.75 22.75Z" stroke="#5B716F" stroke-linecap="round" stroke-linejoin="round"/>
                 <path d="M14 18.375C16.1746 18.375 17.9375 16.6121 17.9375 14.4375C17.9375 12.2629 16.1746 10.5 14 10.5C11.8254 10.5 10.0625 12.2629 10.0625 14.4375C10.0625 16.6121 11.8254 18.375 14 18.375Z" stroke="#5B716F" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
               </span>
-          <input type="text" placeholder="Escribe algo" >
+          <input type="text" v-model="message" placeholder="Escribe algo" >
              
-          <button style="background: #fff;"><img src="/assets/button-send.svg" style="margin-left: -56px;margin-top: -13px;"></button>
+          <button style="background: #fff;"><img src="/assets/button-send.svg" @click="postMessage()" style="margin-left: -56px;margin-top: -13px;"></button>
           </div>
-      </div>   
+      </div>
+    
+        <ion-modal
+        :is-open="isOpenRef"
+        :enterAnimation="enterAnimation"
+        :leaveAnimation="leaveAnimation"  
+        css-class="my-custom-class"
+        @didDismiss="setOpen(false)"
+        @ionModalWillDismiss="setOpen(false)"
+      >
+    <ModalUpload @get="getPhoto($event)" @close="setOpen(false)" ></ModalUpload>
+  </ion-modal>     
   </ion-page>  
 </template>
 
 
 <script >
 
-import { repeat,arrowBack,cameraOutline,sendOutline } from 'ionicons/icons';
 
 import { 
 
   IonContent, 
   IonInfiniteScroll, 
   IonInfiniteScrollContent,
-
+  createAnimation,
+  IonModal,
   IonPage
  } from '@ionic/vue';
 
@@ -85,59 +101,50 @@ import { Plugins, CameraResultType, CameraSource } from '@capacitor/core';
 const { Camera } = Plugins;
 
 import { defineComponent, ref } from 'vue';
+import axios from 'axios'
+import { mapGetters } from 'vuex'
+import ModalUpload from '../products/ModalUpload'
+import BasePublic from '@/plugins/store/utils'
+import io from 'socket.io-client'
 
+var ChatView
+
+    var socket  = io("http://localhost:4000",{
+      cors: {
+        origin: '*',
+      },
+      withCredentials : false
+    });
+
+    socket.on("connection")
+
+    socket.on('new_message', (message) => {
+      if(message.id_sender == ChatView.getUser.id || message.id_receiver == ChatView.getUser.id)
+        ChatView.getMessages()
+        document.getElementById('chat-body').scrollTop = document.getElementById('chat-body').scrollHeight;
+    });
+    
 export default defineComponent({
   components: {
- 
+    IonModal,
     IonContent, 
     IonInfiniteScroll, 
     IonInfiniteScrollContent,
-
+    ModalUpload,
     IonPage
   },
-  setup() {
-    const isDisabled = ref(false);
-    const toggleInfiniteScroll = () => {
-      isDisabled.value = !isDisabled.value;
-    }
-    const items = ref([]);
-    const pushData = () => {
-      const max = items.value.length + 20;
-      const min = max - 20;
-      for (let i = min; i < max; i++) {
-        items.value.push(i);
-      }
-    }
-
-    const loadData = (ev) => {
-      setTimeout(() => {
-        pushData();
-        console.log('Loaded data');
-        ev.target.complete();
-
-        // App logic to determine if all data is loaded
-        // and disable the infinite scroll
-        if (items.value.length == 1000) {
-          ev.target.disabled = true;
-        }
-      }, 500);
-    }
-
-    pushData();
-
-    return {
-      isDisabled,
-      toggleInfiniteScroll,
-      loadData,
-      items,
-      repeat,
-      arrowBack,
-      cameraOutline,
-      sendOutline
+   setup(){
+    const isOpenRef = ref(false);
+    const setOpen = (state) => isOpenRef.value = state;
+    return{
+      isOpenRef,
+      setOpen
     }
   },
   data(){
     return {
+      BasePublic,
+      socket : null,
       user_auth :   {id : 1 ,imagen : '/assets/products/product-3.png'},
       user_chat :  {id : 2 ,imagen : '/assets/products/product-1.png'},
       messages : 
@@ -154,13 +161,42 @@ export default defineComponent({
         },
       ],
       online : '',
-      data : ''
+      data : '',
+      customer_name  : null,
+      product_name : null,
+      customer_id : null,
+      message : null,
+      file : null,
+      request_id : null,
+      exchange : null
     }
   },
   created(){
-    console.log(this.messages)
+     ChatView = this
+
+    this.customer_name  = this.$route.query.customer_name
+    this.product_name  = this.$route.query.product_name
+    this.customer_id  = this.$route.query.customer_id
+    this.request_id = this.$route.query.request_id
+    this.product_customer_id = this.$route.query.product_customer_id
+    this.product_user_id = this.$route.query.product_user_id
+    this.exchange = this.$route.query.exchange
+    this.getMessages()
+    
+  },
+  mounted(){
+    this.scroll()
+  },
+  computed : {
+    ...mapGetters([
+        'getUser'
+    ]),
   },
   methods:{
+     scroll(){
+      var scroll =  document.querySelector('ion-content').scrollToBottom()
+      console.log(scroll)
+    },
     redirect(path) {
       this.$router.push(path);
     },
@@ -173,6 +209,100 @@ export default defineComponent({
 
       this.takenImageUrl = photo.webPath;
     },
+    getMessages(){
+      axios
+        .get("/chat/"+this.getUser.id+'/'+this.customer_id)
+        .then(res => {
+          this.messages = res.data
+         })
+        .catch(err => {
+          console.log(err)
+        });
+    }, 
+    getPhoto($event){
+      this.file = this.dataURLtoFile($event.dataUrl,'image/png')
+     // this.user.photo = URL.createObjectURL(this.dataURLtoFile($event.dataUrl,'image/png'));
+      this.setOpen(false)
+      this.postMessage(true)
+    },
+    postMessage(is_file = false){
+      if(this.message == null && is_file == false){
+        return;
+      }
+      
+      let new_message = {
+        id_sender : this.getUser.id,
+        id_receiver :   this.customer_id,
+        message : this.message,
+        is_file : is_file
+      }
+      
+      socket.emit('chat_message',new_message);
+      
+      let data;
+      
+      if(is_file){
+        data = new FormData();
+        data.append('id_sender',this.getUser.id);
+        data.append('id_receiver', this.customer_id);
+        data.append('message',this.file);
+        data.append('is_file',is_file);  
+      }else{
+        data = {
+          id_sender : this.getUser.id,
+          id_receiver :   this.customer_id,
+          message : this.message,
+          is_file : is_file
+        }
+      }
+      
+     
+      
+      axios.
+       post('/chat/message',data,{'Content-Type': 'multipart/form-data'})
+        .then(() => {
+          this.message = null
+          this.messages.push(new_message)
+         })
+        .catch(err => {
+          console.log(err)
+        });
+    },
+    enterAnimation : function () {
+      let baseEl = document
+        const backdropAnimation = createAnimation()
+        .addElement(baseEl.querySelector('ion-backdrop'))
+        .fromTo('opacity', '0.01', 'var(--backdrop-opacity)');
+
+      const wrapperAnimation = createAnimation()
+        .addElement(baseEl.querySelector('.modal-wrapper'))
+        .keyframes([
+          { offset: 0, opacity: '0', transform: 'scale(0)' },
+          { offset: 1, opacity: '0.99', transform: 'scale(1)' }
+        ]);
+
+      return createAnimation()
+            .addElement(baseEl)
+            .easing('ease-out')
+            .duration(500)
+            .addAnimation([backdropAnimation, wrapperAnimation]);
+    },
+    leaveAnimation  : function () {
+       return this.enterAnimation(document).direction('reverse');
+    },
+    dataURLtoFile : function(dataurl, filename) {
+        var arr = dataurl.split(','),
+            mime = arr[0].match(/:(.*?);/)[1],
+            bstr = atob(arr[1]), 
+            n = bstr.length, 
+            u8arr = new Uint8Array(n);
+            
+        while(n--){
+            u8arr[n] = bstr.charCodeAt(n);
+        }
+        
+        return new File([u8arr], filename, {type:mime});
+    }, 
   }
 });
 
@@ -759,7 +889,8 @@ body {
   background: #E9EBEB;
   color: #f5f5f5;
    margin-left: -44px;
-   height: 50px;
+     width: auto;
+  height: auto;
    text-align: revert;
    color: #000;
    border-radius: 10px 10px 10px 0px;
@@ -774,8 +905,8 @@ body {
 #app .content .messages ul li.replies p {
   background: #E9EBEB;
   float: right;
-  width: 269px;
-  height: 50px;
+  width: auto;
+  height: auto;
 text-align: revert;
 color: #000;
 border-radius: 10px 10px 0px 10px;
@@ -894,9 +1025,22 @@ margin-top: 1%;
   }
 }
 
- .message-input .wrap button:focus {
+.message-input .wrap button:focus {
   outline: none;
 }
+
+.img-right{
+      height: 168px;
+    width: auto;
+    float: right;
+}
+
+.img-left{
+  height: 168px;
+  width: auto;
+  float: left;
+}
+
 </style>
 
 

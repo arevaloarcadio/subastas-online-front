@@ -5,10 +5,10 @@
    Publicaciones guardadas
   </p>
     <ion-content class="ion-padding">
-     <ion-row style="position: absolute;">
-       <ion-col v-for="n in 2" :key="n"  size="6"  >
-        <ion-card class="cursor" @click="redirect_details(n)" style="width: 98%;left: -8%;">
-          <div align="center" class="badge-2"  v-if="n%2!=0"> 
+     <ion-row style="width: 100%;">
+       <ion-col v-for="(product,key) in products" :key="product"  size="6"  >
+        <ion-card class="cursor" @click="redirect_details(product)" style="width: 98%;left: -8px;overflow-y: auto;">
+          <div align="center" class="badge-2"  v-if="key%2!=0"> 
             <span style="position: absolute;left: 15%;top: 20%;">
             10
             </span>
@@ -20,15 +20,15 @@
             </svg>
 
           </div>
-           <img src="https://ionicframework.com/docs/demos/api/card/madison.jpg" style="width: auto;height: 143px;border-radius: 0px 10px 0px 0px;width: 100%;">
+           <img :src="BasePublic+product.photo" style="width: auto;height: 143px;border-radius: 0px 10px 0px 0px;width: 100%;">
 
             <ion-card-header>
 
          <ion-card-subtitle  style="color: #000">
-            <ion-row style="margin-top: -14px;">
+            <ion-row style="margin-top: -14px;width: 90%;">
               <ion-col>
             <b  style="font-family: Montserrat;font-style: normal;font-weight: bold;font-size: 16px;line-height: 20px;align-items: center;letter-spacing: 0.75px;color: #001D1B;margin-top: -15px;margin-left: -4px;"> 
-              Nombre {{n}}
+               {{product.name}}
             </b>
             </ion-col>
             <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" style="position: absolute;left: 87%;">
@@ -41,7 +41,7 @@
         
           </ion-card-header>
 
-          <ion-card-content style="margin-top:-15px">Ubicación
+          <ion-card-content style="margin-top:-15px">{{product.pais}}, {{product.city}}
         </ion-card-content>
         <br>
       </ion-card>
@@ -73,6 +73,8 @@ import { Plugins, CameraResultType, CameraSource } from '@capacitor/core';
 const { Camera } = Plugins;
 
 import { defineComponent, ref } from 'vue';
+import axios from "axios"
+import { mapGetters } from 'vuex'
 
 export default defineComponent({
   components: {
@@ -121,9 +123,25 @@ export default defineComponent({
       camera
     }
   },
+  data(){
+    return{
+      products :null
+    }
+  },
+  created(){
+    this.getProductsSaved()
+  },
+  computed : {
+    ...mapGetters([
+        'getUser'
+    ]),
+  },
   methods:{
     redirect(path) {
       this.$router.push({path: path});
+    },
+    redirect_details(product) {
+      this.$router.push({name: 'details.product',params :{ productId : product.id}, query : {...product}});
     },
     async openModal() {
       const modal = await modalController
@@ -140,8 +158,17 @@ export default defineComponent({
         source: CameraSource.Camera,
         quality: 60
       });
-
-      this.takenImageUrl = photo.webPath;
+     this.takenImageUrl = photo.webPath;
+    },
+    getProductsSaved(){
+     axios
+      .get("/products/saved/"+this.getUser.id)
+      .then(res => {
+        this.products = res.data
+       })
+      .catch(err => {
+        console.log(err)
+      });
     },
   }
 });

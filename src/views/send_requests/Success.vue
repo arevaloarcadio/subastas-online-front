@@ -17,8 +17,8 @@
           </p>
            <p>
           <span class="text-control" style="font-weight: 500;font-size: 20px;">
-                Usuario
-              </span>
+            {{$route.query.customer_name}}
+          </span>
           </p>
       </ion-col>
     </ion-row>

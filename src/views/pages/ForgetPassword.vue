@@ -6,11 +6,11 @@
     <br>
     <img src="/assets/logo-green.png">
   </div>
-  <p class="p-no-center" style="font-family: Montserrat;font-style: normal;font-weight: normal;font-size: 24px;line-height: 36px;color: #001211;">
+  <p class="p-no-center" style="font-family: Montserrat;font-style: normal;font-weight: normal;font-size: 24px;line-height: 36px;color: #001211;margin-left: 2%;">
   Recuperación de contraseña
    </p>
 
-   <p class="p-no-center" style="margin-left: 2%;" >Por favor, introduzca su dirección de correo electrónico. </p>
+   <p class="p-no-center" style="margin-left: 2%;margin-top: -13px;" >Por favor, introduzca su dirección de correo electrónico. </p>
    
     <p> 
     <ion-grid>

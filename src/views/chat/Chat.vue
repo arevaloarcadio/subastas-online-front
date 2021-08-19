@@ -14,24 +14,27 @@
         </p>
       </ion-col>
     </ion-row>
-    <ion-content>
+    <ion-content :class="{'ion-padding' : messages.length == 0}">
    
     
         <p v-if="messages.length == 0">
          Cuando alguien inicie negociación por tu producto o tu inicies negociación se habilitará el chat
         </p>
         <template v-else>
-          <ion-card style="box-shadow: inherit;width: 100%;left: -11px;height: 99px" v-for="(message,key) in messages" :key="message"  @click="redirect({name : 'request.chat' , params : { productId : message.productId }})">
+          <ion-card style="box-shadow: inherit;width: 100%;left: -11px;height: 99px" v-for="(message,key) in messages" :key="message"  @click="redirect({name : 'request.chat' , params : { productId : message.product_id } , query : { customer_name : message.customer.name,product_name : message.product_name,customer_id : message.product_id_user,request_id : message.id_request,exchange :message.exchange }})">
             <ion-row :class="{'col'  : key%2 == 0}">
-              <ion-col  >
-                <img style="border-radius: 15px 15px 15px 15px;margin-left: 5px;margin-top: 6px;" :src="message.photo" >
-                  <p class="p-no-center" style="margin-top: -82px; margin-left: 92px;position: absolute;font-family: Montserrat;font-style: normal;font-weight: 500;font-size: 16px;line-height: 20px;align-items: center;letter-spacing: 0.75px;color: #001D1B;" >
-                    {{message.product}} 
-                    <img v-show="message.active"  src="/assets/active.png" ></p> 
-                
-                <span style="font-size: 16px;font-weight: 400;margin-top: 35px;position: absolute;    margin-left: 5px;">{{message.last_message}}</span>
-              
-              <span style="font-weight: 300;margin-top: 62px;margin-left: 61%;">7 min</span>
+              <ion-col >
+                <img style="border-radius: 15px 15px 15px 15px;margin-left: 5px;margin-top: 6px;width: 81px;height: 80px;" :src="BasePublic+message.photo" >
+                  <p class="p-no-center" style="margin-top: -82px; margin-left: 92px;font-family: Montserrat;font-style: normal;font-weight: 500;font-size: 16px;line-height: 20px;align-items: center;letter-spacing: 0.75px;color: #001D1B;" >
+                    {{message.product_name}} 
+                    <img v-show="message.active"  src="/assets/active.png" >
+                  </p> 
+                <p class="p-no-center" style="font-size: 16px;font-weight: 400;margin-left: 92px;margin-top: -14px; ">
+                  {{message.last_message.message}}
+                </p>
+                <p class="p-no-center" style="font-family: Montserrat;font-style: normal;font-weight: 300;font-size: 16px;line-height: 20px;text-align: right;    margin-top: -16px;margin-right: 20px; ">
+                  {{moment(message.last_message.fecha, moment.ISO_8601).fromNow()}}
+                </p>
               </ion-col>
 
           
@@ -50,27 +53,25 @@
 
 import { repeat,arrowBack,camera } from 'ionicons/icons';
 import ModalDetail from '@/views/products/ModalDetail'
+import BasePublic from '@/plugins/store/utils'
 import { 
-
   IonContent, 
-
   modalController,
-
   IonPage
  } from '@ionic/vue';
-
+import moment from 'moment'
+moment.locale('es');
 import { Plugins, CameraResultType, CameraSource } from '@capacitor/core';
 
 const { Camera } = Plugins;
 
 import { defineComponent, ref } from 'vue';
+import axios from 'axios'
+import { mapGetters } from 'vuex'
 
 export default defineComponent({
   components: {
- 
     IonContent, 
-   
-   
     IonPage
   },
   setup() {
@@ -115,29 +116,21 @@ export default defineComponent({
   },
   data(){
     return {
-      messages : 
-      [
-        {
-          productId : 1,
-          photo : '/assets/Guitar.png',
-          product : 'Camisa',
-          last_message : 'Me gustaria intercambiar mi camisa...',
-          date_last_message : '7 min', 
-          active : true
-        },
-        {
-          productId : 2,
-          photo : '/assets/Guitar.png',
-          product : 'Guitarra C-30',
-          last_message : 'Me gustaria intercambiar mi camisa...',
-          date_last_message : '7 min', 
-          active : false
-        }, 
-      ]
+      moment,
+      BasePublic,
+      messages : []
     }
   },
+  computed : {
+    ...mapGetters([
+        'getUser'
+    ]),
+  },
+  created(){
+    this.getChats()
+  },
   mounted(){
-    console.log(this.messages.length)
+  
   },
   methods:{
     redirect(path) {
@@ -161,6 +154,16 @@ export default defineComponent({
 
       this.takenImageUrl = photo.webPath;
     },
+    getChats(){
+      axios
+        .get("/chats/"+this.getUser.id)
+        .then(res => {
+          this.messages = res.data
+         })
+        .catch(err => {
+          console.log(err)
+        });
+    } 
   }
 });
 

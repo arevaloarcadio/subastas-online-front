@@ -23,7 +23,7 @@
            Selecciona uno o  más <br> de tus productos
           </p>
      <ion-card style="box-shadow: inherit;margin-top: 8%;width: 101%;margin-left: -1%">
-      <img src="https://ionicframework.com/docs/demos/api/card/madison.jpg" class="img-left">
+      <img :src="BasePublic+'uploads/'+product.photo" class="img-left">
      
       <svg width="49" height="49" viewBox="0 0 49 49" fill="none" xmlns="http://www.w3.org/2000/svg" class="img-center">
       <path d="M36.75 27.5625L42.875 33.6875L36.75 39.8125" stroke="#5B716F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -32,22 +32,23 @@
       <path d="M42.875 15.3125H6.125" stroke="#5B716F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
       </svg>
 
-      <div class="img-right" style="background: #6ACFC7;"></div>
+      <div v-show="product_select == null" class="img-right" style="background: #6ACFC7;"></div>
+      <img v-show="product_select != null" class="img-right" :src="BasePublic+'uploads/'+product_select?.photo">
+
     </ion-card>
     <br><br>
     <ion-card style=" height: 149px; width: 100%; overflow: auto;white-space: nowrap;box-shadow: inherit;margin-left: 0%;" >
      
-      <template v-for="n in 6" :key="n"> 
-          <img src="https://ionicframework.com/docs/demos/api/card/madison.jpg" style="border-radius: 30px 30px 30px 30px; width: 128px;height: 149px;" >&nbsp;
-
+      <template v-for="product in products" :key="product"> 
+          <img :src="BasePublic+'uploads/'+product.photo" @click="product_select = product" style="border-radius: 30px 30px 30px 30px; width: 128px;height: 149px;" >&nbsp;
       </template>
       &nbsp;
-       <button class="button-add"><img class="img-add" src="/assets/FAB.png">
+       <button class="button-add"><img class="img-add" src="/assets/FAB.png" @click="$router.push({path : '/create/product'})">
        </button>
     </ion-card>
     <br>
     <p>  
-      <button type="button" class="btn-primary" @click="redirect({name : 'add_message.requests'})" style="width: 181px">
+      <button type="button" class="btn-primary" @click="redirect()" style="width: 181px">
         Enviar Mensaje
       </button>
     </p>
@@ -61,22 +62,20 @@
 
 import { repeat,arrowBack } from 'ionicons/icons';
 import ModalDetail from '@/views/products/ModalDetail'
+import axios from 'axios'
+import { mapGetters } from 'vuex'
+import BasePublic from '@/plugins/store/utils'
 import { 
-
   IonContent, 
-
   modalController,
-
   IonPage
  } from '@ionic/vue';
 import { defineComponent, ref } from 'vue';
+import toast from '@/toast'
 
 export default defineComponent({
   components: {
- 
     IonContent, 
- 
-
     IonPage
   },
   setup() {
@@ -118,8 +117,43 @@ export default defineComponent({
       arrowBack
     }
   },
+  data(){
+    return{
+      BasePublic,
+      products : [],
+      product_select : null,
+      product :  null
+    }
+  },
+  created(){
+    this.getProducts()
+    this.product = this.$route.query
+
+
+  },
+  computed : {
+    ...mapGetters([
+        'getUser'
+    ]),
+  },
   methods:{
-    redirect(path) {
+    redirect() {
+      if(this.product_select== null){
+         toast.openToast("Debe seleccionar un producto","error",2000);
+         return;
+      }
+      var path = {
+          name : 'add_message.requests' ,
+          query : {
+            product_id : this.product.id ,
+            product_photo :  this.product.photo,
+            product_id_user :  this.product.id_user ,
+            product_select_id : this.product_select.id ,
+            product_select_photo : this.product_select.photo,
+            product_select_id_user : this.product_select.id_user 
+          }
+        };
+
       this.$router.push(path);
     },
     async openModal() {
@@ -130,7 +164,17 @@ export default defineComponent({
           cssClass: 'my-custom-class',
         })
       return modal.present();
-    }
+    },
+    getProducts(){
+      axios
+        .get("/products/user/"+this.getUser.id)
+        .then(res => {
+          this.products = res.data
+         })
+        .catch(err => {
+          console.log(err)
+        });
+    },
   }
 });
 
