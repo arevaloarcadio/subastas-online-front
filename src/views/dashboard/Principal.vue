@@ -49,8 +49,8 @@
    
            <ion-row style="margin-top: -18px;">
             <ion-col v-for="product in products" :key="product"  size="6" >
-                <ion-card class="cursor" @click="redirect_details(product)" style="width: 100%;left:-8px;overflow-y: auto;padding-right: 14px;padding-top: 7px;">
-                  <div v-show="product.requests != 0" align="center" class="badge-2"> 
+                <ion-card class="cursor" @click="redirect_details(product)" style="width: 100%;left:-8px;overflow-y: auto;">
+                  <div v-show="product.requests != 0"  class="badge-2" style="padding-left: 18px;padding-top: 6.5px;"> 
                     <span  style="">
                     {{product.requests}}
                     </span>

@@ -29,7 +29,7 @@
                 <ion-col size="8">
                   <div class="container1">
                     <div  class="input-container1">
-                      <input type="number" value="12655465498" class="input-text1">
+                      <input type="number"  v-model="phone" @input="maxlength" class="input-text1">
                     </div>
                   </div>
                 </ion-col>
@@ -38,7 +38,7 @@
           
             <br>
             <br>
-              <button type="button" class="btn-primary" @click="redirect({name : 'verify.phone'})" style="width: 177px">
+              <button type="button" class="btn-primary" @click="signupPhone" style="width: 177px">
                   Verificar
               </button>
             <br>
@@ -50,10 +50,11 @@
 </template>
 
 <script>
-import { loadingController,toastController,IonRow,IonGrid,IonCol,IonSelect, IonSelectOption  } from '@ionic/vue';
+import { toastController,IonRow,IonGrid,IonCol,IonSelect, IonSelectOption  } from '@ionic/vue';
 import { defineComponent } from 'vue';
 import axios from 'axios';
 import Phone from './Phone'
+import toast from '@/toast'
 
 export default defineComponent({
   components: { Phone,IonRow,IonGrid,IonCol,IonSelect, IonSelectOption},
@@ -70,6 +71,7 @@ export default defineComponent({
       email: null,
       password: null,
       password_confirmacion: null,
+      phone : null
     };
   },
   mounted(){
@@ -136,49 +138,17 @@ export default defineComponent({
           }
         }
       });
-  
+
+      this.code = code[0].callingCodes[0]
+      
       this.flag = code[0].flag
+      
       let svg = '<div class="select-text-2" part="text-2">+'+code[0].callingCodes[0]+'</div>'+
        '<svg width="12" height="7" viewBox="0 0 12 7" fill="none" xmlns="http://www.w3.org/2000/svg" style="position:absolute;margin-left: 30px;">'+
                 '<path d="M11 1L6 6L1 1" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>'+
               '</svg>'          
  
-    document.querySelector('#ionSelectPhoneCode').shadowRoot.innerHTML = svg 
-    },
-    async register() {
-
-       const loading = await loadingController.create({
-          cssClass: 'my-custom-class',
-          message: 'Por Favor Espere..',
-         });
-
-      await loading.present();
-
-     let data = {
-        first_name: this.first_name,
-        last_name: this.last_name,
-        email: this.email,
-        password: this.password,
-        password_confirmacion: this.password_confirmacion,
-     };
-
-    axios
-      .post("/register",data)
-      .then(res => {
-        if(!res.data.error)
-          this.openToast(res.data.data,'success')
-        else
-          this.openToast('Error Interno','warning')
-      })
-      .catch(err => {
-        if(err.response.type == 'validation'){
-          this.openToast(err.response.data.data,'warning')
-        }else{
-           this.openToast(err.response.data.data,'danger')
-        }
-      });
-
-     await loading.dismiss()
+      document.querySelector('#ionSelectPhoneCode').shadowRoot.innerHTML = svg 
     },
     async openToast(message,color) {
       const toast = await toastController
@@ -191,6 +161,30 @@ export default defineComponent({
 
       return toast.present();
     },
+    async signupPhone(){
+      let loading = await toast.showLoading()
+
+      await loading.present();
+      
+      axios
+      .post("/signup/phone", {
+        phone : "+"+this.code+this.phone
+      })
+      .then(res => {
+        loading.dismiss()
+        console.log(res)
+        toast.openToast("Envio de código existoso","error",2000);
+        this.$router.push({name:'verify.phone' , query : {id_user:res.data.id_user }})
+      })
+      .catch(err => {
+         toast.openToast("Error al Verificar","error",2000);
+         loading.dismiss()
+        console.log(err)
+      });
+    },
+    maxlength() {
+      if (this.phone.length > 10) this.phone = this.phone.slice(0,12);
+    }
   }
 });
 </script>
