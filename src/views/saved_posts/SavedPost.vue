@@ -5,14 +5,18 @@
    Publicaciones guardadas
   </p>
     <ion-content class="ion-padding">
-     <ion-row style="width: 100%;">
-       <ion-col v-for="(product,key) in products" :key="product"  size="6"  >
+        <p v-if="products.length == 0">
+         Actualmente no tiene publicaciones guardadas
+        </p>
+      
+     <ion-row v-else style="width: 100%;">
+       <ion-col v-for="product in products" :key="product"  size="6"  >
         <ion-card class="cursor" @click="redirect_details(product)" style="width: 98%;left: -8px;overflow-y: auto;">
-          <div align="center" class="badge-2"  v-if="key%2!=0"> 
-            <span style="position: absolute;left: 15%;top: 20%;">
-            10
+            <div v-show="product.requests != 0"  class="badge-2" style="padding-left: 18px;padding-top: 6.5px;"> 
+            <span  style="">
+            {{product.requests}}
             </span>
-            <svg  style="position: absolute;top: 15%;" width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <svg  style="position: absolute;top: 15%;left: 30px;" width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M16.5 12.375L19.25 15.125L16.5 17.875" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
             <path d="M2.75 15.125H19.25" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
             <path d="M5.5 9.625L2.75 6.875L5.5 4.125" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -68,9 +72,7 @@ import {
   IonPage
  } from '@ionic/vue';
 
-import { Plugins, CameraResultType, CameraSource } from '@capacitor/core';
-
-const { Camera } = Plugins;
+import { Camera,CameraSource, CameraResultType } from '@capacitor/camera';
 
 import { defineComponent, ref } from 'vue';
 import axios from "axios"
@@ -125,7 +127,7 @@ export default defineComponent({
   },
   data(){
     return{
-      products :null
+      products : []
     }
   },
   created(){

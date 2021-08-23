@@ -21,9 +21,8 @@
 import { IonContent/*, modalController*/ } from '@ionic/vue';
 import { close } from 'ionicons/icons';
 import { defineComponent } from 'vue';
-import { Plugins, CameraResultType, CameraSource } from '@capacitor/core';
-//import axios from 'axios'
-
+import { CameraSource, CameraResultType } from '@capacitor/camera';
+import { Plugins } from '@capacitor/core';
 const { Camera } = Plugins;
 
 
@@ -48,6 +47,7 @@ export default defineComponent({
         this.$emit("close")
     },
     async takePhoto(source) {
+      console.log(Plugins ,CameraSource, CameraResultType)
       const photo = await Camera.getPhoto({
         resultType: CameraResultType.DataUrl,
         source: source == 'camara'  ? CameraSource.Camera  : CameraSource.Photos,

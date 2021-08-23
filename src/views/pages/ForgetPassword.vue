@@ -43,6 +43,7 @@ import { eyeOutline,eyeOffOutline } from 'ionicons/icons';
 import { defineComponent } from 'vue';
 import axios from 'axios';
 import { useRouter } from 'vue-router';
+
 export default defineComponent({
   components: { IonRow,IonGrid,IonCol},
   name: "Register",

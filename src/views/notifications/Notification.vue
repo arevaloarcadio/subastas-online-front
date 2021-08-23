@@ -28,7 +28,7 @@
                 <div class="last-message-notification" style="margin-left: 88px;margin-top: -3px;">
                    {{moment(notification.created_at, moment.ISO_8601).fromNow()}}
                </div>
-               <p style="color: #FF0000;margin-top: -17px;margin-right: 24px;" @click="deleteNotification(notification.id)" class="delete p-no-center">
+               <p style="color: #FF0000;margin-top: -17px;     margin-right: 12px;  float: right;" @click="deleteNotification(notification.id)" class="delete p-no-center">
                 Eliminar
                </p>
               </ion-col>
@@ -48,7 +48,6 @@
 
 <script >
 
-import { repeat,arrowBack,camera } from 'ionicons/icons';
 import ModalDetail from '@/views/products/ModalDetail'
 import { 
   IonContent, 
@@ -58,19 +57,28 @@ import {
   IonPage
  } from '@ionic/vue';
 
-import { Plugins, CameraResultType, CameraSource } from '@capacitor/core';
 
-const { Camera } = Plugins;
 
-import { defineComponent, ref } from 'vue';
+import { defineComponent } from 'vue';
 import BasePublic from '@/plugins/store/utils'
 import { mapGetters } from 'vuex'
 import axios from 'axios'
 import toast from '@/toast'
 import moment from 'moment'
+import io from 'socket.io-client'
+import { Camera,CameraSource, CameraResultType } from '@capacitor/camera';
 
 moment.locale('es');
 
+    var socket  = io(axios.defaults.baseURL,{
+      cors: {
+        origin: '*',
+      },
+      withCredentials : false
+    });
+
+
+    
 export default defineComponent({
   components: {
     IonContent, 
@@ -78,46 +86,7 @@ export default defineComponent({
     IonInfiniteScrollContent,
     IonPage
   },
-  setup() {
-    const isDisabled = ref(false);
-    const toggleInfiniteScroll = () => {
-      isDisabled.value = !isDisabled.value;
-    }
-    const items = ref([]);
-    const pushData = () => {
-      const max = items.value.length + 20;
-      const min = max - 20;
-      for (let i = min; i < max; i++) {
-        items.value.push(i);
-      }
-    }
 
-    const loadData = (ev) => {
-      setTimeout(() => {
-        pushData();
-        console.log('Loaded data');
-        ev.target.complete();
-
-        // App logic to determine if all data is loaded
-        // and disable the infinite scroll
-        if (items.value.length == 1000) {
-          ev.target.disabled = true;
-        }
-      }, 500);
-    }
-
-    pushData();
-
-    return {
-      isDisabled,
-      toggleInfiniteScroll,
-      loadData,
-      items,
-      repeat,
-      arrowBack,
-      camera
-    }
-  },
   data(){
     return {
       moment,
@@ -166,7 +135,12 @@ export default defineComponent({
     this.getNotifications()
   },
   mounted(){
-    console.log(this.notifications.length)
+      socket.on("connection")
+
+    socket.on('notification', (message) => {
+      if(message.notifiable_id == this.getUser.id)
+        this.getNotifications()
+      });
   },
   methods:{
     redirect(path) {

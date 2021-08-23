@@ -97,10 +97,7 @@ import {
   IonPage
  } from '@ionic/vue';
 
-import { Plugins, CameraResultType, CameraSource } from '@capacitor/core';
-
-const { Camera } = Plugins;
-
+import { Camera,CameraSource, CameraResultType } from '@capacitor/camera';
 import { defineComponent, ref } from 'vue';
 import axios from 'axios'
 import { mapGetters } from 'vuex'

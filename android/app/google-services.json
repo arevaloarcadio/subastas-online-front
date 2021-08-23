@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "137918286656",
+    "project_id": "upgrap-49859",
+    "storage_bucket": "upgrap-49859.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:137918286656:android:1ee46746a55a8797e148a5",
+        "android_client_info": {
+          "package_name": "com.upgrap"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "137918286656-r7bpic505kt1ttn48a8vr7eb9fqikn3s.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBniMEf7Pg88OTEVOLOJHuOCZkP4glqn8o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "137918286656-r7bpic505kt1ttn48a8vr7eb9fqikn3s.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

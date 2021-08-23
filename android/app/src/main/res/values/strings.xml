@@ -1,7 +1,9 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-    <string name="app_name">Vue Memories</string>
-    <string name="title_activity_main">Vue Memories</string>
-    <string name="package_name">com.academind.vuememories</string>
-    <string name="custom_url_scheme">com.academind.vuememories</string>
+    <string name="app_name">Upgrap</string>
+    <string name="title_activity_main">Upgrap</string>
+    <string name="package_name">com.upgrap</string>
+    <string name="custom_url_scheme">com.upgrap</string>
+	<string name="facebook_app_id">891037061645114</string>
+	<string name="facebook_client_token">f1b5145a7c1f2fab97296681edcc9ca7</string>
 </resources>

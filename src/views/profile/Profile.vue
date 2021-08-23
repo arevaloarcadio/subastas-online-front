@@ -107,6 +107,9 @@ export default defineComponent({
       this.$router.push(path);
     },
     async deleteFcm(){
+      socket.on("connection")
+      socket.emit("user_inactive",this.getUser)
+
       this.loading = await toast.showLoading()
       
       this.loading.present(); 
@@ -120,7 +123,6 @@ export default defineComponent({
         .then(res => {
             this.loading.dismiss()
             console.log(res)
-            socket.emit("user_inactive",this.getUser.id)
          })
         .catch(err => {
           console.log(err)
@@ -129,6 +131,8 @@ export default defineComponent({
         });
     },
     logout(){
+      
+      
       
       jwtToken.removeToken();
       

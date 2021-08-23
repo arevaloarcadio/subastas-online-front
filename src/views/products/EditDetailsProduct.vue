@@ -139,8 +139,7 @@ import {
   IonPopover 
  } from '@ionic/vue';
 
-import { Plugins, CameraResultType, CameraSource } from '@capacitor/core';
-const { Camera } = Plugins;
+import { Camera,CameraSource, CameraResultType } from '@capacitor/camera';
 import { defineComponent, ref } from 'vue';
 import toast from '@/toast'
 import { mapGetters } from 'vuex'

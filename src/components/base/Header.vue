@@ -53,7 +53,6 @@ export default defineComponent({
   },
   methods: {
     async openModal() {
-      alert("aquiiiiiii")
       const modal = await modalController
         .create({
           component: ModalSearch,

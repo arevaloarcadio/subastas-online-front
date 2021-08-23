@@ -34,7 +34,9 @@
       </ion-col>
     </ion-row>
     <ion-content>
-    
+      <p v-if="products.length == 0">
+         Actualmente no tiene registrado intercambios
+        </p>
         <ion-card v-for="product in  products" :key="product" style="height: 138px;width: 95%; background: #FFFFFF;box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.08);border-radius: 16px;">
           <ion-row >
             <ion-col>
@@ -114,9 +116,7 @@ import {
  } from '@ionic/vue';
 import PopoverFilter from './PopoverFilter.vue'
 
-import { Plugins, CameraResultType, CameraSource } from '@capacitor/core';
-
-const { Camera } = Plugins;
+import { Camera,CameraSource, CameraResultType } from '@capacitor/camera';
 
 import { defineComponent, ref } from 'vue';
 import SvgProducts from './SvgProducts'

@@ -1,5 +1,5 @@
 {
-  "appId": "com.academind.vuememories",
+  "appId": "com.upgrap",
   "appName": "Upgrap",
   "bundledWebRuntime": false,
   "npmClient": "npm",
@@ -7,6 +7,9 @@
   "plugins": {
     "SplashScreen": {
       "launchShowDuration": 0
+    },
+    "PushNotifications": {
+      "presentationOptions": ["badge", "sound", "alert"]
     }
   },
   "cordova": {}

@@ -172,16 +172,15 @@ export default defineComponent({
   },
   methods:{
     setFcm(){
-      if(fcm_token.getToken() !== {}){
         axios
-        .post("/fcm",{user_id : this.getUser.id , token : fcm_token.getToken()})
+        .post("/fcm",{customer_id : this.getUser.id , token : fcm_token.getToken()})
         .then(res => {
           console.log(res)
          })
         .catch(err => {
           console.log(err)
         });
-      }
+      
     },
     redirect_details(product) {
       this.$router.push({name: 'details.product',params :{ productId : product.id}, query : {...product}});

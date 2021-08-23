@@ -171,7 +171,7 @@ export default defineComponent({
       console.log(this.categories)
     },
     redirect(){
-       this.$router.push({path: 'config_chat'});
+      this.$router.push({path: 'config_chat', query : {customer_id : this.customer_id}});
     },
     async registerCategories() {
 

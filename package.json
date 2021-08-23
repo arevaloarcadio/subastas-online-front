@@ -12,9 +12,13 @@
     "otro": "gradlew -Dorg.gradle.java.home=/path_to_jdk_directory"
   },
   "dependencies": {
-    "@capacitor/android": "^2.4.2",
-    "@capacitor/core": "2.4.2",
+    "@capacitor-community/facebook-login": "^3.1.1",
+    "@capacitor-community/fcm": "^2.0.0",
+    "@capacitor/android": "^3.2.0",
+    "@capacitor/camera": "^1.0.4",
+    "@capacitor/core": "^3.2.0",
     "@capacitor/ios": "^2.4.2",
+    "@capacitor/push-notifications": "^1.0.3",
     "@ionic/vue": "^5.4.0",
     "@ionic/vue-router": "^5.4.0",
     "@vue/babel-preset-app": "^4.5.13",

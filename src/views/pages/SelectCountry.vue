@@ -160,6 +160,7 @@ export default defineComponent({
          this.$router.push({path: 'success',query : {customer_id : res.data.user.id }});
       })
       .catch(err => {
+           loading.dismiss()
         console.log(err)
          toast.openToast("Error al registrar","error",2000)
       });

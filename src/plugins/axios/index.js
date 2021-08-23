@@ -5,7 +5,8 @@ import store from '@/plugins/store'
 import axios from 'axios'
 
 
-axios.defaults.baseURL = 'http://localhost:5000';
+//axios.defaults.baseURL = 'http://192.168.43.131:5000/';
+axios.defaults.baseURL = 'https://mobile.upgrap.com/';
 
 axios.interceptors.request.use(config => {
   config.headers['X-Requested-With'] = 'XMLHttpRequest';
@@ -27,6 +28,8 @@ axios.interceptors.response.use(response => {
   }
   return response;
 }, error => {
+
+  //alert("error " +JSON.stringify(error) )
   let errorResponseData = error.response.data;
   const errors = ["token_invalid", 
                   "Token not provided", 

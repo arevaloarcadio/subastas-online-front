@@ -16,7 +16,9 @@
       </ion-col>
     </ion-row>
      <ion-content class="ion-padding">
-    
+       <p v-if="products.length == 0">
+         Actualmente no tiene productos publicados
+        </p>
         <ion-row>
              <ion-col v-for="product in products" :key="product"  size="6"  >
               

@@ -60,11 +60,10 @@
 import { IonRow,IonCol   } from '@ionic/vue';
 import axios from 'axios'
 import { mapGetters } from 'vuex'
-import users_conected from '@/plugins/store/users_conected'
 import io from 'socket.io-client'
 import toast from '@/toast'
 
-let loading ;
+let loading;
 var socket  = io(axios.defaults.baseURL,{
       cors: {
         origin: '*',
@@ -81,7 +80,8 @@ export default {
       path :null,
       from : null,
       chat : '/chat/policies/terms',
-      inactive : null
+      inactive : null,
+      loading : null
     };
   },
   mounted(){
@@ -93,33 +93,27 @@ export default {
     },60000)
 
     socket.on("connection")
-
-    socket.on('users_conected', (user) => {
-       users_conected.add(user)
-    });
-    
-    socket.on('users_inactive', (user) => {
-       users_conected.remove(user)
-    });
   },
   watch: {
     $route(to, from) {
       this.path = to.path
       this.from = from.path
-      this.inactive = setTimeout(function() {
+    this.inactive = setTimeout(function() {
         socket.emit('user_inactive',this.getUser)
       },60000)
-      loading.dismiss()
+        loading.dismiss()
     }
+
   },
-  async beforeRouteUpdate (to, from, next) {
-    loading = await toast.showLoading()
-    await loading.present(); 
-    
+ async beforeRouteUpdate (to, from, next) {
+     loading = await toast.showLoading()
+
+    await loading.present();
+      
+    socket.on("connection")
+
     socket.emit('user_conected',this.getUser)
-    
-    console.log(to, from)
-    
+
     next()
   },
   computed : {

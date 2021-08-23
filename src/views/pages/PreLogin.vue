@@ -20,8 +20,9 @@
      <br>
      <ion-grid>
       <ion-row>
+
         <ion-col col-4>
-          <img src="/assets/icon-facebook.png" style="margin-left: 62%;" >
+          <img src="/assets/icon-facebook.png" @click="loginFacebook" style="margin-left: 62%;" >
 
         </ion-col>
         <p><b>o</b></p>
@@ -37,13 +38,13 @@
 </template>
 
 <script>
-import {  loadingController,toastController } from '@ionic/vue';
 import { defineComponent } from 'vue';
-import axios from 'axios';
-import jwtToken from "@/plugins/jwt/jwt-token";
-import {mapActions} from "vuex";
-import user from "@/plugins/jwt/user";
+
+
+
 import { useRouter } from 'vue-router';
+import { FacebookLogin } from '@capacitor-community/facebook-login';
+
 export default defineComponent({
   name: "Login",
   data() {
@@ -61,67 +62,41 @@ export default defineComponent({
       const router = useRouter();
       return { router };
   },
-  mounted(){
- 
+  mounted(){  
+
+  window.fbAsyncInit = function() {
+    window.FB.init({
+      appId: '891037061645114',
+      cookie: true, // enable cookies to allow the server to access the session
+      xfbml: true, // parse social plugins on this page
+      version: 'v11.0' // use graph api current version
+    });
+  };
+
+  // Load the SDK asynchronously
+  (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "https://connect.facebook.net/en_US/sdk.js";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+
   },
   methods: {
+
     redirect(page){
       this.$router.push({path: page});
     },
+    async loginFacebook(){
 
-    ...mapActions([
-                'setAuthUser',
-            ]),
- 
-   async  login() {
-     const loading = await loadingController.create({
-          cssClass: 'my-custom-class',
-          message: 'Por Favor Espere..',
-         });
+      const FACEBOOK_PERMISSIONS = ['email', 'user_birthday', 'user_photos', 'user_gender'];
+      const result = await FacebookLogin.login({ permissions: FACEBOOK_PERMISSIONS });
 
-      await loading.present();
-
-      let data = {
-        email: this.email,
-        password: this.password,
-     };
-
-    axios
-      .post("/login",data)
-      .then(res => {
-        if(!res.data.error){
-           this.openToast(res.data.data.message,'success')
-           user.setUser(res.data.data.user)
-           jwtToken.setToken(res.data.data.token);
-           this.setAuthUser(res.data.data.user)
-          this.$router.push({path: '/dashboard'});
-        }
-        else{
-          this.openToast('Error Interno','warning')
-        }
-      })
-      .catch(err => { 
-        localStorage.removeItem('jwt_token_app')
-
-        if(err.response.type == 'validation'){
-          this.openToast(err.response.data.data,'warning')
-        }else{
-           this.openToast(err.response.data.data,'danger')
-        }
-      });
-    await loading.dismiss()  
-    
+      if (result.accessToken) {
+        console.log(`Facebook access token is ${result.accessToken.token}`);
+      }
     },
-    async openToast(message,color) {
-      const toast = await toastController
-        .create({
-          position : 'top',
-          color : color,
-          message: message,
-          duration: 2000
-        })
-      return toast.present();  
-    }
 }
 });
 </script>

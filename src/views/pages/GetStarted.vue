@@ -41,6 +41,7 @@
 import { IonSlides, IonSlide,IonContent } from '@ionic/vue';
 import { defineComponent } from 'vue';
 import { useRouter } from 'vue-router';
+
 export default defineComponent({
   components: { IonSlides, IonSlide,IonContent },
   setup() {

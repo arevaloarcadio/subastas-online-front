@@ -61,9 +61,7 @@ import {
  } from '@ionic/vue';
 import moment from 'moment'
 moment.locale('es');
-import { Plugins, CameraResultType, CameraSource } from '@capacitor/core';
-
-const { Camera } = Plugins;
+import { Camera,CameraSource, CameraResultType } from '@capacitor/camera';
 
 import { defineComponent, ref } from 'vue';
 import axios from 'axios'
@@ -149,7 +147,9 @@ export default defineComponent({
     });
     
     socket.on('users_conected', (user) => {
+      console.log(user)
        users_conected.add(user)
+       console.log(users_conected.all())
        this.user_online[user.id] = true
     });
     

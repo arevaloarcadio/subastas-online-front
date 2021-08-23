@@ -1,6 +1,6 @@
 {
-  "appId": "com.academind.vuememories",
-  "appName": "Vue Memories",
+  "appId": "com.upgrap",
+  "appName": "Upgrap",
   "bundledWebRuntime": false,
   "npmClient": "npm",
   "webDir": "dist",

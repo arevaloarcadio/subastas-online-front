@@ -29,6 +29,7 @@ import { eyeOutline,eyeOffOutline } from 'ionicons/icons';
 import { defineComponent } from 'vue';
 import axios from 'axios';
 import { useRouter } from 'vue-router';
+
 export default defineComponent({
   name: "Register",
   setup() {
