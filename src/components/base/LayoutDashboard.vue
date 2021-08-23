@@ -98,6 +98,7 @@ export default {
     $route(to, from) {
       this.path = to.path
       this.from = from.path
+      console.log("aqioo")
     this.inactive = setTimeout(function() {
         socket.emit('user_inactive',this.getUser)
       },60000)

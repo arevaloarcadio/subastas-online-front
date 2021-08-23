@@ -16,9 +16,7 @@
       </ion-col>
     </ion-row>
      <ion-content class="ion-padding">
-       <p v-if="products.length == 0">
-         Actualmente no tiene productos publicados
-        </p>
+  
         <ion-row>
              <ion-col v-for="product in products" :key="product"  size="6"  >
               
@@ -53,11 +51,11 @@
             </ion-col>
    
             <ion-col  size="6">
-              <ion-card class="card" style="width: 95%;" @click="() => $router.push({path : '/create/product'})">
+              <ion-card class="card" style="width: 95%;"  @click="() => $router.push({path : '/create/product'})">
                 <center>
                   <br><br>
                  <span style="font-style: normal;font-weight: 400;font-size: 16px;line-height: 20px;align-items: center;letter-spacing: 0.75px;color: #5B716F;">Agregar</span><br><br>
-                 <img src="assets/button-add.svg" @click="() => $router.push({path : '/create/product'})">
+                 <img src="assets/button-add.svg">
                 </center>
              </ion-card>
             </ion-col>
