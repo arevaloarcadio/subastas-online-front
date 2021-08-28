@@ -90,7 +90,6 @@ height: 100%;
 
 /* Green Upgrap */
 
-background: #32BAB0;
 }
 
 .preload img {

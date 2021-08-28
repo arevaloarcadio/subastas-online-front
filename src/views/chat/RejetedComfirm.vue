@@ -205,7 +205,7 @@ export default defineComponent({
           loading.dismiss()
           console.log(res)
           toast.openToast("Producto rechazado existosamente","success",2000);
-          send_notification.send('Tu Producto ha sido rechazado',this.product_customer.name,{data:'request'},this.request.id_user)
+          send_notification.send('Tu Producto ha sido rechazado',this.product_customer.name,{data: {path : {name :'request.rejected' , params : { requestId : this.request_id }}}},this.request.id_user)
           this.$router.push({path : '/principal'})
          })
         .catch(err => {

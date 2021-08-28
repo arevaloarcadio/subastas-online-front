@@ -81,6 +81,18 @@ import {
 import BasePublic from '@/plugins/store/utils'
 import { defineComponent, ref } from 'vue';
 import toast from '@/toast'
+import io from 'socket.io-client'
+
+var socket  = io(axios.defaults.baseURL,{
+  cors: {
+    origin: '*',
+  },
+  withCredentials : false
+});
+
+socket.on("connection")
+
+
 
 export default defineComponent({
   components: {
@@ -139,6 +151,7 @@ export default defineComponent({
   },
   mounted(){
     this.getProducts()
+    socket.emit('user_conected',this.getUser)
   },
   methods:{
     redirect(path) {

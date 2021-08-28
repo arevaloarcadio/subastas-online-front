@@ -8,8 +8,8 @@
      
     <ion-row>
         <ion-col class="cursor">
-        
-            <img src="/assets/Compass.svg" style="margin-bottom: -36px;" @click="redirect('/principal')">
+            <img src="/assets/Compass.svg" v-if="!invite" style="margin-bottom: -36px;" @click="redirect('/principal')">
+            <img src="/assets/Compass.svg" v-else style="margin-bottom: -36px;" @click="$router.push({path: '/principal' , query : {invite : true }})" >
             <center>
                <svg class="active" v-show="path == '/principal'"  width="41" height="14" viewBox="0 0 41 14" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M0 24.9998C0 13.678 9.17816 0 20.5 0C31.8218 0 41 13.678 41 24.9998C41 36.3217 31.8218 16.5 20.5 16.5C9.17816 16.5 0 36.3217 0 24.9998Z" fill="#32BAB0"/>
@@ -18,7 +18,8 @@
             </center>
         </ion-col>
         <ion-col col-2 class="cursor">
-           <img src="/assets/tag.svg"  style="margin-bottom: -31px;" @click="redirect('/saved_posts')">
+           <img src="/assets/tag.svg" v-if="!invite" style="margin-bottom: -31px;" @click="redirect('/saved_posts')">
+            <img src="/assets/tag.svg" v-else style="margin-bottom: -31px;" >
            <center>
              <svg class="active" v-show="path == '/saved_posts'"   width="41" height="14" viewBox="0 0 41 14" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M0 24.9998C0 13.678 9.17816 0 20.5 0C31.8218 0 41 13.678 41 24.9998C41 36.3217 31.8218 16.5 20.5 16.5C9.17816 16.5 0 36.3217 0 24.9998Z" fill="#32BAB0"/>
@@ -26,7 +27,8 @@
             </center>
         </ion-col>
         <ion-col col-2>
-           <img src="/assets/plus_circle.svg" style="margin-bottom: -34px;" class="cursor" @click="redirect('/create/product')">
+           <img src="/assets/plus_circle.svg" v-if="!invite" style="margin-bottom: -34px;" class="cursor" @click="redirect('/create/product')">
+            <img src="/assets/plus_circle.svg" v-else style="margin-bottom: -34px;" class="cursor">
            <center>
             <svg class="active" v-show="path == '/create/product' || path == '/create/details/product'"  width="41" height="14" viewBox="0 0 41 14" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M0 24.9998C0 13.678 9.17816 0 20.5 0C31.8218 0 41 13.678 41 24.9998C41 36.3217 31.8218 16.5 20.5 16.5C9.17816 16.5 0 36.3217 0 24.9998Z" fill="#32BAB0"/>
@@ -34,7 +36,8 @@
             </center>
         </ion-col>
         <ion-col col-2>
-           <img src="/assets/ArrowsLeftRight.svg" style="margin-bottom: -34px;" class="cursor" @click="redirect('/my_exchanges')">
+           <img src="/assets/ArrowsLeftRight.svg" v-if="!invite" style="margin-bottom: -34px;" class="cursor" @click="redirect('/my_exchanges')">
+           <img src="/assets/ArrowsLeftRight.svg" v-else  style="margin-bottom: -34px;" class="cursor" >
            <center>
              <svg class="active" v-show="path == '/my_exchanges'"  width="41" height="14" viewBox="0 0 41 14" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M0 24.9998C0 13.678 9.17816 0 20.5 0C31.8218 0 41 13.678 41 24.9998C41 36.3217 31.8218 16.5 20.5 16.5C9.17816 16.5 0 36.3217 0 24.9998Z" fill="#32BAB0"/>
@@ -42,9 +45,10 @@
             </center>
         </ion-col>
         <ion-col col-2>
-           <img src="/assets/ChatCircleDots.svg" style="margin-bottom: -34px;" class="cursor" @click="redirect(chat)">
+           <img src="/assets/ChatCircleDots.svg" v-if="!invite"  style="margin-bottom: -34px;" class="cursor" @click="redirect(chat)">
+           <img src="/assets/ChatCircleDots.svg"  v-else style="margin-bottom: -34px;" class="cursor" >
            <center>
-              <svg class="active" v-show="path == '/chat'"   width="41" height="14" viewBox="0 0 41 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <svg class="active" v-show="path == '/chat'"  width="41" height="14" viewBox="0 0 41 14" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M0 24.9998C0 13.678 9.17816 0 20.5 0C31.8218 0 41 13.678 41 24.9998C41 36.3217 31.8218 16.5 20.5 16.5C9.17816 16.5 0 36.3217 0 24.9998Z" fill="#32BAB0"/>
               </svg>
             </center>
@@ -60,16 +64,9 @@
 import { IonRow,IonCol   } from '@ionic/vue';
 import axios from 'axios'
 import { mapGetters } from 'vuex'
-import io from 'socket.io-client'
 import toast from '@/toast'
 
 let loading;
-var socket  = io(axios.defaults.baseURL,{
-      cors: {
-        origin: '*',
-      },
-      withCredentials : false
-    });
 
 export default {
   components: { IonRow,IonCol },
@@ -81,40 +78,28 @@ export default {
       from : null,
       chat : '/chat/policies/terms',
       inactive : null,
-      loading : null
+      loading : null,
+      invite : null
     };
   },
   mounted(){
+    this.invite = this.$route.query.invite == undefined ? false : true
     this.path = this.$route.path
-    this.getAcceptedTerms()
-
-    this.inactive = setTimeout(function() {
-      socket.emit('user_inactive',this.getUser)
-    },60000)
-
-    socket.on("connection")
+    if(!this.invite){
+      this.getAcceptedTerms()
+    }
   },
   watch: {
     $route(to, from) {
       this.path = to.path
       this.from = from.path
-      console.log("aqioo")
-    this.inactive = setTimeout(function() {
-        socket.emit('user_inactive',this.getUser)
-      },60000)
+  
         loading.dismiss()
     }
-
   },
  async beforeRouteUpdate (to, from, next) {
-     loading = await toast.showLoading()
-
+    loading = await toast.showLoading()
     await loading.present();
-      
-    socket.on("connection")
-
-    socket.emit('user_conected',this.getUser)
-
     next()
   },
   computed : {

@@ -1,27 +1,25 @@
-import VueSocketIO from 'vue-socket.io'
-import store from '@/plugins/store'
-let socket = {};
+import io from 'socket.io-client'
+import axios from 'axios'
 
-export default {
-  install: (app, { connection, options }) => {
-	socket = new VueSocketIO({
-		debug: true,
-		connection:connection ,
-		vuex: {
-			store,
-			actionPrefix: 'SOCKET_',
-			mutationPrefix: 'SOCKET_'
-		},
-		allowEIO3: true ,// false by default
-		options: options //Optional options
-	});
+let socket_client = {};
+let socket;
 
-    app.config.globalProperties.$socket = socket
-
-    app.provide('socket', socket)
-  },
-  socket : () => {
-	return socket
-  }
- 
+socket_client.connect = function(){
+socket  = io(axios.defaults.baseURL,{
+cors: {
+origin: '*',
+},
+withCredentials : false
+});
 }
+
+socket_client.connect_user = function(){
+socket.on("connection")
+console.log(socket)
+}
+
+socket_client.emit_conect_use = function(user){
+socket.emit('user_conected',user)
+}
+
+export default socket_client

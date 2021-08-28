@@ -116,7 +116,8 @@ export default defineComponent({
     return {
       enable_chat_all_proposal : false,
       decide_proposal_accept : false,
-      categories : []
+      categories : [],
+      created : true
     }
   },
   setup(){
@@ -145,9 +146,15 @@ export default defineComponent({
       axios
         .get("/chat/config/"+this.getUser.id)
         .then(res => {
+          if (res.data === '') {
+            this.created = false
+            this.decide_proposal_accept = false
+            this.enable_chat_all_proposal = false
+          }else{
             this.decide_proposal_accept = res.data.decide_proposal_accept
             this.enable_chat_all_proposal = res.data.enable_chat_all_proposal
-         })
+          }
+        })
         .catch(err => {
           console.log(err)
         });
@@ -177,7 +184,8 @@ export default defineComponent({
         });
     },
     updateConfigChat(){
-      axios
+      if(this.created){
+        axios
         .put("/chat/config/"+this.getUser.id,{decide_proposal_accept : this.decide_proposal_accept,enable_chat_all_proposal : this.enable_chat_all_proposal})
         .then(res => {
             console.log(res)
@@ -186,6 +194,22 @@ export default defineComponent({
         .catch(err => {
           console.log(err)
         });
+      }else{
+         axios
+          .post("/chat/config",{
+            decide_proposal_accept : this.decide_proposal_accept,
+            enable_chat_all_proposal : this.enable_chat_all_proposal,
+            customer_id : this.getUser.id
+           })
+          .then(res => {
+            console.log(res)
+            this.created = true
+          })
+          .catch(err => {
+            console.log(err)
+          });
+      }
+     
     },
   
   }

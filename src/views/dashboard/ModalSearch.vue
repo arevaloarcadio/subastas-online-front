@@ -20,7 +20,7 @@
     </ion-grid>
        <div class="container1" style="width: 100%;">
               <div  class="input-container1">
-                <input type="text"  placeholder="Buscar"  class="input-text1" style="margin-top: -2%;margin-top: -3%;height: 65.1px;">
+                <input type="text"  placeholder="Buscar" @input="filter" v-model="input_filter" v-on:keyup.enter="enter_filter" class="input-text1" style="padding-top: 3px;height: 65.1px;">
                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-right: 8%" >
                   <path fill-rule="evenodd" clip-rule="evenodd" d="M11 10.1837C9.13616 10.1837 7.57006 8.67483 7.12602 6.63272H0V4.26538H7.12602C7.57006 2.22327 9.13616 0.714355 11 0.714355C13.2091 0.714355 15 2.83415 15 5.44905C15 8.06395 13.2091 10.1837 11 10.1837ZM13 5.44905C13 6.7565 12.1046 7.8164 11 7.8164C9.89543 7.8164 9 6.7565 9 5.44905C9 4.1416 9.89543 3.0817 11 3.0817C12.1046 3.0817 13 4.1416 13 5.44905Z" fill="#5B716F"/>
                   <path d="M16 4.26538H20V6.63272H16V4.26538Z" fill="#5B716F"/>
@@ -30,7 +30,15 @@
 
             </div>
           </div>
-
+        <template v-if="products_filter.length != 0" >
+          <template v-for="product in products_filter" :key="product">
+            <ion-row style="cursor: pointer;" class="item-popover" @click="select_filter(product.name)">
+              {{product.name}}
+            </ion-row>
+          </template>
+        </template>
+        
+        <template v-if="products_filter.length == 0">
           <div class="row">
             <div class="col"  style="width:50%;">
                <img src="/assets/tecnology.svg" style="width:100%;" @click="search('Tecnologia')">
@@ -56,7 +64,7 @@
           </div>
           <img src="/assets/books.svg" style="width:50%;margin-top: -2%;" @click="search('Libros')">
       </div>
-   
+   </template>
  </ion-content>
 </template>
 
@@ -64,6 +72,7 @@
 import { IonContent, IonHeader,modalController } from '@ionic/vue';
 import { close } from 'ionicons/icons';
 import { defineComponent } from 'vue';
+import axios from 'axios'
 
 export default defineComponent({
   name: 'ModalSearch',
@@ -74,7 +83,8 @@ export default defineComponent({
   },
   data() {
     return {
-    
+      input_filter : null,
+      products_filter : [],
     }
   },
   methods: {
@@ -85,7 +95,30 @@ export default defineComponent({
   async closeModal() {
       const modal = await modalController
       return modal.dismiss();
-    },
+  },
+  async enter_filter(){
+    const modal = await modalController
+    return modal.dismiss({products :this.products_filter,input : true,input_filter:this.input_filter});
+  },
+  async select_filter(filter){
+    const modal = await modalController
+    return modal.dismiss({products :this.products_filter,select_filter : true,filter:filter});
+  },
+  filter(){
+    if(this.input_filter == null|| this.input_filter == ''){
+      this.products_filter = []
+      return
+    }
+    axios
+    .post("/products/filter",{filter : this.input_filter})
+    .then(res => {
+      console.log(res)
+      this.products_filter = res.data
+     })
+    .catch(err => {
+      console.log(err)
+    });
+  }
   }
 });
 </script>
@@ -130,7 +163,21 @@ export default defineComponent({
 
 <style scoped>
 
+  .item-popover{
+font-family: Montserrat;
+font-style: normal;
+font-weight: 500;
+font-size: 16px;
+line-height: 28px;
+/* identical to box height, or 175% */
 
+display: flex;
+align-items: center;
+letter-spacing: 0.75px;
+
+color: #32BAB0;
+
+  }
 
 .label-input1{
   color: #32BAB0;

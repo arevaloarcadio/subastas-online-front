@@ -23,7 +23,7 @@
           <div style="box-shadow:inherit;margin-left: 0%;height: 99px">
             <ion-row>
               <ion-col>
-                <img  @click="redirect({name : notification.type , params : { requestId : notification.request_id }})" style="border-radius: 15px 15px 15px 15px;width: 81px;height: 80px;" :src="'http://localhost:4000/uploads/'+notification.photo" >
+                <img  @click="redirect({name : notification.type , params : { requestId : notification.request_id }})" style="border-radius: 15px 15px 15px 15px;width: 81px;height: 80px;" :src="BasePublic+notification.photo" >
                  <p  @click="redirect({name : notification.type , params : { requestId : notification.request_id }})" class="data-notification" style="text-align: left;margin-top: -77px;margin-left: 87px;width: 226px" >{{notification.data}}</p>
                 <div class="last-message-notification" style="margin-left: 88px;margin-top: -3px;">
                    {{moment(notification.created_at, moment.ISO_8601).fromNow()}}

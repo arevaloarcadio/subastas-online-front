@@ -68,7 +68,7 @@
                 <button type="button" class="btn-line"  style="width: 151px;" @click="openModal">Mas Información</button>
               </ion-col>
               <ion-col   size="6" >  
-                  <button type="button" class="btn-primary" style="width: 151px" @click="redirect({ name : 'select_product.requests',params : { productId : product.id}, query : { ...product } })" >Me Interesa</button>
+                  <button type="button" class="btn-primary" style="width: 151px"   @click="redirect({ name : 'select_product.requests',params : { productId : product.id}, query : { ...product } })" >Me Interesa</button>
               </ion-col>
             </ion-row>
            
@@ -184,6 +184,7 @@ import BasePublic from '@/plugins/store/utils'
 import { defineComponent } from 'vue';
 import axios from 'axios';
 import { mapGetters } from 'vuex'
+import toast from '@/toast'
 
 export default defineComponent({
   components: {
@@ -208,6 +209,7 @@ export default defineComponent({
     this.getCategory()
     this.getProductsByCategories()
     this.getSavePost()
+    console.log(this.getUser.id === null)
   },
   computed : {
     ...mapGetters([
@@ -227,6 +229,10 @@ export default defineComponent({
   },
   methods:{
     redirect(path) {
+      if(this.getUser.id === null){
+         toast.openToast("Para enviar una solicitud debe iniciar sesión","error",2000);
+         return
+      }
       this.$router.push(path);
     },
     redirect_details(product) {
@@ -264,6 +270,7 @@ export default defineComponent({
       .then(res => {
         console.log(res)
           this.saved = true
+          toast.openToast("Publicación guardado registrado exitosamente","error",2000);
        })
       .catch(err => {
         console.log(err)
@@ -273,8 +280,10 @@ export default defineComponent({
      axios
       .delete("/products/saved/"+this.getUser.id+"/"+this.product.id)
       .then(res => {
-            this.saved = false
-            console.log(res)
+        this.saved = false
+        console.log(res)
+        toast.openToast("Publicación guardada elimando exitosamente","error",2000);
+         
        })
       .catch(err => {
         console.log(err)

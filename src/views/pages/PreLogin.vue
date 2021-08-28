@@ -27,24 +27,30 @@
         </ion-col>
         <p><b>o</b></p>
         <ion-col col-4>
-          <img src="/assets/icon-google.png" style="margin-right: 62%;margin-top: 2%;">
+          <img src="/assets/icon-google.png" @click="loginGoogle" style="margin-right: 62%;margin-top: 4px;">
         </ion-col>
       </ion-row>
     </ion-grid>
     <br>
-      <a class="text-control" style="font-weight: 600;font-size: 16px;line-height: 20px;"> Continuar como invitado</a>
+      <a class="text-control" style="font-weight: 600;font-size: 16px;line-height: 20px;" @click="$router.push({path: '/principal' , query : {invite : true }})"> Continuar como invitado</a>
     </p>  
  </ion-page> 
 </template>
 
 <script>
 import { defineComponent } from 'vue';
-
-
-
+import toast from '@/toast'
+import jwtToken from "@/plugins/jwt/jwt-token";
+import {mapActions} from "vuex";
+import user from "@/plugins/jwt/user";
+import axios from 'axios';
 import { useRouter } from 'vue-router';
+import { Plugins } from '@capacitor/core'
 import { FacebookLogin } from '@capacitor-community/facebook-login';
+import "@codetrix-studio/capacitor-google-auth";
+//591791636275-45hoofl1j9jcdbkfmv2cc88a51i2ahtl.apps.googleusercontent.com Tu ID de cliente
 
+//CKfLfyeO3d137Or-4dtBa9nN tu secreto de cliente
 export default defineComponent({
   name: "Login",
   data() {
@@ -56,6 +62,8 @@ export default defineComponent({
        },
       email: '',
       password: '',
+      fb_user : '',
+      token : null
     };
   },
   setup() {
@@ -64,6 +72,7 @@ export default defineComponent({
   },
   mounted(){  
 
+  //GoogleAuth.init(); // or await GoogleAuth.init()  
   window.fbAsyncInit = function() {
     window.FB.init({
       appId: '891037061645114',
@@ -84,19 +93,99 @@ export default defineComponent({
 
   },
   methods: {
-
+    ...mapActions([
+      'setAuthUser',
+    ]),
     redirect(page){
       this.$router.push({path: page});
     },
     async loginFacebook(){
 
-      const FACEBOOK_PERMISSIONS = ['email', 'user_birthday', 'user_photos', 'user_gender'];
+
+      const FACEBOOK_PERMISSIONS = ['email'];
       const result = await FacebookLogin.login({ permissions: FACEBOOK_PERMISSIONS });
 
       if (result.accessToken) {
-        console.log(`Facebook access token is ${result.accessToken.token}`);
+        this.token = result.accessToken;
       }
-    },
+      
+      //alert(JSON.stringify(result))
+      var loading = await toast.showLoading()
+
+      await loading.present();
+
+      const url = `https://graph.facebook.com/${this.token.userId}?fields=id,name,picture.width(720),email&access_token=${this.token.token}`;
+    
+      axios
+      .get(url)
+      .then(res => {
+        this.fb_user = res.data
+        
+        
+         axios
+          .post("/signin/mobile/facebook",{email : this.fb_user.email})
+          .then(res => {
+            loading.dismiss()
+            user.setUser(res.data.user)
+            jwtToken.setToken(res.data.token);
+            this.setAuthUser(res.data.user)
+            this.$router.push({path: '/principal' , query : {set_fcm : true }});
+          })
+          .catch(err => {
+            loading.dismiss()
+            console.log(err.response)
+            if(err.response.data?.message){
+              toast.openToast(err.response.data.message,"error",2000);
+            }else{
+              toast.openToast("Ha ocurrido un error","error",2000);
+            }
+         }) 
+      })
+      .catch(err => {
+        console.log(err)
+        loading.dismiss()
+        toast.openToast("Ha ocurrido un error","error",2000);
+      }) 
+   },
+   async loginGoogle() {
+    
+
+    const googleUser = await Plugins.GoogleAuth.signIn();
+    
+    console.log('my user: ', googleUser);
+    
+    if(!googleUser?.email){
+      toast.openToast("Error al autenticar con google","error",2000);
+      return
+    }
+    
+    var loading = await toast.showLoading()
+
+    await loading.present();
+
+    let data = {
+      email : googleUser.email,
+    }
+
+    axios
+      .post("/signin/mobile/google",data)
+      .then(res => {
+        loading.dismiss()
+        user.setUser(res.data.user)
+        jwtToken.setToken(res.data.token);
+        this.setAuthUser(res.data.user)
+        this.$router.push({path: '/principal' , query : {set_fcm : true }});
+      })
+      .catch(err => {
+        loading.dismiss()
+        console.log(err.response)
+        if(err.response.data?.message){
+          toast.openToast(err.response.data.message,"error",2000);
+        }else{
+          toast.openToast("Ha ocurrido un error","error",2000);
+        }
+      });
+    }
 }
 });
 </script>
@@ -108,9 +197,6 @@ export default defineComponent({
 width: 100%;
 height: 100%;
 
-/* Green Upgrap */
-
-background: #32BAB0;
 }
 
 .preload img {

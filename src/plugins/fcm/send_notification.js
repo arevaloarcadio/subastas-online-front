@@ -26,7 +26,7 @@ send_notification.send = function (title,body,data,user_id) {
                 'title': title,
                 'body': body 
               },
-              ...data,
+              data : data,
               'to': fcm.token,
               "priority": "high"
             }

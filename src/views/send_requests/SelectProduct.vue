@@ -23,7 +23,7 @@
            Selecciona uno o  más <br> de tus productos
           </p>
      <ion-card style="box-shadow: inherit;margin-top: 8%;width: 101%;margin-left: -1%">
-      <img :src="BasePublic+'uploads/'+product.photo" class="img-left">
+      <img :src="BasePublic+product.photo" class="img-left">
      
       <svg width="49" height="49" viewBox="0 0 49 49" fill="none" xmlns="http://www.w3.org/2000/svg" class="img-center">
       <path d="M36.75 27.5625L42.875 33.6875L36.75 39.8125" stroke="#5B716F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -33,14 +33,14 @@
       </svg>
 
       <div v-show="product_select == null" class="img-right" style="background: #6ACFC7;"></div>
-      <img v-show="product_select != null" class="img-right" :src="BasePublic+'uploads/'+product_select?.photo">
+      <img v-show="product_select != null" class="img-right" :src="BasePublic+product_select?.photo">
 
     </ion-card>
     <br><br>
     <ion-card style=" height: 149px; width: 100%; overflow: auto;white-space: nowrap;box-shadow: inherit;margin-left: 0%;" >
      
       <template v-for="product in products" :key="product"> 
-          <img :src="BasePublic+'uploads/'+product.photo" @click="product_select = product" style="border-radius: 30px 30px 30px 30px; width: 128px;height: 149px;" >&nbsp;
+          <img :src="BasePublic+product.photo" @click="product_select = product" style="border-radius: 30px 30px 30px 30px; width: 128px;height: 149px;" >&nbsp;
       </template>
       &nbsp;
        <button class="button-add"><img class="img-add" src="/assets/FAB.png" @click="$router.push({path : '/create/product'})">

@@ -39,34 +39,41 @@
                 <span style="position: fixed;left: 112px;margin-top: -7px;">Registro con celular</span>
                  
             </button>
-
+              <!-- <input type="text" name="error" v-model="error">-->
            <br>
            <br> <br> <br>
            <ion-grid>
               <ion-row>
                 <ion-col col-4>
-                  <img src="/assets/icon-facebook.png" style="margin-left: 62%;" >
+                  <img src="/assets/icon-facebook.png"  @click="registerFacebook" style="margin-left: 62%;" >
 
                 </ion-col>
                 <p><b>o</b></p>
                 <ion-col col-4>
-                  <img src="/assets/icon-google.png" style="margin-right: 62%;margin-top: 2%;">
+                  <img src="/assets/icon-google.png"  @click="registerGoogle" style="margin-right: 62%;margin-top: 4px;">
                 </ion-col>
               </ion-row>
           </ion-grid>
            <br>
            <br>
-            <a style="font-family: Montserrat;font-style: normal;font-weight: 600;font-size: 16px;line-height: 20px;" class="text-control">Continuar como invitado</a>
+            <a style="font-family: Montserrat;font-style: normal;font-weight: 600;font-size: 16px;line-height: 20px;" class="text-control" @click="$router.push({path: '/principal' , query : {invite : true }})">Continuar como invitado</a>
           </p>
       </ion-content>    
 
 </template>
 
 <script>
-import { loadingController,toastController,IonRow,IonGrid,IonCol  } from '@ionic/vue';
+import { IonRow,IonGrid,IonCol  } from '@ionic/vue';
 import { mail,callOutline } from 'ionicons/icons';
 import { defineComponent } from 'vue';
 import axios from 'axios';
+import toast from '@/toast'
+import jwtToken from "@/plugins/jwt/jwt-token";
+import {mapActions} from "vuex";
+import user from "@/plugins/jwt/user";
+import { Plugins } from '@capacitor/core'
+import { FacebookLogin } from '@capacitor-community/facebook-login';
+import "@codetrix-studio/capacitor-google-auth";
 
 export default defineComponent({
   components: { IonRow,IonGrid,IonCol},
@@ -76,63 +83,126 @@ export default defineComponent({
   name: "Register",
   data() {
     return {
-      first_name: null,
-      last_name: null,
-      email: null,
-      password: null,
-      password_confirmacion: null,
+      error : null,
+      user : null
     };
   },
+  mounted(){
+
+    //Plugins.GoogleAuth.init(); // or await GoogleAuth.init()  
+  
+    window.fbAsyncInit = function() {
+      window.FB.init({
+        appId: '891037061645114',
+        cookie: true, // enable cookies to allow the server to access the session
+        xfbml: true, // parse social plugins on this page
+        version: 'v11.0' // use graph api current version
+      });
+    };
+    // Load the SDK asynchronously
+    (function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s); js.id = id;
+      js.src = "https://connect.facebook.net/en_US/sdk.js";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+  },
   methods: {
+    ...mapActions([
+      'setAuthUser',
+    ]),
     redirect(poth){
       this.$router.push(poth);
     },
-    async register() {
+    async registerFacebook(){
 
-       const loading = await loadingController.create({
-          cssClass: 'my-custom-class',
-          message: 'Por Favor Espere..',
-         });
+        const FACEBOOK_PERMISSIONS = ['email'];
+      const result = await FacebookLogin.login({ permissions: FACEBOOK_PERMISSIONS });
+
+      if (result.accessToken) {
+        this.token = result.accessToken;
+      }
+      
+      //alert(JSON.stringify(result))
+      var loading = await toast.showLoading()
 
       await loading.present();
 
-     let data = {
-        first_name: this.first_name,
-        last_name: this.last_name,
-        email: this.email,
-        password: this.password,
-        password_confirmacion: this.password_confirmacion,
-     };
-
-    axios
-      .post("/register",data)
+      const url = `https://graph.facebook.com/${this.token.userId}?fields=id,name,picture.width(720),email&access_token=${this.token.token}`;
+    
+      axios
+      .get(url)
       .then(res => {
-        if(!res.data.error)
-          this.openToast(res.data.data,'success')
-        else
-          this.openToast('Error Interno','warning')
+        this.fb_user = res.data
+          
+        axios
+          .post("/signup/mobile/facebook",{name :this.fb_user.name,email : this.fb_user.email})
+          .then(res => {
+            loading.dismiss()
+            user.setUser(res.data.user)
+            jwtToken.setToken(res.data.token);
+            this.setAuthUser(res.data.user)
+            this.$router.push({path: '/principal' , query : {set_fcm : true }});
+          })
+          .catch(err => {
+            loading.dismiss()
+            console.log(err.response)
+            if(err.response.data?.message){
+              toast.openToast(err.response.data.message,"error",2000);
+            }else{
+              toast.openToast("Ha ocurrido un error","error",2000);
+            }
+         }) 
       })
       .catch(err => {
-        if(err.response.type == 'validation'){
-          this.openToast(err.response.data.data,'warning')
-        }else{
-           this.openToast(err.response.data.data,'danger')
-        }
-      });
-
-     await loading.dismiss()
+        console.log(err)
+        loading.dismiss()
+        toast.openToast("Ha ocurrido un error","error",2000);
+      })  
     },
-    async openToast(message,color) {
-      const toast = await toastController
-        .create({
-          position : 'top',
-          color : color,
-          message: message,
-          duration: 2000
+    registerGoogle() {
+  
+    Plugins.GoogleAuth.signIn().then((googleUser)  => {
+        alert("user" + JSON.stringify(googleUser))
+      this.user = googleUser
+      this.register()
+    }).catch((error) =>{
+      alert("error" + JSON.stringify(error))
+    });
+
+   
+    },
+    async register(){
+      var loading = await toast.showLoading()
+
+      await loading.present();
+
+      let data = {
+        email : this.user.email,
+        name: this.user.name, 
+        imageUrl: this.user.imageUrl,
+      }
+
+      axios
+        .post("/signup/mobile/google",data)
+        .then(res => {
+          loading.dismiss()
+          user.setUser(res.data.user)
+          jwtToken.setToken(res.data.token);
+          this.setAuthUser(res.data.user)
+          this.$router.push({path: '/principal' , query : {set_fcm : true }});
         })
-
-      return toast.present();
-    },
+        .catch(err => {
+          loading.dismiss()
+          console.log(err.response)
+          if(err.response.data?.message){
+            toast.openToast(err.response.data.message,"error",2000);
+          }else{
+            toast.openToast("Ha ocurrido un error","error",2000);
+          }
+      }); 
+    }
   }
 });
 </script>

@@ -122,6 +122,16 @@ import { defineComponent, ref } from 'vue';
 import SvgProducts from './SvgProducts'
 import axios from 'axios'
 import { mapGetters } from 'vuex'
+import io from 'socket.io-client'
+
+var socket  = io(axios.defaults.baseURL,{
+  cors: {
+    origin: '*',
+  },
+  withCredentials : false
+});
+
+socket.on("connection")
 
 export default defineComponent({
   components: {
@@ -249,6 +259,9 @@ export default defineComponent({
     ]),
   },
   created(){
+    
+socket.emit('user_conected',this.getUser)
+
     this.getProducts()
   },
   methods:{

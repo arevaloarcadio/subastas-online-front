@@ -116,7 +116,7 @@ var ChatView
     });
 
     socket.on("connection")
-
+    console.log(socket.on("connection"))
     socket.on('new_message', (message) => {
       if(message.id_sender == ChatView.getUser.id || message.id_receiver == ChatView.getUser.id)
         ChatView.getMessages()
@@ -167,7 +167,9 @@ export default defineComponent({
       message : null,
       file : null,
       request_id : null,
-      exchange : null
+      exchange : null,
+      product_user : null,
+      request : null
     }
   },
   created(){
@@ -181,7 +183,7 @@ export default defineComponent({
     this.product_user_id = this.$route.query.product_user_id
     this.exchange = this.$route.query.exchange
     this.getMessages()
-    
+    this.getRequest()
   },
   mounted(){
   },
@@ -234,7 +236,7 @@ export default defineComponent({
       let new_message = {
         id_sender : this.getUser.id,
         id_receiver :   this.customer_id,
-        message : this.message,
+        message :  'Has recibido un nuevo mensaje de '+ this.customer_name+' - '+ this.product_name,
         is_file : is_file,
         type : 'message'
       }
@@ -265,11 +267,48 @@ export default defineComponent({
         .then(() => {
            this.message = null
            this.getMessages()
-           send_notification.send('Nuevo Mensaje - '+this.getUser.name,new_message.message,{data : new_message},this.customer_id)
+           this.customer_name  = this.$route.query.customer_name
+
+            this.product_name  = this.$route.query.product_name
+            this.customer_id  = this.$route.query.customer_id
+            this.request_id = this.$route.query.request_id
+            this.product_customer_id = this.$route.query.product_customer_id
+            this.product_user_id = this.$route.query.product_user_id
+            this.exchange = this.$route.query.exchange
+
+           send_notification.send('Nuevo Mensaje - '+this.getUser.name,
+            new_message.message,
+            {data : {path : {name : 'request.chat' , params : { productId : this.request.product_user_id } , query : { customer_name : this.getUser.name,product_name : this.product_user.name,customer_id : this.getUser.id,request_id :this.$route.query.request_id,exchange : this.$route.query.exchange == 'recibido' ? 'enviado' : 'recibido' }}}},
+            this.customer_id)
           })
         .catch(err => {
           console.log(err)
         });
+    },
+     getRequest(){
+      axios
+      .get("/requests/"+this.$route.query.request_id)
+      .then(res => {
+        this.request = res.data
+       
+      })
+      .catch(err => {
+        console.log(err)
+      }).finally(() => {
+        this.getProductCustomer()
+      });
+    },
+    getProductCustomer(){
+      axios
+        .get("/products/"+this.request.product_user_id)
+        .then(res => {
+          this.product_user = res.data
+           console.log(this.product_user )
+         })
+        .catch(err => {
+          console.log(err)
+        })
+        
     },
     enterAnimation : function () {
       let baseEl = document

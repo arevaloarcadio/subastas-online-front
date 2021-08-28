@@ -19,7 +19,7 @@
  <ion-content>
     <ion-row>
       <ion-avatar style="margin-left: 5%">
-        <img src="/assets/avatar.png">
+        <img :src="BasePublic+user?.photo">
       </ion-avatar>
       <ion-col style="margin-top: 15px;">
          <span  style="font-family: Montserrat;font-style: normal;font-weight: 500;font-size: 20px;line-height: 24px;align-items: center;text-align: center;letter-spacing: 0.75px;color: #32BAB0;margin-left: 10px;">{{user.name}}</span> 
@@ -61,6 +61,7 @@
 import { IonContent,modalController,IonPage } from '@ionic/vue';
 import { close,pricetag } from 'ionicons/icons';
 import { defineComponent } from 'vue';
+import BasePublic from '@/plugins/store/utils'
 
 export default defineComponent({
   name: 'ModalDetails',
@@ -71,7 +72,7 @@ export default defineComponent({
   },
   data() {
     return {
-    
+      BasePublic
     }
   },
   methods: {

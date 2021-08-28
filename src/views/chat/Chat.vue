@@ -127,7 +127,8 @@ export default defineComponent({
       moment,
       BasePublic,
       messages : [],
-      user_online : []
+      user_online : [],
+      inactive : null
     }
   },
   computed : {
@@ -141,6 +142,12 @@ export default defineComponent({
   mounted(){
     socket.on("connection")
 
+    socket.emit('user_conected',this.getUser)
+    
+    users_conected.all().forEach((user) =>{
+      this.user_online[user.id] = true
+    })
+    
     socket.on('new_message', (message) => {
       if(message.id_sender == this.getUser.id || message.id_receiver == this.getUser.id)
         this.getChats()
@@ -157,6 +164,10 @@ export default defineComponent({
       users_conected.remove(user)
       this.user_online[user.id] = false
     });
+
+       this.inactive = setTimeout(function() {
+        socket.emit('user_inactive',this.getUser)
+      },60000)
   },
   methods:{
     redirect(path) {

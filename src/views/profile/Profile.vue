@@ -21,8 +21,13 @@
             <img :src="BasePublic+user?.photo">
           </ion-avatar>
           <ion-col style="margin-left: 7px;margin-top: 3px;" >
-              <span class="text-control" style="font-weight: 500;font-size: 20px;line-height: 24px;align-items: center;text-align: center;letter-spacing: 0.75px;color: #32BAB0;">{{user?.name}}</span> 
-              <p class="p-no-center" @click="redirect({name : 'edit.profile'})"  style="cursor: pointer;margin-top: 4px;font-style: normal;font-weight: normal;font-size: 16px;line-height: 20px;letter-spacing: 0.75px;color: #5B716F;">
+
+              <span class="text-control" v-if="invite != true" style="font-weight: 500;font-size: 20px;line-height: 24px;align-items: center;text-align: center;letter-spacing: 0.75px;color: #32BAB0;">{{user?.name}}</span> 
+
+              <span class="text-control" v-else style="font-weight: 500;font-size: 20px;line-height: 24px;align-items: center;text-align: center;letter-spacing: 0.75px;color: #32BAB0;">Invitado</span> 
+              
+
+              <p class="p-no-center"  v-if="invite != true" @click="redirect({name : 'edit.profile'})"  style="cursor: pointer;margin-top: 4px;font-style: normal;font-weight: normal;font-size: 16px;line-height: 20px;letter-spacing: 0.75px;color: #5B716F;">
                 Editar perfil
               </p>
 
@@ -32,14 +37,14 @@
       <div class="hr"> </div>
     
           <ion-row style="margin-left: 5%">
-            <img src="/assets/package-little.png" style="height: 10%;color :#001D1B">&nbsp;&nbsp;
-            <p class="p-no-center" @click="redirect({name : 'my.products'})" style="color: #000;margin-top: 0.2%;">Mis Productos</p>
+            <img src="/assets/package-little.png"  v-if="invite != true" style="height: 10%;color :#001D1B">&nbsp;&nbsp;
+            <p class="p-no-center"  v-if="invite != true" @click="redirect({name : 'my.products'})" style="color: #000;margin-top: 0.2%;">Mis Productos</p>
           </ion-row>
    
 
           <ion-row style="margin-left: 5%">
-            <img src="/assets/setting.png" style="height: 10%;color :#001D1B">&nbsp;&nbsp;
-            <p class="p-no-center" @click="redirect({name : 'setting'})" style="color: #000;margin-top: 0.2%;">Preferencia</p>
+            <img src="/assets/setting.png"   v-if="invite != true" style="height: 10%;color :#001D1B">&nbsp;&nbsp;
+            <p class="p-no-center"  v-if="invite != true" @click="redirect({name : 'setting'})" style="color: #000;margin-top: 0.2%;">Preferencia</p>
           </ion-row>
     
 
@@ -96,10 +101,13 @@ export default defineComponent({
     return{
       BasePublic,
       user : this.getUser,
-      loading : null 
+      loading : null ,
+      invite  : false
     }
   },
   created(){
+    socket.emit('user_conected',this.getUser)
+       this.invite = this.$route.query.invite == undefined ? false : true
     this.getCustomer()
   },
   methods:{

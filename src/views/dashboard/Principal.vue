@@ -6,7 +6,11 @@
       <ion-grid>
         <ion-row>  
           <ion-col col-2 class="cursor">
-            <button  @click="redirect({path : 'notification'})" style="background-color: #fff"> <svg width="24" height="30" viewBox="0 0 24 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <button  @click="redirect({path : 'notification'})" v-if="!invite" style="background-color: #fff"> <svg width="24" height="30" viewBox="0 0 24 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M21 12.75C21 8.145 19.29 4.29 15 3.27V0H9V3.27C4.695 4.29 3 8.13 3 12.75L3 21L0 22.5V25.5H24V22.5L21 21L21 12.75ZM12.6 29.94C12.405 29.985 12.21 30 12 30C10.335 30 9.00001 28.65 8.98501 27H14.985C14.985 27.42 14.91 27.81 14.76 28.17C14.37 29.07 13.575 29.73 12.6 29.94Z" fill="#001D1B"/>
+                </svg>
+            </button>
+            <button v-else style="background-color: #fff"> <svg width="24" height="30" viewBox="0 0 24 30" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path fill-rule="evenodd" clip-rule="evenodd" d="M21 12.75C21 8.145 19.29 4.29 15 3.27V0H9V3.27C4.695 4.29 3 8.13 3 12.75L3 21L0 22.5V25.5H24V22.5L21 21L21 12.75ZM12.6 29.94C12.405 29.985 12.21 30 12 30C10.335 30 9.00001 28.65 8.98501 27H14.985C14.985 27.42 14.91 27.81 14.76 28.17C14.37 29.07 13.575 29.73 12.6 29.94Z" fill="#001D1B"/>
                 </svg>
             </button>
@@ -23,7 +27,11 @@
               </ion-col>
         
           <ion-col col-2 class="cursor">
-            <button  @click="redirect({path : 'profile'})" style="background-color: #fff"> <svg width="23" height="24" viewBox="0 0 23 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <button  @click="redirect({path : 'profile',query : { invite : true }})" v-if="invite" style="background-color: #fff"> <svg width="23" height="24" viewBox="0 0 23 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M11.5 0C7.97717 0 5.11111 2.83326 5.11111 6.31579C5.11111 9.79832 7.97717 12.6316 11.5 12.6316C15.0228 12.6316 17.8889 9.79832 17.8889 6.31579C17.8889 2.83326 15.0228 0 11.5 0ZM11.5 10.1053C9.38656 10.1053 7.66667 8.40505 7.66667 6.31579C7.66667 4.22653 9.38656 2.52632 11.5 2.52632C13.6134 2.52632 15.3333 4.22653 15.3333 6.31579C15.3333 8.40505 13.6134 10.1053 11.5 10.1053ZM23 24V22.7368C23 17.8623 18.9865 13.8947 14.0556 13.8947H8.94444C4.01222 13.8947 0 17.8623 0 22.7368V24H2.55556V22.7368C2.55556 19.2543 5.42161 16.4211 8.94444 16.4211H14.0556C17.5784 16.4211 20.4444 19.2543 20.4444 22.7368V24H23Z" fill="#001D1B"/>
+              </svg>
+              </button>
+               <button  @click="redirect({path : 'profile'})" v-else style="background-color: #fff"> <svg width="23" height="24" viewBox="0 0 23 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M11.5 0C7.97717 0 5.11111 2.83326 5.11111 6.31579C5.11111 9.79832 7.97717 12.6316 11.5 12.6316C15.0228 12.6316 17.8889 9.79832 17.8889 6.31579C17.8889 2.83326 15.0228 0 11.5 0ZM11.5 10.1053C9.38656 10.1053 7.66667 8.40505 7.66667 6.31579C7.66667 4.22653 9.38656 2.52632 11.5 2.52632C13.6134 2.52632 15.3333 4.22653 15.3333 6.31579C15.3333 8.40505 13.6134 10.1053 11.5 10.1053ZM23 24V22.7368C23 17.8623 18.9865 13.8947 14.0556 13.8947H8.94444C4.01222 13.8947 0 17.8623 0 22.7368V24H2.55556V22.7368C2.55556 19.2543 5.42161 16.4211 8.94444 16.4211H14.0556C17.5784 16.4211 20.4444 19.2543 20.4444 22.7368V24H23Z" fill="#001D1B"/>
               </svg>
               </button>
@@ -35,7 +43,7 @@
            <!--<ion-searchbar style="color: #5B716F;background: rgba(233, 235, 235, 0.5);border-radius: 10px;text-align: left;"  placeholder="Buscar" @click="openModal"></ion-searchbar>-->
             <div class="container1" style="width: 90%;">
               <div  class="input-container1" style="height: 55px;">
-                <input type="text"  placeholder="Buscar"  class="input-text1" @click="openModal" style="height: 55px; margin-top: -2%;margin-top: -3%;font-family: Montserrat;font-style: normal;font-weight: 300;font-size: 16px;color: #5B716F;">
+                <input type="text"  placeholder="Buscar"  class="input-text1" v-model="input_filter" @click="openModal" style="height: 55px;     padding-top: 3px;font-family: Montserrat;font-style: normal;font-weight: 300;font-size: 16px;color: #5B716F;">
                 <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-left: 89%;margin-top: -9px;position: absolute;">
                   <path d="M18.2928 19.7071C18.6834 20.0976 19.3165 20.0976 19.707 19.7071C20.0976 19.3166 20.0976 18.6834 19.7071 18.2929L18.2928 19.7071ZM14.1903 12.7761C13.7998 12.3856 13.1666 12.3856 12.7761 12.7761C12.3856 13.1666 12.3856 13.7998 12.7761 14.1903L14.1903 12.7761ZM19.7071 18.2929L14.1903 12.7761L12.7761 14.1903L18.2928 19.7071L19.7071 18.2929ZM14.1903 14.1903C15.6936 12.6871 16.625 10.6076 16.625 8.3125H14.625C14.625 10.0559 13.9196 11.6327 12.7761 12.7761L14.1903 14.1903ZM16.625 8.3125C16.625 3.72164 12.9034 0 8.31251 0V2C11.7989 2 14.625 4.8262 14.625 8.3125H16.625ZM8.31251 0C3.72164 0 0 3.72163 0 8.3125H2C2 4.8262 4.82621 2 8.31251 2V0ZM0 8.3125C0 12.9034 3.72164 16.625 8.31251 16.625V14.625C4.8262 14.625 2 11.7988 2 8.3125H0ZM8.31251 16.625C10.6076 16.625 12.6871 15.6935 14.1903 14.1903L12.7761 12.7761C11.6327 13.9196 10.0559 14.625 8.31251 14.625V16.625Z" fill="#96A7AF"/>
                   </svg>
@@ -122,6 +130,18 @@ import fcm_token from '@/plugins/fcm/fcm-token' ;
 
 import { defineComponent, ref } from 'vue';
 import { createAnimation } from '@ionic/vue';
+import io from 'socket.io-client'
+
+var socket  = io(axios.defaults.baseURL,{
+  cors: {
+    origin: '*',
+  },
+  withCredentials : false
+});
+
+socket.on("connection")
+
+
 
 export default defineComponent({
 
@@ -161,10 +181,14 @@ export default defineComponent({
     return {
       BasePublic,
       products :[],
-      reload : 0
+      reload : 0,
+      invite : null,
+      input_filter : null
     }
   },
   mounted(){
+    socket.emit('user_conected',this.getUser)
+    this.invite = this.$route.query.invite == undefined ? false : true
     if(this.$route.query.set_fcm){
       this.setFcm()
     }
@@ -203,7 +227,20 @@ export default defineComponent({
        modal.present();
 
       modal.onDidDismiss().then((data) => {
+        
+        if(data.data['input']){
+          this.input_filter = data.data.input_filter
+          this.products = data.data.products
+          return
+        }
+        if(data.data['select_filter']){
+          this.input_filter = data.data.filter
+          this.products = data.data.products
+          return
+        }
+
         this.filter = data.data
+        this.input_filter = data.data
         this.reload=0;
         this.getProducts(this.reload,true);
       })
@@ -232,14 +269,26 @@ export default defineComponent({
        return this.enterAnimation(document).direction('reverse');
     },
    getProducts(offset,reload = false){
-    axios
-      .post("/products/6/"+offset+"/"+this.getUser.id,{filter : this.filter})
-      .then(res => {
-        reload == false ? this.products.push(...res.data) : this.products = res.data
-       })
-      .catch(err => {
-        console.log(err)
-      });
+
+    if(this.$route.query.invite){ 
+      axios
+        .post("/products/6/"+offset+"/invite",{filter : this.filter})
+        .then(res => {
+          reload == false ? this.products.push(...res.data) : this.products = res.data
+         })
+        .catch(err => {
+          console.log(err)
+        });
+      }else{
+        axios
+        .post("/products/6/"+offset+"/"+this.getUser.id,{filter : this.filter})
+        .then(res => {
+          reload == false ? this.products.push(...res.data) : this.products = res.data
+         })
+        .catch(err => {
+          console.log(err)
+        });
+      }
     },
     loadData (ev) {
       this.reload+=14;

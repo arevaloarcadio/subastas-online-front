@@ -21,14 +21,14 @@
            Agrega un mensaje que <br> describa tu oferta
           </p>
        <ion-card style="box-shadow: inherit;margin-top: 11%;width: 101%;margin-left: -1%">
-      <img  :src="BasePublic+'uploads/'+product_photo" class="img-left">
+      <img  :src="BasePublic+product_photo" class="img-left">
        <svg width="49" height="49" viewBox="0 0 49 49" fill="none" xmlns="http://www.w3.org/2000/svg" class="img-center">
       <path d="M36.75 27.5625L42.875 33.6875L36.75 39.8125" stroke="#5B716F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
       <path d="M6.125 33.6875H42.875" stroke="#5B716F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
       <path d="M12.25 21.4375L6.125 15.3125L12.25 9.1875" stroke="#5B716F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
       <path d="M42.875 15.3125H6.125" stroke="#5B716F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
       </svg>
-      <img :src="BasePublic+'uploads/'+product_select_photo" class="img-right">
+      <img :src="BasePublic+product_select_photo" class="img-right">
     </ion-card>
    
         <p style="margin-top: -18px;">
@@ -68,6 +68,7 @@ import {
 import { defineComponent, ref } from 'vue';
 import axios from 'axios'
 import toast from '@/toast'
+import send_notification from '@/plugins/fcm/send_notification'
 
 export default defineComponent({
   components: {
@@ -158,7 +159,9 @@ export default defineComponent({
         .post("/requests",data)
         .then(res => {
           loading.dismiss()
+          send_notification.send('Has Recibido una nueva solicitud',res.data.customer.name,{data : {path : {name : 'request', params : { requestId : res.data.request.id }}},message : 'Has Recibido una nueva solictud'},this.product_id_user)
           this.redirect({name : 'success.requests', query : {customer_name:res.data.customer.name}})
+
          })
         .catch(err => {
           loading.dismiss()

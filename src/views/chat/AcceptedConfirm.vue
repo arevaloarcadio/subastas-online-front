@@ -71,6 +71,16 @@ import axios from 'axios';
 import toast from '@/toast'
 import { mapGetters } from 'vuex'
 import send_notification from '@/plugins/fcm/send_notification'
+import io from 'socket.io-client'
+
+var socket  = io(axios.defaults.baseURL,{
+  cors: {
+    origin: '*',
+  },
+  withCredentials : false
+});
+
+socket.on("connection")
 
 export default defineComponent({
   components: {
@@ -197,8 +207,12 @@ export default defineComponent({
       .then(res => {
          loading.dismiss()
         console.log(res)
+
+       
+
         toast.openToast("Producto aceptado existosamente","success",2000);
-        send_notification.send('Tu Producto ha sido aceptado',this.product_customer.name,{data :'request'},this.request.id_user)
+        send_notification.send('Tu Producto ha sido aceptado',this.product_customer.name,{data: {path : {name :'request.accepted' , params : { requestId : this.request_id }}},},this.request.id_user)
+         socket.emit('chat_message',res.data.data);
         this.$router.push({path : '/principal'})
        })
       .catch(err => {

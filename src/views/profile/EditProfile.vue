@@ -18,7 +18,7 @@
     </ion-row>
     <center>
       <ion-avatar>
-        <img :src="user.photo">
+        <img :src="user?.photo">
       </ion-avatar><br>
       <span class="text-control" style="font-weight: 400;" @click="setOpen(true)">Cambiar foto de perfil</span> 
     </center>

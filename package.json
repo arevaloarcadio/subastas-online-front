@@ -19,6 +19,7 @@
     "@capacitor/core": "^3.2.0",
     "@capacitor/ios": "^2.4.2",
     "@capacitor/push-notifications": "^1.0.3",
+    "@codetrix-studio/capacitor-google-auth": "^1.2.1",
     "@ionic/vue": "^5.4.0",
     "@ionic/vue-router": "^5.4.0",
     "@vue/babel-preset-app": "^4.5.13",

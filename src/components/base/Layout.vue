@@ -64,7 +64,7 @@ export default {
 };
 </script>
 
-<style type="text/css">
+<style scoped="">
 .preload{
   position: absolute;
 width: 100%;

@@ -4,6 +4,7 @@
     <string name="title_activity_main">Upgrap</string>
     <string name="package_name">com.upgrap</string>
     <string name="custom_url_scheme">com.upgrap</string>
-	<string name="facebook_app_id">891037061645114</string>
-	<string name="facebook_client_token">f1b5145a7c1f2fab97296681edcc9ca7</string>
+    <string name="facebook_app_id">891037061645114</string>
+    <string name="facebook_login_protocol_scheme">fb891037061645114</string>
+    <string name="server_client_id">591791636275-en60retq8tt5315atisqpqbi6ia6jklr.apps.googleusercontent.com</string>
 </resources>

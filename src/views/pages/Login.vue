@@ -67,10 +67,10 @@ import toast from '@/toast'
 import jwtToken from "@/plugins/jwt/jwt-token";
 import {mapActions} from "vuex";
 import user from "@/plugins/jwt/user";
-import { FCM } from '@capacitor-community/fcm';
-import fcm_token from '@/plugins/fcm/fcm-token' ; 
-import { Plugins } from '@capacitor/core';
-const { PushNotifications } = Plugins;
+//import { FCM } from '@capacitor-community/fcm';
+//import fcm_token from '@/plugins/fcm/fcm-token' ; 
+//import { PushNotifications } from '@capacitor/push-notifications';
+
 
 export default defineComponent({
   components: { IonRow,IonGrid,IonCol},
@@ -87,7 +87,7 @@ export default defineComponent({
     };
   },
   mounted(){
-      this.initPushNotification()
+      //this.initPushNotification()
     },
   methods: {
   ...mapActions([
@@ -118,39 +118,7 @@ export default defineComponent({
         loading.dismiss()
       });
     },
-    async initPushNotification(){
-      
-      FCM.getToken()
-      .then((r) => {
-        fcm_token.setToken(r.token)
-      })
-      .catch((err) => console.log(JSON.stringify(err)));
-      
-    PushNotifications.requestPermission().then(result => {
-      alert("result " + JSON.stringify(result));
-    });
-    // Add registration error if there are.
-    PushNotifications.addListener("registrationError", (error) => {
-    console.log(`error on register ${JSON.stringify(error)}`);
-    });
-    // Add Notification received
-    PushNotifications.addListener(
-    "pushNotificationReceived",
-    (notification) => {
-      console.log(`notification ${JSON.stringify(notification)}`);
-    }
-    );
-    // Add Action performed
-    PushNotifications.addListener(
-    "pushNotificationActionPerformed",
-    async (notification) => {
-        alert("notification " + notification)
-      console.log("notification succeeded");
-    }
-    );
-    // Initialize the registration with FCM Token
-    PushNotifications.register();
-    }
+    
   }
 });
 </script>

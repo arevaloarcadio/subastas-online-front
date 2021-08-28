@@ -67,11 +67,10 @@
         <ion-row>
           <ion-col col-12>
             <div class="container">
+              <label class="label-input" style="font-family: Montserrat;font-style: normal;font-weight: normal;font-size: 16px;line-height: 28px;letter-spacing: 0.75px;color: #32BAB0;">Estado o Provincia</label>
               <div  class="input-container">
-                 <input type="text" style="font-size: 18px; font-family: Montserrat;font-style: normal;font-weight: normal;font-size: 16px;line-height: 20px;" v-model="city" class="input-text" >
+                <input type="text" style="font-size: 18px; font-family: Montserrat;font-style: normal;font-weight: normal;font-size: 16px;line-height: 20px;" v-model="city" class="input-text" >
                 <ion-select  :interface-options="customActionSheetOptions" interface="action-sheet" v-model="select_city" style="color: #32BAB0;width: 20%;"  @ionChange="getCity($event)" >
-                <ion-select-option value="Roterdam">Roterdam</ion-select-option>
-                <ion-select-option value="Rote">Rote</ion-select-option>
               </ion-select>
               </div>
             </div>
@@ -255,6 +254,11 @@ export default defineComponent({
     },
     async registerProduct(){
 
+      if(this.category_id == null || this.country == null || this.city == null || this.address == null){
+         toast.openToast("Complete los campos restantes","error",2000);
+         return;
+      }
+
     let loading = await toast.showLoading()
 
     await loading.present(); 
@@ -284,6 +288,7 @@ export default defineComponent({
       .catch(err => {
         console.log(err)
         loading.dismiss()
+        toast.openToast("Error al registrar el producto, intente nuevamente","error",2000);
       });
     
     },

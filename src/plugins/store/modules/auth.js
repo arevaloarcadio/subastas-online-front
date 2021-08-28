@@ -24,6 +24,7 @@ const state = {
 		dir : null,
 		phone : null,
 		validate_phone : null,
+		singin_method : null,
 		get_started : true
 	}
 };
@@ -43,6 +44,7 @@ const mutations = {
 		state.user.dir = payload.user.dir;
 		state.user.phone = payload.user.phone;
 		state.user.validate_phone = payload.user.validate_phone;
+		state.user.singin_method = payload.user.singin_method;
 		state.user.get_started = false
 	},
 	[UNSET_USER](state) {
@@ -54,6 +56,7 @@ const mutations = {
 		state.user.dir = null;
 		state.user.phone = null;
 		state.user.validate_phone = null;
+		state.user.singin_method = null;
 	}
 };
 

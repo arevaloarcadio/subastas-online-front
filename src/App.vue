@@ -17,7 +17,14 @@ import { IonApp } from '@ionic/vue';
 import { defineComponent } from 'vue';
 import LayoutDashboard from './components/base/LayoutDashboard';
 import Layout from './components/base/Layout';
+
+//import { FCM } from '@capacitor-community/fcm';
+import fcm_token from '@/plugins/fcm/fcm-token' ; 
 //import fcm_token from '@/plugins/fcm/fcm-token' ; 
+import { Plugins } from '@capacitor/core'
+import '@capacitor/push-notifications';
+import toast from '@/toast'
+const {PushNotifications}  = Plugins
 
 
 export default defineComponent({
@@ -33,8 +40,57 @@ export default defineComponent({
 			//fcm: new FCM()
 		}
 	},
-	
+	mounted(){
+		console.log(Plugins)
+		this.initPushNotification()
+	},
+	methods : {
+	async initPushNotification(){
+
+	// Register with Apple / Google to receive push via APNS/FCM
+	PushNotifications.register();
+
+	// On success, we should be able to receive notifications
+	PushNotifications.addListener('registration', 
+	(token) => {
+	fcm_token.setToken(token.value)
+	}
+	);
+
+	// Some issue with our setup and push will not work
+	PushNotifications.addListener('registrationError', 
+	(error) => {
+	alert('Error on registration: ' + JSON.stringify(error));
+	}
+	);
+
+	// Show us the notification payload if the app is open on our device
+	PushNotifications.addListener('pushNotificationReceived', 
+	(notification) => {
+	/*if (notification['path']) {
+		this.$router.push(notification.path)
+	}*/
+	if(notification.data['message']){
+	toast.openToast(notification['message'],"error",2000);
+	}
+	//alert('Push received: ' + JSON.stringify(notification));
+	}
+	);
+
+	// Method called when tapping on a notification
+	PushNotifications.addListener('pushNotificationActionPerformed', 
+	(notification) => {
+	if (notification.data['path']) {
+		this.$router.push(notification.path)
+	}
+	}
+	);
+	}
+	}
 });
+
+//591791636275-45hoofl1j9jcdbkfmv2cc88a51i2ahtl.apps.googleusercontent.com mi token
+//oficial de upgrap 404466753320-8ob9c44f8na5ajcr317p25qv92juvv6e.apps.googleusercontent.com
 </script>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
