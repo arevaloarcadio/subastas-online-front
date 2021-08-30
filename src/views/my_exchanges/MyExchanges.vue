@@ -307,7 +307,8 @@ socket.emit('user_conected',this.getUser)
 
       popover.onDidDismiss().then((data) => { 
         console.log(data)
-        this.filter_(data.data)
+        if(data.role != 'backdrop')
+          this.filter_(data.data)
       });
  
     },
