@@ -78,7 +78,7 @@ import { defineComponent, ref } from 'vue';
 import axios from "axios"
 import { mapGetters } from 'vuex'
 import io from 'socket.io-client'
-
+import BasePublic from '@/plugins/store/utils'
 var socket  = io(axios.defaults.baseURL,{
   cors: {
     origin: '*',
@@ -138,6 +138,7 @@ export default defineComponent({
   },
   data(){
     return{
+      BasePublic,
       products : []
     }
   },

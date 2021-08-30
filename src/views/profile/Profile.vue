@@ -17,8 +17,11 @@
     <ion-content>
 
         <ion-row>
-          <ion-avatar style="margin-left: 5%">
+          <ion-avatar v-if="invite != true" style="margin-left: 5%">
             <img :src="BasePublic+user?.photo">
+          </ion-avatar>
+           <ion-avatar v-else style="margin-left: 5%">
+            <img :src="BasePublic+'default.png'">
           </ion-avatar>
           <ion-col style="margin-left: 7px;margin-top: 3px;" >
 

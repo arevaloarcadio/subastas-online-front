@@ -227,18 +227,30 @@ export default defineComponent({
        modal.present();
 
       modal.onDidDismiss().then((data) => {
-        
+   
         if(data.data['input']){
           this.input_filter = data.data.input_filter
           this.products = data.data.products
+          console.log(this.products.length)
+          if(this.products.length == 0 ){
+              axios
+              .post("/products/filter",{filter : this.input_filter})
+              .then(res => {
+                console.log(res)
+                this.products = res.data
+               })
+              .catch(err => {
+                console.log(err)
+            })
           return
+          }
         }
         if(data.data['select_filter']){
           this.input_filter = data.data.filter
           this.products = data.data.products
           return
         }
-
+        
         this.filter = data.data
         this.input_filter = data.data
         this.reload=0;

@@ -32,13 +32,13 @@
 <script>
 
 import { defineComponent } from 'vue';
-import axios from 'axios'
+import { popoverController } from '@ionic/vue';
 
 export default defineComponent({
 name: 'Popover',
+props : ['categories'],
 data(){
 	return{
-		categories : null,
 		filters : {
 			'Enviadas' : false,
 			'Recibidas' : false,
@@ -47,23 +47,11 @@ data(){
 		}
 	}
 },
-mounted(){
-	this.getCategories()
-},
 methods : {
-select(category) {
-	this.$emit("category",category)
+async select(category) {
+	const popover = await popoverController
+    return popover.dismiss(category);
 },
-getCategories(){
-     axios
-      .get("categories")
-      .then(res => {
-        this.categories = res.data
-       })
-      .catch(err => {
-        console.log(err)
-      });
-    },
 }
 });
 </script>
@@ -99,5 +87,14 @@ color: #32BAB0;
   height: 202px !important;
   border-radius: 10px !important;
   top: 196px !important;
+}
+
+.my-class-edit .popover-content{
+  width: 88% !important;
+  left: 6% !important;
+  transform-origin: right top !important;
+  height: 202px !important;
+  border-radius: 10px !important;
+  top: 169px !important;
 }
 </style>

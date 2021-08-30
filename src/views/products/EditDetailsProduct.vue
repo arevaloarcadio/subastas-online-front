@@ -26,8 +26,8 @@
             <div class="container">
               <label class="label-input">Seleccione una categoría</label>
               <div  class="input-container">
-                 <input type="text" style="font-size: 18px; font-family: Montserrat;font-style: normal;font-weight: normal;font-size: 16px;line-height: 20px;" v-model="category" class="input-text" readonly="" @click="setOpen(true, $event)">
-                <svg width="22" height="12" viewBox="0 0 22 12" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-right: 4%;" @click="setOpen(true, $event)">
+                 <input type="text" style="font-size: 18px; font-family: Montserrat;font-style: normal;font-weight: normal;font-size: 16px;line-height: 20px;" v-model="category" class="input-text" readonly="" @click="openPopover($event)">
+                <svg width="22" height="12" viewBox="0 0 22 12" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-right: 4%;" @click="openPopover($event)">
                  <path d="M21 1L11 11L1 1" stroke="#5B716F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
               </div>
@@ -67,11 +67,10 @@
         <ion-row>
           <ion-col col-12>
             <div class="container">
+              <label class="label-input" style="font-family: Montserrat;font-style: normal;font-weight: normal;font-size: 16px;line-height: 28px;letter-spacing: 0.75px;color: #32BAB0;">Estado o Provincia</label>
               <div  class="input-container">
-                 <input type="text" style="font-size: 18px; font-family: Montserrat;font-style: normal;font-weight: normal;font-size: 16px;line-height: 20px;" v-model="city" class="input-text" >
+                <input type="text" style="font-size: 18px; font-family: Montserrat;font-style: normal;font-weight: normal;font-size: 16px;line-height: 20px;" v-model="city" class="input-text" >
                 <ion-select  :interface-options="customActionSheetOptions" interface="action-sheet" v-model="select_city" style="color: #32BAB0;width: 20%;"  @ionChange="getCity($event)" >
-                <ion-select-option value="Roterdam">Roterdam</ion-select-option>
-                <ion-select-option value="Rote">Rote</ion-select-option>
               </ion-select>
               </div>
             </div>
@@ -105,7 +104,7 @@
       </ion-list>
     
     </ion-content>   
- <ion-popover
+ <!--<ion-popover
     :is-open="isOpenRef"
     css-class="my-class"
     :event="event"
@@ -118,7 +117,7 @@
     >
     <PopoverSelectCategory  @category="category_($event)"></PopoverSelectCategory> 
   
-  </ion-popover>
+  </ion-popover>-->
   
   </ion-page>  
 </template>
@@ -136,7 +135,8 @@ import {
   modalController,
   IonList,
   IonPage,
-  IonPopover 
+  popoverController
+  //IonPopover 
  } from '@ionic/vue';
 
 import { Camera,CameraSource, CameraResultType } from '@capacitor/camera';
@@ -148,10 +148,9 @@ export default defineComponent({
   components: {
  
     IonContent, 
-    PopoverSelectCategory,
     IonList,
     IonPage,
-    IonPopover,
+    //IonPopover,
 
   },
   setup() {
@@ -219,11 +218,13 @@ export default defineComponent({
       descripcion : null,
       image : null,
       show_direction : null,
-      address : null
+      address : null,
+      categories : []
     }
   },
   created(){
     this.getCategory()
+    this.getCategories()
     this.getCountries()
     this.estado = this.$route.query.estado;
     this.nombre = this.$route.query.nombre;
@@ -247,6 +248,29 @@ export default defineComponent({
     ]),
   },
   methods:{
+    async openPopover(Event) {
+      const popover = await popoverController
+        .create({
+          event : Event,
+          component: PopoverSelectCategory,
+          translucent : true,
+          showBackdrop : false,
+          keyboardClose : false,
+          backdropDismiss : true,
+          cssClass : "my-class-edit",
+          componentProps : {categories : this.categories}
+        })
+
+      await popover.present();
+
+      popover.onDidDismiss().then((data) => { 
+        let category = data.data
+        this.category = category.name;
+        this.category_id =  category.id
+        this.setOpen(false)
+      });
+ 
+    },
       getPicture : function () {
       this.image = this.$refs.picture.files[0];
    
@@ -303,6 +327,16 @@ export default defineComponent({
       .catch(err => {
         console.log(err)
         
+      });
+    },
+      getCategories(){
+     axios
+      .get("categories")
+      .then(res => {
+        this.categories = res.data
+       })
+      .catch(err => {
+        console.log(err)
       });
     },
     getCountry(ev){

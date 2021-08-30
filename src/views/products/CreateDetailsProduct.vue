@@ -26,8 +26,8 @@
             <div class="container">
               <label class="label-input">Seleccione una categoría</label>
               <div  class="input-container">
-                 <input type="text" style="font-size: 18px; font-family: Montserrat;font-style: normal;font-weight: normal;font-size: 16px;line-height: 20px;" v-model="category" class="input-text" readonly="" @click="setOpen(true, $event)">
-                <svg width="22" height="12" viewBox="0 0 22 12" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-right: 4%;" @click="setOpen(true, $event)">
+                 <input type="text" style="font-size: 18px; font-family: Montserrat;font-style: normal;font-weight: normal;font-size: 16px;line-height: 20px;" v-model="category" class="input-text" readonly="" @click="openPopover($event)">
+                <svg width="22" height="12" viewBox="0 0 22 12" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-right: 4%;" @click="openPopover($event)">
                  <path d="M21 1L11 11L1 1" stroke="#5B716F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
               </div>
@@ -104,20 +104,19 @@
       </ion-list>
     
     </ion-content>   
- <ion-popover
+ <!--<ion-popover
     :is-open="isOpenRef"
     css-class="my-class"
     :event="event"
     :translucent="true"
     :showBackdrop="false"
-    :keyboardClose="true"
-    :backdropDismiss="false"
-    @ionPopoverWillDismiss="setOpen(false)"
-    @ionPopoverDidDismiss="setOpen(false)"
+    :keyboardClose="false"
+    :backdropDismiss="true"
+    @ionpopoverdiddismiss="setOpen(false)"
     >
     <PopoverSelectCategory  @category="category_($event)"></PopoverSelectCategory> 
   
-  </ion-popover>
+  </ion-popover>-->
   
   </ion-page>  
 </template>
@@ -135,7 +134,8 @@ import {
   modalController,
   IonList,
   IonPage,
-  IonPopover 
+  
+  popoverController 
  } from '@ionic/vue';
 
 import { Camera,CameraSource, CameraResultType } from '@capacitor/camera';
@@ -147,10 +147,8 @@ export default defineComponent({
   components: {
  
     IonContent, 
-    PopoverSelectCategory,
     IonList,
     IonPage,
-    IonPopover,
 
   },
   setup() {
@@ -227,6 +225,7 @@ export default defineComponent({
               '</svg>'
     document.querySelector('#ionSelectCountry').shadowRoot.innerHTML = svg 
     this.getCountries()
+    this.getCategories()
     this.estado = this.$route.query.estado;
     this.nombre = this.$route.query.nombre;
     this.descripcion = this.$route.query.descripcion;
@@ -240,7 +239,40 @@ export default defineComponent({
     ]),
   },
   methods:{
-      getPicture : function () {
+    async openPopover(Event) {
+      const popover = await popoverController
+        .create({
+          event : Event,
+          component: PopoverSelectCategory,
+          translucent : true,
+          showBackdrop : false,
+          keyboardClose : false,
+          backdropDismiss : true,
+          cssClass : "my-class",
+          componentProps : {categories : this.categories}
+        })
+
+      await popover.present();
+
+      popover.onDidDismiss().then((data) => { 
+        let category = data.data
+        this.category = category.name;
+        this.category_id =  category.id
+        this.setOpen(false)
+      });
+ 
+    },
+    getCategories(){
+     axios
+      .get("categories")
+      .then(res => {
+        this.categories = res.data
+       })
+      .catch(err => {
+        console.log(err)
+      });
+    },
+    getPicture : function () {
       this.image = this.$refs.picture.files[0];
    
     },

@@ -18,7 +18,7 @@
         </p>
         </ion-col>
         <ion-col>
-        <button v-if="exchange =='recibido'" @click="redirect({name : 'request.accepted.rejected' , params : {productId : request_id} , query :{} })"  style="margin-left: 54%;margin-top: 41px;background: transparent;">
+        <button v-if="exchange =='recibido' &&  status" @click="redirect({name : 'request.accepted.rejected' , params : {productId : request_id} , query :{} })"  style="margin-left: 54%;margin-top: 41px;background: transparent;">
           <img src="/assets/ArrowsLeftRightGreenLow.png">
         </button>
       </ion-col>
@@ -36,8 +36,10 @@
                     <p >{{message.message}}</p>
                    
                   </li>
-                   <img v-else :class="{'img-right' :  getUser.id == message.id_sender ,'img-left' : getUser.id == message.id_receiver}" :src="BasePublic+message.message">
-                
+                  <template v-else >
+                   <img :class="{'img-right' :  getUser.id == message.id_sender ,'img-left' : getUser.id == message.id_receiver}" :src="BasePublic+message.message">
+
+                  </template>
                 </ul>
           
                 <center v-else-if="message.type=='accepted'" >
@@ -169,7 +171,8 @@ export default defineComponent({
       request_id : null,
       exchange : null,
       product_user : null,
-      request : null
+      request : null,
+      status : false
     }
   },
   created(){
@@ -184,6 +187,7 @@ export default defineComponent({
     this.exchange = this.$route.query.exchange
     this.getMessages()
     this.getRequest()
+    this.getProductEstatus()
   },
   mounted(){
   },
@@ -193,8 +197,7 @@ export default defineComponent({
     ]),
   },
   methods:{
-   
-    redirect(path) {
+   redirect(path) {
       this.$router.push(path);
     },
     async takePhoto() {
@@ -205,6 +208,17 @@ export default defineComponent({
       });
 
       this.takenImageUrl = photo.webPath;
+    },
+    getProductEstatus(){
+       axios
+        .get("/chat/status/"+this.getUser.id+"/"+this.customer_id)
+        .then(res => {
+          this.status = res.data.product_accepted_rejeted
+          console.log(this.status)
+         })
+        .catch(err => {
+          console.log(err)
+        })
     },
     getMessages(){
       axios
@@ -236,7 +250,7 @@ export default defineComponent({
       let new_message = {
         id_sender : this.getUser.id,
         id_receiver :   this.customer_id,
-        message :  'Has recibido un nuevo mensaje de '+ this.customer_name+' - '+ this.product_name,
+        message :  'Has recibido un nuevo mensaje de '+ this.getUser.name+' - '+ this.product_user.name,
         is_file : is_file,
         type : 'message'
       }
@@ -276,7 +290,7 @@ export default defineComponent({
             this.product_user_id = this.$route.query.product_user_id
             this.exchange = this.$route.query.exchange
 
-           send_notification.send('Nuevo Mensaje - '+this.getUser.name,
+           send_notification.send('Nuevo Mensaje',
             new_message.message,
             {data : {path : {name : 'request.chat' , params : { productId : this.request.product_user_id } , query : { customer_name : this.getUser.name,product_name : this.product_user.name,customer_id : this.getUser.id,request_id :this.$route.query.request_id,exchange : this.$route.query.exchange == 'recibido' ? 'enviado' : 'recibido' }}}},
             this.customer_id)
@@ -1075,12 +1089,16 @@ margin-top: 1%;
       height: 168px;
     width: auto;
     float: right;
+      margin-right: 15px;
+      border-radius: 10px 10px 10px 10px;
 }
 
 .img-left{
   height: 168px;
   width: auto;
   float: left;
+  margin-left: 15px;
+  border-radius: 10px 10px 10px 10px;
 }
 
 </style>

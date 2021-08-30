@@ -20,7 +20,7 @@
           <div class="container">
             <label class="label-input">Email</label>
             <div  class="input-container">
-              <input type="" name="" class="input-text">
+              <input type="text" v-model="email" class="input-text">
             </div>
           </div>
         </ion-col>
@@ -28,7 +28,7 @@
     </ion-grid>
     
     <br>
-    <button type="button" class="btn-primary" @click="() => router.push('/forget_password/send')"   style="width: 100px">
+    <button type="button" class="btn-primary" @click="forget_password"   style="width: 100px">
        Enviar
     </button> <br><br>
     <a   @click="() => router.push('/pre_login')" class="text-control">Atras</a>
@@ -38,11 +38,12 @@
 </template>
 
 <script>
-import { loadingController,toastController,IonRow,IonGrid,IonCol,  } from '@ionic/vue';
+import { IonRow,IonGrid,IonCol,  } from '@ionic/vue';
 import { eyeOutline,eyeOffOutline } from 'ionicons/icons';
 import { defineComponent } from 'vue';
 import axios from 'axios';
 import { useRouter } from 'vue-router';
+import toast from '@/toast'
 
 export default defineComponent({
   components: { IonRow,IonGrid,IonCol},
@@ -66,52 +67,26 @@ export default defineComponent({
     redirect(path){
       this.$router.push(path);
     },
-    async register() {
+    async forget_password() {
+    var loading = await toast.showLoading()
 
-       const loading = await loadingController.create({
-          cssClass: 'my-custom-class',
-          message: 'Por Favor Espere..',
-         });
-
-      await loading.present();
-
-     let data = {
-        first_name: this.first_name,
-        last_name: this.last_name,
-        email: this.email,
-        password: this.password,
-        password_confirmacion: this.password_confirmacion,
-     };
+    await loading.present();
 
     axios
-      .post("/register",data)
+      .post("/password",{email : this.email})
       .then(res => {
-        if(!res.data.error)
-          this.openToast(res.data.data,'success')
-        else
-          this.openToast('Error Interno','warning')
+         loading.dismiss()
+        console.log(res)
+        this.$router.push('/forget_password/send')
       })
       .catch(err => {
-        if(err.response.type == 'validation'){
-          this.openToast(err.response.data.data,'warning')
-        }else{
-           this.openToast(err.response.data.data,'danger')
-        }
+        console.log(err)
+          loading.dismiss()
+        toast.openToast("Ha ocurrido un error","error",2000);
       });
 
-     await loading.dismiss()
-    },
-    async openToast(message,color) {
-      const toast = await toastController
-        .create({
-          position : 'top',
-          color : color,
-          message: message,
-          duration: 2000
-        })
-
-      return toast.present();
-    },
+   
+    }
   }
 });
 </script>

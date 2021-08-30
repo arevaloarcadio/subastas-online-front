@@ -20,7 +20,7 @@ send_notification.send = function (title,body,data,user_id) {
             var xhttp = new XMLHttpRequest();
             xhttp.open("POST", "https://fcm.googleapis.com/fcm/send", true);
             xhttp.setRequestHeader("Content-type", "application/json");
-            xhttp.setRequestHeader("Authorization", 'key=AAAAIBySC0A:APA91bHXO2m_L4HE1LmXuOkZIsTm961V0eqZ8VJY-8g4aQjg_QZ4OLcyGcLOJsJQMRnaCiGxpobShtWJe1PSLrwNB2-glk3FEWKWBNyGC0NkcpMBC2J7i7ygFHJm3n78ZoAzo825ygVh');
+            xhttp.setRequestHeader("Authorization", 'key=AAAAicmHvzM:APA91bGW7KHx380nwk5TQVbgyU84uId-gu-fMYmBAc6KZCJU44Qu1ACNPAr9UElRUFhpv3mhNavVj4fqGaZpv2TP66-MWwVSe_jouFHZJ4ClkwE4loTrKpD9yAQ1tnfYUpWxfwy6_4Mv');
             let res = {
               'notification': {
                 'title': title,

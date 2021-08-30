@@ -1,13 +1,13 @@
 <template>
 	<div style="margin-left: 5%;margin-top: 5%">	
-		<ion-row style="cursor: pointer;" @click="select('Enviadas')" :class="{'item-popover' : true , 'active' : filters['Enviada'] == true}">
-			Enviadas
+		<ion-row style="cursor: pointer;" @click="select('Aceptadas')" :class="{'item-popover' : true , 'active' : filters['Aceptada'] == true}">
+			Aceptadas
 		</ion-row>
 		<br>
-		<ion-row style="cursor: pointer;" @click="select('Recibidas')" :class="{'item-popover' : true , 'active' : filters['Recibida'] == true}">
+		<!--<ion-row style="cursor: pointer;" @click="select('Recibidas')" :class="{'item-popover' : true , 'active' : filters['Recibida'] == true}">
 			Recibidas
-		</ion-row>
-		<br>
+		</ion-row><br>-->
+		
 		<ion-row style="cursor: pointer;" @click="select('Rechazados')" :class="{'item-popover' : true , 'active' : filters['Rechazado'] == true}">
 			Rechazados
 		</ion-row>
@@ -21,24 +21,23 @@
 <script>
 
 import { defineComponent } from 'vue';
-
+import { popoverController } from '@ionic/vue';
 
 export default defineComponent({
 name: 'Popover',
 data(){
 	return{
 		filters : {
-			'Enviada' : false,
-			'Recibida' : false,
+			'Aceptada' : false,
 			'Rechazado' : false,
 			'Por confirmar' : false,
 		}
 	}
 },
 methods : {
-select(filter) {
-
-this.$emit("select",{filter: filter})
+async select(filter) {
+	const popover = await popoverController
+    return popover.dismiss(filter);
 }
 }
 });

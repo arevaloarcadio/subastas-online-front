@@ -17,7 +17,7 @@
     <ion-content >
   
         <ion-card style="width: 95%;">
-        <div v-show="product.requests != 0"  class="badge-2" style="padding-left: 18px;padding-top: 6.5px;"> 
+        <div v-show="product.requests != 0"  class="badge" style="padding-left: 18px;padding-top: 6.5px;    margin-left: 80%;"> 
               <span  style="">
               {{product.requests}}
               </span>

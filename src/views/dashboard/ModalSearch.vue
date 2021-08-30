@@ -20,8 +20,8 @@
     </ion-grid>
        <div class="container1" style="width: 100%;">
               <div  class="input-container1">
-                <input type="text"  placeholder="Buscar" @input="filter" v-model="input_filter" v-on:keyup.enter="enter_filter" class="input-text1" style="padding-top: 3px;height: 65.1px;">
-               <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-right: 8%" >
+                <input type="text"  placeholder="Buscar"  v-model="input_filter" v-on:keyup.enter="enter_filter" class="input-text1" style="padding-top: 3px;height: 65.1px;">
+               <svg width="20" height="20" viewBox="0 0 20 20" fill="none" @click="filter" xmlns="http://www.w3.org/2000/svg" style="margin-right: 8%" >
                   <path fill-rule="evenodd" clip-rule="evenodd" d="M11 10.1837C9.13616 10.1837 7.57006 8.67483 7.12602 6.63272H0V4.26538H7.12602C7.57006 2.22327 9.13616 0.714355 11 0.714355C13.2091 0.714355 15 2.83415 15 5.44905C15 8.06395 13.2091 10.1837 11 10.1837ZM13 5.44905C13 6.7565 12.1046 7.8164 11 7.8164C9.89543 7.8164 9 6.7565 9 5.44905C9 4.1416 9.89543 3.0817 11 3.0817C12.1046 3.0817 13 4.1416 13 5.44905Z" fill="#5B716F"/>
                   <path d="M16 4.26538H20V6.63272H16V4.26538Z" fill="#5B716F"/>
                   <path fill-rule="evenodd" clip-rule="evenodd" d="M6 19.6531C4.13616 19.6531 2.57006 18.1442 2.12602 16.1021H0V13.7348H2.12602C2.57006 11.6927 4.13616 10.1837 6 10.1837C8.20914 10.1837 10 12.3035 10 14.9184C10 17.5333 8.20914 19.6531 6 19.6531ZM8 14.9184C8 16.2259 7.10457 17.2858 6 17.2858C4.89543 17.2858 4 16.2259 4 14.9184C4 13.611 4.89543 12.5511 6 12.5511C7.10457 12.5511 8 13.611 8 14.9184Z" fill="#5B716F"/>
@@ -73,6 +73,7 @@ import { IonContent, IonHeader,modalController } from '@ionic/vue';
 import { close } from 'ionicons/icons';
 import { defineComponent } from 'vue';
 import axios from 'axios'
+import BasePublic from '@/plugins/store/utils'
 
 export default defineComponent({
   name: 'ModalSearch',
@@ -83,10 +84,23 @@ export default defineComponent({
   },
   data() {
     return {
+      BasePublic,
       input_filter : null,
       products_filter : [],
+      awaitingSearch: false,
     }
   },
+  watch: {
+      input_filter: function () {
+        if (!this.awaitingSearch) {
+          setTimeout(() => {
+            this.filter();
+            this.awaitingSearch = false;
+          }, 2000); // 1 sec delay
+        }
+        this.awaitingSearch = true;
+      },
+    },
   methods: {
   async search(filter){
     const modal = await modalController
@@ -101,6 +115,7 @@ export default defineComponent({
     return modal.dismiss({products :this.products_filter,input : true,input_filter:this.input_filter});
   },
   async select_filter(filter){
+    console.log(filter)
     const modal = await modalController
     return modal.dismiss({products :this.products_filter,select_filter : true,filter:filter});
   },
@@ -112,7 +127,6 @@ export default defineComponent({
     axios
     .post("/products/filter",{filter : this.input_filter})
     .then(res => {
-      console.log(res)
       this.products_filter = res.data
      })
     .catch(err => {

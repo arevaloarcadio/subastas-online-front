@@ -30,7 +30,7 @@
         </div>
       </ion-col>
       <ion-col size="4">
-        <ion-label style="color: #32BAB0;font-style: normal;color: #000;margin-left: 50%;font-weight: 500"  @click="setOpen(true, $event)">Filtrar</ion-label>
+        <ion-label style="color: #32BAB0;font-style: normal;color: #000;margin-left: 50%;font-weight: 500"  @click="openPopover($event)">Filtrar</ion-label>
       </ion-col>
     </ion-row>
     <ion-content>
@@ -83,7 +83,7 @@
    
    <br><br><br><br>
     </ion-content>    
-    <ion-popover
+    <!--<ion-popover
     :is-open="isOpenRef"
     css-class="my-custom-class"
     :event="event"
@@ -96,7 +96,7 @@
     >
 
     <PopoverFilter  ref="PopoverFilter" @select="filter_($event)"></PopoverFilter>
-  </ion-popover>
+  </ion-popover>-->
   </ion-page>  
 </template>
 
@@ -112,7 +112,7 @@ import {
 
   modalController,
   popoverController,
-  IonPage,IonPopover 
+  IonPage,
  } from '@ionic/vue';
 import PopoverFilter from './PopoverFilter.vue'
 
@@ -138,8 +138,6 @@ export default defineComponent({
     SvgProducts,
     IonContent, 
 
-  IonPopover ,
-  PopoverFilter,
     IonPage
   },
   data(){
@@ -149,8 +147,8 @@ export default defineComponent({
        products : [],
        post_filters : [],
        products_values :{ 
-        'Enviadas' : {
-          name : 'Enviada'
+        'Aceptadas' : {
+          name : 'Aceptada'
         },
         'Recibidas' : {
           name : 'Recibida'
@@ -163,9 +161,9 @@ export default defineComponent({
         }
       },
        styles : {
-        'Enviadas' : {
-          value :  'Enviada',
-          'width' : '97px', 
+        'Aceptadas' : {
+          value :  'Aceptada',
+          'width' : '101px', 
           span :{
             'position': 'absolute',
             'margin': '4px',
@@ -266,7 +264,7 @@ socket.emit('user_conected',this.getUser)
   },
   methods:{
     filter_(filter){
-     let value =  filter.filter
+     let value =  filter
     var index = this.filters.indexOf(value);
     if (index !== -1) {
       this.filters.splice(index, 1);
@@ -293,6 +291,26 @@ socket.emit('user_conected',this.getUser)
     redirect(path) {
       this.$router.push({path: path});
     },
+    async openPopover(Event) {
+      const popover = await popoverController
+        .create({
+          event : Event,
+          component: PopoverFilter,
+          translucent : true,
+          showBackdrop : false,
+          keyboardClose : false,
+          backdropDismiss : true,
+          cssClass : "my-custom-class",
+        })
+
+      await popover.present();
+
+      popover.onDidDismiss().then((data) => { 
+        console.log(data)
+        this.filter_(data.data)
+      });
+ 
+    },
     async openModal() {
       const modal = await modalController
         .create({
@@ -311,19 +329,6 @@ socket.emit('user_conected',this.getUser)
       });
 
       this.takenImageUrl = photo.webPath;
-    },
-    async openPopover(Event) {
-      const popover = await popoverController
-        .create({
-          component: PopoverFilter,
-          cssClass: 'my-custom-class',
-          event: Event,
-          translucent: true
-        })
-      await popover.present();
-
-      const { role } = await popover.onDidDismiss();
-      console.log('onDidDismiss resolved with role', role);
     },
     getProducts(){
       
@@ -458,7 +463,7 @@ ion-select::part(icon) {
   width: 160px !important;
   left: 189.5px !important;
   transform-origin: right top !important;
-  height: 150px !important;
+  height: 125px !important;
   border-radius: 15px !important;
 }
 

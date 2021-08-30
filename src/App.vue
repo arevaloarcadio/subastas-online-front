@@ -54,6 +54,7 @@ export default defineComponent({
 	PushNotifications.addListener('registration', 
 	(token) => {
 	fcm_token.setToken(token.value)
+	//alert('Push received: ' + JSON.stringify(token));
 	}
 	);
 

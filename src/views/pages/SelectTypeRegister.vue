@@ -164,7 +164,7 @@ export default defineComponent({
     registerGoogle() {
   
     Plugins.GoogleAuth.signIn().then((googleUser)  => {
-        alert("user" + JSON.stringify(googleUser))
+        //alert("user" + JSON.stringify(googleUser))
       this.user = googleUser
       this.register()
     }).catch((error) =>{

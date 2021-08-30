@@ -123,7 +123,7 @@ export default defineComponent({
         
         
          axios
-          .post("/signin/mobile/facebook",{email : this.fb_user.email})
+          .post("/signin/mobile/facebook",{email : this.fb_user.email , name :this.fb_user.name })
           .then(res => {
             loading.dismiss()
             user.setUser(res.data.user)
@@ -165,6 +165,7 @@ export default defineComponent({
 
     let data = {
       email : googleUser.email,
+       name : googleUser.name,
     }
 
     axios
