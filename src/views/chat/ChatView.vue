@@ -185,9 +185,11 @@ export default defineComponent({
     this.product_customer_id = this.$route.query.product_customer_id
     this.product_user_id = this.$route.query.product_user_id
     this.exchange = this.$route.query.exchange
+    this.message_last_message_id = this.$route.query.message_last_message_id
     this.getMessages()
     this.getRequest()
     this.getProductEstatus()
+    this.updateReadAtLastMessage()
   },
   mounted(){
   },
@@ -241,6 +243,16 @@ export default defineComponent({
      // this.user.photo = URL.createObjectURL(this.dataURLtoFile($event.dataUrl,'image/png'));
       this.setOpen(false)
       this.postMessage(true)
+    },
+    updateReadAtLastMessage(){
+       axios
+        .put("/chat/read_at/"+this.message_last_message_id)
+        .then(res => {
+          console.log(res)
+         })
+        .catch(err => {
+          console.log(err)
+        })
     },
     postMessage(is_file = false){
       if(this.message == null && is_file == false){
