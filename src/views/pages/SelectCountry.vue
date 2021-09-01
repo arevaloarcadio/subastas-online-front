@@ -42,7 +42,7 @@
 
                       <input type="text"  style="font-size: 18px;" v-model="city"  placeholder="Selecciona tu cuidad" class="input-text1">
                       <ion-select id="ionSelectCity" ref="ionSelectCity" v-model="filter"  :interface-options="customActionSheetOptions"  @ionChange="getCity($event)" interface="action-sheet" v-show="true"  ok-text="Seleccionar" cancel-text="Cerrar" style="width: 20%;" >
-                        <ion-select-option value="Cuidad">Cuidad</ion-select-option>
+                        <ion-select-option  v-for="state in state" :key="state" :value="state.name">{{state.name}}</ion-select-option>
                       </ion-select>
                     </div>
                   </div>
@@ -81,7 +81,8 @@ export default defineComponent({
       country : null,
       city : null,
       countries : null,
-      flag : 'https://restcountries.eu/data/afg.svg'
+      flag : 'https://restcountries.eu/data/afg.svg',
+      state :null
     };
   },
   mounted(){
@@ -106,6 +107,7 @@ export default defineComponent({
   },
   methods: {
     getCountry(ev){
+      this.city = null
       const country_selected = this.countries.filter(function(country) {
         if(country.name == ev.target.value){
            return country
@@ -113,6 +115,7 @@ export default defineComponent({
       });
       this.flag = country_selected[0].flag
       this.country = ev.target.value;
+      this.getCities()
     },
     getCity(ev){
       this.city = ev.target.value;
@@ -131,7 +134,6 @@ export default defineComponent({
       awsAxios
       .get("https://restcountries.eu/rest/v2/all")
       .then(res => {
-        console.log(res.data)
         this.countries = res.data
         this.flag = this.countries[0].flag
        })
@@ -139,13 +141,46 @@ export default defineComponent({
         console.log(err)
       });
     },
+    getCities(){
+    this.country = this.country == 'Venezuela (Bolivarian Republic of)' ? 'Venezuela' :this.country
+      const awsAxios = axios.create({
+          transformRequest: (data, headers) => {
+              // Remove all shared headers
+              delete headers.common;
+              // or just the auth header
+              delete headers['auth-token']
+          }
+      });
+
+     awsAxios
+      .get("https://countriesnow.space/api/v0.1/countries/states")
+      .then(res => {
+        var country = res.data.data.find(country => {
+          return country.name == this.country
+        })
+        console.log(  country )
+        this.state = country.states
+      })
+      .catch(err => {
+        console.log(err)
+      });
+
+    },
     async register() {
 
+      if(this.country == null){
+        toast.openToast("Seleccione un pais","error",2000)
+        return
+      }
+      if(this.city  == null){
+         toast.openToast("Seleccione un estado","error",2000)
+        return
+      }   
+
+      
       let loading = await toast.showLoading()
 
-      await loading.present();
-
-    
+      await loading.present(); 
     axios.post('/signup/mobile',{
         name: this.name,
         email: this.email,
@@ -157,12 +192,18 @@ export default defineComponent({
      })
       .then(res => {
         loading.dismiss()
-         this.$router.push({path: 'success',query : {customer_id : res.data.user.id }});
+        this.$router.push({path: 'success',query : {customer_id : res.data.user.id }});
       })
       .catch(err => {
-           loading.dismiss()
-        console.log(err)
-         toast.openToast("Error al registrar","error",2000)
+          loading.dismiss()
+          console.log(err)
+        /*if(err['response']['data']['status_code'] == 422){
+          toast.openToast(err['response']['data']['data'],"error",2000)
+        }else if(err['response']['data']['status_code'] == 500){
+          toast.openToast("Error interno","error",2000)
+        }else{
+          toast.openToast("Error de conexión","error",2000)
+        }*/
       });
     },
   }

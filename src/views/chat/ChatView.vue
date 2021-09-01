@@ -18,7 +18,7 @@
         </p>
         </ion-col>
         <ion-col>
-        <button v-if="exchange =='recibido' &&  status" @click="redirect({name : 'request.accepted.rejected' , params : {productId : request_id} , query :{} })"  style="margin-left: 54%;margin-top: 41px;background: transparent;">
+        <button v-if="exchange =='recibido' &&  !status" @click="redirect({name : 'request.accepted.rejected' , params : {productId : request_id} , query :{} })"  style="margin-left: 54%;margin-top: 41px;background: transparent;">
           <img src="/assets/ArrowsLeftRightGreenLow.png">
         </button>
       </ion-col>

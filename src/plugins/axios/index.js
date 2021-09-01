@@ -1,12 +1,11 @@
 
 import router from '@/router'
 import jwtToken from '@/plugins/jwt/jwt-token.js'
-import store from '@/plugins/store'
 import axios from 'axios'
+import toast from '@/toast'
 
-
-//axios.defaults.baseURL = 'http://192.168.43.131:5000/';
-axios.defaults.baseURL = 'https://mobile.upgrap.com/';
+axios.defaults.baseURL = 'http://192.168.43.131:5000/';
+//axios.defaults.baseURL = 'https://mobile.upgrap.com/';
 
 axios.interceptors.request.use(config => {
   config.headers['X-Requested-With'] = 'XMLHttpRequest';
@@ -29,20 +28,12 @@ axios.interceptors.response.use(response => {
   return response;
 }, error => {
 
-  //alert("error " +JSON.stringify(error) )
-  let errorResponseData = error.response.data;
-  const errors = ["token_invalid", 
-                  "Token not provided", 
-                  "Token has expired", 
-                  "Token is invalid", "token_expired", "token_not_provided","Expired JWT Token","JWT Token not found", 
-                  "Token is Expired"];
-
-  if (errors.includes(errorResponseData.message)) {
-    store.dispatch('unsetAuthUser')
-      .then(() => {
-        jwtToken.removeToken();
-        router.push({path: '/login'});
-      });
+  if(error['response']['status'] == 422){
+    toast.openToast(error['response']['data']['data'],"error",2000)
+  }else if(error['response']['status'] == 500){
+    toast.openToast("Error interno","error",2000)
+  }else{
+    toast.openToast("Error de conexión, intente nuevamente","error",2000)
   }
   return Promise.reject(error);
 });

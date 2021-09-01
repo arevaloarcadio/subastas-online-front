@@ -113,7 +113,7 @@ export default defineComponent({
         this.$router.push({path: '/principal' , query : {set_fcm : true }});
       })
       .catch(err => {
-        toast.openToast("Autenticación fallida","error",2000);
+        //toast.openToast("Autenticación fallida","error",2000);
         console.log(err)
         loading.dismiss()
       });
