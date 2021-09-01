@@ -1,4 +1,4 @@
-const BasePublic = 'mobile.com/uploads/';
+const BasePublic = 'http://mobile.upgrap.com/';
 
 //const BasePublic = 'http://localhost:4000/';
 
