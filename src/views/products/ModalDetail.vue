@@ -22,7 +22,7 @@
         <img :src="BasePublic+user?.photo">
       </ion-avatar>
       <ion-col style="margin-top: 15px;">
-         <span  style="font-family: Montserrat;font-style: normal;font-weight: 500;font-size: 20px;line-height: 24px;align-items: center;text-align: center;letter-spacing: 0.75px;color: #32BAB0;margin-left: 10px;">{{user.name}}</span> 
+         <span  style="font-family: Montserrat;font-style: normal;font-weight: 500;font-size: 20px;line-height: 24px;align-items: center;text-align: left;letter-spacing: 0.75px;color: #32BAB0;">{{user.name}}</span> 
       </ion-col>
     </ion-row>
     <div class="hr"> </div>

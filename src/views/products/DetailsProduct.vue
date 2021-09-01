@@ -308,6 +308,7 @@ export default defineComponent({
       .get("/customers/"+this.product.id_user)
       .then(res => {
         this.user = res.data
+        console.log(this.user )
        })
       .catch(err => {
         console.log(err)

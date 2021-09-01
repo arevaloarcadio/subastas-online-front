@@ -1,5 +1,5 @@
-const BasePublic = 'http://mobile.upgrap.com/';
+//const BasePublic = 'https://mobile.upgrap.com/uploads/';
 
-//const BasePublic = 'http://localhost:4000/';
+const BasePublic = 'http://localhost/';
 
 export default BasePublic

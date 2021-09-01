@@ -65,7 +65,7 @@
     
        <br>
        <br>
-      <p class="p-no-center" style="margin-left: 2px;margin-top: -12px"  >
+      <p class="p-no-center" style="margin-left: -1px;margin-top: -12px"  >
        Decide como te pueden contactar
      </p>
       <ion-row>

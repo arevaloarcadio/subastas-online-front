@@ -58,7 +58,7 @@
                 <ion-col size="8">
                   <div style="margin-left: -13%;">
                     <div   >
-                      <input type="text" style="font-size: 18px; font-family: Montserrat;font-style: normal;font-weight: normal;font-size: 16px;line-height: 20px;" v-model="country" class="input-text">
+                      <input type="text" style="padding-left: 3px;font-size: 18px; font-family: Montserrat;font-style: normal;font-weight: normal;font-size: 16px;line-height: 20px;" v-model="country" class="input-text">
                     </div>
                   </div>
                 </ion-col>
@@ -71,7 +71,11 @@
               <div  class="input-container">
                 <input type="text" style="font-size: 18px; font-family: Montserrat;font-style: normal;font-weight: normal;font-size: 16px;line-height: 20px;" v-model="city" class="input-text" >
                 <ion-select  :interface-options="customActionSheetOptions" interface="action-sheet" v-model="select_city" style="color: #32BAB0;width: 20%;"  @ionChange="getCity($event)" >
+                  <ion-select-option  v-for="state in state" :key="state" :value="state.name">{{state.name}}</ion-select-option>
               </ion-select>
+               <svg width="22" height="12" viewBox="0 0 22 12" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-right: 4%;" >
+                 <path d="M21 1L11 11L1 1" stroke="#5B716F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
               </div>
             </div>
           </ion-col>
@@ -216,7 +220,8 @@ export default defineComponent({
       descripcion : null,
       image : null,
       show_direction : null,
-      address : null
+      address : null,
+      state : []
     }
   },
   mounted(){
@@ -272,6 +277,7 @@ export default defineComponent({
         console.log(err)
       });
     },
+
     getPicture : function () {
       this.image = this.$refs.picture.files[0];
    
@@ -325,14 +331,15 @@ export default defineComponent({
     
     },
     getCountry(ev){
-       const country = this.countries.filter(function(country) {
+      this.city = null
+      const country = this.countries.filter(function(country) {
         if(country.name == ev.target.value){
           return country
         }
       });
-
       this.flag = country[0].flag
       this.country = ev.target.value;
+      this.getCities()
     },
     getCity(ev){
       this.city = ev.target.value;
@@ -363,6 +370,31 @@ export default defineComponent({
       .catch(err => {
         console.log(err)
       });
+    },
+    getCities(){
+      this.country = this.country == 'Venezuela (Bolivarian Republic of)' ? 'Venezuela' :this.country
+      const awsAxios = axios.create({
+          transformRequest: (data, headers) => {
+              // Remove all shared headers
+              delete headers.common;
+              // or just the auth header
+              delete headers['auth-token']
+          }
+      });
+
+     awsAxios
+      .get("https://countriesnow.space/api/v0.1/countries/states")
+      .then(res => {
+        var country = res.data.data.find(country => {
+          return country.name == this.country
+        })
+        console.log(  country )
+        this.state = country.states
+      })
+      .catch(err => {
+        console.log(err)
+      });
+
     },
     async openModal() {
       const modal = await modalController

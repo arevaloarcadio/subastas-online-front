@@ -47,7 +47,7 @@
 
           <ion-row style="margin-left: 5%">
             <img src="/assets/setting.png"   v-if="invite != true" style="height: 10%;color :#001D1B">&nbsp;&nbsp;
-            <p class="p-no-center"  v-if="invite != true" @click="redirect({name : 'setting'})" style="color: #000;margin-top: 0.2%;">Preferencia</p>
+            <p class="p-no-center"  v-if="invite != true" @click="redirect({name : 'setting'})" style="color: #000;margin-top: 0.2%;">Preferencias</p>
           </ion-row>
     
 

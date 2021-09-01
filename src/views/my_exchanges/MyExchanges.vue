@@ -6,26 +6,29 @@
           <p style="color: #000" class="title">
            Mis intercambios
           </p>
-          <p>
-            <button style="background: #fff"> 
-              <SvgProducts></SvgProducts>  
-            </button>
-          </p>
       </ion-col>
     </ion-row>
-
+    
+     <p>
+      <button style="background: #fff;margin-left: -13px;"> 
+        <SvgProducts></SvgProducts>  
+      </button>
+    </p>
+    
     <ion-row style="    margin-top: -25px;" >
       <ion-col size="8">
         <div style="margin-left: 16px;width: 120%;">
         <ion-row  style="margin-left: -20px;">
+        
           <span  v-for="filter in filters" :key="filter" class="small-filters" :style="styles[filter]"><span :style="styles[filter].span">{{filter}}</span><span style="color:  rgba(91, 113, 111, 0.6);" @click="removeFilter(filter)">
-            <svg v-if="filter != 'Por confirmar'" width="9" height="9" viewBox="0 0 9 9" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin: 9%;margin-left: 84%;">
+            <svg v-if="filter != 'Por confirmar'" width="9" height="9" viewBox="0 0 9 9" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin: 8% 9% 8% 84%;;">
               <path d="M9 1.269L7.731 0L4.5 3.231L1.269 0L0 1.269L3.231 4.5L0 7.731L1.269 9L4.5 5.769L7.731 9L9 7.731L5.769 4.5L9 1.269Z" fill="#5B716F" fill-opacity="0.6" />
             </svg>
             <svg v-else width="9" height="9" viewBox="0 0 9 9" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-top: 7%;" >
               <path d="M9 1.269L7.731 0L4.5 3.231L1.269 0L0 1.269L3.231 4.5L0 7.731L1.269 9L4.5 5.769L7.731 9L9 7.731L5.769 4.5L9 1.269Z" fill="#5B716F" fill-opacity="0.6" />
             </svg>
-          </span></span>
+          </span>
+         </span>
         </ion-row>
         </div>
       </ion-col>
@@ -142,6 +145,8 @@ export default defineComponent({
   },
   data(){
     return{
+       width : screen.width,
+       margin_top_active : null,
        BasePublic,
        filters : [] ,
        products : [],
@@ -163,7 +168,7 @@ export default defineComponent({
        styles : {
         'Aceptadas' : {
           value :  'Aceptada',
-          'width' : '101px', 
+          'width' : '110px', 
           span :{
             'position': 'absolute',
             'margin': '4px',
@@ -172,7 +177,7 @@ export default defineComponent({
         },
         'Recibidas' : {
           value :  'Recibida',
-          'width' : '97px', 
+          'width' : '102px', 
           span :{
             'position': 'absolute',
             'margin': '4px',
@@ -181,7 +186,7 @@ export default defineComponent({
         },
         'Rechazados' : {
           value :  'Rechazado',
-          'width' : '120px' , 
+          'width' : '128px' , 
           span :{
             'position': 'absolute',
             'margin': '4px',
@@ -192,7 +197,7 @@ export default defineComponent({
           value :  'Por confirmar',
           'width' : '125px' , 
           span : {    
-            'margin-left': '7%'
+            'margin-left': '7%',
             //'margin': '-6px',
             //'margin-top': '1%',
             //'margin-left': '1%'
@@ -264,24 +269,42 @@ socket.emit('user_conected',this.getUser)
   },
   methods:{
     filter_(filter){
-     let value =  filter
+  
+    let value =  filter
     var index = this.filters.indexOf(value);
     if (index !== -1) {
+    
       this.filters.splice(index, 1);
+    
+      if(this.margin_top_active != null){
+        delete this.styles[this.margin_top_active]['margin-top'] 
+        this.margin_top_active = null
+      }
+    
     }else{
       this.filters.push(value)
       this.post_filters.push(this.products_values[value].name)
 
+      if(this.width <= 505 &&  this.filters.length > 2){
+        this.margin_top_active = value
+        console.log( this.margin_top_active)
+        this.styles[value]['margin-top'] =  '10px'
+      }
+
     }
     this.getProducts()
     this.setOpen(false)
-
-      //this.$refs.ionSelectFilter.value = ''
+    //this.$refs.ionSelectFilter.value = ''
     },
     removeFilter(filter){
 
       var index = this.filters.indexOf(filter);
-      var index1= this.post_filters.indexOf(this.products_values[filter].name);
+      var index1= this.post_filters.indexOf(this.products_values[filter].name);3
+      if(this.margin_top_active != null){
+        delete this.styles[this.margin_top_active]['margin-top'] 
+        this.margin_top_active = null
+      }
+      
       if (index !== -1 || index1 !== -1) {
         this.filters.splice(index, 1);
         this.post_filters.splice(index1, 1);

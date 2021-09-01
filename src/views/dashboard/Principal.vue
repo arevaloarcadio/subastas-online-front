@@ -57,7 +57,7 @@
    
            <ion-row style="margin-top: -18px;">
             <ion-col v-for="product in products" :key="product"  size="6" >
-                <ion-card class="cursor" @click="redirect_details(product)" style="width: 100%;left:-8px;overflow-y: auto;">
+                <ion-card class="cursor" @click="redirect_details(product)" style="width: 100%;left:-8px;">
                   <div v-show="product.requests != 0"  class="badge-2" style="padding-left: 18px;padding-top: 6.5px;"> 
                     <span  style="">
                     {{product.requests}}
@@ -77,7 +77,10 @@
 
                  <ion-card-subtitle  style="color: #000">
                     <ion-row>
-                    <b  style="font-family: Montserrat;font-style: normal;font-weight: bold;font-size: 16px;line-height: 20px;align-items: center;letter-spacing: 0.75px;color: #001D1B;margin-top: -15px;"> 
+                    <b v-if="product.name.length > 15" style="font-family: Montserrat;font-style: normal;font-weight: bold;font-size: 16px;line-height: 20px;align-items: center;letter-spacing: 0.75px;color: #001D1B;margin-top: -15px;"> 
+                       {{product.name.substr(0,15)+'...'}}
+                    </b>
+                    <b v-else  style="font-family: Montserrat;font-style: normal;font-weight: bold;font-size: 16px;line-height: 20px;align-items: center;letter-spacing: 0.75px;color: #001D1B;margin-top: -15px;"> 
                        {{product.name}}
                     </b>
                     </ion-row>  
@@ -85,7 +88,10 @@
                 
                   </ion-card-header>
 
-                  <ion-card-content style="margin-top:-15px">{{product.pais}}, {{product.city}}
+                  <ion-card-content v-if="(product.pais+','+product.city).length > 15" style="margin-top:-15px">{{(product.pais+', '+product.city).substr(0,22)+'...'}}
+                </ion-card-content>
+
+                <ion-card-content v-else style="margin-top:-15px">{{product.pais+', '+product.city}}
                 </ion-card-content>
 
               </ion-card>
@@ -189,7 +195,7 @@ export default defineComponent({
   mounted(){
     socket.emit('user_conected',this.getUser)
     this.invite = this.$route.query.invite == undefined ? false : true
-    if(this.$route.query.set_fcm){
+    if(this.$route.query.set_fcm && this.getUser.id != null){
       this.setFcm()
     }
     this.getProducts(this.reload)

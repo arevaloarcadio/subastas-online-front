@@ -28,6 +28,11 @@ axios.interceptors.response.use(response => {
   return response;
 }, error => {
 
+  if(error['response'] == undefined){
+      toast.openToast("Error de conexión, intente nuevamente","error",2000)
+      return Promise.reject(error);
+  }
+  
   if(error['response']['status'] == 422){
     toast.openToast(error['response']['data']['data'],"error",2000)
   }else if(error['response']['status'] == 500){
@@ -35,5 +40,6 @@ axios.interceptors.response.use(response => {
   }else{
     toast.openToast("Error de conexión, intente nuevamente","error",2000)
   }
+  
   return Promise.reject(error);
 });
