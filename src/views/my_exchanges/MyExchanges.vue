@@ -21,10 +21,10 @@
         <ion-row  style="margin-left: -20px;">
         
           <span  v-for="filter in filters" :key="filter" class="small-filters" :style="styles[filter]"><span :style="styles[filter].span">{{filter}}</span><span style="color:  rgba(91, 113, 111, 0.6);" @click="removeFilter(filter)">
-            <svg v-if="filter != 'Por confirmar'" width="9" height="9" viewBox="0 0 9 9" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin: 8% 9% 8% 84%;;">
+            <svg v-if="filter != 'Por confirmar'" width="9" height="9" viewBox="0 0 9 9" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin: 8% 9% 8% 84%;">
               <path d="M9 1.269L7.731 0L4.5 3.231L1.269 0L0 1.269L3.231 4.5L0 7.731L1.269 9L4.5 5.769L7.731 9L9 7.731L5.769 4.5L9 1.269Z" fill="#5B716F" fill-opacity="0.6" />
             </svg>
-            <svg v-else width="9" height="9" viewBox="0 0 9 9" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-top: 7%;" >
+            <svg v-else width="9" height="9" viewBox="0 0 9 9" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-top: 7%;margin-left: 2%" >
               <path d="M9 1.269L7.731 0L4.5 3.231L1.269 0L0 1.269L3.231 4.5L0 7.731L1.269 9L4.5 5.769L7.731 9L9 7.731L5.769 4.5L9 1.269Z" fill="#5B716F" fill-opacity="0.6" />
             </svg>
           </span>
@@ -186,7 +186,7 @@ export default defineComponent({
         },
         'Rechazados' : {
           value :  'Rechazado',
-          'width' : '128px' , 
+          'width' : '118px' , 
           span :{
             'position': 'absolute',
             'margin': '4px',
@@ -195,7 +195,7 @@ export default defineComponent({
         },
         'Por confirmar' : {
           value :  'Por confirmar',
-          'width' : '125px' , 
+          'width' : '128px' , 
           span : {    
             'margin-left': '7%',
             //'margin': '-6px',

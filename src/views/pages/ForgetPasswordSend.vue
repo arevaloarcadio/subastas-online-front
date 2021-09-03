@@ -71,17 +71,16 @@ export default defineComponent({
     axios
       .post("/register",data)
       .then(res => {
-        if(!res.data.error)
           this.openToast(res.data.data,'success')
-        else
-          this.openToast('Error Interno','warning')
+  
       })
       .catch(err => {
-        if(err.response.type == 'validation'){
+        console.log(err)
+        /*if(err.response.type == 'validation'){
           this.openToast(err.response.data.data,'warning')
         }else{
            this.openToast(err.response.data.data,'danger')
-        }
+        }*/
       });
 
      await loading.dismiss()

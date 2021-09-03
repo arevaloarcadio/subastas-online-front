@@ -69,6 +69,7 @@ import { defineComponent, ref } from 'vue';
 import axios from 'axios'
 import toast from '@/toast'
 import send_notification from '@/plugins/fcm/send_notification'
+import { mapGetters } from 'vuex'
 
 export default defineComponent({
   components: {
@@ -134,6 +135,11 @@ export default defineComponent({
     this.product_select_id = this.$route.query.product_select_id
     this.product_select_photo = this.$route.query.product_select_photo
     this.product_select_id_user = this.$route.query.product_select_id_user
+  },
+    computed : {
+    ...mapGetters([
+        'getUser'
+    ]),
   },
   methods:{
     redirect(path) {

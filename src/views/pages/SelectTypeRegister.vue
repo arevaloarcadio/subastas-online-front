@@ -148,17 +148,17 @@ export default defineComponent({
           .catch(err => {
             loading.dismiss()
             console.log(err.response)
-            if(err.response.data?.message){
+            /*if(err.response.data?.message){
               toast.openToast(err.response.data.message,"error",2000);
             }else{
               toast.openToast("Ha ocurrido un error","error",2000);
-            }
+            }*/
          }) 
       })
       .catch(err => {
         console.log(err)
         loading.dismiss()
-        toast.openToast("Ha ocurrido un error","error",2000);
+        //toast.openToast("Ha ocurrido un error","error",2000);
       })  
     },
     registerGoogle() {
@@ -196,11 +196,11 @@ export default defineComponent({
         .catch(err => {
           loading.dismiss()
           console.log(err.response)
-          if(err.response.data?.message){
+          /*if(err.response.data?.message){
             toast.openToast(err.response.data.message,"error",2000);
           }else{
             toast.openToast("Ha ocurrido un error","error",2000);
-          }
+          }*/
       }); 
     }
   }

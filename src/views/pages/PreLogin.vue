@@ -124,27 +124,28 @@ export default defineComponent({
         
          axios
           .post("/signin/mobile/facebook",{email : this.fb_user.email , name :this.fb_user.name })
-          .then(res => {
+          .then(async res => {
             loading.dismiss()
             user.setUser(res.data.user)
             jwtToken.setToken(res.data.token);
             this.setAuthUser(res.data.user)
+            await FacebookLogin.logout()
             this.$router.push({path: '/principal' , query : {set_fcm : true }});
           })
           .catch(err => {
             loading.dismiss()
             console.log(err.response)
-            if(err.response.data?.message){
+            /*if(err.response.data?.message){
               toast.openToast(err.response.data.message,"error",2000);
             }else{
               toast.openToast("Ha ocurrido un error","error",2000);
-            }
+            }*/
          }) 
       })
       .catch(err => {
         console.log(err)
         loading.dismiss()
-        toast.openToast("Ha ocurrido un error","error",2000);
+        //toast.openToast("Ha ocurrido un error","error",2000);
       }) 
    },
    async loginGoogle() {
@@ -170,21 +171,22 @@ export default defineComponent({
 
     axios
       .post("/signin/mobile/google",data)
-      .then(res => {
+      .then(async res =>  {
         loading.dismiss()
         user.setUser(res.data.user)
         jwtToken.setToken(res.data.token);
         this.setAuthUser(res.data.user)
+        await Plugins.GoogleAuth.signOut();
         this.$router.push({path: '/principal' , query : {set_fcm : true }});
       })
       .catch(err => {
         loading.dismiss()
         console.log(err.response)
-        if(err.response.data?.message){
+        /*if(err.response.data?.message){
           toast.openToast(err.response.data.message,"error",2000);
         }else{
           toast.openToast("Ha ocurrido un error","error",2000);
-        }
+        }*/
       });
     }
 }

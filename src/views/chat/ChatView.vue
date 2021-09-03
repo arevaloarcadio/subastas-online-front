@@ -66,7 +66,7 @@
                 <path d="M14 18.375C16.1746 18.375 17.9375 16.6121 17.9375 14.4375C17.9375 12.2629 16.1746 10.5 14 10.5C11.8254 10.5 10.0625 12.2629 10.0625 14.4375C10.0625 16.6121 11.8254 18.375 14 18.375Z" stroke="#5B716F" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
               </span>
-          <input type="text" v-model="message" placeholder="Escribe algo" >
+          <input type="text"  style="padding-right: 15%;" v-model="message" placeholder="Escribe algo" >
              
           <button style="background: #fff;"><img src="/assets/button-send.svg" @click="postMessage()" style="margin-left: -56px;margin-top: -13px;"></button>
           </div>

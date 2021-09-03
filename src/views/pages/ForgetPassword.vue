@@ -82,7 +82,7 @@ export default defineComponent({
       .catch(err => {
         console.log(err)
           loading.dismiss()
-        toast.openToast("Ha ocurrido un error","error",2000);
+        //toast.openToast("Ha ocurrido un error","error",2000);
       });
 
    

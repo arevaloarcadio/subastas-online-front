@@ -261,7 +261,9 @@ export default defineComponent({
         console.log(err)
       });
     },
-    savePost(){
+    async savePost(){
+    var loading = await toast.showLoading()
+    await loading.present();
      axios
       .post("/products/save/post",{
         product_id : this.product.id,
@@ -270,13 +272,17 @@ export default defineComponent({
       .then(res => {
         console.log(res)
           this.saved = true
+          loading.dismiss()
           toast.openToast("Publicación guardado registrado exitosamente","error",2000);
        })
       .catch(err => {
+        loading.dismiss()
         console.log(err)
       });
     },
-    deletePost(){
+    async deletePost(){
+    var loading = await toast.showLoading()
+    await loading.present();
      axios
       .delete("/products/saved/"+this.getUser.id+"/"+this.product.id)
       .then(res => {
@@ -286,6 +292,7 @@ export default defineComponent({
          
        })
       .catch(err => {
+        loading.dismiss()
         console.log(err)
       });
     },

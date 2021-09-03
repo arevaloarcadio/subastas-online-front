@@ -321,6 +321,7 @@ export default defineComponent({
         console.log(res.data)
 
         loading.dismiss()
+        toast.openToast("Producto publicado exitosamente","success",2000);
         this.$router.push({path : '/principal'})
       })
       .catch(err => {
