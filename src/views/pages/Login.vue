@@ -51,7 +51,7 @@
     <button type="button" class="btn-primary" @click="signIn"   style="width: 180px">
         Iniciar Sesión
     </button> <br><br>
-    <a   @click="() => router.push('/pre_login')" class="text-control">Atras</a>
+    <a @click="() => router.push('/pre_login')" class="text-control">Atrás</a>
   </p>
    </ion-content>    
 

@@ -12,7 +12,7 @@
         </button>
           
     <p   style="font-family: Montserrat;font-style: normal;font-weight: 500;font-size: 20px;line-height: 24px;align-items: center;text-align: center;letter-spacing: 0.75px;color: #000000;">
-      ¿Quién interambia este <br> producto?
+      ¿Quién intercambia este <br> producto?
     </p>
  
 

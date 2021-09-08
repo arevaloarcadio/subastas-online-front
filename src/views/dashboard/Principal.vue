@@ -10,7 +10,7 @@
                 <path fill-rule="evenodd" clip-rule="evenodd" d="M21 12.75C21 8.145 19.29 4.29 15 3.27V0H9V3.27C4.695 4.29 3 8.13 3 12.75L3 21L0 22.5V25.5H24V22.5L21 21L21 12.75ZM12.6 29.94C12.405 29.985 12.21 30 12 30C10.335 30 9.00001 28.65 8.98501 27H14.985C14.985 27.42 14.91 27.81 14.76 28.17C14.37 29.07 13.575 29.73 12.6 29.94Z" fill="#001D1B"/>
                 </svg>
             </button>
-            <button v-else style="background-color: #fff"> <svg width="24" height="30" viewBox="0 0 24 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <button v-else @click="toast.openToast('Regístrese o inicie sesión para acceder a esta sección.','error',2000);" style="background-color: #fff"> <svg width="24" height="30" viewBox="0 0 24 30" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path fill-rule="evenodd" clip-rule="evenodd" d="M21 12.75C21 8.145 19.29 4.29 15 3.27V0H9V3.27C4.695 4.29 3 8.13 3 12.75L3 21L0 22.5V25.5H24V22.5L21 21L21 12.75ZM12.6 29.94C12.405 29.985 12.21 30 12 30C10.335 30 9.00001 28.65 8.98501 27H14.985C14.985 27.42 14.91 27.81 14.76 28.17C14.37 29.07 13.575 29.73 12.6 29.94Z" fill="#001D1B"/>
                 </svg>
             </button>
@@ -133,7 +133,7 @@ import {
   IonPage
  } from '@ionic/vue';
 import fcm_token from '@/plugins/fcm/fcm-token' ; 
-
+import toast from '@/toast'
 import { defineComponent, ref } from 'vue';
 import { createAnimation } from '@ionic/vue';
 import io from 'socket.io-client'
@@ -185,11 +185,13 @@ export default defineComponent({
   },
   data(){
     return {
+      toast,
       BasePublic,
       products :[],
       reload : 0,
       invite : null,
-      input_filter : null
+      input_filter : null,
+      base64 : []
     }
   },
   mounted(){
@@ -201,6 +203,20 @@ export default defineComponent({
     this.getProducts(this.reload)
   },
   methods:{
+     getBase64Resize(url,id){
+      var self = this
+        window.Jimp.read(url).then(function (lenna) {
+               lenna.resize(256, window.Jimp.AUTO)      // resize
+                 .quality(60)                 // set JPEG quality
+                 .getBase64(window.Jimp.AUTO, function (err, src) {
+                
+                     self.base64[id] = src;
+                     console.log(self.base64[id])
+                 });
+        })
+
+      return self.base64[id]
+    },
     setFcm(){
         axios
         .post("/fcm",{customer_id : this.getUser.id , token : fcm_token.getToken()})

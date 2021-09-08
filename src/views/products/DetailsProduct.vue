@@ -208,7 +208,10 @@ export default defineComponent({
     this.getCustomer()
     this.getCategory()
     this.getProductsByCategories()
-    this.getSavePost()
+    if(this.getUser.d != null) {
+      this.getSavePost()
+    }
+    
     console.log(this.getUser.id === null)
   },
   computed : {
@@ -223,14 +226,17 @@ export default defineComponent({
         this.getCustomer()
         this.getCategory()
         this.getProductsByCategories()
-        this.getSavePost()  
+         if(this.getUser.id != null) {
+            this.getSavePost()
+          }
+     
       }
     }
   },
   methods:{
     redirect(path) {
       if(this.getUser.id === null){
-         toast.openToast("Para enviar una solicitud debe iniciar sesión","error",2000);
+         toast.openToast("Regístrese o inicie sesión para acceder a esta sección.","error",2000);
          return
       }
       this.$router.push(path);
@@ -262,6 +268,10 @@ export default defineComponent({
       });
     },
     async savePost(){
+    if(this.getUser.id === null){
+     toast.openToast("Regístrese o inicie sesión para acceder a esta sección.","error",2000);
+     return
+    }
     var loading = await toast.showLoading()
     await loading.present();
      axios
@@ -281,6 +291,10 @@ export default defineComponent({
       });
     },
     async deletePost(){
+    if(this.getUser.id === null){
+     toast.openToast("Regístrese o inicie sesión para acceder a esta sección.","error",2000);
+     return
+    }
     var loading = await toast.showLoading()
     await loading.present();
      axios

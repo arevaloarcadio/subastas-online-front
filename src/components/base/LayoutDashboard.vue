@@ -18,8 +18,7 @@
             </center>
         </ion-col>
         <ion-col col-2 class="cursor">
-           <img src="/assets/tag.svg" v-if="!invite" style="margin-bottom: -31px;" @click="redirect('/saved_posts')">
-            <img src="/assets/tag.svg" v-else style="margin-bottom: -31px;" >
+           <img src="/assets/tag.svg"  style="margin-bottom: -31px;" @click="redirect('/saved_posts')">
            <center>
              <svg class="active" v-show="path == '/saved_posts'"   width="41" height="14" viewBox="0 0 41 14" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M0 24.9998C0 13.678 9.17816 0 20.5 0C31.8218 0 41 13.678 41 24.9998C41 36.3217 31.8218 16.5 20.5 16.5C9.17816 16.5 0 36.3217 0 24.9998Z" fill="#32BAB0"/>
@@ -27,8 +26,7 @@
             </center>
         </ion-col>
         <ion-col col-2>
-           <img src="/assets/plus_circle.svg" v-if="!invite" style="margin-bottom: -34px;" class="cursor" @click="redirect('/create/product')">
-            <img src="/assets/plus_circle.svg" v-else style="margin-bottom: -34px;" class="cursor">
+           <img src="/assets/plus_circle.svg" style="margin-bottom: -34px;" class="cursor" @click="redirect('/create/product')">
            <center>
             <svg class="active" v-show="path == '/create/product' || path == '/create/details/product'"  width="41" height="14" viewBox="0 0 41 14" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M0 24.9998C0 13.678 9.17816 0 20.5 0C31.8218 0 41 13.678 41 24.9998C41 36.3217 31.8218 16.5 20.5 16.5C9.17816 16.5 0 36.3217 0 24.9998Z" fill="#32BAB0"/>
@@ -36,8 +34,7 @@
             </center>
         </ion-col>
         <ion-col col-2>
-           <img src="/assets/ArrowsLeftRight.svg" v-if="!invite" style="margin-bottom: -34px;" class="cursor" @click="redirect('/my_exchanges')">
-           <img src="/assets/ArrowsLeftRight.svg" v-else  style="margin-bottom: -34px;" class="cursor" >
+           <img src="/assets/ArrowsLeftRight.svg" style="margin-bottom: -34px;" class="cursor" @click="redirect('/my_exchanges')">
            <center>
              <svg class="active" v-show="path == '/my_exchanges'"  width="41" height="14" viewBox="0 0 41 14" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M0 24.9998C0 13.678 9.17816 0 20.5 0C31.8218 0 41 13.678 41 24.9998C41 36.3217 31.8218 16.5 20.5 16.5C9.17816 16.5 0 36.3217 0 24.9998Z" fill="#32BAB0"/>
@@ -45,8 +42,7 @@
             </center>
         </ion-col>
         <ion-col col-2>
-           <img src="/assets/ChatCircleDots.svg" v-if="!invite"  style="margin-bottom: -34px;" class="cursor" @click="redirect(chat)">
-           <img src="/assets/ChatCircleDots.svg"  v-else style="margin-bottom: -34px;" class="cursor" >
+           <img src="/assets/ChatCircleDots.svg"   style="margin-bottom: -34px;" class="cursor" @click="redirect(chat)">
            <center>
               <svg class="active" v-show="path == '/chat'"  width="41" height="14" viewBox="0 0 41 14" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M0 24.9998C0 13.678 9.17816 0 20.5 0C31.8218 0 41 13.678 41 24.9998C41 36.3217 31.8218 16.5 20.5 16.5C9.17816 16.5 0 36.3217 0 24.9998Z" fill="#32BAB0"/>
@@ -109,7 +105,12 @@ export default {
   },
   methods: {
     redirect(path) {
+      if(this.getUser.id === null){
+         toast.openToast("Regístrese o inicie sesión para acceder a esta sección.","error",2000);
+         return
+      }
       this.$router.push({path: path});
+
     },
     getAcceptedTerms(){
       axios

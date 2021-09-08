@@ -110,8 +110,10 @@ export default defineComponent({
   },
   created(){
     socket.emit('user_conected',this.getUser)
-       this.invite = this.$route.query.invite == undefined ? false : true
-    this.getCustomer()
+    this.invite = this.$route.query.invite == undefined ? false : true
+    if(!this.invite){
+      this.getCustomer()
+    }
   },
   methods:{
     redirect(path) {
@@ -125,7 +127,7 @@ export default defineComponent({
       
       this.loading.present(); 
 
-      if(fcm_token.getToken() === null || fcm_token.getToken() === {}){
+      if(this.invite){
         return this.logout()
       }
       
@@ -142,13 +144,8 @@ export default defineComponent({
         });
     },
     logout(){
-      
-      
-      
       jwtToken.removeToken();
       
-      fcm_token.removeToken()
-
       this.$store.dispatch('unsetAuthUser')
       .then(() => {
         this.$router.push({path: '/login'});
