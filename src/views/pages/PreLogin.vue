@@ -47,7 +47,7 @@ import axios from 'axios';
 import { useRouter } from 'vue-router';
 import { Plugins } from '@capacitor/core'
 import { FacebookLogin } from '@capacitor-community/facebook-login';
-import "@codetrix-studio/capacitor-google-auth";
+import '@codetrix-studio/capacitor-google-auth';
 //591791636275-45hoofl1j9jcdbkfmv2cc88a51i2ahtl.apps.googleusercontent.com Tu ID de cliente
 
 //CKfLfyeO3d137Or-4dtBa9nN tu secreto de cliente
@@ -71,6 +71,7 @@ export default defineComponent({
       return { router };
   },
   mounted(){  
+    console.log(Plugins)
 
   //GoogleAuth.init(); // or await GoogleAuth.init()  
   window.fbAsyncInit = function() {
@@ -107,6 +108,9 @@ export default defineComponent({
 
       if (result.accessToken) {
         this.token = result.accessToken;
+      }else{
+        toast.openToast("Error al regitrar con facebook","error",2000);
+        return
       }
       
       //alert(JSON.stringify(result))

@@ -73,7 +73,7 @@ import {mapActions} from "vuex";
 import user from "@/plugins/jwt/user";
 import { Plugins } from '@capacitor/core'
 import { FacebookLogin } from '@capacitor-community/facebook-login';
-import "@codetrix-studio/capacitor-google-auth";
+import '@codetrix-studio/capacitor-google-auth';
 
 export default defineComponent({
   components: { IonRow,IonGrid,IonCol},
@@ -90,7 +90,8 @@ export default defineComponent({
   mounted(){
 
     //Plugins.GoogleAuth.init(); // or await GoogleAuth.init()  
-  
+   console.log(Plugins)
+
     window.fbAsyncInit = function() {
       window.FB.init({
         appId: '891037061645114',
@@ -122,6 +123,9 @@ export default defineComponent({
 
       if (result.accessToken) {
         this.token = result.accessToken;
+      }else{
+        toast.openToast("Error al regitrar con facebook","error",2000);
+        return
       }
       
       //alert(JSON.stringify(result))
@@ -161,47 +165,45 @@ export default defineComponent({
         //toast.openToast("Ha ocurrido un error","error",2000);
       })  
     },
-    registerGoogle() {
-  
-    Plugins.GoogleAuth.signIn().then((googleUser)  => {
-        //alert("user" + JSON.stringify(googleUser))
-      this.user = googleUser
-      this.register()
-    }).catch((error) =>{
-      alert("error" + JSON.stringify(error))
-    });
+    async registerGoogle(){
+    
+    const googleUser = await Plugins.GoogleAuth.signIn();
+    
+    console.log('my user: ', googleUser);
+    
+    if(!googleUser?.email){
+      toast.openToast("Error al regitrar con google","error",2000);
+      return
+    }
+    
+    var loading = await toast.showLoading()
 
-   
-    },
-    async register(){
-      var loading = await toast.showLoading()
+    await loading.present();
 
-      await loading.present();
+    let data = {
+      email : googleUser.email,
+       name : googleUser.name,
+    }
 
-      let data = {
-        email : this.user.email,
-        name: this.user.name, 
-        imageUrl: this.user.imageUrl,
-      }
-
-      axios
-        .post("/signup/mobile/google",data)
-        .then(res => {
-          loading.dismiss()
-          user.setUser(res.data.user)
-          jwtToken.setToken(res.data.token);
-          this.setAuthUser(res.data.user)
-          this.$router.push({path: '/principal' , query : {set_fcm : true }});
-        })
-        .catch(err => {
-          loading.dismiss()
-          console.log(err.response)
-          /*if(err.response.data?.message){
-            toast.openToast(err.response.data.message,"error",2000);
-          }else{
-            toast.openToast("Ha ocurrido un error","error",2000);
-          }*/
-      }); 
+    axios
+      .post("/signup/mobile/google",data)
+      .then(async res =>  {
+        loading.dismiss()
+        user.setUser(res.data.user)
+        jwtToken.setToken(res.data.token);
+        this.setAuthUser(res.data.user)
+        await Plugins.GoogleAuth.signOut();
+        this.$router.push({path: '/principal' , query : {set_fcm : true }});
+      })
+      .catch(err => {
+        loading.dismiss()
+        console.log(err.response)
+        /*if(err.response.data?.message){
+          toast.openToast(err.response.data.message,"error",2000);
+        }else{
+          toast.openToast("Ha ocurrido un error","error",2000);
+        }*/
+      });
     }
   }
 });
