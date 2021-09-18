@@ -77,7 +77,7 @@
               <path d="M20 3.02962L17.18 0.292725L10 7.26113L2.82 0.292725L0 3.02962L7.18 9.99803L0 16.9664L2.82 19.7033L10 12.7349L17.18 19.7033L20 16.9664L12.82 9.99803L20 3.02962Z" fill="#000" fill-opacity="0.5"/>
               </svg>
 
-                <img :src="takenImageUrl" style="height: 200px;width: 100%;">
+                <img :src="takenImageUrl" style="height: 290px;width: 100%;">
                 </div>
               </div>
             </ion-col>
@@ -264,10 +264,26 @@ export default defineComponent({
       this.takenImageUrl = photo.webPath;
     },
     getPhoto($event){
-      console.log($event)
-      this.image = $event.dataUrl
+
+      //this.image = $event.dataUrl
+
       this.takenImageUrl = URL.createObjectURL(this.dataURLtoFile($event.dataUrl,'image'));
+
       this.setOpen(false)
+
+      var self = this
+      const buf = Buffer.from($event.dataUrl.split(',')[1], 'base64');
+
+      window.jimp.read(buf).then(info => {
+        info.resize(512, window.jimp.AUTO,window.jimp.RESIZE_BEZIER)
+        .getBase64(window.jimp.MIME_JPEG, function (err, src) {
+          console.log(src);
+          self.image = src
+        })
+      })
+      .catch(err => {
+        console.log('error - '+err)
+      })
     },
     dataURLtoFile : function(dataurl, filename) {
         var arr = dataurl.split(','),
