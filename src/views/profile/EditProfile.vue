@@ -150,14 +150,14 @@ export default defineComponent({
     return {
       BasePublic,
       user :{
-        name : null,
-        city : null,
-        dir : null,
-        pais : null,
-        phone : null,
-        photo : null
+        name : '',
+        city : '',
+        dir : '',
+        pais : '',
+        phone : '',
+        photo : ''
       },
-      photo : null
+      photo : ''
     }
   },
   setup(){
