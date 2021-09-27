@@ -19,9 +19,9 @@
 
                 <ion-row>
                   <ion-col size="4">
-                    <img :src="flag" class="select-country" style="width: 20px;height: 16px">
+                    <img class="select-country" style="width: 20px;height: 16px"  :src="'https://www.countryflags.io/'+flag+'/flat/64.png'"> 
                     <ion-select id="ionSelectCountry" :interface-options="customActionSheetOptions" interface="action-sheet" style="background: #32BAB0;border-radius: 10px;color: #32BAB0;font-family: Montserrat;width: 81%;height: 100%;"  ok-text="Seleccionar" cancel-text="Cerrar" @ionChange="getCountry($event)">
-                      <ion-select-option v-for="country in countries" :key="country" :value="country.name">{{country.name}}</ion-select-option>
+                      <ion-select-option v-for="country in countries" :key="country" :value="country.country">{{country.country}}</ion-select-option>
                   </ion-select>
                 </ion-col>
                 <ion-col size="8">
@@ -67,7 +67,8 @@ import { IonRow,IonGrid,IonCol,IonSelect, IonSelectOption  } from '@ionic/vue';
 import { defineComponent } from 'vue';
 import axios from 'axios'
 import toast from '@/toast'
-//import { injectStyles } from 'shadow-dom-inject-styles';
+import countries from './countries.json'
+import states from './states.json'
 
 export default defineComponent({
   components: { IonRow,IonGrid,IonCol,IonSelect, IonSelectOption},
@@ -80,8 +81,9 @@ export default defineComponent({
       password: null,
       country : null,
       city : null,
-      countries : null,
-      flag : 'https://restcountries.eu/data/afg.svg',
+      countries : countries,
+      states : states.data,
+      flag : 'AF',
       state :null
     };
   },
@@ -97,32 +99,41 @@ export default defineComponent({
     document.querySelector('#ionSelectCity').shadowRoot.innerHTML = svgCity 
     document.querySelector('#ionSelectCountry').shadowRoot.innerHTML =  svgCountry 
 
-    this.getCountries()
-
-
     this.name = this.$route.query.name;
     this.email = this.$route.query.email;
     this.password = this.$route.query.password;
-
   },
   methods: {
+  unicodeToText: function(string) {
+      return unescape( encodeURIComponent( string ) );
+    },
     getCountry(ev){
       this.city = null
-      const country_selected = this.countries.filter(function(country) {
-        if(country.name == ev.target.value){
+      const country_selected =  this.countries.filter(function(country) {
+        if(country.country == ev.target.value){
            return country
         }
       });
-      this.flag = country_selected[0].flag
+      this.flag = country_selected[0].abbreviation.toLowerCase()
       this.country = ev.target.value;
       this.getCities()
     },
     getCity(ev){
       this.city = ev.target.value;
     },
+    compare( a, b ) {
+      if ( a.name < b.name ){
+        return -1;
+      }
+      if ( a.name > b.name ){
+        return 1;
+      }
+      return 0;
+    },
+
     getCountries(){
       
-      const awsAxios = axios.create({
+      /*const awsAxios = axios.create({
           transformRequest: (data, headers) => {
               // Remove all shared headers
               delete headers.common;
@@ -132,39 +143,24 @@ export default defineComponent({
       });
 
       awsAxios
-      .get("https://restcountries.eu/rest/v2/all")
+      .get("https://countriesnow.space/api/v0.1/countries/flag/unicode")
       .then(res => {
-        this.countries = res.data
-        this.flag = this.countries[0].flag
+        console.log(res.data)
+        this.countries = res.data.data.sort(this.compare);
+       
+        this.flag = this.unicodeToText(this.countries[0].unicodeFlag);
+       
        })
       .catch(err => {
         console.log(err)
-      });
+      });*/
     },
     getCities(){
-    this.country = this.country == 'Venezuela (Bolivarian Republic of)' ? 'Venezuela' :this.country
-      const awsAxios = axios.create({
-          transformRequest: (data, headers) => {
-              // Remove all shared headers
-              delete headers.common;
-              // or just the auth header
-              delete headers['auth-token']
-          }
-      });
-
-     awsAxios
-      .get("https://countriesnow.space/api/v0.1/countries/states")
-      .then(res => {
-        var country = res.data.data.find(country => {
-          return country.name == this.country
-        })
-        console.log(  country )
-        this.state = country.states
+      var country = this.states.find(country => {
+        return country.name == this.country
       })
-      .catch(err => {
-        console.log(err)
-      });
 
+      this.state = country.states
     },
     async register() {
 

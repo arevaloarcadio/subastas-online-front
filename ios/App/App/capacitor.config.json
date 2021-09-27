@@ -1,5 +1,5 @@
 {
-	"appId": "com.upgrap",
+	"appId": "com.app.upgrap",
 	"appName": "Upgrap",
 	"bundledWebRuntime": false,
 	"npmClient": "npm",

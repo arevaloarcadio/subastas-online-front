@@ -10,6 +10,7 @@ import com.getcapacitor.community.fcm.FCMPlugin;
 import com.capacitorjs.plugins.camera.CameraPlugin;
 import com.capacitorjs.plugins.pushnotifications.PushNotificationsPlugin;
 import com.codetrixstudio.capacitor.GoogleAuth.GoogleAuth;
+import com.getcapacitor.community.applesignin.SignInWithApple;
 
 public class MainActivity extends BridgeActivity {
   @Override
@@ -22,6 +23,7 @@ public class MainActivity extends BridgeActivity {
       add(CameraPlugin.class);
       add(PushNotificationsPlugin.class);
       add(GoogleAuth.class);
+      add(SignInWithApple.class);
       // Additional plugins you've installed go here
       // Ex: add(TotallyAwesomePlugin.class);
     }});

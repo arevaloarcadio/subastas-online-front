@@ -31,8 +31,11 @@
         </ion-col>
       </ion-row>
     </ion-grid>
+    <center><img v-show="showAppleSignIn" src="/assets/icon-apple.png" @click="loginApple" style="height:50px;width: 40px"></center>
+
     <br>
-      <a class="text-control" style="font-weight: 600;font-size: 16px;line-height: 20px;" @click="$router.push({path: '/principal' , query : {invite : true }})"> Continuar como invitado</a>
+      <a class="text-control" style="font-weight: 600;font-size: 16px;line-height: 20px;" @click="$router.push({path: '/principal' , query : {invite : true }})"> Continuar como invitado</a> <br>
+      <br>
     </p>  
  </ion-page> 
 </template>
@@ -46,11 +49,16 @@ import user from "@/plugins/jwt/user";
 import axios from 'axios';
 import { useRouter } from 'vue-router';
 import { Plugins } from '@capacitor/core'
+import '@capacitor-community/apple-sign-in';
 import { FacebookLogin } from '@capacitor-community/facebook-login';
 import '@codetrix-studio/capacitor-google-auth';
+import '@capacitor/device';
 //591791636275-45hoofl1j9jcdbkfmv2cc88a51i2ahtl.apps.googleusercontent.com Tu ID de cliente
 
 //CKfLfyeO3d137Or-4dtBa9nN tu secreto de cliente
+
+
+
 export default defineComponent({
   name: "Login",
   data() {
@@ -63,7 +71,8 @@ export default defineComponent({
       email: '',
       password: '',
       fb_user : '',
-      token : null
+      token : null,
+      showAppleSignIn : false
     };
   },
   setup() {
@@ -71,8 +80,8 @@ export default defineComponent({
       return { router };
   },
   mounted(){  
-    console.log(Plugins)
 
+ this.show_ios()
   //GoogleAuth.init(); // or await GoogleAuth.init()  
   window.fbAsyncInit = function() {
     window.FB.init({
@@ -83,6 +92,7 @@ export default defineComponent({
     });
   };
 
+ 
   // Load the SDK asynchronously
   (function(d, s, id) {
     var js, fjs = d.getElementsByTagName(s)[0];
@@ -100,6 +110,10 @@ export default defineComponent({
     redirect(page){
       this.$router.push({path: page});
     },
+    async show_ios(){
+      let device = await Plugins.Device.getInfo();
+      this.showAppleSignIn = device.platform === 'ios';
+    },
     async loginFacebook(){
 
 
@@ -109,7 +123,7 @@ export default defineComponent({
       if (result.accessToken) {
         this.token = result.accessToken;
       }else{
-        toast.openToast("Error al regitrar con facebook","error",2000);
+        toast.openToast("Error al autenticar con facebook","error",2000);
         return
       }
       
@@ -192,8 +206,48 @@ export default defineComponent({
           toast.openToast("Ha ocurrido un error","error",2000);
         }*/
       });
+    },
+    async loginApple() {
+    
+    let options = {
+      clientId: 'com.app.upgrap',
+      redirectURI: 'https://upgrap.firebaseapp.com/__/auth/handler',
+      scopes: 'email name',
+      state: '12345',
+      nonce: 'nonce',
+    };
+
+    let result = await Plugins.SignInWithApple.authorize(options) 
+
+    if(!result?.email){
+      toast.openToast("Error al obtener datos de Apple, intente nuevamente","error",2000);
+      return
     }
-}
+    
+    var loading = await toast.showLoading()
+
+    await loading.present();
+
+    let data = {
+      email : result.response.email,
+      name : result.response.givenName+' '+result.response.familyName,
+    }
+
+    axios
+      .post("/signin/mobile/apple",data)
+      .then(async res =>  {
+        loading.dismiss()
+        user.setUser(res.data.user)
+        jwtToken.setToken(res.data.token);
+        this.setAuthUser(res.data.user)
+        this.$router.push({path: '/principal' , query : {set_fcm : true }});
+      })
+      .catch(err => {
+        loading.dismiss()
+        console.log(err.response)
+      });
+    }
+  }
 });
 </script>
 

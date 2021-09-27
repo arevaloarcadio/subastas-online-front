@@ -12,11 +12,13 @@
     "otro": "gradlew -Dorg.gradle.java.home=/path_to_jdk_directory"
   },
   "dependencies": {
+    "@capacitor-community/apple-sign-in": "^1.0.1",
     "@capacitor-community/facebook-login": "^3.1.1",
     "@capacitor-community/fcm": "^2.0.0",
     "@capacitor/android": "^3.2.0",
     "@capacitor/camera": "^1.0.4",
     "@capacitor/core": "^3.2.3",
+    "@capacitor/device": "^1.0.3",
     "@capacitor/ios": "^3.2.3",
     "@capacitor/push-notifications": "^1.0.3",
     "@codetrix-studio/capacitor-google-auth": "^2.1.3",
