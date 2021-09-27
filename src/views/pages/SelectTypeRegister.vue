@@ -54,6 +54,7 @@
                 </ion-col>
               </ion-row>
           </ion-grid>
+           <center><img v-show="showAppleSignIn" src="/assets/icon-apple.png" @click="registerApple" style="height:50px;width: 40px"></center>
            <br>
            <br>
             <a style="font-family: Montserrat;font-style: normal;font-weight: 600;font-size: 16px;line-height: 20px;" class="text-control" @click="$router.push({path: '/principal' , query : {invite : true }})">Continuar como invitado</a>
@@ -63,7 +64,7 @@
 </template>
 
 <script>
-import { IonRow,IonGrid,IonCol  } from '@ionic/vue';
+import { IonRow,IonGrid,IonCol } from '@ionic/vue';
 import { mail,callOutline } from 'ionicons/icons';
 import { defineComponent } from 'vue';
 import axios from 'axios';
@@ -72,8 +73,10 @@ import jwtToken from "@/plugins/jwt/jwt-token";
 import {mapActions} from "vuex";
 import user from "@/plugins/jwt/user";
 import { Plugins } from '@capacitor/core'
+import '@capacitor-community/apple-sign-in';
 import { FacebookLogin } from '@capacitor-community/facebook-login';
 import '@codetrix-studio/capacitor-google-auth';
+import '@capacitor/device';
 
 export default defineComponent({
   components: { IonRow,IonGrid,IonCol},
@@ -84,7 +87,8 @@ export default defineComponent({
   data() {
     return {
       error : null,
-      user : null
+      user : null,
+      showAppleSignIn : false
     };
   },
   mounted(){
@@ -187,6 +191,52 @@ export default defineComponent({
 
     axios
       .post("/signup/mobile/google",data)
+      .then(async res =>  {
+        loading.dismiss()
+        user.setUser(res.data.user)
+        jwtToken.setToken(res.data.token);
+        this.setAuthUser(res.data.user)
+        await Plugins.GoogleAuth.signOut();
+        this.$router.push({path: '/principal' , query : {set_fcm : true }});
+      })
+      .catch(err => {
+        loading.dismiss()
+        console.log(err.response)
+        /*if(err.response.data?.message){
+          toast.openToast(err.response.data.message,"error",2000);
+        }else{
+          toast.openToast("Ha ocurrido un error","error",2000);
+        }*/
+      });
+    },
+    async registerApple() {
+    
+    let options = {
+      clientId: 'com.app.upgrap',
+      redirectURI: 'https://upgrap.firebaseapp.com/__/auth/handler',
+      scopes: 'email name',
+      state: '12345',
+      nonce: 'nonce',
+    };
+
+    let result = await Plugins.SignInWithApple.authorize(options) 
+
+    if(!result?.email){
+      toast.openToast("Error al obtener datos de Apple, intente nuevamente","error",2000);
+      return
+    }
+    
+    var loading = await toast.showLoading()
+
+    await loading.present();
+
+    let data = {
+      email : result.response.email,
+      name : result.response.givenName+' '+result.response.familyName,
+    }
+
+    axios
+      .post("/signup/mobile/apple",data)
       .then(async res =>  {
         loading.dismiss()
         user.setUser(res.data.user)

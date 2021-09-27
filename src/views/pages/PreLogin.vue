@@ -1,5 +1,5 @@
 <template>
-  <ion-page>
+  <ion-content>
 
     <div align="center" class="eclipse"> 
       <br>
@@ -37,7 +37,7 @@
       <a class="text-control" style="font-weight: 600;font-size: 16px;line-height: 20px;" @click="$router.push({path: '/principal' , query : {invite : true }})"> Continuar como invitado</a> <br>
       <br>
     </p>  
- </ion-page> 
+ </ion-content> 
 </template>
 
 <script>

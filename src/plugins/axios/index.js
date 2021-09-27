@@ -5,7 +5,7 @@ import axios from 'axios'
 import toast from '@/toast'
 
 //axios.defaults.baseURL = 'http://192.168.43.131:5000/';
-axios.defaults.baseURL = 'http://138.68.102.83:5000/';
+axios.defaults.baseURL = 'https://mobile.upgrap.com/';
 //axios.defaults.baseURL = 'https://upgrap-app-back-yt2ey.ondigitalocean.app/';
 
 axios.interceptors.request.use(config => {
