@@ -91,7 +91,7 @@
 		<string>REVERSED_CLIENT_ID</string>
 		<key>CFBundleURLSchemes</key>
 		<array>
-			<string>com.googleusercontent.apps.591791636275-s3u7ek8m93h9ve8nl8n2lo8n0e9b3llc</string>
+			<string>591791636275-s3u7ek8m93h9ve8nl8n2lo8n0e9b3llc.apps.googleusercontent.com</string>
 		</array>
 	</dict>
 </array>
