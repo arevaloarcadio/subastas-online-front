@@ -1,0 +1,25 @@
+{
+	"appId": "com.upgrap",
+	"appName": "Upgrap",
+	"bundledWebRuntime": false,
+	"npmClient": "npm",
+	"webDir": "dist",
+	"plugins": {
+		"PushNotifications": {
+			"presentationOptions": [
+				"badge",
+				"sound",
+				"alert"
+			]
+		},
+		"GoogleAuth": {
+			"scopes": [
+				"profile",
+				"email"
+			],
+			"serverClientId": "591791636275-s3u7ek8m93h9ve8nl8n2lo8n0e9b3llc.apps.googleusercontent.com",
+			"forceCodeForRefreshToken": true
+		}
+	},
+	"cordova": {}
+}
