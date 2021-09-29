@@ -50,5 +50,50 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<true/>
+
+	<array>
+    <dict>
+        <key>CFBundleURLSchemes</key>
+        <array>
+            <string>fb891037061645114</string>
+        </array>
+    </dict>
+</array>
+<key>FacebookAppID</key>
+<string>891037061645114</string>
+<key>FacebookClientToken</key>
+<string>6295c3fe4d5c42d2b99b783b254e7f88</string>
+<key>FacebookDisplayName</key>
+<string>upgrap</string>
+<key>LSApplicationQueriesSchemes</key>
+<array>
+    <string>fbapi</string>
+    <string>fbapi20130214</string>
+    <string>fbapi20130410</string>
+    <string>fbapi20130702</string>
+    <string>fbapi20131010</string>
+    <string>fbapi20131219</string>
+    <string>fbapi20140410</string>
+    <string>fbapi20140116</string>
+    <string>fbapi20150313</string>
+    <string>fbapi20150629</string>
+    <string>fbapi20160328</string>
+    <string>fbauth</string>
+    <string>fb-messenger-share-api</string>
+    <string>fbauth2</string>
+    <string>fbshareextension</string>
+</array>
+<array>
+	<dict>
+		<key>CFBundleTypeRole</key>
+		<string>Editor</string>
+		<key>CFBundleURLName</key>
+		<string>REVERSED_CLIENT_ID</string>
+		<key>CFBundleURLSchemes</key>
+		<array>
+			<string>com.googleusercontent.apps.591791636275-s3u7ek8m93h9ve8nl8n2lo8n0e9b3llc</string>
+		</array>
+	</dict>
+</array>
 </dict>
 </plist>
