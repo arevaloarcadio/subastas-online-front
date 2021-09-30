@@ -72,8 +72,9 @@ export default defineComponent({
 
     await loading.present();
 
+   
     axios
-      .post("/password",{email : this.email})
+      .post("https://api.upgrap.com/api/recover",{email : this.email})
       .then(res => {
          loading.dismiss()
         console.log(res)
