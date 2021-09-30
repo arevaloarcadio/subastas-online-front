@@ -1,7 +1,7 @@
 <template>
   <ion-content>
 
-    <div align="center" class="eclipse"> 
+    <div align="center" class="eclipse">
       <br>
       <img src="/assets/logo-white.png" style="margin-top: 38px;">
     </div>
@@ -17,27 +17,28 @@
       <button type="button" class="btn-line"  @click="() => router.push('/login')"  style="width: 170px">Iniciar Sesión</button>
       <br>
      <br>
-     <br>
+       <center> <p><b>o</b></p></center>
      <ion-grid>
       <ion-row>
 
-        <ion-col col-4>
+        <ion-col>
           <img src="/assets/icon-facebook.png" @click="loginFacebook" style="margin-left: 62%;" >
 
         </ion-col>
-        <p><b>o</b></p>
-        <ion-col col-4>
+         <ion-col v-show="showAppleSignIn">
+          <img src="/assets/icon-apple.png" @click="loginApple" style="height:47px;width:38px;margin-top:-8px;">
+        </ion-col>
+        <ion-col>
           <img src="/assets/icon-google.png" @click="loginGoogle" style="margin-right: 62%;margin-top: 4px;">
         </ion-col>
       </ion-row>
     </ion-grid>
-    <center><img v-show="showAppleSignIn" src="/assets/icon-apple.png" @click="loginApple" style="height:50px;width: 40px"></center>
 
     <br>
       <a class="text-control" style="font-weight: 600;font-size: 16px;line-height: 20px;" @click="$router.push({path: '/principal' , query : {invite : true }})"> Continuar como invitado</a> <br>
       <br>
-    </p>  
- </ion-content> 
+    </p>
+ </ion-content>
 </template>
 
 <script>
@@ -79,10 +80,10 @@ export default defineComponent({
       const router = useRouter();
       return { router };
   },
-  mounted(){  
+  mounted(){
 
  this.show_ios()
-  //GoogleAuth.init(); // or await GoogleAuth.init()  
+  //GoogleAuth.init(); // or await GoogleAuth.init()
   window.fbAsyncInit = function() {
     window.FB.init({
       appId: '891037061645114',
@@ -92,7 +93,7 @@ export default defineComponent({
     });
   };
 
- 
+
   // Load the SDK asynchronously
   (function(d, s, id) {
     var js, fjs = d.getElementsByTagName(s)[0];
@@ -126,20 +127,20 @@ export default defineComponent({
         toast.openToast("Error al autenticar con facebook","error",2000);
         return
       }
-      
+
       //alert(JSON.stringify(result))
       var loading = await toast.showLoading()
 
       await loading.present();
 
       const url = `https://graph.facebook.com/${this.token.userId}?fields=id,name,picture.width(720),email&access_token=${this.token.token}`;
-    
+
       axios
       .get(url)
       .then(res => {
         this.fb_user = res.data
-        
-        
+
+
          axios
           .post("/signin/mobile/facebook",{email : this.fb_user.email , name :this.fb_user.name })
           .then(async res => {
@@ -158,26 +159,26 @@ export default defineComponent({
             }else{
               toast.openToast("Ha ocurrido un error","error",2000);
             }*/
-         }) 
+         })
       })
       .catch(err => {
         console.log(err)
         loading.dismiss()
         //toast.openToast("Ha ocurrido un error","error",2000);
-      }) 
+      })
    },
    async loginGoogle() {
-    
+
 
     const googleUser = await Plugins.GoogleAuth.signIn();
-    
+
     console.log('my user: ', googleUser);
-    
+
     if(!googleUser?.email){
       toast.openToast("Error al autenticar con google","error",2000);
       return
     }
-    
+
     var loading = await toast.showLoading()
 
     await loading.present();
@@ -208,22 +209,22 @@ export default defineComponent({
       });
     },
     async loginApple() {
-    
+
     let options = {
-      clientId: 'com.app.upgrap',
+      clientId: 'com.upgrap',
       redirectURI: 'https://upgrap.firebaseapp.com/__/auth/handler',
       scopes: 'email name',
       state: '12345',
       nonce: 'nonce',
     };
 
-    let result = await Plugins.SignInWithApple.authorize(options) 
+    let result = await Plugins.SignInWithApple.authorize(options)
 
     if(!result?.email){
       toast.openToast("Error al obtener datos de Apple, intente nuevamente","error",2000);
       return
     }
-    
+
     var loading = await toast.showLoading()
 
     await loading.present();
@@ -236,6 +237,7 @@ export default defineComponent({
     axios
       .post("/signin/mobile/apple",data)
       .then(async res =>  {
+//      alert('apple' + JSON.stringify(res));
         loading.dismiss()
         user.setUser(res.data.user)
         jwtToken.setToken(res.data.token);

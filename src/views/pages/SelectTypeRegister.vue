@@ -1,22 +1,22 @@
 <template>
         <ion-content class="ion-padding">
-          <div align="center" > 
+          <div align="center" >
             <br>
                 <br>
                     <br>    <br>
             <img src="/assets/logo-green.png" >
           </div>
           <br><br><br>
-         <span class="text-control" style="margin-left: 8%;font-style: normal;font-weight: 600;font-size: 24px;line-height: 29px;">Registro </span> 
+         <span class="text-control" style="margin-left: 8%;font-style: normal;font-weight: 600;font-size: 24px;line-height: 29px;">Registro </span>
           <br>
-           <p style="margin-left: 8%;float: left;font-weight: 500;"> 
+           <p style="margin-left: 8%;float: left;font-weight: 500;">
           Elige como quieres registrarte
           </p>
           <br>
           <br>
-          <p> 
+          <p>
           <br>
-          
+
              <button type="button" class="btn-primary" @click="redirect({path: 'register' , query : { type : 'email' }})" style="width: 86%;height:60px">
                <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" style="position: fixed;left:66px;margin-top: -15px;">
                 <path d="M28 7L16 18L4 7" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -28,38 +28,41 @@
                 Registro con email
                 </span>
             </button>
-        
+
           <br>
           <br>
-         
+
             <button type="button" class="btn-primary" @click="redirect({name: 'register.phone'})" style="width: 86%;height:60px">
                  <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" style="position: fixed;left: 66px;margin-top: -15px;">
                 <path d="M11.5595 15.6019C12.5968 17.7226 14.3158 19.4338 16.4412 20.4614C16.5967 20.5351 16.7687 20.567 16.9403 20.554C17.1119 20.541 17.2771 20.4836 17.4198 20.3874L20.5492 18.3006C20.6877 18.2083 20.8469 18.152 21.0126 18.1368C21.1782 18.1215 21.3451 18.1479 21.498 18.2134L27.3526 20.7225C27.5515 20.807 27.7175 20.9538 27.8257 21.1409C27.9339 21.328 27.9783 21.5451 27.9524 21.7596C27.7673 23.2076 27.0608 24.5385 25.9652 25.5031C24.8695 26.4678 23.4598 26.9999 22 27C17.4913 27 13.1673 25.2089 9.97919 22.0208C6.79107 18.8327 5 14.5087 5 10C5.00008 8.54022 5.53224 7.13052 6.49685 6.03485C7.46146 4.93918 8.79237 4.23267 10.2404 4.04763C10.4549 4.02167 10.672 4.06612 10.8591 4.1743C11.0461 4.28248 11.193 4.44852 11.2775 4.6474L13.7888 10.5071C13.8537 10.6587 13.8802 10.824 13.8658 10.9883C13.8514 11.1525 13.7967 11.3107 13.7064 11.4487L11.6268 14.6261C11.5322 14.7691 11.4762 14.9341 11.4644 15.1051C11.4526 15.2762 11.4854 15.4473 11.5595 15.6019V15.6019Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
                 <span style="position: fixed;left: 112px;margin-top: -7px;">Registro con celular</span>
-                 
+
             </button>
               <!-- <input type="text" name="error" v-model="error">-->
            <br>
-           <br> <br> <br>
+           <br> <br>
+          <center> <p><b>o</b></p></center>
            <ion-grid>
-              <ion-row>
-                <ion-col col-4>
-                  <img src="/assets/icon-facebook.png"  @click="registerFacebook" style="margin-left: 62%;" >
+            <ion-row>
 
-                </ion-col>
-                <p><b>o</b></p>
-                <ion-col col-4>
-                  <img src="/assets/icon-google.png"  @click="registerGoogle" style="margin-right: 62%;margin-top: 4px;">
-                </ion-col>
-              </ion-row>
+              <ion-col>
+                <img src="/assets/icon-facebook.png" @click="registerFacebook" style="margin-left: 62%;" >
+
+              </ion-col>
+               <ion-col v-show="showAppleSignIn">
+                <img src="/assets/icon-apple.png" @click="registerApple" style="height:47px;width:38px;margin-top:-8px;">
+              </ion-col>
+              <ion-col>
+                <img src="/assets/icon-google.png" @click="registerGoogle" style="margin-right: 62%;margin-top: 4px;">
+              </ion-col>
+            </ion-row>
           </ion-grid>
-           <center><img v-show="showAppleSignIn" src="/assets/icon-apple.png" @click="registerApple" style="height:50px;width: 40px"></center>
-           <br>
+          <br>
            <br>
             <a style="font-family: Montserrat;font-style: normal;font-weight: 600;font-size: 16px;line-height: 20px;" class="text-control" @click="$router.push({path: '/principal' , query : {invite : true }})">Continuar como invitado</a>
           </p>
-      </ion-content>    
+      </ion-content>
 
 </template>
 
@@ -93,9 +96,9 @@ export default defineComponent({
   },
   mounted(){
 
-    //Plugins.GoogleAuth.init(); // or await GoogleAuth.init()  
+    //Plugins.GoogleAuth.init(); // or await GoogleAuth.init()
    console.log(Plugins)
-
+    this.show_ios()
     window.fbAsyncInit = function() {
       window.FB.init({
         appId: '891037061645114',
@@ -120,6 +123,10 @@ export default defineComponent({
     redirect(poth){
       this.$router.push(poth);
     },
+    async show_ios(){
+      let device = await Plugins.Device.getInfo();
+      this.showAppleSignIn = device.platform === 'ios';
+    },
     async registerFacebook(){
 
         const FACEBOOK_PERMISSIONS = ['email'];
@@ -131,19 +138,19 @@ export default defineComponent({
         toast.openToast("Error al regitrar con facebook","error",2000);
         return
       }
-      
+
       //alert(JSON.stringify(result))
       var loading = await toast.showLoading()
 
       await loading.present();
 
       const url = `https://graph.facebook.com/${this.token.userId}?fields=id,name,picture.width(720),email&access_token=${this.token.token}`;
-    
+
       axios
       .get(url)
       .then(res => {
         this.fb_user = res.data
-          
+
         axios
           .post("/signup/mobile/facebook",{name :this.fb_user.name,email : this.fb_user.email})
           .then(res => {
@@ -161,25 +168,25 @@ export default defineComponent({
             }else{
               toast.openToast("Ha ocurrido un error","error",2000);
             }*/
-         }) 
+         })
       })
       .catch(err => {
         console.log(err)
         loading.dismiss()
         //toast.openToast("Ha ocurrido un error","error",2000);
-      })  
+      })
     },
     async registerGoogle(){
-    
+
     const googleUser = await Plugins.GoogleAuth.signIn();
-    
+
     console.log('my user: ', googleUser);
-    
+
     if(!googleUser?.email){
       toast.openToast("Error al regitrar con google","error",2000);
       return
     }
-    
+
     var loading = await toast.showLoading()
 
     await loading.present();
@@ -210,7 +217,7 @@ export default defineComponent({
       });
     },
     async registerApple() {
-    
+
     let options = {
       clientId: 'com.app.upgrap',
       redirectURI: 'https://upgrap.firebaseapp.com/__/auth/handler',
@@ -219,13 +226,13 @@ export default defineComponent({
       nonce: 'nonce',
     };
 
-    let result = await Plugins.SignInWithApple.authorize(options) 
+    let result = await Plugins.SignInWithApple.authorize(options)
 
     if(!result?.email){
       toast.openToast("Error al obtener datos de Apple, intente nuevamente","error",2000);
       return
     }
-    
+
     var loading = await toast.showLoading()
 
     await loading.present();
@@ -258,5 +265,3 @@ export default defineComponent({
   }
 });
 </script>
-
-
