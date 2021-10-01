@@ -4,7 +4,7 @@
         <router-view></router-view>
     </transition>
 
-    <div class="footer">
+    <div :class="{'footer' :!showAppleSignIn ,'footer-ios' :showAppleSignIn} ">
      
     <ion-row>
         <ion-col class="cursor">
@@ -61,6 +61,8 @@ import { IonRow,IonCol   } from '@ionic/vue';
 import axios from 'axios'
 import { mapGetters } from 'vuex'
 import toast from '@/toast'
+import { Plugins } from '@capacitor/core'
+import '@capacitor/device';
 
 let loading;
 
@@ -75,7 +77,8 @@ export default {
       chat : '/chat/policies/terms',
       inactive : null,
       loading : null,
-      invite : null
+      invite : null,
+      showAppleSignIn : false
     };
   },
   mounted(){
@@ -84,6 +87,7 @@ export default {
     if(!this.invite){
       this.getAcceptedTerms()
     }
+    this.show_ios()
   },
   watch: {
     $route(to, from) {
@@ -104,6 +108,10 @@ export default {
     ]),
   },
   methods: {
+    async show_ios(){
+      let device = await Plugins.Device.getInfo();
+     this.showAppleSignIn = device.platform === 'ios';
+    },
     redirect(path) {
       if(this.getUser.id === null){
          toast.openToast("Regístrese o inicie sesión para acceder a esta sección.","error",2000);
@@ -134,6 +142,16 @@ export default {
   position: fixed;
   left: 0;
   bottom: -5px;
+  width: 100%;
+  background-color: #fff;
+  color: white;
+  text-align: center;
+  height: 87px;
+}
+.footer-ios {
+  position: fixed;
+  left: 0;
+  bottom: 2.5%;
   width: 100%;
   background-color: #fff;
   color: white;

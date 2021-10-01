@@ -38,7 +38,7 @@ export default defineComponent({
 	data(){
 		return {
 			route : this.$route,
-			showAppleSignIn : true
+			showAppleSignIn : false
 			//fcm: new FCM()
 		}
 	},
@@ -49,8 +49,8 @@ export default defineComponent({
 	},
 	methods : {
 	async show_ios(){
-      //let device = await Plugins.Device.getInfo();
-     //this.showAppleSignIn = device.platform === 'ios';
+      let device = await Plugins.Device.getInfo();
+     this.showAppleSignIn = device.platform === 'ios';
     },
 	async initPushNotification(){
 
