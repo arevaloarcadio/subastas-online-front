@@ -76,7 +76,6 @@ import jwtToken from "@/plugins/jwt/jwt-token";
 import {mapActions} from "vuex";
 import user from "@/plugins/jwt/user";
 import { Plugins } from '@capacitor/core'
-import '@capacitor-community/apple-sign-in';
 import { FacebookLogin } from '@capacitor-community/facebook-login';
 import '@codetrix-studio/capacitor-google-auth';
 import '@capacitor/device';

@@ -73,7 +73,7 @@ export default defineComponent({
       password: '',
       fb_user : '',
       token : null,
-      showAppleSignIn : false
+      showAppleSignIn : true
     };
   },
   setup() {
@@ -112,8 +112,8 @@ export default defineComponent({
       this.$router.push({path: page});
     },
     async show_ios(){
-      let device = await Plugins.Device.getInfo();
-      this.showAppleSignIn = device.platform === 'ios';
+      //let device = await Plugins.Device.getInfo();
+     // this.showAppleSignIn = device.platform === 'ios';
     },
     async loginFacebook(){
 
@@ -211,7 +211,7 @@ export default defineComponent({
     async loginApple() {
 
     let options = {
-      clientId: 'com.upgrap',
+      clientId: 'com.app.upgrap',
       redirectURI: 'https://upgrap.firebaseapp.com/__/auth/handler',
       scopes: 'email name',
       state: '12345',
