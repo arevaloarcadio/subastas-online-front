@@ -210,15 +210,15 @@ export default defineComponent({
     },
     async loginApple() {
 
-    let options = {
+    /*let options = {
       clientId: 'com.app.upgrap',
       redirectURI: 'https://upgrap.firebaseapp.com/__/auth/handler',
       scopes: 'email name',
       state: '12345',
       nonce: 'nonce',
-    };
+    };*/
 
-    let result = await Plugins.SignInWithApple.authorize(options)
+    let result = await Plugins.SignInWithApple.authorize()
 
     if(!result?.email){
       toast.openToast("Error al obtener datos de Apple, intente nuevamente","error",2000);
