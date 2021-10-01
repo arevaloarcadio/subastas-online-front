@@ -112,8 +112,8 @@ export default defineComponent({
       this.$router.push({path: page});
     },
     async show_ios(){
-      //let device = await Plugins.Device.getInfo();
-     // this.showAppleSignIn = device.platform === 'ios';
+      let device = await Plugins.Device.getInfo();
+      this.showAppleSignIn = device.platform === 'ios';
     },
     async loginFacebook(){
 
@@ -210,9 +210,15 @@ export default defineComponent({
     },
     async loginApple() {
 
-   
+    let options = {
+      clientId: 'com.app.upgrap',
+      redirectURI: 'https://upgrap.firebaseapp.com/__/auth/handler',
+      scopes: 'email name',
+      state: '12345',
+      nonce: 'nonce',
+    };
 
-    let result = await Plugins.SignInWithApple.authorize()
+    let result = await Plugins.SignInWithApple.authorize(options)
 
     if(!result?.email){
       toast.openToast("Error al obtener datos de Apple, intente nuevamente","error",2000);

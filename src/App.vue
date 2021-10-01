@@ -1,11 +1,11 @@
 <template>
-	<ion-app v-if="route.meta.layout =='LayoutDashboard'">
+	<ion-app  :class="{ 'ios' : showAppleSignIn }" v-if="route.meta.layout =='LayoutDashboard'">
 		<LayoutDashboard></LayoutDashboard>
 	</ion-app>
-	<ion-app  v-if="route.meta.layout =='Layout'">
+	<ion-app  :class="{ 'ios' : showAppleSignIn }"  v-if="route.meta.layout =='Layout'">
 		<Layout></Layout>
 	</ion-app>
-	<ion-app v-else>
+	<ion-app :class="{ 'ios' : showAppleSignIn }"  v-else>
 		<transition name="slide-fade">
 			<router-view></router-view>
 		</transition>
@@ -23,6 +23,7 @@ import fcm_token from '@/plugins/fcm/fcm-token' ;
 //import fcm_token from '@/plugins/fcm/fcm-token' ; 
 import { Plugins } from '@capacitor/core'
 import '@capacitor/push-notifications';
+import '@capacitor/device';
 import toast from '@/toast'
 const {PushNotifications}  = Plugins
 
@@ -37,6 +38,7 @@ export default defineComponent({
 	data(){
 		return {
 			route : this.$route,
+			showAppleSignIn : false
 			//fcm: new FCM()
 		}
 	},
@@ -45,6 +47,10 @@ export default defineComponent({
 		this.initPushNotification()
 	},
 	methods : {
+	async show_ios(){
+      let device = await Plugins.Device.getInfo();
+     this.showAppleSignIn = device.platform === 'ios';
+    },
 	async initPushNotification(){
 
 	// Register with Apple / Google to receive push via APNS/FCM
@@ -97,3 +103,8 @@ export default defineComponent({
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100&display=swap" rel="stylesheet">
+<style type="text/css">
+	.ios{
+		margin-top: 50px
+	}
+</style>
