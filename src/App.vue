@@ -38,18 +38,19 @@ export default defineComponent({
 	data(){
 		return {
 			route : this.$route,
-			showAppleSignIn : false
+			showAppleSignIn : true
 			//fcm: new FCM()
 		}
 	},
 	mounted(){
 		console.log(Plugins)
 		this.initPushNotification()
+		this.show_ios()
 	},
 	methods : {
 	async show_ios(){
-      let device = await Plugins.Device.getInfo();
-     this.showAppleSignIn = device.platform === 'ios';
+      //let device = await Plugins.Device.getInfo();
+     //this.showAppleSignIn = device.platform === 'ios';
     },
 	async initPushNotification(){
 
@@ -105,6 +106,6 @@ export default defineComponent({
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100&display=swap" rel="stylesheet">
 <style type="text/css">
 	.ios{
-		margin-top: 50px
+		margin-top: 2.5% ;
 	}
 </style>
