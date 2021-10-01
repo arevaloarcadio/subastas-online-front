@@ -151,7 +151,7 @@ export default {
 .footer-ios {
   position: fixed;
   left: 0;
-  bottom: 2.5%;
+  bottom: 1%;
   width: 100%;
   background-color: #fff;
   color: white;
