@@ -1,12 +1,8 @@
-  add(FacebookLogin.class);
-  add(FCMPlugin.class);
-  add(CameraPlugin.class);
-  add(PushNotificationsPlugin.class);
-  add(GoogleAuth.class);
-
-  import com.getcapacitor.community.fcm.FCMPlugin;
-import com.capacitorjs.plugins.camera.CameraPlugin;
-import com.capacitorjs.plugins.pushnotifications.PushNotificationsPlugin;
-import com.codetrixstudio.capacitor.GoogleAuth.GoogleAuth;
-
-import com.getcapacitor.community.facebooklogin.FacebookLogin;
+1000 ASAuthorizationErrorUnknown
+authorization attempt failed for an unknown reason
+1001 ASAuthorizationErrorCanceled
+user cancelled
+1002 ASAuthorizationErrorInvalidResponse
+authorization request received an invalid response.
+1003 ASAuthorizationErrorNotHandled
+user cancelled
