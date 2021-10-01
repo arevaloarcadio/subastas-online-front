@@ -106,6 +106,6 @@ export default defineComponent({
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100&display=swap" rel="stylesheet">
 <style type="text/css">
 	.ios{
-		margin-top: 2.5% ;
+		margin-top: 2.5%;
 	}
 </style>
