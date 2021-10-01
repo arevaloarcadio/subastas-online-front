@@ -43,7 +43,7 @@
            <br>
            <br> <br>
           <center> <p><b>o</b></p></center>
-           <ion-grid>
+           <ion-grid  v-show="!showAppleSignIn">
             <ion-row>
 
               <ion-col>
