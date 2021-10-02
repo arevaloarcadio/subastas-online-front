@@ -38,6 +38,8 @@ axios.interceptors.response.use(response => {
     toast.openToast(error['response']['data']['data'],"error",2000)
   }else if(error['response']['status'] == 500){
     toast.openToast("Error interno","error",2000)
+  }else if(error['response']['status'] == 401){
+    toast.openToast("Autenticación fallida","error",2000)
   }else{
     toast.openToast("Error de conexión, intente nuevamente","error",2000)
   }
