@@ -15,8 +15,9 @@
       </ion-col>
     </ion-row>
     <ion-content >
-  
-        <ion-card style="width: 95%;">
+         <div style="display: flex;justify-content: center;">  
+        <ion-card style="width:334px;">
+       
         <div v-show="product.requests != 0"  class="badge" style="padding-left: 18px;padding-top: 6.5px;    margin-left: 80%;"> 
               <span  style="">
               {{product.requests}}
@@ -31,6 +32,7 @@
             </div>
         <img :src="BasePublic+product.photo" style="width: 112%;height: 257px;">
         </ion-card>
+          </div>
          <ion-row style="margin-top: -13px;">
             <ion-col size="8">
               <p class="p-no-center" style="padding-left: 10px;">
@@ -80,8 +82,8 @@
      
           <ion-slides pager="true" :options="slideOpts" v-if="productsByCategory">
             <ion-slide>
-           
-                <ion-card class="cursor"  @click="redirect_details(productsByCategory[0])" style="width:50%;overflow-y: auto;">
+              <div style="display: flex;justify-content: center;">  
+                <ion-card class="cursor"  @click="redirect_details(productsByCategory[0])" style="width: 160px;overflow-y: auto;">
                   <img :src="BasePublic+productsByCategory[0].photo" style="width: auto;height: 143px;border-radius: 0px 10px 0px 0px;width: 100%;">
                   <ion-card-header>
 
@@ -100,8 +102,10 @@
                 </ion-card-content>
 
               </ion-card>
-              <ion-card class="cursor" style="width:50%;overflow-y: auto;" @click="redirect_details(productsByCategory[0])">
-                  <img :src="BasePublic+productsByCategory[1].photo" style="width: auto;height: 143px;border-radius: 0px 10px 0px 0px;width: 100%;">
+            </div>
+                <div style="display: flex;justify-content: center;">  
+              <ion-card class="cursor" style="width:160px;overflow-y: auto;" @click="redirect_details(productsByCategory[0])">
+                  <img :src="BasePublic+productsByCategory[1].photo" style="height: 143px;border-radius: 0px 10px 0px 0px;width: 100%;">
                   <ion-card-header>
 
                  <ion-card-subtitle  style="color: #000">
@@ -118,10 +122,12 @@
                 </ion-card-content>
 
               </ion-card>
+                </div>
             </ion-slide>
             <ion-slide>
-               <ion-card class="cursor" style="width:50%;overflow-y: auto;" @click="redirect_details(productsByCategory[2])">
-                  <img :src="BasePublic+productsByCategory[2].photo" style="width: auto;height: 143px;border-radius: 0px 10px 0px 0px;width: 100%;">
+                  <div style="display: flex;justify-content: center;">  
+               <ion-card class="cursor" style="width:160px;overflow-y: auto;" @click="redirect_details(productsByCategory[2])">
+                  <img :src="BasePublic+productsByCategory[2].photo" style="height: 143px;border-radius: 0px 10px 0px 0px;width: 100%;">
                   <ion-card-header>
 
                  <ion-card-subtitle  style="color: #000">
@@ -138,8 +144,10 @@
                 </ion-card-content>
 
               </ion-card>
-              <ion-card class="cursor"  style="width:50%;overflow-y: auto;" @click="redirect_details(productsByCategory[3])">
-                  <img :src="BasePublic+productsByCategory[3].photo" style="width: auto;height: 143px;border-radius: 0px 10px 0px 0px;width: 100%;">
+                </div>
+                  <div style="display: flex;justify-content: center;">  
+              <ion-card class="cursor"  style="width:160px;overflow-y: auto;" @click="redirect_details(productsByCategory[3])">
+                  <img :src="BasePublic+productsByCategory[3].photo" style="height: 143px;border-radius: 0px 10px 0px 0px;width: 100%;">
                   <ion-card-header>
 
                  <ion-card-subtitle  style="color: #000">
@@ -156,6 +164,7 @@
                 </ion-card-content>
 
               </ion-card>
+                </div>
             </ion-slide>
 
           </ion-slides>

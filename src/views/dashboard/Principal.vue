@@ -54,10 +54,12 @@
       </div> 
     </div>
     <ion-content class="ion-padding">
-   
-           <ion-row style="margin-top: -18px;">
+      
+
+        <ion-row style="margin-top: -18px;">
             <ion-col v-for="product in products" :key="product"  size="6" >
-                <ion-card class="cursor" @click="redirect_details(product)" style="width: 100%;left:-8px;">
+                <div style="display: flex;justify-content: center;width: 112%;">  
+                <ion-card class="cursor" @click="redirect_details(product)" style="width: 200px;left:-8px;">
                   <div v-show="product.requests != 0"  class="badge-2" style="padding-left: 18px;padding-top: 6.5px;"> 
                     <span  style="">
                     {{product.requests}}
@@ -95,8 +97,11 @@
                 </ion-card-content>
 
               </ion-card>
+                   </div>
             </ion-col>
-           </ion-row>
+           </ion-row>   
+   
+           
 
       <ion-infinite-scroll
         @ionInfinite="loadData($event)" 

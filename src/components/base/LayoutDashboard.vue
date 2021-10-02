@@ -151,12 +151,12 @@ export default {
 .footer-ios {
   position: fixed;
   left: 0;
-  bottom: 1%;
+  bottom:  -5px;
   width: 100%;
   background-color: #fff;
   color: white;
   text-align: center;
-  height: 87px;
+  height: 100px;
 }
 div.scroll {
   overflow: auto;

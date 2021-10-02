@@ -9,9 +9,10 @@
          Actualmente no tiene publicaciones guardadas
         </p>
       
-     <ion-row v-else style="width: 100%;">
+     <ion-row v-else >
        <ion-col v-for="product in products" :key="product"  size="6"  >
-        <ion-card class="cursor" @click="redirect_details(product)" style="width: 98%;left: -8px;overflow-y: auto;">
+        <div style="display: flex;justify-content: center;width: 112%;">  
+        <ion-card class="cursor" @click="redirect_details(product)" style="width: 200px;left: -8px;overflow-y: auto;">
             <div v-show="product.requests != 0"  class="badge-2" style="padding-left: 18px;padding-top: 6.5px;"> 
             <span  style="">
             {{product.requests}}
@@ -49,6 +50,7 @@
         </ion-card-content>
         <br>
       </ion-card>
+      </div> 
     </ion-col>
   </ion-row>
        
