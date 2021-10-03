@@ -483,9 +483,7 @@ ion-select::part(icon) {
 
 <style type="text/css">
 .my-custom-class .popover-content{
-  top: 203.5px !important;
   width: 160px !important;
-  left: 189.5px !important;
   transform-origin: right top !important;
   height: 125px !important;
   border-radius: 15px !important;
