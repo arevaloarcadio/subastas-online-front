@@ -156,7 +156,7 @@ export default {
   background-color: #fff;
   color: white;
   text-align: center;
-  height: 100px;
+  height: 130px;
 }
 div.scroll {
   overflow: auto;
