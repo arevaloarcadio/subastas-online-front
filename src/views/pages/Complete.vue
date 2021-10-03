@@ -1,22 +1,30 @@
 <template>
 
   <ion-content>
-    <div  id="content" style="height:750px">
-        <div  class="complete" align="center" >
-
-          <img src="/assets/logo-white.png" style="margin-top: 106px;width: 183.2px;height: 98.24px;">
-        
-          <img src="/assets/amico.png" ><br><br><br><br>
-          <p style="font-size: 72px;font-family: Montserrat;color: #fff;" class="top">
+    <div  id="content" style="height:100%">
+        <div style="display: flex;justify-content: center;">
+        <img src="/assets/logo-white.png" style="margin-top: 106px;width: 183.2px;height: 98.24px;">
+         
+   </div>  
+    <div style="display: flex;justify-content: center;">
+      <img src="/assets/amico.png" > 
+   </div>  
+   <br><br><br><br> 
+   <div style="display: flex;justify-content: center;">
+    <p style="font-size: 72px;font-family: Montserrat;color: #fff;" class="top">
             {{count}}
           </p>
-          <p class="inter" style="font-size: 20px;line-height: 24px;">
+   </div>  
+   
+   <div style="display: flex;justify-content: center;">
+     <p class="inter" style="font-size: 20px;line-height: 24px;">
          
             Intercambios <br>disponibles<br><br>
             <button type="button" class="btn-line"  @click="redirect('login')"> Iniciar Sesión</button>
-          </p>
-        </div> 
-   </div>        
+          </p>  
+   </div>
+   </div>      
+
   </ion-content>
 
 </template>
@@ -63,15 +71,7 @@ export default {
 
 
 <style scoped>
-.complete{
-  position: absolute;
-width: 100%;
-height: 100%;
 
-/* Green Upgrap */
-
-
-}
 #content{
   background: #32BAB0;
 }

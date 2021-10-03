@@ -74,7 +74,7 @@
                   </div>
              
                   <img :src="BasePublic+product.photo" style="width: auto;height: 143px;border-radius: 0px 10px 0px 0px;width: 100%;">
-                <div class="margin-ios">  
+                <div :class="{'margin-ios' : showAppleSignIn} ">  
                   <ion-card-header>
 
                  <ion-card-subtitle  style="color: #000">
@@ -143,7 +143,7 @@ import { defineComponent, ref } from 'vue';
 import { createAnimation } from '@ionic/vue';
 import io from 'socket.io-client'
 import '@capacitor/device';
-//import { Plugins } from '@capacitor/core'
+import { Plugins } from '@capacitor/core'
 
 var socket  = io(axios.defaults.baseURL,{
   cors: {
@@ -238,8 +238,8 @@ export default defineComponent({
       
     },
     async show_ios(){
-      //let device = await Plugins.Device.getInfo();
-      //this.showAppleSignIn = device.platform === 'ios';
+      let device = await Plugins.Device.getInfo();
+      this.showAppleSignIn = device.platform === 'ios';
     },
     redirect_details(product) {
       this.$router.push({name: 'details.product',params :{ productId : product.id}, query : {...product}});

@@ -58,7 +58,7 @@
         </ion-infinite-scroll-content>
       </ion-infinite-scroll>
     </ion-content>
-     <div class="message-input">
+     <div :class="{'ios-message-input' : showAppleSignIn }" class="message-input">
           <div class="wrap">
               <span>
                 <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg"  @click="setOpen(true)" style="margin-top: 18px;    margin-left: -43px;">
@@ -68,7 +68,7 @@
               </span>
           <input type="text"  style="padding-right: 15%;" v-model="message" placeholder="Escribe algo" >
              
-          <button style="background: #fff;"><img src="/assets/button-send.svg" @click="postMessage()" style="margin-left: -56px;margin-top: -13px;"></button>
+          <button style="background: #fff;" ><img src="/assets/button-send.svg" @click="postMessage()" style="margin-left: -56px;margin-top: -13px;" class="boton-send"></button>
           </div>
       </div>
     
@@ -107,6 +107,8 @@ import ModalUpload from '../products/ModalUpload'
 import BasePublic from '@/plugins/store/utils'
 import send_notification from '@/plugins/fcm/send_notification'
 import io from 'socket.io-client'
+import '@capacitor/device';
+//import { Plugins } from '@capacitor/core'
 
 var ChatView
 
@@ -172,7 +174,8 @@ export default defineComponent({
       exchange : null,
       product_user : null,
       request : null,
-      status : false
+      status : false,
+      showAppleSignIn : true
     }
   },
   created(){
@@ -199,6 +202,10 @@ export default defineComponent({
     ]),
   },
   methods:{
+    async show_ios(){
+     // let device = await Plugins.Device.getInfo();
+      //this.showAppleSignIn = device.platform === 'ios';
+    },
    redirect(path) {
       this.$router.push(path);
     },
@@ -1002,8 +1009,15 @@ margin-top: -18px;
 }
  .message-input {
   position: absolute;
-  
- bottom: -8px;
+  bottom: -8px;
+  width: 100%;
+  z-index: 99;
+  margin-left: 3%;
+}
+
+.ios-message-input {
+  position: absolute;
+  bottom: 34px !important;
   width: 100%;
   z-index: 99;
   margin-left: 3%;
@@ -1113,6 +1127,13 @@ margin-top: 1%;
   border-radius: 10px 10px 10px 10px;
 }
 
+
+ @media (min-width: 600px){
+   .boton-send{
+  margin-left: -180px !important;
+  margin-top: -5px  !important;
+}
+  }
 </style>
 
 
