@@ -22,7 +22,7 @@
           <p class="sub-title" style="width: 80%;margin-left: 10%;font-weight: 500;">
            Selecciona uno o  más <br> de tus productos
           </p>
-     <ion-card style="box-shadow: inherit;margin-top: 8%;width: 101%;margin-left: -1%">
+     <ion-card style="box-shadow: inherit;margin-top: 8%;width: 101%;margin-left: 0%">
       <img :src="BasePublic+product.photo" class="img-left">
       <div style="display: flex;justify-content: center;">
         <svg width="49" height="49" viewBox="0 0 49 49" fill="none" xmlns="http://www.w3.org/2000/svg" class="img-center">
