@@ -74,7 +74,7 @@
                   </div>
              
                   <img :src="BasePublic+product.photo" style="width: auto;height: 143px;border-radius: 0px 10px 0px 0px;width: 100%;">
-                  
+                <div class="margin-ios">  
                   <ion-card-header>
 
                  <ion-card-subtitle  style="color: #000">
@@ -90,12 +90,12 @@
                 
                   </ion-card-header>
 
-                  <ion-card-content v-if="(product.pais+','+product.city).length > 15" style="margin-top:-15px">{{(product.pais+', '+product.city).substr(0,22)+'...'}}
+                  <ion-card-content v-if="(product.pais+', '+product.city).length >15" style="margin-top:-15px">{{(product.pais+', '+product.city).substr(0,15)+'...'}}
                 </ion-card-content>
 
                 <ion-card-content v-else style="margin-top:-15px">{{product.pais+', '+product.city}}
                 </ion-card-content>
-
+              </div>  
               </ion-card>
                    </div>
             </ion-col>
@@ -142,6 +142,8 @@ import toast from '@/toast'
 import { defineComponent, ref } from 'vue';
 import { createAnimation } from '@ionic/vue';
 import io from 'socket.io-client'
+import '@capacitor/device';
+//import { Plugins } from '@capacitor/core'
 
 var socket  = io(axios.defaults.baseURL,{
   cors: {
@@ -196,7 +198,8 @@ export default defineComponent({
       reload : 0,
       invite : null,
       input_filter : null,
-      base64 : []
+      base64 : [],
+      showAppleSignIn : true
     }
   },
   mounted(){
@@ -206,6 +209,7 @@ export default defineComponent({
       this.setFcm()
     }
     this.getProducts(this.reload)
+    this.show_ios()
   },
   methods:{
      getBase64Resize(url,id){
@@ -232,6 +236,10 @@ export default defineComponent({
           console.log(err)
         });
       
+    },
+    async show_ios(){
+      //let device = await Plugins.Device.getInfo();
+      //this.showAppleSignIn = device.platform === 'ios';
     },
     redirect_details(product) {
       this.$router.push({name: 'details.product',params :{ productId : product.id}, query : {...product}});
@@ -437,6 +445,8 @@ ion-modal.stack-modal {
   --backdrop-opacity: var(--ion-backdrop-opacity, 0.32);
 }
 
-
+.margin-ios{
+  margin-top: -12px;
+}
 
 </style>
