@@ -24,14 +24,14 @@
           </p>
      <ion-card style="box-shadow: inherit;margin-top: 8%;width: 101%;margin-left: -1%">
       <img :src="BasePublic+product.photo" class="img-left">
-     
-      <svg width="49" height="49" viewBox="0 0 49 49" fill="none" xmlns="http://www.w3.org/2000/svg" class="img-center">
-      <path d="M36.75 27.5625L42.875 33.6875L36.75 39.8125" stroke="#5B716F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-      <path d="M6.125 33.6875H42.875" stroke="#5B716F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-      <path d="M12.25 21.4375L6.125 15.3125L12.25 9.1875" stroke="#5B716F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-      <path d="M42.875 15.3125H6.125" stroke="#5B716F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
-
+      <div style="display: flex;justify-content: center;">
+        <svg width="49" height="49" viewBox="0 0 49 49" fill="none" xmlns="http://www.w3.org/2000/svg" class="img-center">
+        <path d="M36.75 27.5625L42.875 33.6875L36.75 39.8125" stroke="#5B716F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M6.125 33.6875H42.875" stroke="#5B716F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M12.25 21.4375L6.125 15.3125L12.25 9.1875" stroke="#5B716F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M42.875 15.3125H6.125" stroke="#5B716F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>  
       <div v-show="product_select == null" class="img-right" style="background: #6ACFC7;"></div>
       <img v-show="product_select != null" class="img-right" :src="BasePublic+product_select?.photo">
 
@@ -182,7 +182,7 @@ export default defineComponent({
 <style type="text/css">
  .img-left{
   margin-left: -58px;
-  width: 50%;
+  width: 215px;
 height: 210px;
   float: left;
   border-radius: 30px 30px 30px 30px;
@@ -190,7 +190,7 @@ height: 210px;
  }
  .img-right{
 margin-right: -58px;
-  width: 50%;
+  width: 215px;
 height: 210px;
   float: right;
   border-radius: 30px 30px 30px 30px;

@@ -5,7 +5,7 @@
       <br>
       <img src="/assets/logo-success.png">
     </div>
-
+    <div style="display: flex;justify-content: center;">
     <ion-row>
       <ion-col size="2">
         <ion-checkbox color="primary" @click="accepted =! accepted" style="margin-top: 20px;margin-left: 16px;"></ion-checkbox>
@@ -16,6 +16,7 @@
         </p>
       </ion-col>
    </ion-row>
+   </div>
    <p>  
     <button type="button" class="btn-primary" @click="acceptTerms" style="width: 138px;">
       Continuar

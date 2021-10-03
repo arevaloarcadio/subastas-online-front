@@ -1,11 +1,11 @@
 <template>
-	<ion-app  :class="{ 'ios' : showAppleSignIn }" v-if="route.meta.layout =='LayoutDashboard'">
+	<ion-app :class="{'ios' : showAppleSignIn }" v-if="route.meta.layout =='LayoutDashboard'">
 		<LayoutDashboard></LayoutDashboard>
 	</ion-app>
-	<ion-app  :class="{ 'ios' : showAppleSignIn }"  v-if="route.meta.layout =='Layout'">
+	<ion-app  :class="{'ios' : showAppleSignIn }" v-if="route.meta.layout =='Layout'">
 		<Layout></Layout>
 	</ion-app>
-	<ion-app :class="{ 'ios' : showAppleSignIn }"  v-else>
+	<ion-app  :class="{'ios' : showAppleSignIn }" v-else>
 		<transition name="slide-fade">
 			<router-view></router-view>
 		</transition>
