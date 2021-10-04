@@ -74,7 +74,7 @@
                   </div>
              
                   <img :src="BasePublic+product.photo" style="width: auto;height: 143px;border-radius: 0px 10px 0px 0px;width: 100%;">
-                <div :class="{'margin-ios' : showAppleSignIn} ">  
+                <div :class="{'margin-ios' : showAppleSignIn}">  
                   <ion-card-header>
 
                  <ion-card-subtitle  style="color: #000">

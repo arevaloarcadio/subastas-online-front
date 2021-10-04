@@ -14,10 +14,10 @@
             <br>
             <br>
             <p> 
-              <Phone></Phone>
+            <Phone></Phone>
 
              
-            <ion-grid>
+            <ion-grid style="display: flex;justify-content: center;width: 340px;">
                <ion-row style="margin-top: 3%;">
                   <ion-col size="4">
                     <img  :src="'https://www.countryflags.io/'+flag+'/flat/64.png'" style="z-index: 1000;z-index: 1000;position: absolute;top: 36%; left: 18%;width: 20px;height: 16px">
@@ -27,7 +27,7 @@
                   </ion-select>
                 </ion-col>
                 <ion-col size="8">
-                  <div class="container1">
+                  <div class="container1" :class="{'container1-ios':showAppleSignIn}" >
                     <div  class="input-container1">
                       <input type="number"  v-model="phone" @input="maxlength" class="input-text1">
                     </div>
@@ -56,6 +56,8 @@ import axios from 'axios';
 import Phone from './Phone'
 import toast from '@/toast'
 import code_number from './code_number'
+import '@capacitor/device';
+import { Plugins } from '@capacitor/core'
 
 export default defineComponent({
   components: { Phone,IonRow,IonGrid,IonCol,IonSelect, IonSelectOption},
@@ -72,18 +74,24 @@ export default defineComponent({
       email: null,
       password: null,
       password_confirmacion: null,
-      phone : null
+      phone : null,
+      showAppleSignIn : true
     };
   },
   mounted(){
     this.type = this.$route.query.type;
     this.getCodes()
-   
+    this.show_ios()
     //this.getCountry()
   },
   methods: {
     redirect(poth){
       this.$router.push(poth);
+    },
+
+    async show_ios(){
+      let device = await Plugins.Device.getInfo();
+      this.showAppleSignIn = device.platform === 'ios';
     },
     getCountry(){
       
@@ -276,7 +284,9 @@ ion-select::part(icon) {
   border-color: rgb(1 4 8);
 }
 
-
+.container1-ios{
+  margin-top: 5px;
+}
 
 /* Set the icon color and opacity */
 
