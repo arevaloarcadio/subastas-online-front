@@ -50,7 +50,7 @@ import user from "@/plugins/jwt/user";
 import axios from 'axios';
 import { useRouter } from 'vue-router';
 import { Plugins } from '@capacitor/core'
-import '@capacitor-community/apple-sign-in';
+import { SignInWithApple } from '@capacitor-community/apple-sign-in';
 import { FacebookLogin } from '@capacitor-community/facebook-login';
 import '@codetrix-studio/capacitor-google-auth';
 import '@capacitor/device';
@@ -112,8 +112,8 @@ export default defineComponent({
       this.$router.push({path: page});
     },
     async show_ios(){
-      let device = await Plugins.Device.getInfo();
-      this.showAppleSignIn = device.platform === 'ios';
+      //let device = await Plugins.Device.getInfo();
+      //this.showAppleSignIn = device.platform === 'ios';
     },
     async loginFacebook(){
 
@@ -210,15 +210,46 @@ export default defineComponent({
     },
     async loginApple() {
 
-    /*let options = {
+    let options = {
       clientId: 'com.app.upgrap',
       redirectURI: 'https://upgrap.firebaseapp.com/__/auth/handler',
       scopes: 'email name',
       state: '12345',
       nonce: 'nonce',
-    };*/
+    };
 
-    let result = await Plugins.SignInWithApple.authorize()
+    SignInWithApple.authorize(options)
+    .then(async(result) => {
+      var loading = await toast.showLoading()
+
+      await loading.present();
+      
+      let data = {
+        email : result.response.email,
+        name : result.response.givenName+' '+result.response.familyName,
+      }
+      
+      axios
+      .post("/signin/mobile/apple",data)
+      .then(async res =>  {
+
+        loading.dismiss()
+        user.setUser(res.data.user)
+        jwtToken.setToken(res.data.token);
+        this.setAuthUser(res.data.user)
+        this.$router.push({path: '/principal' , query : {set_fcm : true }});
+      })
+      .catch(err => {
+        loading.dismiss()
+        console.log(err.response)
+      });
+    })
+    .catch(error => {
+      //loading.dismiss()
+      console.log(error)
+    });
+    
+    /*let result = await Plugins.SignInWithApple.authorize()
 
     if(!result?.email){
       toast.openToast("Error al obtener datos de Apple, intente nuevamente","error",2000);
@@ -247,7 +278,7 @@ export default defineComponent({
       .catch(err => {
         loading.dismiss()
         console.log(err.response)
-      });
+      });*/
     }
   }
 });
