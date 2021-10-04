@@ -112,8 +112,8 @@ export default defineComponent({
       this.$router.push({path: page});
     },
     async show_ios(){
-      //let device = await Plugins.Device.getInfo();
-      //this.showAppleSignIn = device.platform === 'ios';
+      let device = await Plugins.Device.getInfo();
+      this.showAppleSignIn = device.platform === 'ios';
     },
     async loginFacebook(){
 

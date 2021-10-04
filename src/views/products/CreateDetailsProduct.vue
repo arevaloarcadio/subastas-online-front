@@ -75,12 +75,12 @@
           </ion-col>
         </ion-row> 
 
-        <ion-row>
+        <ion-row  v-show="!showAppleSignIn">
           <ion-col >
              <ion-radio-group>
               <ion-row>
                 <ion-col>
-                  <ion-item  lines="none">
+                  <ion-item  lines="none" style="margin-left: -11px;">
                     <p class="p-no-center" style="font-family: Montserrat;font-style: normal;font-weight: 500;font-size: 16px;line-height: 20px;align-items: center;color: #5B716F;">Mostrar mi dirección solo al 
                       <br> aceptar el intercambio</p>
                     <ion-radio color="success" slot="start" checked="false" ref="show_direction"  @click="radio" style="margin-top: -3px;"></ion-radio>
@@ -90,32 +90,26 @@
             </ion-radio-group>
           </ion-col>
         </ion-row> 
+
+         <ion-row  v-show="showAppleSignIn">
+          <ion-col size="2">
+              <input id="radio-2" style="margin-top: -5px;" class="radio-custom-2" name="radio-group" type="checkbox" @click="show_direction =! show_direction" checked="">
+              <p for="radio-2" style="font-family: Montserrat;font-style: normal;font-weight: 500;font-size: 0px;line-height: 20px;align-items: center;color: #5B716F;text-align: left !important;padding-left: 13px;" class="radio-custom-label-2">M</p>
+          </ion-col>
+          <ion-col size="10">
+             <p for="radio-2" style="font-family: Montserrat;font-style: normal;font-weight: 500;font-size: 16px;line-height: 20px;align-items: center;color: #5B716F;text-align: left !important;margin-left: 17px;" class="radio-custom-label-2">Mostrar mi dirección solo al  <br>  aceptar el intercambio</p>
+          </ion-col>
+        </ion-row>
         <br>
         <br>
         <center>
-
           <button type="button" class="btn-primary" @click="registerProduct()" style="width: 124px;">
             Publicar
           </button>
          </center> 
-           <br><br><br><br>     
+        <br><br><br><br>     
       </ion-list>
-    
     </ion-content>   
- <!--<ion-popover
-    :is-open="isOpenRef"
-    css-class="my-class"
-    :event="event"
-    :translucent="true"
-    :showBackdrop="false"
-    :keyboardClose="false"
-    :backdropDismiss="true"
-    @ionpopoverdiddismiss="setOpen(false)"
-    >
-    <PopoverSelectCategory  @category="category_($event)"></PopoverSelectCategory> 
-  
-  </ion-popover>-->
-  
   </ion-page>  
 </template>
 
@@ -142,6 +136,8 @@ import toast from '@/toast'
 import { mapGetters } from 'vuex'
 import countries from '../pages/countries.json'
 import states from '../pages/states.json'
+import { Plugins } from '@capacitor/core'
+import '@capacitor/device';
 
 export default defineComponent({
   components: {
@@ -215,14 +211,17 @@ export default defineComponent({
       nombre : null,
       descripcion : null,
       image : null,
-      show_direction : null,
+      show_direction : true,
       address : null,
       state : [],
       countries : countries,
       states : states.data,
+      showAppleSignIn : true
     }
   },
   mounted(){
+    this.show_ios()
+
     let svg = '<svg style="margin-left:14px" width="12" height="7" viewBox="0 0 12 7" fill="none" xmlns="http://www.w3.org/2000/svg">'+
                 '<path d="M11 1L6 6L1 1" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>'+
               '</svg>'
@@ -234,7 +233,7 @@ export default defineComponent({
     this.descripcion = this.$route.query.descripcion;
     this.image = this.dataURLtoFile(this.$route.query.image,'image/png');
     this.to_change = this.$route.query.to_change ?? null
-  console.log(countries)
+    console.log(countries)
  },
   computed : {
     ...mapGetters([
@@ -264,6 +263,10 @@ export default defineComponent({
         this.setOpen(false)
       });
  
+    },
+    async show_ios(){
+      let device = await Plugins.Device.getInfo();
+      this.showAppleSignIn = device.platform === 'ios';
     },
     getCategories(){
      axios
@@ -570,6 +573,58 @@ background: #E9EBEB;
   width: 28px;
    border-width: 1px;
 
+}
+
+
+.checkbox-custom-2, .radio-custom-2 {
+    opacity: 0;
+    position: absolute;   
+}
+
+.checkbox-custom-2, .checkbox-custom-label-2, .radio-custom-2, .radio-custom-label-2 {
+    display: inline-block;
+    vertical-align: middle;
+    margin: 5px;
+    cursor: pointer;
+}
+
+.checkbox-custom-label-2, .radio-custom-label-2 {
+    position: relative;
+}
+
+.checkbox-custom-2 + .checkbox-custom-2-label:before, .radio-custom-2 + .radio-custom-label-2:before {
+    content: '';
+    background: #fff;
+    border: 8px solid #E9EBEB;
+    display: inline-block;
+    vertical-align: middle;
+    width: 10px;
+    height: 10px;
+    padding: 2px;
+    margin-right: 10px;
+    text-align: center;
+}
+
+.checkbox-custom-2:checked + .checkbox-custom-label-2:before {
+    background: rebeccapurple;
+    box-shadow: inset 0px 0px 0px 4px #fff;
+}
+
+.radio-custom-2 + .radio-custom-label-2:before {
+    border-radius: 50%;
+
+}
+
+.radio-custom-2:checked + .radio-custom-label-2:before {
+    background: #ccc;
+    box-shadow: inset 0px 0px 0px 10px #32BAB0;
+    border-radius: 99px;
+
+}
+
+
+.checkbox-custom-2:focus + .checkbox-custom-label-2, .radio-custom-2:focus + .radio-custom-label-2 {
+  outline: 0px solid #ddd; /* focus style */
 }
 
 </style>

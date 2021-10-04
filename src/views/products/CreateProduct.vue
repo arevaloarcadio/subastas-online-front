@@ -41,7 +41,7 @@
         </ion-col>
       </ion-row>
        
-        <ion-row>
+        <ion-row v-show="!showAppleSignIn">
           <ion-col >
              <ion-radio-group value="Nuevo" v-model="estado">
               <ion-row>
@@ -49,6 +49,7 @@
                   <ion-item  lines="none">
                     <p class="text-radio">Nuevo</p>
                     <ion-radio  color="success" slot="start" value="Nuevo" @click="estado ='nuevo'"></ion-radio>
+                    
                   </ion-item>
                     </ion-col>
                      <ion-col>
@@ -62,11 +63,20 @@
           </ion-col>
         </ion-row>
 
+        <ion-row v-show="showAppleSignIn" style="margin-top: 10px">
+          <ion-col style="margin-left: 20px;">
+            <input id="radio-1" class="radio-custom" name="radio-group" type="radio" @click="estado ='nuevo'" value="nuevo"  checked>
+            <label for="radio-1" style="  font-family: Montserrat;font-style: normal;font-weight: 500;font-size: 16px;line-height: 20px;display: flex;align-items: center;letter-spacing: 0.75px;color: #5B716F;" class="radio-custom-label">Nuevo</label>
+          </ion-col>
+          <ion-col style="margin-left: -42px;">
+             <input id="radio-2" class="radio-custom" name="radio-group"  type="radio" @click="estado ='usado'" value="usado">
+            <label for="radio-2" style="  font-family: Montserrat;font-style: normal;font-weight: 500;font-size: 16px;line-height: 20px;display: flex;align-items: center;letter-spacing: 0.75px;color: #5B716F;" class="radio-custom-label">Usado</label>
+          </ion-col>
+        </ion-row>
 
         <ion-row> 
             <ion-col col-12>
-              <div class="container"   style="cursor: pointer;">
-         
+              <div class="container" style="cursor: pointer;">
                 <div  class="input-container" v-if="takenImageUrl == null">
                   <label class="label-input" style="margin-top: 16px;font-family: Montserrat;font-style: normal;font-weight: normal;font-size: 16px;line-height: 28px;letter-spacing: 0.75px;" @click="setOpen(true)">Selecciona una foto</label>
                   <img src="/assets/PlusCircle2.png" style="margin-left:85%" @click="setOpen(true)">
@@ -74,10 +84,9 @@
                 </div>
                 <div  class="input-container" v-else>
                    <svg @click="takenImageUrl = null" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" style="position: fixed;margin-left: 88%;margin-top: -87px;z-index: 12;">
-              <path d="M20 3.02962L17.18 0.292725L10 7.26113L2.82 0.292725L0 3.02962L7.18 9.99803L0 16.9664L2.82 19.7033L10 12.7349L17.18 19.7033L20 16.9664L12.82 9.99803L20 3.02962Z" fill="#000" fill-opacity="0.5"/>
-              </svg>
-
-                <img :src="takenImageUrl" style="height: 290px;width: 100%;">
+                    <path d="M20 3.02962L17.18 0.292725L10 7.26113L2.82 0.292725L0 3.02962L7.18 9.99803L0 16.9664L2.82 19.7033L10 12.7349L17.18 19.7033L20 16.9664L12.82 9.99803L20 3.02962Z" fill="#000" fill-opacity="0.5"/>
+                    </svg>
+                  <img :src="takenImageUrl" style="height: 290px;width: 100%;">
                 </div>
               </div>
             </ion-col>
@@ -140,6 +149,8 @@ import { Camera,CameraSource, CameraResultType } from '@capacitor/camera';
 
 import { defineComponent, ref } from 'vue';
 import toast from '@/toast'
+import { Plugins } from '@capacitor/core'
+import '@capacitor/device';
 
 export default defineComponent({
   components: {
@@ -200,8 +211,12 @@ export default defineComponent({
       nombre : null,
       descripcion : null,
       image : null,
-      to_change : null
+      to_change : null,
+      showAppleSignIn : true
     }
+  },
+  mounted(){
+    this.show_ios()
   },
   methods:{
     redirect() {
@@ -220,6 +235,10 @@ export default defineComponent({
       };
 
       this.$router.push({path: '/create/details/product' , query : {...data}});
+    },
+    async show_ios(){
+      let device = await Plugins.Device.getInfo();
+      this.showAppleSignIn = device.platform === 'ios';
     },
     async openModal() {
     
@@ -379,6 +398,70 @@ ion-radio{
   width: 28px;
 
 }
+.ion-radio{
+     border-style: solid;
+  border-width: 6px;
+  border-radius: 15px;
+  color: #CEFFFB;
+  height: 28px;
+  width: 28px;
+
+}
+
+.ion-radio:checked {
+border: 1px solid red; border-radius: 30px; padding: 3px 3px 0 3px; background: red;
+  
+}
+
+
+.checkbox-custom, .radio-custom {
+    opacity: 0;
+    position: absolute;   
+}
+
+.checkbox-custom, .checkbox-custom-label, .radio-custom, .radio-custom-label {
+    display: inline-block;
+    vertical-align: middle;
+    margin: 5px;
+    cursor: pointer;
+}
+
+.checkbox-custom-label, .radio-custom-label {
+    position: relative;
+}
+
+.checkbox-custom + .checkbox-custom-label:before, .radio-custom + .radio-custom-label:before {
+    content: '';
+    background: #fff;
+    border: 5px solid #CEFFFB;
+    display: inline-block;
+    vertical-align: middle;
+    width: 12px;
+    height: 12px;
+    padding: 2px;
+    margin-right: 10px;
+    text-align: center;
+}
+
+.checkbox-custom:checked + .checkbox-custom-label:before {
+    background: rebeccapurple;
+    box-shadow: inset 0px 0px 0px 4px #fff;
+}
+
+.radio-custom + .radio-custom-label:before {
+    border-radius: 50%;
+}
+
+.radio-custom:checked + .radio-custom-label:before {
+    background: #ccc;
+    box-shadow: inset 0px 0px 0px 10px #32BAB0;
+}
+
+
+.checkbox-custom:focus + .checkbox-custom-label, .radio-custom:focus + .radio-custom-label {
+  outline: 0px solid #ddd; /* focus style */
+}
+
 
 ion-radio::part(mark){
 
