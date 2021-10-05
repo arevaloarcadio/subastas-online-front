@@ -20,7 +20,7 @@
           <p class="sub-title" style="width: 80%;margin-left: 10%;font-weight: 500;">
            Agrega un mensaje que <br> describa tu oferta
           </p>
-       <ion-card style="box-shadow: inherit;margin-top: 11%;width: 100%;margin-left: -1%">
+       <ion-card style="box-shadow: inherit;margin-top: 11%;width: 100%;margin-left: 0%">
       <img  :src="BasePublic+product_photo" class="img-left">
        <svg width="49" height="49" viewBox="0 0 49 49" fill="none" xmlns="http://www.w3.org/2000/svg" class="img-center">
       <path d="M36.75 27.5625L42.875 33.6875L36.75 39.8125" stroke="#5B716F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
