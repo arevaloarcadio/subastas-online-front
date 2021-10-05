@@ -14,9 +14,9 @@
           </p>
       </ion-col>
     </ion-row>
-    <ion-content >
+    <ion-content class="ion-padding">
          <div style="display: flex;justify-content: center;">  
-        <ion-card style="width:334px;">
+        <ion-card style="width:345px;">
        
         <div v-show="product.requests != 0"  class="badge" style="padding-left: 18px;padding-top: 6.5px;    margin-left: 80%;"> 
               <span  style="">
@@ -30,12 +30,12 @@
               </svg>
 
             </div>
-        <img :src="BasePublic+product.photo" style="width: 112%;height: 257px;">
+        <img :src="BasePublic+product.photo" style="width: 112%;height: 257px;border-radius: 10px;">
         </ion-card>
           </div>
          <ion-row style="margin-top: -13px;">
             <ion-col size="8">
-              <p class="p-no-center" style="padding-left: 10px;">
+              <p class="p-no-center" style="padding-left: 1px;">
                 <span class="text-control" style="font-weight: 500;font-size: 20px;line-height: 24px;align-items: center;color: #32BAB0;">
                  {{product.name}}
                 </span>
@@ -54,7 +54,7 @@
             </ion-col>
           </ion-row>
           
-          <p  class="p-no-center" style="margin-left: 16px;font-size: 16px;line-height: 20px;align-items: center;letter-spacing: 0.75px;color: #5B716F;       margin-top: -15px;; ">
+          <p  class="p-no-center" style="margin-left: 5px;font-size: 16px;line-height: 20px;align-items: center;letter-spacing: 0.75px;color: #5B716F;margin-top: -15px; ">
             {{product.pais}}, {{product.city}}
              <br><br>  
           <span class="text-control" style=" font-weight: 400;font-family: Montserrat;font-style: normal;font-weight: normal;font-size: 20px;line-height: 24px;color: #32BAB0;">
@@ -76,7 +76,7 @@
            
           </div>
 
-        <p class="p-no-center"  style="font-style: normal;font-weight: bold;font-size: 16px;line-height: 18px;align-items: center;letter-spacing: 0.75px;color: #000000;margin-left: 12px;">
+        <p class="p-no-center"  style="font-style: normal;font-weight: bold;font-size: 16px;line-height: 18px;align-items: center;letter-spacing: 0.75px;color: #000000;margin-left: 4px;">
               Te puede interesar...
         </p>
      

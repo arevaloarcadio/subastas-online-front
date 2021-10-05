@@ -17,8 +17,8 @@
           </p>
       </ion-col>
     </ion-row>
-  <ion-content>
-      <ion-list>
+  <ion-content class="ion-padding">
+  
         <ion-row> 
         <ion-col col-12>
           <div class="container">
@@ -83,7 +83,7 @@
                   <input class="input-text">
                 </div>
                 <div  class="input-container" v-else>
-                   <svg @click="takenImageUrl = null" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" style="position: fixed;margin-left: 88%;margin-top: -87px;z-index: 12;">
+                   <svg @click="takenImageUrl = null" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" style="position: fixed;margin-left: 80%;margin-top: -87px;z-index: 12;">
                     <path d="M20 3.02962L17.18 0.292725L10 7.26113L2.82 0.292725L0 3.02962L7.18 9.99803L0 16.9664L2.82 19.7033L10 12.7349L17.18 19.7033L20 16.9664L12.82 9.99803L20 3.02962Z" fill="#000" fill-opacity="0.5"/>
                     </svg>
                   <img :src="takenImageUrl" style="height: 290px;width: 100%;">
@@ -114,7 +114,7 @@
           </button>
          </center>    
          <br><br><br><br> 
-      </ion-list>
+
  
     </ion-content>    
 
@@ -139,7 +139,6 @@ import ModalUpload from './ModalUpload'
 import { 
   IonContent, 
   modalController,
-  IonList,
   IonPage,
   createAnimation,
   IonModal
@@ -156,7 +155,6 @@ export default defineComponent({
   components: {
     ModalUpload,
     IonContent, 
-    IonList,
     IonPage,
     IonModal
   },

@@ -10,15 +10,11 @@
              <p class="p-no-center" style="margin-left: 8%;float: left;font-family: Montserrat;font-style: normal;font-weight: 500;font-size: 16px;line-height: 20px;color: #5B716F;margin-top: 0%;"> 
             Hemos enviado un código a tu <br> telefono
             </p>
-            <br>
-            <br> 
-            <p> 
-              <Phone style="margin-top: 13%;"></Phone>
-           
-    
 
-            </p>
-            <div  ref="footer" class="footer" style="position: inherit; background:#32BAB0;height: 290.21px; width: 100%;border-radius: 24px 24px 0 0 ;margin-top: 28%;">
+            <div style="display: flex;justify-content: center;" > 
+              <Phone style="position: absolute;margin-left: -267px;margin-top: 85px;"></Phone>
+            </div>
+            <div  ref="footer" class="footer" style="position: inherit; background:#32BAB0;height: 290.21px; width: 100%;border-radius: 24px 24px 0 0 ;margin-top: 400px;">
               
               <input type="number" id="code-1" v-model="code_1" maxlength="1" v-on:keyup="change_input($event,1)" class="input-validate-code" style="margin-left: -2%"> 
               <input type="number" id="code-2" v-model="code_2" maxlength="1" v-on:keyup="change_input($event,2)" class="input-validate-code">
@@ -103,8 +99,8 @@ export default defineComponent({
         user.setUser(res.data.user)
         jwtToken.setToken(res.data.token);
         this.setAuthUser(res.data.user)
-        toast.openToast("Bienvenido a Upgrap","success",2000);
-        this.$router.push({path :'/principal' , query : {set_fcm : true}})
+        toast.openToast("Por favor complete su perfil","success",10000);
+        this.$router.push({path :'/edit/profile' , query : {complete_profile : true}})
       })
       .catch(err => {
         loading.dismiss()

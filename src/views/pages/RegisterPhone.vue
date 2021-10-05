@@ -13,11 +13,13 @@
             <br>
             <br>
             <br>
+            <div style="display: flex;justify-content: center;" >   
+              <Phone></Phone>
+            </div>
             <p> 
-            <Phone></Phone>
 
              
-            <ion-grid style="display: flex;justify-content: center;width: 340px;">
+            <ion-grid>
                <ion-row style="margin-top: 3%;">
                   <ion-col size="4">
                     <img  :src="'https://www.countryflags.io/'+flag+'/flat/64.png'" style="z-index: 1000;z-index: 1000;position: absolute;top: 36%; left: 18%;width: 20px;height: 16px">
@@ -175,7 +177,7 @@ export default defineComponent({
       
       axios
       .post("/signup/phone", {
-        phone : "+"+this.code+this.phone
+        phone : this.code+this.phone
       })
       .then(res => {
         loading.dismiss()
@@ -184,7 +186,7 @@ export default defineComponent({
         this.$router.push({name:'verify.phone' , query : {id_user:res.data.id_user }})
       })
       .catch(err => {
-         toast.openToast("Error al Verificar","error",2000);
+         //toast.openToast("Error al Verificar","error",2000);
          loading.dismiss()
         console.log(err)
       });

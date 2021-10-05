@@ -2,7 +2,7 @@
    <ion-page>
      <ion-row>
        <ion-col>
-        <button @click="$router.go(-1)">
+        <button @click="$router.go(-1)" v-show="!complete">
             <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-left: 3%;top: 43%;position: absolute;">
               <path d="M27 16H5" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
               <path d="M14 7L5 16L14 25" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -15,6 +15,7 @@
           <img src="/assets/check.png">
         </button>
       </ion-col>
+
     </ion-row>
     <center>
       <ion-avatar>
@@ -22,11 +23,29 @@
       </ion-avatar><br>
       <span class="text-control" style="font-weight: 400;" @click="setOpen(true)">Cambiar foto de perfil</span> 
     </center>
+  <br>
   <ion-content class="ion-padding">
     <ion-row>
       <ion-col>
        <label  style="margin-left: -5px" class="label-edit-profile">Nombre</label>
        <ion-input class="input-text-edit-profile" style="width: 68%;"  @ionBlur="event($event)" id="name" > </ion-input>
+
+      </ion-col>
+      <ion-col size="2">
+        <p class="show-input" >
+          Mostrar
+        </p>
+          <label class="c-switch c-switch-3d c-switch-primary">
+            <input  class="c-switch-input"  id="private" type="checkbox" @click="checked('proposal')" v-model="proposal"><span class="c-switch-slider" style="margin-top: -37px;margin-left: -2px;"></span>
+          </label>
+      </ion-col>
+
+    </ion-row>
+   <div class="hr-black"> </div> 
+   <ion-row>
+      <ion-col>
+       <label  style="margin-left: -5px" class="label-edit-profile">Correo Electrónico</label>
+       <ion-input class="input-text-edit-profile" style="width: 68%;"  @ionBlur="event($event)" id="email" > </ion-input>
 
       </ion-col>
       <ion-col size="2">
@@ -108,6 +127,31 @@
 
     </ion-row>
    <div class="hr-black"> </div>
+    <ion-row>
+      <ion-col>
+       <label  style="margin-left: -5px"  class="label-edit-profile">Contraseña</label>
+       <ion-input class="input-text-edit-profile" id="password" style="width: 100%;" type="password" @ionBlur="event($event)" > </ion-input>
+      <br>
+      <br>
+      </ion-col>
+  
+
+    </ion-row>
+   <div class="hr-black"> </div>
+     <ion-row>
+      <ion-col>
+       <label  style="margin-left: -5px"  class="label-edit-profile">Confirmar Contraseña</label>
+
+       <ion-input class="input-text-edit-profile" id="password_confirmed" style="width: 100%;padding-left: 9px;" type="password" @ionBlur="event($event)" > </ion-input>
+    <br>
+    <br>
+        
+      </ion-col>
+   
+
+    </ion-row>
+   <div class="hr-black"> </div>
+   <br><br><br><br>
     </ion-content>
         <ion-modal
         :is-open="isOpenRef"
@@ -155,9 +199,13 @@ export default defineComponent({
         dir : '',
         pais : '',
         phone : '',
-        photo : ''
+        photo : '',
+        email : '',
+        password : '',
+        password_confirmed : ''
       },
-      photo : ''
+      photo : '',
+      complete : false
     }
   },
   setup(){
@@ -178,6 +226,8 @@ export default defineComponent({
   
   },
   mounted(){
+    this.$route.query.complete_profile ? this.complete = true :  this.complete = false
+     console.log(this.complete)
     /*document.getElementById('name').value = this.user.name
     document.getElementById('city').value = this.user.city
     document.getElementById('dir').value = this.user.dir
@@ -198,13 +248,25 @@ export default defineComponent({
       this.$router.push(path);
     },
     async updateProfile(){
+
     let loading = await toast.showLoading()
-
-    await loading.present(); 
-
       if(this.photo == null){
+       
+        if (this.complete) {
+       
+          if (this.user.name == null || this.user.city == null || this.user.dir == null || this.user.pais == null || this.user.phone == null || this.user.password == null || this.user.password_confirmed == null) {
+              loading.dismiss()
+              toast.openToast("Complete los campos","error",2000);
+              return
+          }
+        }
+      
+        if (this.password != this.password_confirmed) {
+            loading.dismiss()
+            toast.openToast("La contraseña no coinciden","error",2000);
+            return
+        }
 
-     
         axios
         .put("/customers/"+this.getUser.id+"/mobile" , {...this.user} )
         .then(res => {
@@ -217,13 +279,33 @@ export default defineComponent({
           console.log(err)
         });
       }else{
+
+        if (this.complete) {
+
+          console.log("aqui con foto")
+          if (this.user.name == null || this.user.city == null || this.user.dir == null || this.user.pais == null || this.user.phone == null || this.user.password == null || this.user.password_confirmed == null) {
+              loading.dismiss()
+              toast.openToast("Complete los campos","error",2000);
+              return
+          }
+        }
+        
+        if (this.user.password != this.user.password_confirmed) {
+            loading.dismiss()
+            toast.openToast("La contraseña no coinciden","error",2000);
+            return
+        }
+         
+        
         let formData = new FormData();
        
         formData.append('name', this.user.name);
+        formData.append('email', this.user.email);
         formData.append('city',this.user.city);
         formData.append('dir',this.user.dir);
         formData.append('pais',this.user.pais);
         formData.append('phone',this.user.phone);
+        formData.append('password',this.user.password);
         formData.append('photo',this.photo);
 
         axios
@@ -232,6 +314,9 @@ export default defineComponent({
             console.log(res)
               loading.dismiss()
               toast.openToast("Modificación exitosa","success",2000);
+              if(this.complete){
+                this.$router.push({path: '/principal' , query : {set_fcm : true }});
+              }
            })
           .catch(err => {
             loading.dismiss()
@@ -256,6 +341,7 @@ export default defineComponent({
         this.user = res.data
         this.user.photo = this.BasePublic+res.data.photo   
         document.getElementById('name').value = this.user.name
+        document.getElementById('email').value = this.user.email
         document.getElementById('city').value = this.user.city
         document.getElementById('dir').value = this.user.dir
         document.getElementById('pais').value = this.user.pais

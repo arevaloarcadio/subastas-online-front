@@ -17,7 +17,7 @@
           </p>-->
       </ion-col>
     </ion-row>
-  <ion-content>
+  <ion-content class="ion-padding">
       <ion-list>
      
         

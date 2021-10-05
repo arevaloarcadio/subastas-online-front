@@ -38,7 +38,7 @@ export default defineComponent({
 	data(){
 		return {
 			route : this.$route,
-			showAppleSignIn : false
+			showAppleSignIn : true
 			//fcm: new FCM()
 		}
 	},

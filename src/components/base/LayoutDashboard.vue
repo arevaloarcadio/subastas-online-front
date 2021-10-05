@@ -78,7 +78,7 @@ export default {
       inactive : null,
       loading : null,
       invite : null,
-      showAppleSignIn : false
+      showAppleSignIn : true
     };
   },
   mounted(){
@@ -156,7 +156,7 @@ export default {
   background-color: #fff;
   color: white;
   text-align: center;
-  height: 130px;
+  height: 110px;
 }
 div.scroll {
   overflow: auto;

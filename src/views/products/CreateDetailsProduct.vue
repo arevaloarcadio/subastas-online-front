@@ -17,11 +17,9 @@
           </p>
       </ion-col>
     </ion-row>
-  <ion-content>
-      <ion-list>
-     
-        
-         <ion-row>
+  <ion-content class="ion-padding">
+      
+        <ion-row>
           <ion-col col-12>
             <div class="container">
               <label class="label-input">Seleccione una categoría</label>
@@ -107,8 +105,7 @@
             Publicar
           </button>
          </center> 
-        <br><br><br><br>     
-      </ion-list>
+
     </ion-content>   
   </ion-page>  
 </template>
@@ -124,9 +121,7 @@ import axios from 'axios'
 import { 
   IonContent, 
   modalController,
-  IonList,
   IonPage,
-  
   popoverController 
  } from '@ionic/vue';
 
@@ -143,7 +138,6 @@ export default defineComponent({
   components: {
  
     IonContent, 
-    IonList,
     IonPage,
 
   },
