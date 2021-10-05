@@ -143,12 +143,12 @@
        <label  style="margin-left: -5px"  class="label-edit-profile">Confirmar Contraseña</label>
 
        <ion-input class="input-text-edit-profile" id="password_confirmed" style="width: 100%;padding-left: 9px;" type="password" @ionBlur="event($event)" > </ion-input>
-    <br>
-    <br>
-    <br>
-    <br>    
+      <br><br>
       </ion-col>
-   
+      <br>
+    <br>
+    <br>
+    <br>      
 
     </ion-row>
    <div class="hr-black"> </div>

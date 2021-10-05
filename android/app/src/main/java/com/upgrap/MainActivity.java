@@ -11,6 +11,7 @@ import com.capacitorjs.plugins.camera.CameraPlugin;
 import com.capacitorjs.plugins.pushnotifications.PushNotificationsPlugin;
 import com.codetrixstudio.capacitor.GoogleAuth.GoogleAuth;
 import com.getcapacitor.community.applesignin.SignInWithApple;
+import com.capacitorjs.plugins.device.DevicePlugin;
 
 public class MainActivity extends BridgeActivity {
   @Override
@@ -24,6 +25,7 @@ public class MainActivity extends BridgeActivity {
       add(PushNotificationsPlugin.class);
       add(GoogleAuth.class);
       add(SignInWithApple.class);
+      add(DevicePlugin.class);
       // Additional plugins you've installed go here
       // Ex: add(TotallyAwesomePlugin.class);
     }});
