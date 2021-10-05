@@ -261,14 +261,14 @@ export default defineComponent({
           }
         }
       
-        if (this.password != this.password_confirmed) {
+        if (this.user.password != this.user.password_confirmed) {
             loading.dismiss()
             toast.openToast("La contraseña no coinciden","error",2000);
             return
         }
 
         axios
-        .put("/customers/"+this.getUser.id+"/mobile" , {...this.user} )
+        .put("/customers/"+this.getUser.id+"/mobile" , {...this.user,complete : this.complete} )
         .then(res => {
           console.log(res)
             loading.dismiss()
@@ -289,7 +289,7 @@ export default defineComponent({
               return
           }
         }
-        
+          console.log(this.user.password+' !='+ this.user.password_confirmed)
         if (this.user.password != this.user.password_confirmed) {
             loading.dismiss()
             toast.openToast("La contraseña no coinciden","error",2000);
@@ -307,6 +307,7 @@ export default defineComponent({
         formData.append('phone',this.user.phone);
         formData.append('password',this.user.password);
         formData.append('photo',this.photo);
+        formData.append('complete',this.complete);
 
         axios
           .put("/customers/"+this.getUser.id+"/mobile" ,formData,{'Content-Type': 'multipart/form-data'})
@@ -339,6 +340,8 @@ export default defineComponent({
         console.log(res)
 
         this.user = res.data
+        this.user.password = ''
+        this.user.password_confirmed = ''
         this.user.photo = this.BasePublic+res.data.photo   
         document.getElementById('name').value = this.user.name
         document.getElementById('email').value = this.user.email
