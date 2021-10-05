@@ -18,7 +18,7 @@
       </ion-col>
     </ion-row>
   <ion-content class="ion-padding">
-      <ion-list>
+
         <ion-row> 
         <ion-col col-12>
           <div class="container">
@@ -41,24 +41,36 @@
         </ion-col>
       </ion-row>
        
-        <ion-row>
+          <ion-row v-show="!showAppleSignIn" style="margin-left: -10px;">
           <ion-col >
-             <ion-radio-group :value="estado" >
+             <ion-radio-group value="Nuevo" v-model="estado">
               <ion-row>
                 <ion-col>
                   <ion-item  lines="none">
                     <p class="text-radio">Nuevo</p>
-                    <ion-radio  color="success" slot="start" value="nuevo" @click="estado ='nuevo'"></ion-radio>
+                    <ion-radio  color="success" slot="start" value="Nuevo" @click="estado ='nuevo'"></ion-radio>
+                    
                   </ion-item>
                     </ion-col>
                      <ion-col>
                   <ion-item  lines="none" style="margin-left: -27px;">
                     <p class="text-radio">Usado</p>
-                    <ion-radio  color="success" slot="start"  value="usado" @click="estado ='usado'"></ion-radio>
+                    <ion-radio  color="success" slot="start"  value="Usado" @click="estado ='usado'"></ion-radio>
                   </ion-item>
                   </ion-col>
                </ion-row>
             </ion-radio-group>
+          </ion-col>
+        </ion-row>
+
+        <ion-row v-show="showAppleSignIn" style="margin-top: 10px">
+          <ion-col style="margin-left: 20px;">
+            <input id="radio-1" class="radio-custom" name="radio-group" type="radio" @click="estado ='nuevo'" value="nuevo"  checked>
+            <label for="radio-1" style="  font-family: Montserrat;font-style: normal;font-weight: 500;font-size: 16px;line-height: 20px;display: flex;align-items: center;letter-spacing: 0.75px;color: #5B716F;" class="radio-custom-label">Nuevo</label>
+          </ion-col>
+          <ion-col style="margin-left: -42px;">
+             <input id="radio-2" class="radio-custom" name="radio-group"  type="radio" @click="estado ='usado'" value="usado">
+            <label for="radio-2" style="  font-family: Montserrat;font-style: normal;font-weight: 500;font-size: 16px;line-height: 20px;display: flex;align-items: center;letter-spacing: 0.75px;color: #5B716F;" class="radio-custom-label">Usado</label>
           </ion-col>
         </ion-row>
 
@@ -73,7 +85,7 @@
                   <input class="input-text">
                 </div>
                 <div  class="input-container" v-else>
-                   <svg @click="takenImageUrl = null" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" style="position: fixed;margin-left: 88%;margin-top: -87px;z-index: 12;">
+                   <svg @click="takenImageUrl = null" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" style="position: fixed;margin-left: 80%;margin-top: -153px;z-index: 12;">
               <path d="M20 3.02962L17.18 0.292725L10 7.26113L2.82 0.292725L0 3.02962L7.18 9.99803L0 16.9664L2.82 19.7033L10 12.7349L17.18 19.7033L20 16.9664L12.82 9.99803L20 3.02962Z" fill="#000" fill-opacity="0.5"/>
               </svg>
 
@@ -104,8 +116,8 @@
             </svg>
           </button>
          </center>    
-         <br><br><br><br> 
-      </ion-list>
+         <br><br><br><br><br><br>    
+
  
     </ion-content>    
 
@@ -130,7 +142,7 @@ import ModalUpload from './ModalUpload'
 import { 
   IonContent, 
   modalController,
-  IonList,
+
   IonPage,
   createAnimation,
   IonModal
@@ -141,12 +153,14 @@ import { Camera,CameraSource, CameraResultType } from '@capacitor/camera';
 import { defineComponent, ref } from 'vue';
 import toast from '@/toast'
 import BasePublic from '@/plugins/store/utils'
+import { Plugins } from '@capacitor/core'
+import '@capacitor/device';
 
 export default defineComponent({
   components: {
     ModalUpload,
     IonContent, 
-    IonList,
+ 
     IonPage,
     IonModal
   },
@@ -203,7 +217,8 @@ export default defineComponent({
       descripcion : null,
       image : null,
       to_change : null,
-      newFile : false
+      newFile : false,
+      showAppleSignIn : true
     }
   },
   mounted(){
@@ -213,6 +228,7 @@ export default defineComponent({
     this.takenImageUrl = BasePublic+this.$route.query.photo
     this.image = BasePublic+this.$route.query.photo
     this.to_change = this.$route.query.change
+    this.show_ios()
   },
   methods:{
     redirect() {
@@ -235,6 +251,10 @@ export default defineComponent({
       };
 
       this.$router.push({name: 'edit.details.product' ,params :{ productId :this.$route.query.id,newFile : this.newFile} ,query : {...data}});
+    },
+    async show_ios(){
+      let device = await Plugins.Device.getInfo();
+      this.showAppleSignIn = device.platform === 'ios';
     },
     async openModal() {
     
@@ -385,6 +405,57 @@ ion-radio::part(mark){
   width: 18px ;
   height: 14px ;
 }
+
+
+.checkbox-custom, .radio-custom {
+    opacity: 0;
+    position: absolute;   
+}
+
+.checkbox-custom, .checkbox-custom-label, .radio-custom, .radio-custom-label {
+    display: inline-block;
+    vertical-align: middle;
+    margin: 5px;
+    cursor: pointer;
+}
+
+.checkbox-custom-label, .radio-custom-label {
+    position: relative;
+}
+
+.checkbox-custom + .checkbox-custom-label:before, .radio-custom + .radio-custom-label:before {
+    content: '';
+    background: #fff;
+    border: 5px solid #CEFFFB;
+    display: inline-block;
+    vertical-align: middle;
+    width: 12px;
+    height: 12px;
+    padding: 2px;
+    margin-right: 10px;
+    text-align: center;
+}
+
+.checkbox-custom:checked + .checkbox-custom-label:before {
+    background: rebeccapurple;
+    box-shadow: inset 0px 0px 0px 4px #fff;
+}
+
+.radio-custom + .radio-custom-label:before {
+    border-radius: 50%;
+}
+
+.radio-custom:checked + .radio-custom-label:before {
+    background: #ccc;
+    box-shadow: inset 0px 0px 0px 10px #32BAB0;
+}
+
+
+.checkbox-custom:focus + .checkbox-custom-label, .radio-custom:focus + .radio-custom-label {
+  outline: 0px solid #ddd; /* focus style */
+}
+
+
 </style>
 
 

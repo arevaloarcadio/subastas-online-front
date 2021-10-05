@@ -145,7 +145,8 @@
        <ion-input class="input-text-edit-profile" id="password_confirmed" style="width: 100%;padding-left: 9px;" type="password" @ionBlur="event($event)" > </ion-input>
     <br>
     <br>
-        
+    <br>
+    <br>    
       </ion-col>
    
 

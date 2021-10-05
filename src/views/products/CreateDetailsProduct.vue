@@ -105,7 +105,7 @@
             Publicar
           </button>
          </center> 
-
+         <br><br><br><br><br><br> 
     </ion-content>   
   </ion-page>  
 </template>

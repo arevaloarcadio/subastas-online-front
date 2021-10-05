@@ -168,12 +168,7 @@
             </ion-slide>
 
           </ion-slides>
-          <br><br>
-       
-
-
-   
-    
+          <br><br> <br><br>
     </ion-content>
 
   </ion-page>

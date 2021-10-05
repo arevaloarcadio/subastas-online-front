@@ -18,7 +18,7 @@
       </ion-col>
     </ion-row>
   <ion-content class="ion-padding">
-      <ion-list>
+  
      
         
          <ion-row>
@@ -50,15 +50,15 @@
             <ion-row class="container" style="border-radius: 10px" >
               <div class="input-container" style="height: 55px; width: 97%;margin-left: 1.5%;">
               
-                    <img :src="flag" class="select-country" style="width: 20px;height: 16px">
-                    <ion-select id="ionSelectCountry" :interface-options="customActionSheetOptions" interface="action-sheet"  style="background: #32BAB0;border-radius: 10px;color: #32BAB0;font-family: Montserrat;width: 83px;height: 100%;"  ok-text="Seleccionar" cancel-text="Cerrar" @ionChange="getCountry($event)">
-                      <ion-select-option v-for="country in countries" :key="country" :value="country.name">{{country.name}}</ion-select-option>
+                    <img :src="'https://www.countryflags.io/'+flag+'/flat/64.png'" class="select-country" style="width: 20px;height: 16px">
+                    <ion-select id="ionSelectCountry" :interface-options="customActionSheetOptions" interface="action-sheet"  style="background: #32BAB0;border-radius: 10px;color: #32BAB0;font-family: Montserrat;width: 83px;height: 100%;margin-top: -1px;"  ok-text="Seleccionar" cancel-text="Cerrar" @ionChange="getCountry($event)">
+                      <ion-select-option v-for="country in countries" :key="country" :value="country.country">{{country.country}}</ion-select-option>
                   </ion-select>
        
                 <ion-col size="8">
                   <div style="margin-left: -13%;">
                     <div   >
-                      <input type="text" style="padding-left: 3px;font-size: 18px; font-family: Montserrat;font-style: normal;font-weight: normal;font-size: 16px;line-height: 20px;" v-model="country" class="input-text">
+                      <input type="text" style="padding-left: 14px;font-size: 18px; font-family: Montserrat;font-style: normal;font-weight: normal;font-size: 16px;line-height: 20px;" v-model="country" class="input-text">
                     </div>
                   </div>
                 </ion-col>
@@ -81,12 +81,13 @@
           </ion-col>
         </ion-row> 
 
-        <ion-row>
+        
+        <ion-row  v-show="!showAppleSignIn">
           <ion-col >
              <ion-radio-group>
               <ion-row>
                 <ion-col>
-                  <ion-item  lines="none">
+                  <ion-item  lines="none" style="margin-left: -11px;">
                     <p class="p-no-center" style="font-family: Montserrat;font-style: normal;font-weight: 500;font-size: 16px;line-height: 20px;align-items: center;color: #5B716F;">Mostrar mi dirección solo al 
                       <br> aceptar el intercambio</p>
                     <ion-radio color="success" slot="start" checked="false" ref="show_direction"  @click="radio" style="margin-top: -3px;"></ion-radio>
@@ -96,6 +97,16 @@
             </ion-radio-group>
           </ion-col>
         </ion-row> 
+
+         <ion-row  v-show="showAppleSignIn">
+          <ion-col size="2">
+              <input id="radio-2" style="margin-top: -5px;" class="radio-custom-2" name="radio-group" type="checkbox" @click="show_direction =! show_direction" checked="">
+              <p for="radio-2" style="font-family: Montserrat;font-style: normal;font-weight: 500;font-size: 0px;line-height: 20px;align-items: center;color: #5B716F;text-align: left !important;padding-left: 13px;" class="radio-custom-label-2">M</p>
+          </ion-col>
+          <ion-col size="10">
+             <p for="radio-2" style="font-family: Montserrat;font-style: normal;font-weight: 500;font-size: 16px;line-height: 20px;align-items: center;color: #5B716F;text-align: left !important;margin-left: 17px;" class="radio-custom-label-2">Mostrar mi dirección solo al  <br>  aceptar el intercambio</p>
+          </ion-col>
+        </ion-row>
         <br>
         <br>
         <center>
@@ -104,9 +115,8 @@
             Publicar
           </button>
          </center> 
-           <br><br><br><br>     
-      </ion-list>
-    
+           <br><br><br><br><br><br>         
+   
     </ion-content>   
  <!--<ion-popover
     :is-open="isOpenRef"
@@ -137,7 +147,7 @@ import axios from 'axios'
 import { 
   IonContent, 
   modalController,
-  IonList,
+
   IonPage,
   popoverController
   //IonPopover 
@@ -147,12 +157,16 @@ import { Camera,CameraSource, CameraResultType } from '@capacitor/camera';
 import { defineComponent, ref } from 'vue';
 import toast from '@/toast'
 import { mapGetters } from 'vuex'
+import countries from '../pages/countries.json'
+import states from '../pages/states.json'
+import { Plugins } from '@capacitor/core'
+import '@capacitor/device';
 
 export default defineComponent({
   components: {
  
     IonContent, 
-    IonList,
+
     IonPage,
     //IonPopover,
 
@@ -224,14 +238,23 @@ export default defineComponent({
       show_direction : null,
       address : null,
       categories : [],
-      state : []
+      state : [],
+      countries : countries,
+      states : states.data,
+      showAppleSignIn : true
     }
   },
   created(){
     this.getCategory()
     this.getCategories()
-    this.getCountries()
     this.estado = this.$route.query.estado;
+    this.country = this.$route.query.pais;
+    var ev = {
+      target : {
+        value : this.country 
+      }
+    }
+    this.getCountry(ev)
     this.nombre = this.$route.query.nombre;
     this.descripcion = this.$route.query.descripcion;
     this.to_change = this.$route.query.to_change ?? null
@@ -241,14 +264,11 @@ export default defineComponent({
     this.city = this.$route.query.city;
   },
   mounted(){
-
-
-
-    let svg = '<svg style="margin-left:14px" width="12" height="7" viewBox="0 0 12 7" fill="none" xmlns="http://www.w3.org/2000/svg">'+
+   this.show_ios()
+    let svg = '<svg style="margin-left:10px" width="12" height="7" viewBox="0 0 12 7" fill="none" xmlns="http://www.w3.org/2000/svg">'+
                 '<path d="M11 1L6 6L1 1" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>'+
               '</svg>'
     document.querySelector('#ionSelectCountry').shadowRoot.innerHTML = svg 
- 
  },
   computed : {
     ...mapGetters([
@@ -278,6 +298,10 @@ export default defineComponent({
         this.setOpen(false)
       });
  
+    },
+    async show_ios(){
+      let device = await Plugins.Device.getInfo();
+      this.showAppleSignIn = device.platform === 'ios';
     },
       getPicture : function () {
       this.image = this.$refs.picture.files[0];
@@ -347,29 +371,23 @@ export default defineComponent({
         console.log(err)
       });
     },
-    getCountry(ev){
+     getCountry(ev){
       this.city = null
-       const country = this.countries.filter(function(country) {
-        if(country.name == ev.target.value){
+      const country = this.countries.filter(function(country) {
+        if(country.country == ev.target.value){
           return country
         }
       });
-
-      this.flag = country[0].flag
+  
+      this.flag = country[0].abbreviation.toLowerCase()
       this.country = ev.target.value;
       this.getCities()
     },
-    getEditCountry(name){
-       const country = this.countries.filter(function(country) {
-        if(country.name ==name){
-          return country
-        }
-      });
-
-      this.flag = country[0].flag
-      this.country = name;
-      console.log(this.country)
-      this.country = this.country == 'Venezuela (Bolivarian Republic of)'  ?  'Venezuela' :this.country
+    getCities(){
+      var country = this.states.find(country => {
+        return country.name == this.country
+      })
+      this.state = country.states
     },
     getCity(ev){
       this.city = ev.target.value;
@@ -402,31 +420,7 @@ export default defineComponent({
         console.log(err)
       });
     },
-     getCities(){
-      this.country = this.country == 'Venezuela (Bolivarian Republic of)' ? 'Venezuela' :this.country
-      const awsAxios = axios.create({
-          transformRequest: (data, headers) => {
-              // Remove all shared headers
-              delete headers.common;
-              // or just the auth header
-              delete headers['auth-token']
-          }
-      });
-
-     awsAxios
-      .get("https://countriesnow.space/api/v0.1/countries/states")
-      .then(res => {
-        var country = res.data.data.find(country => {
-          return country.name == this.country
-        })
-        console.log(  country )
-        this.state = country.states
-      })
-      .catch(err => {
-        console.log(err)
-      });
-
-    },
+     
     async openModal() {
       const modal = await modalController
         .create({
@@ -644,6 +638,56 @@ background: #E9EBEB;
 
 }
 
+.checkbox-custom-2, .radio-custom-2 {
+    opacity: 0;
+    position: absolute;   
+}
+
+.checkbox-custom-2, .checkbox-custom-label-2, .radio-custom-2, .radio-custom-label-2 {
+    display: inline-block;
+    vertical-align: middle;
+    margin: 5px;
+    cursor: pointer;
+}
+
+.checkbox-custom-label-2, .radio-custom-label-2 {
+    position: relative;
+}
+
+.checkbox-custom-2 + .checkbox-custom-2-label:before, .radio-custom-2 + .radio-custom-label-2:before {
+    content: '';
+    background: #fff;
+    border: 8px solid #E9EBEB;
+    display: inline-block;
+    vertical-align: middle;
+    width: 10px;
+    height: 10px;
+    padding: 2px;
+    margin-right: 10px;
+    text-align: center;
+}
+
+.checkbox-custom-2:checked + .checkbox-custom-label-2:before {
+    background: rebeccapurple;
+    box-shadow: inset 0px 0px 0px 4px #fff;
+}
+
+.radio-custom-2 + .radio-custom-label-2:before {
+    border-radius: 50%;
+
+}
+
+.radio-custom-2:checked + .radio-custom-label-2:before {
+    background: #ccc;
+    box-shadow: inset 0px 0px 0px 10px #32BAB0;
+    border-radius: 99px;
+
+}
+
+
+.checkbox-custom-2:focus + .checkbox-custom-label-2, .radio-custom-2:focus + .radio-custom-label-2 {
+  outline: 0px solid #ddd; /* focus style */
+}
 </style>
 
 
