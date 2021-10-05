@@ -19,8 +19,9 @@
   
         <ion-row>
              <ion-col v-for="product in products" :key="product"  size="6"  >
-              
-                <ion-card style="width: 100%;left:-8px;overflow-y: auto;">
+               <div style="display: flex;justify-content: center;width: 112%;">  
+
+                <ion-card style="width: 200px;left:-8px;overflow-y: auto;">
                   <div align="center" class="points"  style="background:transparent;" @click="openPopover($event,n,product)" >
                     <svg width="7" height="28" viewBox="0 0 7 28" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M3.5 7C5.425 7 7 5.425 7 3.5C7 1.575 5.425 0 3.5 0C1.575 0 0 1.575 0 3.5C0 5.425 1.575 7 3.5 7Z" fill="#32BAB0"/>
@@ -47,20 +48,23 @@
                 </ion-card-content>
 
               </ion-card>
-          
+              </div>
             </ion-col>
    
             <ion-col  size="6">
-              <ion-card class="card" style="width: 95%;"  @click="() => $router.push({path : '/create/product'})">
+              <div style="display: flex;justify-content: center;width: 112%;">  
+              <ion-card class="card" style="width: 200px;"  @click="() => $router.push({path : '/create/product'})">
                 <center>
                   <br><br>
                  <span style="font-style: normal;font-weight: 400;font-size: 16px;line-height: 20px;align-items: center;letter-spacing: 0.75px;color: #5B716F;">Agregar</span><br><br>
                  <img src="assets/button-add.svg">
                 </center>
              </ion-card>
+
+            </div>
             </ion-col>
           </ion-row>
-      <br>     <br>
+      <br><br>
     </ion-content> 
   </ion-page>
 </template>

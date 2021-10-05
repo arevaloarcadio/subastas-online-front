@@ -48,7 +48,7 @@
             <ion-row class="container" style="border-radius: 10px" >
               <div class="input-container" style="height: 55px; width: 97%;margin-left: 1.5%;">
                 <img  :src="'https://www.countryflags.io/'+flag+'/flat/64.png'" class="select-country" style="width: 20px;height: 16px">
-                <ion-select id="ionSelectCountry" :interface-options="customActionSheetOptions" interface="action-sheet" style="background: #32BAB0;border-radius: 10px;color: #32BAB0;font-family: Montserrat;width: 83px;height: 100%;"  ok-text="Seleccionar" cancel-text="Cerrar" @ionChange="getCountry($event)">
+                <ion-select id="ionSelectCountry" :interface-options="customActionSheetOptions" interface="action-sheet" style="background: #32BAB0;border-radius: 10px;color: #32BAB0;font-family: Montserrat;width: 83px;height: 100%;    margin-top: -1px;"  ok-text="Seleccionar" cancel-text="Cerrar" @ionChange="getCountry($event)">
                   <ion-select-option v-for="country in countries" :key="country" :value="country.country">{{country.country}}</ion-select-option>
                 </ion-select>
                    <input type="text" style="padding-left: 18px;font-size: 18px; font-family: Montserrat;font-style: normal;font-weight: normal;font-size: 16px;line-height: 20px;" v-model="country" class="input-text">
