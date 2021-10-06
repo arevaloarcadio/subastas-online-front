@@ -23,7 +23,7 @@
                <ion-row style="margin-top: 3%;">
                   <ion-col size="4">
                     <img  :src="'https://www.countryflags.io/'+flag+'/flat/64.png'" style="z-index: 1000;z-index: 1000;position: absolute;top: 36%; left: 18%;width: 20px;height: 16px">
-                    <ion-select id="ionSelectPhoneCode" :interface-options="customActionSheetOptions" @ionChange="getValueCode($event)" interface="action-sheet" style="background: #32BAB0;border-radius: 10px;color: #32BAB0;font-family: Montserrat;width: 110%"  ok-text="Seleccionar" cancel-text="Cerrar">
+                    <ion-select id="ionSelectPhoneCode" :interface-options="customActionSheetOptions" @ionChange="getValueCode($event)" interface="action-sheet" style="height: 51px;background: #32BAB0;border-radius: 10px;color: #32BAB0;font-family: Montserrat;width: 110%"  ok-text="Seleccionar" cancel-text="Cerrar">
                     <ion-select-option v-for="code in codes" :key="code" :value="code.value">{{code.text}}</ion-select-option>
                    
                   </ion-select>
@@ -133,31 +133,37 @@ export default defineComponent({
        '<svg width="12" height="7" viewBox="0 0 12 7" fill="none" xmlns="http://www.w3.org/2000/svg" style="position:absolute;margin-left: 28px;">'+
                 '<path d="M11 1L6 6L1 1" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>'+
               '</svg>'          
- 
+  console.log(svg)
     document.querySelector('#ionSelectPhoneCode').shadowRoot.innerHTML = svg 
     },
     getValueCode($event){
-      const code = code_number.filter(function(country) {
+      if($event.target.value !== ''){
+          //document.querySelector('#ionSelectPhoneCode').shadowRoot.innerHTML = ''
         
-        if(country.dial_code == $event.target.value){
-     
-          return {
-            text : country.dial_code,
-            flag : country.flag
+        const code = code_number.filter(function(country) {
+          
+          if(country.dial_code == $event.target.value){
+       
+            return {
+              text : country.dial_code,
+              flag : country.flag
+            }
           }
-        }
-      });
-
-      this.code = code[0].dial_code
+        });
+        
       
-      this.flag = code[0].code.toLowerCase()
-      
-      let svg = '<div class="select-text-2" part="text-2">'+code[0].dial_code+'</div>'+
-       '<svg width="12" height="7" viewBox="0 0 12 7" fill="none" xmlns="http://www.w3.org/2000/svg" style="position:absolute;margin-left: 28px;">'+
-                '<path d="M11 1L6 6L1 1" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>'+
-              '</svg>'          
- 
-      document.querySelector('#ionSelectPhoneCode').shadowRoot.innerHTML = svg 
+          this.code = code[0].dial_code
+        
+          this.flag = code[0].code.toLowerCase()
+          
+          let svg = '<div class="select-text-2" part="text-2">'+code[0].dial_code+'</div>'+
+           '<svg width="12" height="7" viewBox="0 0 12 7" fill="none" xmlns="http://www.w3.org/2000/svg" style="position:absolute;margin-left: 28px;">'+
+                    '<path d="M11 1L6 6L1 1" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>'+
+                  '</svg>'          
+          console.log(svg)
+          document.querySelector('#ionSelectPhoneCode').shadowRoot.innerHTML = svg 
+        
+      }
     },
     async openToast(message,color) {
       const toast = await toastController
