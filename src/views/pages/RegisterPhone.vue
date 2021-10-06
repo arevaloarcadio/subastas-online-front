@@ -156,10 +156,9 @@ export default defineComponent({
         
           this.flag = code[0].code.toLowerCase()
           
-          let svg = '<div class="select-text-2" part="text-2">'+code[0].dial_code+'</div>'+
-           '<svg width="12" height="7" viewBox="0 0 12 7" fill="none" xmlns="http://www.w3.org/2000/svg" style="position:absolute;margin-left: 28px;">'+
+          let svg = '<div class="select-text-2" part="text-2">'+code[0].dial_code+'<svg width="12" height="7" viewBox="0 0 12 7" fill="none" xmlns="http://www.w3.org/2000/svg" style="position:absolute;margin-left: 7px;margin-top: 6px;">'+
                     '<path d="M11 1L6 6L1 1" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>'+
-                  '</svg>'          
+                  '</svg></div>'         
           console.log(svg)
           document.querySelector('#ionSelectPhoneCode').shadowRoot.innerHTML = svg 
         
