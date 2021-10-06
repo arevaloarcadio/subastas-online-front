@@ -23,7 +23,7 @@
                <ion-row style="margin-top: 3%;">
                   <ion-col size="4">
                     <img  :src="'https://www.countryflags.io/'+flag+'/flat/64.png'" style="z-index: 1000;z-index: 1000;position: absolute;top: 36%; left: 18%;width: 20px;height: 16px">
-                    <ion-select id="ionSelectPhoneCode" :interface-options="customActionSheetOptions" @ionChange="getValueCode($event)" interface="action-sheet" style="height: 51px;background: #32BAB0;border-radius: 10px;color: #32BAB0;font-family: Montserrat;width: 110%"  ok-text="Seleccionar" cancel-text="Cerrar">
+                    <ion-select id="ionSelectPhoneCode" :interface-options="customActionSheetOptions" @ionChange="getValueCode($event)" interface="action-sheet" style="height: 51px !important;background: #32BAB0;border-radius: 10px;color: #32BAB0;font-family: Montserrat;width: 110%"  ok-text="Seleccionar" cancel-text="Cerrar">
                     <ion-select-option v-for="code in codes" :key="code" :value="code.value">{{code.text}}</ion-select-option>
                    
                   </ion-select>
@@ -161,7 +161,7 @@ export default defineComponent({
                   '</svg></div>'         
           console.log(svg)
           document.querySelector('#ionSelectPhoneCode').shadowRoot.innerHTML = svg 
-        
+
       }
     },
     async openToast(message,color) {
