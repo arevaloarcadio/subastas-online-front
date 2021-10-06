@@ -227,6 +227,7 @@ export default defineComponent({
       return self.base64[id]
     },
     setFcm(){
+      console.log(fcm_token.getToken())
         axios
         .post("/fcm",{customer_id : this.getUser.id , token : fcm_token.getToken()})
         .then(res => {
