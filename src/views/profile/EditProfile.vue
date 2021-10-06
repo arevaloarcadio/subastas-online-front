@@ -28,7 +28,7 @@
     <ion-row>
       <ion-col>
        <label  style="margin-left: -5px" class="label-edit-profile">Nombre</label>
-       <ion-input class="input-text-edit-profile" style="width: 68%;margin-left: -5px;"  @ionBlur="event($event)" id="name" > </ion-input>
+       <ion-input class="input-text-edit-profile" style="width: 68%;margin-left: -7px;"  @ionBlur="event($event)" id="name" > </ion-input>
 
       </ion-col>
       <ion-col size="2">
@@ -45,7 +45,7 @@
    <ion-row>
       <ion-col>
        <label  style="margin-left: -5px" class="label-edit-profile">Correo Electrónico</label>
-       <ion-input class="input-text-edit-profile" style="width: 68%;margin-left: -5px;"  @ionBlur="event($event)" id="email" > </ion-input>
+       <ion-input class="input-text-edit-profile" style="width: 68%;margin-left: -7px;"  @ionBlur="event($event)" id="email" > </ion-input>
 
       </ion-col>
       <ion-col size="2">
@@ -62,7 +62,7 @@
     <ion-row>
       <ion-col>
        <label   style="margin-left: -5px" class="label-edit-profile">Pais</label>
-       <ion-input class="input-text-edit-profile" id="pais" style="width: 68%;margin-left: -5px;" inputmode="text" @ionBlur="event($event)" > </ion-input>
+       <ion-input class="input-text-edit-profile" id="pais" style="width: 68%;margin-left: -7px;" inputmode="text" @ionBlur="event($event)" > </ion-input>
 
       </ion-col>
       <ion-col size="2">
@@ -79,7 +79,7 @@
     <ion-row>
       <ion-col>
        <label   style="margin-left: -5px" class="label-edit-profile">Cuidad</label>
-       <ion-input class="input-text-edit-profile"  id="city" style="width: 68%;" inputmode="text" @ionBlur="event($event)" > </ion-input>
+       <ion-input class="input-text-edit-profile"  id="city" style="width: 68%;margin-left: -7px;" inputmode="text" @ionBlur="event($event)" > </ion-input>
 
       </ion-col>
       <ion-col size="2">
@@ -96,7 +96,7 @@
     <ion-row>
       <ion-col>
        <label   style="margin-left: -5px"  class="label-edit-profile">Dirección</label>
-       <ion-input class="input-text-edit-profile" style="width: 68%;margin-left: -5px;" id="dir" inputmode="text"  @ionBlur="event($event)" > </ion-input>
+       <ion-input class="input-text-edit-profile" style="width: 68%;margin-left: -7px;" id="dir" inputmode="text"  @ionBlur="event($event)" > </ion-input>
 
       </ion-col>
       <ion-col size="2">
@@ -113,7 +113,7 @@
     <ion-row>
       <ion-col>
        <label  style="margin-left: -5px"  class="label-edit-profile">Teléfono</label>
-       <ion-input class="input-text-edit-profile" id="phone" style="width: 68%;margin-left: -5px;" inputmode="text" @ionBlur="event($event)" > </ion-input>
+       <ion-input class="input-text-edit-profile" id="phone" style="width: 68%;margin-left: -7px;" inputmode="text" @ionBlur="event($event)" > </ion-input>
 
       </ion-col>
       <ion-col size="2">

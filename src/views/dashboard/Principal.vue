@@ -205,7 +205,8 @@ export default defineComponent({
   mounted(){
     socket.emit('user_conected',this.getUser)
     this.invite = this.$route.query.invite == undefined ? false : true
-    if(this.$route.query.set_fcm && this.getUser.id != null){
+
+    if(this.$route.query.set_fcm && this.getUser.id != null && fcm_token.getToken() != null) {
       this.setFcm()
     }
     this.getProducts(this.reload)
