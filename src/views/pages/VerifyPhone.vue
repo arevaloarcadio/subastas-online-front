@@ -12,7 +12,7 @@
             </p>
 
             <div style="display: flex;justify-content: center;" > 
-              <Phone style="position: absolute;margin-left: -267px;margin-top: 85px;"></Phone>
+              <Phone style="position: absolute;margin-top: 85px;"></Phone>
             </div>
             <div  ref="footer" class="footer" style="position: inherit; background:#32BAB0;height: 290.21px; width: 100%;border-radius: 24px 24px 0 0 ;margin-top: 400px;">
               

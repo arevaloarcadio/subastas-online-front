@@ -60,6 +60,7 @@ export default defineComponent({
 	// On success, we should be able to receive notifications
 	PushNotifications.addListener('registration', 
 	(token) => {
+	console.log(token.value)
 	fcm_token.setToken(token.value)
 	//alert('Push received: ' + JSON.stringify(token));
 	}

@@ -461,6 +461,10 @@ color: #5B716F;
   margin-top: -37px;
 
 }
+
+.native-input.sc-ion-input-md {
+  padding-left: 16px;
+}
 </style>
 
 

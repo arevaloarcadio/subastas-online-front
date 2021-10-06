@@ -19,7 +19,7 @@
             <p> 
 
              
-            <ion-grid>
+            <ion-grid style="width: 350px">
                <ion-row style="margin-top: 3%;">
                   <ion-col size="4">
                     <img  :src="'https://www.countryflags.io/'+flag+'/flat/64.png'" style="z-index: 1000;z-index: 1000;position: absolute;top: 36%; left: 18%;width: 20px;height: 16px">
@@ -29,7 +29,7 @@
                   </ion-select>
                 </ion-col>
                 <ion-col size="8">
-                  <div class="container1" :class="{'container1-ios':showAppleSignIn}" >
+                  <div class="container1" >
                     <div  class="input-container1">
                       <input type="number"  v-model="phone" @input="maxlength" class="input-text1">
                     </div>
@@ -153,7 +153,7 @@ export default defineComponent({
       this.flag = code[0].code.toLowerCase()
       
       let svg = '<div class="select-text-2" part="text-2">'+code[0].dial_code+'</div>'+
-       '<svg width="12" height="7" viewBox="0 0 12 7" fill="none" xmlns="http://www.w3.org/2000/svg" style="position:absolute;margin-left: 30px;">'+
+       '<svg width="12" height="7" viewBox="0 0 12 7" fill="none" xmlns="http://www.w3.org/2000/svg" style="position:absolute;margin-left: 28px;">'+
                 '<path d="M11 1L6 6L1 1" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>'+
               '</svg>'          
  
