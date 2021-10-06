@@ -1,6 +1,6 @@
 <template>
 <div>
-    <div style="text-align: center; margin-top: 2%">
+    <div style="text-align: center; margin-top: 1%">
       <ion-grid>
           <ion-row>
             <ion-col col-2 class="cursor">

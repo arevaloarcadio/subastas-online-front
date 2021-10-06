@@ -19,9 +19,9 @@
              
             
              <div style="display: flex;justify-content: center;margin-top: 50px" >   
-                 <div style="padding-right: 28px;height: 51px !important;background: #32BAB0;border-radius: 10px;color: #fff;font-family: Montserrat;width: 110px" @click="select()"> <img  :src="'https://www.countryflags.io/'+flag+'/flat/64.png'" style="width: 20px;height: 16px;    margin-top: 18px;margin-left: 12px;color: #fff">   
+                 <div style="display: flex;padding-right: 28px;    padding-top: 18px;height: 51px !important;background: #32BAB0;border-radius: 10px;color: #fff;font-family: Montserrat;width: 110px" @click="select()"> <img  :src="'https://www.countryflags.io/'+flag+'/flat/64.png'" style="width: 20px;height: 16px;margin-top: 1px;margin-left: 18px;color: #fff">   
                         &nbsp;{{code}}
-                      <svg width="12" height="7" viewBox="0 0 12 7" fill="none" xmlns="http://www.w3.org/2000/svg" style="position:absolute;margin-left: 13px;margin-top: 25px;">'+
+                      <svg width="12" height="7" viewBox="0 0 12 7" fill="none" xmlns="http://www.w3.org/2000/svg" style="position:absolute;margin-left: 84px;margin-top: 6px;">'+
                     <path d="M11 1L6 6L1 1" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                   </svg>
                 </div>
