@@ -33,7 +33,9 @@ axios.interceptors.response.use(response => {
       toast.openToast("Error de conexión, intente nuevamente","error",2000)
       return Promise.reject(error);
   }
-  
+  if(error['response']['status'] == 404){
+    //toast.openToast(error['response']['data']['data'],"error",2000)
+  }
   if(error['response']['status'] == 422){
     toast.openToast(error['response']['data']['data'],"error",2000)
   }else if(error['response']['status'] == 500){
