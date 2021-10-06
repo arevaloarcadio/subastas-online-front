@@ -19,7 +19,7 @@
             <p> 
 
              
-            <ion-grid style="width: 350px">
+            <ion-grid>
                <ion-row style="margin-top: 3%;">
                   <ion-col size="4">
                     <img  :src="'https://www.countryflags.io/'+flag+'/flat/64.png'" style="z-index: 1000;z-index: 1000;position: absolute;top: 36%; left: 18%;width: 20px;height: 16px">
@@ -161,6 +161,7 @@ export default defineComponent({
                   '</svg></div>'         
           console.log(svg)
           document.querySelector('#ionSelectPhoneCode').shadowRoot.innerHTML = svg 
+          document.querySelector('#ionSelectPhoneCode').style.height = "51px";
 
       }
     },
