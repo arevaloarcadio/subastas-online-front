@@ -16,17 +16,41 @@
             <div style="display: flex;justify-content: center;" >   
               <Phone></Phone>
             </div>
-            <p> 
-
              
-            <ion-grid>
+            
+             <div style="display: flex;justify-content: center;margin-top: 50px" >   
+                 <div style="padding-right: 28px;height: 51px !important;background: #32BAB0;border-radius: 10px;color: #fff;font-family: Montserrat;width: 110px" @click="select()"> <img  :src="'https://www.countryflags.io/'+flag+'/flat/64.png'" style="width: 20px;height: 16px;    margin-top: 18px;margin-left: 12px;color: #fff">   
+                        &nbsp;{{code}}
+                      <svg width="12" height="7" viewBox="0 0 12 7" fill="none" xmlns="http://www.w3.org/2000/svg" style="position:absolute;margin-left: 13px;margin-top: 25px;">'+
+                    <path d="M11 1L6 6L1 1" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </div>
+                  <div class="container1" >
+                    <div  class="input-container1">
+                      <input type="number"  v-model="phone" @input="maxlength" class="input-text1">
+                    </div>
+                  </div>  
+            </div>
+            <p> 
+            <ion-select  id="ionSelectPhoneCode" :interface-options="customActionSheetOptions" @ionChange="getValueCode($event)" interface="action-sheet" style="display: none; height: 51px !important;background: #32BAB0;border-radius: 10px;color: #32BAB0;font-family: Montserrat;width: 90px"  ok-text="Seleccionar" cancel-text="Cerrar">
+            <ion-select-option v-for="code in codes" :key="code" :value="code.value">{{code.text}}</ion-select-option>
+
+            </ion-select>
+
+           
+             
+            <!--<ion-grid>
                <ion-row style="margin-top: 3%;">
+                
                   <ion-col size="4">
-                    <img  :src="'https://www.countryflags.io/'+flag+'/flat/64.png'" style="z-index: 1000;z-index: 1000;position: absolute;top: 36%; left: 18%;width: 20px;height: 16px">
-                    <ion-select id="ionSelectPhoneCode" :interface-options="customActionSheetOptions" @ionChange="getValueCode($event)" interface="action-sheet" style="height: 51px !important;background: #32BAB0;border-radius: 10px;color: #32BAB0;font-family: Montserrat;width: 110%"  ok-text="Seleccionar" cancel-text="Cerrar">
-                    <ion-select-option v-for="code in codes" :key="code" :value="code.value">{{code.text}}</ion-select-option>
+                     <div style="padding-right: 28px;height: 51px !important;background: #32BAB0;border-radius: 10px;color: #fff;font-family: Montserrat;width: 110px" @click="select()"> <img  :src="'https://www.countryflags.io/'+flag+'/flat/64.png'" style="width: 20px;height: 16px;    margin-top: 18px;margin-left: 12px;color: #fff">   
+                        &nbsp;{{code}}
+                      <svg width="12" height="7" viewBox="0 0 12 7" fill="none" xmlns="http://www.w3.org/2000/svg" style="position:absolute;margin-left: 13px;margin-top: 25px;">'+
+                    <path d="M11 1L6 6L1 1" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </div>
                    
-                  </ion-select>
+                
                 </ion-col>
                 <ion-col size="8">
                   <div class="container1" >
@@ -36,7 +60,7 @@
                   </div>
                 </ion-col>
               </ion-row>
-            </ion-grid>
+            </ion-grid>-->
           
             <br>
             <br>
@@ -52,7 +76,7 @@
 </template>
 
 <script>
-import { toastController,IonRow,IonGrid,IonCol,IonSelect, IonSelectOption  } from '@ionic/vue';
+import { toastController,IonSelect, IonSelectOption  } from '@ionic/vue';
 import { defineComponent } from 'vue';
 import axios from 'axios';
 import Phone from './Phone'
@@ -62,7 +86,7 @@ import '@capacitor/device';
 import { Plugins } from '@capacitor/core'
 
 export default defineComponent({
-  components: { Phone,IonRow,IonGrid,IonCol,IonSelect, IonSelectOption},
+  components: { Phone,IonSelect, IonSelectOption},
   name: "Register",
   data() {
     return {
@@ -80,9 +104,12 @@ export default defineComponent({
       showAppleSignIn : true
     };
   },
+  created(){
+     this.getCodes()
+  },
   mounted(){
     this.type = this.$route.query.type;
-    this.getCodes()
+   
     this.show_ios()
     //this.getCountry()
   },
@@ -117,6 +144,9 @@ export default defineComponent({
         console.log(err)
       });
     },
+    select(){
+ document.querySelector('#ionSelectPhoneCode').click()
+    },
     getCodes(){
 
       this.codes = code_number.map(function(country) {
@@ -126,7 +156,7 @@ export default defineComponent({
           flag : country.code.toLowerCase()   
         }
       });
-      
+      this.code = this.codes[0].value
       this.flag =  this.codes[0].flag
       
       let svg = '<div class="select-text-2" part="text-2">'+this.codes[0].value+'</div>'+
@@ -134,7 +164,7 @@ export default defineComponent({
                 '<path d="M11 1L6 6L1 1" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>'+
               '</svg>'          
   console.log(svg)
-    document.querySelector('#ionSelectPhoneCode').shadowRoot.innerHTML = svg 
+   // document.querySelector('#ionSelectPhoneCode').shadowRoot.innerHTML = svg 
     },
     getValueCode($event){
       if($event.target.value !== ''){
