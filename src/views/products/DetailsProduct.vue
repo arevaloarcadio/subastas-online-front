@@ -55,7 +55,7 @@
           </ion-row>
           
           <p  class="p-no-center" style="margin-left: 5px;font-size: 16px;line-height: 20px;align-items: center;letter-spacing: 0.75px;color: #5B716F;margin-top: -15px; ">
-            {{product.pais}}, {{product.city}}
+            {{ show_pais ? product.pais : '' }}, {{ show_city ? product.city : ''}}
              <br><br>  
           <span class="text-control" style=" font-weight: 400;font-family: Montserrat;font-style: normal;font-weight: normal;font-size: 20px;line-height: 24px;color: #32BAB0;">
              Descripción 
@@ -204,12 +204,16 @@ export default defineComponent({
       productsByCategory : null,
       saved: false,
       category : null,
-      user : null
+      user : null,
+      show_name : true,
+      show_city: true,
+      show_pais: true
     }
   },
   created(){
     this.product = this.$route.query
     this.getCustomer()
+     this.getCustomerSetting()
     this.getCategory()
     this.getProductsByCategories()
     if(this.getUser.d != null) {
@@ -228,6 +232,7 @@ export default defineComponent({
       this.product = this.$route.query
       if(this.product.category !== undefined){
         this.getCustomer()
+        this.getCustomerSetting()
         this.getCategory()
         this.getProductsByCategories()
          if(this.getUser.id != null) {
@@ -254,12 +259,26 @@ export default defineComponent({
           component: ModalDetail,
           keyboardClose : true,
           componentProps: {
-            user : this.user,
+            user : this.show_name ? this.user : '' ,
             category : this.category,
             product : this.product
           },
         })
       return modal.present();
+    },  
+    getCustomerSetting(){
+     axios
+      .get("/customers/setting/"+this.product.id_user)
+      .then(res => {
+        if (res.data.length != 0) {
+          this.show_name = res.data.show_name
+          this.show_city = res.data.show_city 
+          this.show_pais = res.data.show_pais  
+        }
+      })
+      .catch(err => {
+       console.log(err)
+      });
     },
     getProductsByCategories(){
      axios

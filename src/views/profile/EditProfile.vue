@@ -36,7 +36,7 @@
           Mostrar
         </p>
           <label class="c-switch c-switch-3d c-switch-primary">
-            <input  class="c-switch-input"  id="private" type="checkbox" @click="checked('proposal')" v-model="proposal"><span class="c-switch-slider" style="margin-top: -37px;margin-left: -2px;"></span>
+            <input  class="c-switch-input"  id="private" type="checkbox" v-model="check.show_name" @click="check('show_name')" ><span class="c-switch-slider" style="margin-top: -37px;margin-left: -2px;"></span>
           </label>
       </ion-col>
 
@@ -53,7 +53,7 @@
           Mostrar
         </p>
           <label class="c-switch c-switch-3d c-switch-primary">
-            <input  class="c-switch-input"  id="private" type="checkbox" @click="checked('proposal')" v-model="proposal"><span class="c-switch-slider" style="margin-top: -37px;margin-left: -2px;"></span>
+            <input  class="c-switch-input"  id="private" type="checkbox"  v-model="check.show_email" @click="check('show_email')" ><span class="c-switch-slider" style="margin-top: -37px;margin-left: -2px;"></span>
           </label>
       </ion-col>
 
@@ -70,7 +70,7 @@
           Mostrar
         </p>
           <label class="c-switch c-switch-3d c-switch-primary">
-            <input  class="c-switch-input"  id="private" type="checkbox" @click="checked('proposal')" v-model="proposal"><span class="c-switch-slider" style="margin-top: -34px;margin-left: -2px;"></span>
+            <input  class="c-switch-input"  id="private" type="checkbox" v-model="check.show_pais" @click="check('show_pais')" ><span class="c-switch-slider" style="margin-top: -34px;margin-left: -2px;"></span>
           </label>
       </ion-col>
 
@@ -87,7 +87,7 @@
           Mostrar
         </p>
           <label class="c-switch c-switch-3d c-switch-primary">
-            <input  class="c-switch-input"  id="private" type="checkbox" @click="checked('proposal')" v-model="proposal"><span class="c-switch-slider" style="margin-top: -34px;margin-left: -2px;"></span>
+            <input  class="c-switch-input"  id="private" type="checkbox" v-model="check.show_city" @click="check('show_city')" ><span class="c-switch-slider" style="margin-top: -34px;margin-left: -2px;"></span>
           </label>
       </ion-col>
 
@@ -104,7 +104,7 @@
           Mostrar
         </p>
           <label class="c-switch c-switch-3d c-switch-primary">
-            <input  class="c-switch-input"  id="private" type="checkbox" @click="checked('proposal')" v-model="proposal"><span class="c-switch-slider" style="margin-top: -34px;margin-left: -2px;"></span>
+            <input  class="c-switch-input"  id="private" type="checkbox"  v-model="check.show_dir" @click="check('show_dir')" ><span class="c-switch-slider" style="margin-top: -34px;margin-left: -2px;"></span>
           </label>
       </ion-col>
 
@@ -121,7 +121,7 @@
           Mostrar
         </p>
           <label class="c-switch c-switch-3d c-switch-primary">
-            <input  class="c-switch-input"  id="private" type="checkbox" @click="checked('proposal')" v-model="proposal"><span class="c-switch-slider" style="margin-top: -34px;margin-left: -2px;"></span>
+            <input  class="c-switch-input"  id="private" type="checkbox" v-model="check.show_phone" @click="check('show_phone')" ><span class="c-switch-slider" style="margin-top: -34px;margin-left: -2px;"></span>
           </label>
       </ion-col>
 
@@ -130,7 +130,7 @@
     <ion-row>
       <ion-col>
        <label  style="margin-left: -5px"  class="label-edit-profile">Contraseña</label>
-       <ion-input class="input-text-edit-profile" id="password" style="width: 100%;" type="password" @ionBlur="event($event)" > </ion-input>
+       <ion-input class="input-text-edit-profile" id="password" style="margin-left: -7px;width: 100%;" type="password" @ionBlur="event($event)" > </ion-input>
       <br>
       <br>
       </ion-col>
@@ -142,7 +142,7 @@
       <ion-col>
        <label  style="margin-left: -5px"  class="label-edit-profile">Confirmar Contraseña</label>
 
-       <ion-input class="input-text-edit-profile" id="password_confirmed" style="width: 100%;padding-left: 9px;" type="password" @ionBlur="event($event)" > </ion-input>
+       <ion-input class="input-text-edit-profile" id="password_confirmed" style="margin-left: -7px;width: 100%;padding-left: 9px;" type="password" @ionBlur="event($event)" > </ion-input>
       <br><br>
       </ion-col>
       <br>
@@ -152,7 +152,7 @@
 
     </ion-row>
    <div class="hr-black"> </div>
-   <br><br><br><br>
+   <br><br><br><br><br><br>
     </ion-content>
         <ion-modal
         :is-open="isOpenRef"
@@ -205,6 +205,14 @@ export default defineComponent({
         password : '',
         password_confirmed : ''
       },
+      checked :  {
+        show_name : false,
+        show_city : false,
+        show_dir : false,
+        show_pais : false,
+        show_phone : false,
+        show_email : false
+      },
       photo : '',
       complete : false
     }
@@ -235,6 +243,8 @@ export default defineComponent({
     document.getElementById('pais').value = this.user.pais
     document.getElementById('phone').value = this.user.phone*/
      this.getCustomer()
+     this.getCustomerSetting()
+
   },
   computed : {
     ...mapGetters([
@@ -269,7 +279,7 @@ export default defineComponent({
         }
 
         axios
-        .put("/customers/"+this.getUser.id+"/mobile" , {...this.user,complete : this.complete} )
+        .put("/customers/"+this.getUser.id+"/mobile" , {...this.user,complete : this.complete,checked_ : JSON.stringify(this.checked)} )
         .then(res => {
           console.log(res)
             loading.dismiss()
@@ -309,6 +319,7 @@ export default defineComponent({
         formData.append('password',this.user.password);
         formData.append('photo',this.photo);
         formData.append('complete',this.complete);
+        formData.append('checked_',JSON.stringify(this.checked));
 
         axios
           .put("/customers/"+this.getUser.id+"/mobile" ,formData,{'Content-Type': 'multipart/form-data'})
@@ -355,6 +366,19 @@ export default defineComponent({
        console.log(err)
       });
     },
+     getCustomerSetting(){
+     axios
+      .get("/customers/setting/"+this.getUser.id)
+      .then(res => {
+        
+        this.check = {...res.data} 
+        console.log( this.check)
+
+        })
+      .catch(err => {
+       console.log(err)
+      });
+    },
      enterAnimation : function () {
       let baseEl = document
         const backdropAnimation = createAnimation()
@@ -390,6 +414,9 @@ export default defineComponent({
         
         return new File([u8arr], filename, {type:mime});
     }, 
+    check(index){
+      this.checked[index] = !this.checked[index]
+    },
   }
 });
 
