@@ -21,7 +21,7 @@
          Cuando alguien inicie negociación por tu producto o tu inicies negociación se habilitará el chat
         </p>
         <template v-else>
-          <ion-card style="margin: 0px 0px 0px 12px;box-shadow: inherit;width: 100%;left: -11px;height: 100px;" v-for="message in messages" :key="message"  @click="redirect({name : 'request.chat' , params : { productId : message.product_id } , query : { customer_name : message.customer.name,product_name : message.product_name,customer_id : message.product_id_user,request_id : message.id_request,exchange :message.exchange,message_last_message_id  : message.last_message.id  }})" :class="{'col'  :  message.last_message.read_at == null}">
+          <ion-card style="margin: 0px 0px 0px 12px;box-shadow: inherit;width: 100%;left: -11px;height: 115px;" v-for="message in messages" :key="message"  @click="redirect({name : 'request.chat' , params : { productId : message.product_id } , query : { customer_name : message.customer.name,product_name : message.product_name,customer_id : message.product_id_user,request_id : message.id_request,exchange :message.exchange,message_last_message_id  : message.last_message.id  }})" :class="{'col'  :  message.last_message.read_at == null}">
             <ion-row >
               <ion-col >
                 <img style="border-radius: 15px 15px 15px 15px;margin-left: 5px;margin-top: 6px;width: 81px;height: 80px;" :src="BasePublic+message.photo" >
