@@ -40,7 +40,7 @@
       <p v-if="products.length == 0">
          Actualmente no tiene registrado intercambios
         </p>
-        <ion-card v-for="product in  products" :key="product" style="height: 138px;width: 95%; background: #FFFFFF;box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.08);border-radius: 16px;">
+        <ion-card v-for="product in  products" :key="product" style="height: 150px;width: 95%; background: #FFFFFF;box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.08);border-radius: 16px;">
           <ion-row>
             <ion-col>
               <img style="border-radius: 15px 30px 15px 15px;width: 177px;height: 209px;margin-top: -3px;" :src="BasePublic+product.photo" >
@@ -49,7 +49,7 @@
 
             <b style="color: #000;font-family: Montserrat;">{{product.name}}</b><br>
               <p class="p-no-center" style="margin-top: 2%; font-family: Montserrat;font-style: normal;font-weight: normal;font-size: 14px;line-height: 17px;letter-spacing: 0.75px;color: #001D1B;">{{product.pais}}, {{product.city}} </p> <br>
-            <span class="text-control" style="position: absolute;top: 50%;font-weight: 500">{{product.status}}</span>
+            <span class="text-control" style="position: absolute;    margin-top: 5px;font-weight: 500">{{product.status}}</span>
             </ion-col>
           </ion-row>
         </ion-card>
