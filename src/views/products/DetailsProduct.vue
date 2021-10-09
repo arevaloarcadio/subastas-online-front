@@ -70,7 +70,7 @@
                 <button type="button" class="btn-line"  style="width: 151px;" @click="openModal">Mas Información</button>
               </ion-col>
               <ion-col   size="6" >  
-                  <button v-show="getUser.id != product.id_user" type="button" class="btn-primary" style="width: 151px"   @click="redirect({ name : 'select_product.requests',params : { productId : product.id}, query : { ...product } })" >Me Interesa</button>
+                  <button type="button" class="btn-primary" style="width: 151px"   @click="redirect({ name : 'select_product.requests',params : { productId : product.id}, query : { ...product } })" >Me Interesa</button>
               </ion-col>
             </ion-row>
            

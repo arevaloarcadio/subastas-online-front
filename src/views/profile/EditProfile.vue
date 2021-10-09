@@ -36,7 +36,7 @@
           Mostrar
         </p>
           <label class="c-switch c-switch-3d c-switch-primary">
-            <input  class="c-switch-input"  id="private" type="checkbox" v-model="check.show_name" @click="check('show_name')" ><span class="c-switch-slider" style="margin-top: -37px;margin-left: -2px;"></span>
+            <input  class="c-switch-input"  id="private" type="checkbox" v-model="checked.show_name" @click="check('show_name')" ><span class="c-switch-slider" style="margin-top: -37px;margin-left: -2px;"></span>
           </label>
       </ion-col>
 
@@ -53,7 +53,7 @@
           Mostrar
         </p>
           <label class="c-switch c-switch-3d c-switch-primary">
-            <input  class="c-switch-input"  id="private" type="checkbox"  v-model="check.show_email" @click="check('show_email')" ><span class="c-switch-slider" style="margin-top: -37px;margin-left: -2px;"></span>
+            <input  class="c-switch-input"  id="private" type="checkbox"  v-model="checked.show_email" @click="check('show_email')" ><span class="c-switch-slider" style="margin-top: -37px;margin-left: -2px;"></span>
           </label>
       </ion-col>
 
@@ -70,7 +70,7 @@
           Mostrar
         </p>
           <label class="c-switch c-switch-3d c-switch-primary">
-            <input  class="c-switch-input"  id="private" type="checkbox" v-model="check.show_pais" @click="check('show_pais')" ><span class="c-switch-slider" style="margin-top: -34px;margin-left: -2px;"></span>
+            <input  class="c-switch-input"  id="private" type="checkbox" v-model="checked.show_pais" @click="check('show_pais')" ><span class="c-switch-slider" style="margin-top: -34px;margin-left: -2px;"></span>
           </label>
       </ion-col>
 
@@ -87,7 +87,7 @@
           Mostrar
         </p>
           <label class="c-switch c-switch-3d c-switch-primary">
-            <input  class="c-switch-input"  id="private" type="checkbox" v-model="check.show_city" @click="check('show_city')" ><span class="c-switch-slider" style="margin-top: -34px;margin-left: -2px;"></span>
+            <input  class="c-switch-input"  id="private" type="checkbox" v-model="checked.show_city" @click="check('show_city')" ><span class="c-switch-slider" style="margin-top: -34px;margin-left: -2px;"></span>
           </label>
       </ion-col>
 
@@ -104,7 +104,7 @@
           Mostrar
         </p>
           <label class="c-switch c-switch-3d c-switch-primary">
-            <input  class="c-switch-input"  id="private" type="checkbox"  v-model="check.show_dir" @click="check('show_dir')" ><span class="c-switch-slider" style="margin-top: -34px;margin-left: -2px;"></span>
+            <input  class="c-switch-input"  id="private" type="checkbox"  v-model="checked.show_dir" @click="check('show_dir')" ><span class="c-switch-slider" style="margin-top: -34px;margin-left: -2px;"></span>
           </label>
       </ion-col>
 
@@ -121,7 +121,7 @@
           Mostrar
         </p>
           <label class="c-switch c-switch-3d c-switch-primary">
-            <input  class="c-switch-input"  id="private" type="checkbox" v-model="check.show_phone" @click="check('show_phone')" ><span class="c-switch-slider" style="margin-top: -34px;margin-left: -2px;"></span>
+            <input  class="c-switch-input"  id="private" type="checkbox" v-model="checked.show_phone" @click="check('show_phone')" ><span class="c-switch-slider" style="margin-top: -34px;margin-left: -2px;"></span>
           </label>
       </ion-col>
 
@@ -371,8 +371,8 @@ export default defineComponent({
       .get("/customers/setting/"+this.getUser.id)
       .then(res => {
         
-        this.check = {...res.data} 
-        console.log( this.check)
+        this.checked = {...res.data} 
+        console.log( this.checked)
 
         })
       .catch(err => {

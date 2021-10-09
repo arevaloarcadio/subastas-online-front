@@ -179,7 +179,7 @@ export default defineComponent({
       product_user : null,
       request : null,
       status : false,
-      showAppleSignIn : true
+      showAppleSignIn : false
     }
   },
   created(){
@@ -208,7 +208,7 @@ export default defineComponent({
   methods:{
     async show_ios(){
      // let device = await Plugins.Device.getInfo();
-      //this.showAppleSignIn = device.platform === 'ios';
+    //  this.showAppleSignIn = device.platform === 'ios';
     },
    redirect(path) {
       this.$router.push(path);
@@ -1014,7 +1014,7 @@ margin-top: -18px;
 }
  .message-input {
   position: absolute;
-  bottom: -8px;
+  bottom: 5px;
   width: 100%;
   z-index: 99;
   margin-left: 3%;
@@ -1061,7 +1061,7 @@ margin-top: 1%;
    .message-input {
   position: absolute;
   
-  bottom: -8px;
+  bottom: 5px;
   width: 100%;
   z-index: 99;
 }
