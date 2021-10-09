@@ -46,6 +46,10 @@
                  <ion-badge style="background: rgba(50, 186, 176, 0.3);
                   border-radius: 10px;font-family: Montserrat;font-style: normal;font-weight: normal;font-size: 16px;line-height: 20px;color: #5B716F;" color="primary">{{message.message}}</ion-badge>
                 </center>
+                <center v-else-if="message.type=='rejeted'" >
+                 <ion-badge style="background: rgb(241, 152, 152);;
+                  border-radius: 10px;font-family: Montserrat;font-style: normal;font-weight: normal;font-size: 16px;line-height: 20px;color: #ffffff;" color="primary">{{message.message}}</ion-badge>
+                </center>
               </template> 
               </div>
 
@@ -230,6 +234,7 @@ export default defineComponent({
         })
     },
     getMessages(){
+      console.log("aquiiiiii")
       axios
         .get("/chat/"+this.getUser.id+'/'+this.customer_id)
         .then(res => {

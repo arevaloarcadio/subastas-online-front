@@ -91,7 +91,7 @@
 
          <ion-row  v-show="showAppleSignIn">
           <ion-col size="2">
-              <input id="radio-2" style="margin-top: -5px;" class="radio-custom-2" name="radio-group" type="checkbox" @click="show_direction =! show_direction" checked="">
+              <input id="radio-2" style="margin-top: 13px;margin-left: 26px;z-index: 12;" class="radio-custom-2" name="radio-group" type="checkbox" @click="show_direction =! show_direction" checked="">
               <p for="radio-2" style="font-family: Montserrat;font-style: normal;font-weight: 500;font-size: 0px;line-height: 20px;align-items: center;color: #5B716F;text-align: left !important;padding-left: 13px;" class="radio-custom-label-2">M</p>
           </ion-col>
           <ion-col size="10">
@@ -196,7 +196,7 @@ export default defineComponent({
   },
   data(){
     return{
-      country : null,
+      country : 'Peru',
       city :'',
       category :null,
       category_id : null,
@@ -227,7 +227,14 @@ export default defineComponent({
     this.descripcion = this.$route.query.descripcion;
     this.image = this.dataURLtoFile(this.$route.query.image,'image/png');
     this.to_change = this.$route.query.to_change ?? null
-    console.log(countries)
+    
+    var ev = {
+      target : {
+        value : this.country 
+      }
+    }
+    
+    this.getCountry(ev)
  },
   computed : {
     ...mapGetters([

@@ -1,8 +1,17 @@
 <template>
 
        <ion-content class="ion-padding"> 
-         <br>
-         <br>
+          <ion-row>
+       <ion-col>
+        <button @click="$router.push({path: '/register' , query :{...$route.query}});">
+            <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-left: 1%;top: 32%;position: absolute;">
+              <path d="M27 16H5" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M14 7L5 16L14 25" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+          
+      </ion-col>
+    </ion-row>
          <br>
           <br>
              <span class="text-control" style="margin-left: 4%;font-style: normal;font-weight: 600;font-size: 24px;line-height: 29px;">Registro </span> 
@@ -25,7 +34,7 @@
                   </ion-select>
                 </ion-col>
                 <ion-col size="8">
-                  <div class="container1" style="margin-left: -13%;">
+                  <div class="container1" style="margin-left: -35px;">
                     <div  class="input-container1" >
                       <input type="text" style="font-size: 18px;" v-model="country" placeholder="Selecciona tu pais" class="input-text1">
                     </div>
@@ -104,7 +113,7 @@ export default defineComponent({
     this.password = this.$route.query.password;
   },
   methods: {
-  unicodeToText: function(string) {
+    unicodeToText: function(string) {
       return unescape( encodeURIComponent( string ) );
     },
     getCountry(ev){
@@ -177,7 +186,7 @@ export default defineComponent({
       let loading = await toast.showLoading()
 
       await loading.present(); 
-    axios.post('/signup/mobile',{
+      axios.post('/signup/mobile',{
         name: this.name,
         email: this.email,
         password : this.password,
@@ -185,7 +194,7 @@ export default defineComponent({
         city : this.city,
         rol : 'customer',
         singin_method : 'email'
-     })
+      })
       .then(res => {
         loading.dismiss()
         this.$router.push({path: 'success',query : {customer_id : res.data.user.id }});
@@ -296,7 +305,7 @@ ion-select::part(icon) {
 }
 
 .select-country{
-  z-index: 1000;position: absolute;top: 36%; left: 16%;
+  z-index: 1000;position: absolute;    top: 25px;left: 16%;
 
 
 }

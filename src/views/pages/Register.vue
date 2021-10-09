@@ -1,9 +1,18 @@
 <template>
-
+  
   <ion-content class="ion-padding">
- <br>
- <br>
- <br> <br> 
+    <ion-row>
+       <ion-col>
+        <button @click="$router.push({path: '/select_type_register'})">
+            <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-left: 1%;top: 32%;position: absolute;">
+              <path d="M27 16H5" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M14 7L5 16L14 25" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+          
+      </ion-col>
+    </ion-row>
+   <br><br> 
    <span class="text-control" style="margin-left: 4%;font-style: normal;font-weight: 600;font-size: 24px;line-height: 29px;">Registro </span> 
     <br>
      <p style="margin-left: 4%;margin-top: 1.5%; float: left;font-weight: 500;"> 
@@ -14,7 +23,7 @@
     <br>
     <br>
    
-    <ion-grid>
+    <ion-grid >
         <ion-row>
         <ion-col col-12>
           <div class="container">
@@ -117,6 +126,10 @@ export default defineComponent({
   },
   mounted(){
     this.type = this.$route.query.type;
+    this.name = this.$route.query.name;
+    this.email = this.$route.query.email;
+    this.password = this.$route.query.password;
+    this.password_confirmacion = this.$route.query.password;
   },
   methods: {
     redirect(){

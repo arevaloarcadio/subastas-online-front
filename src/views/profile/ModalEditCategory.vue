@@ -47,6 +47,7 @@
   <div align="center" style="margin-top:613px" @click="$router.go(-1)">
    Atras
   </div>
+  <br><br>
   </ion-content>
    
  

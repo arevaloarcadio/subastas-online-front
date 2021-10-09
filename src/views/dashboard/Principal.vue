@@ -141,6 +141,7 @@ import fcm_token from '@/plugins/fcm/fcm-token' ;
 import toast from '@/toast'
 import { defineComponent, ref } from 'vue';
 import { createAnimation } from '@ionic/vue';
+import filter from './filter'
 import io from 'socket.io-client'
 import '@capacitor/device';
 import { Plugins } from '@capacitor/core'
@@ -199,7 +200,8 @@ export default defineComponent({
       invite : null,
       input_filter : null,
       base64 : [],
-      showAppleSignIn : true
+      showAppleSignIn : true,
+      filter : null
     }
   },
   mounted(){
@@ -209,8 +211,17 @@ export default defineComponent({
     if(this.$route.query.set_fcm && this.getUser.id != null && fcm_token.getToken() != null) {
       this.setFcm()
     }
-    this.getProducts(this.reload)
+    this.input_filter = filter.get()
+    this.filter = filter.get()
+    console.log(this.filter )
+    if(this.filter == null){
+      this.getProducts(this.reload)
+    }else{
+      this.getProductsFilter()
+    }
+    
     this.show_ios()
+  
   },
   methods:{
      getBase64Resize(url,id){
@@ -256,30 +267,26 @@ export default defineComponent({
           component: ModalSearch,
           keyboardClose : true,
           enterAnimation: this.enterAnimation,
-          leaveAnimation: this.leaveAnimation  
+          leaveAnimation: this.leaveAnimation,
+          componentProps : {props_filter : this.input_filter}
         })
 
 
    
-       modal.present();
+      modal.present();
 
       modal.onDidDismiss().then((data) => {
    
         if(data.data['input']){
           this.input_filter = data.data.input_filter
           this.products = data.data.products
-          console.log(this.products.length)
-          if(this.products.length == 0 ){
-              axios
-              .post("/products/filter",{filter : this.input_filter})
-              .then(res => {
-                console.log(res)
-                this.products = res.data
-               })
-              .catch(err => {
-                console.log(err)
-            })
-          return
+          if(this.products.length == 0 && this.input_filter != ''){
+            console.log(this.input_filter)
+            this.getProductsFilter()
+            return
+          }else{
+            this.getProducts(this.reload)
+            return
           }
         }
         if(data.data['select_filter']){
@@ -289,11 +296,23 @@ export default defineComponent({
         }
         
         this.filter = data.data
-        this.input_filter = data.data
+        this.input_filter = data.data.input_filter
+        filter.add(this.input_filter)
         this.reload=0;
-        this.getProducts(this.reload,true);
+        //this.getProducts(this.reload,true);
       })
 
+    },
+    getProductsFilter(){
+      axios
+      .post("/products/filter",{filter : this.input_filter})
+      .then(res => {
+        console.log(res)
+        this.products = res.data
+       })
+      .catch(err => {
+        console.log(err)
+      })
     },
     enterAnimation : function () {
       let baseEl = document

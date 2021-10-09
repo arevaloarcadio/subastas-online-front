@@ -63,6 +63,8 @@
 		<key>NSAllowsArbitraryLoads</key>
 		<true/>
 	</dict>
+	<key>UIUserInterfaceStyle</key>
+	<string>Light</string>
 	<key>NSCameraUsageDescription</key>
 	<string>Se requiere acceso a la camara para obtener fotografia del producto a publicar o cambio de avatar</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>

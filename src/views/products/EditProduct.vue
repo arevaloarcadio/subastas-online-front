@@ -85,9 +85,9 @@
                   <input class="input-text">
                 </div>
                 <div  class="input-container" v-else>
-                   <svg @click="takenImageUrl = null" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" style="position: fixed;margin-left: 80%;margin-top: -78px;z-index: 12;">
-              <path d="M20 3.02962L17.18 0.292725L10 7.26113L2.82 0.292725L0 3.02962L7.18 9.99803L0 16.9664L2.82 19.7033L10 12.7349L17.18 19.7033L20 16.9664L12.82 9.99803L20 3.02962Z" fill="#000" fill-opacity="0.5"/>
-              </svg>
+                  <svg @click="takenImageUrl = null" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" style="z-index: 12;margin-left: 90%;position: absolute;margin-top: -156px;">
+                    <path d="M20 3.02962L17.18 0.292725L10 7.26113L2.82 0.292725L0 3.02962L7.18 9.99803L0 16.9664L2.82 19.7033L10 12.7349L17.18 19.7033L20 16.9664L12.82 9.99803L20 3.02962Z" fill="#000" fill-opacity="0.5"/>
+                    </svg>
 
                 <img :src="takenImageUrl" style="height: 200px;width: 100%;">
                 </div>
@@ -218,7 +218,8 @@ export default defineComponent({
       image : null,
       to_change : null,
       newFile : false,
-      showAppleSignIn : true
+      showAppleSignIn : true,
+      show_direction  : false
     }
   },
   mounted(){
@@ -228,6 +229,7 @@ export default defineComponent({
     this.takenImageUrl = BasePublic+this.$route.query.photo
     this.image = BasePublic+this.$route.query.photo
     this.to_change = this.$route.query.change
+    this.show_direction = this.$route.query.show_direction
     this.show_ios()
   },
   methods:{
@@ -248,6 +250,7 @@ export default defineComponent({
         address : this.$route.query.address,
         category : this.$route.query.category,
         city : this.$route.query.city,
+        show_direction : this.$route.query.show_direction,
       };
 
       this.$router.push({name: 'edit.details.product' ,params :{ productId :this.$route.query.id,newFile : this.newFile} ,query : {...data}});

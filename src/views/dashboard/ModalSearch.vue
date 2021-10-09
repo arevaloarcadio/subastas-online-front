@@ -77,7 +77,7 @@ import BasePublic from '@/plugins/store/utils'
 
 export default defineComponent({
   name: 'ModalSearch',
-
+  props :['props_filter'],
   components: { IonContent, IonHeader },
   setup() {
     return { close }
@@ -89,6 +89,11 @@ export default defineComponent({
       products_filter : [],
       awaitingSearch: false,
     }
+  },
+  mounted(){
+
+    this.input_filter = this.props_filter
+    console.log( this.props_filter)
   },
   watch: {
       input_filter: function () {
@@ -103,6 +108,7 @@ export default defineComponent({
     },
   methods: {
   async search(filter){
+     console.log("search")
     const modal = await modalController
     return modal.dismiss(filter);
   },  
@@ -112,10 +118,12 @@ export default defineComponent({
   },
   async enter_filter(){
     const modal = await modalController
+console.log("enter_filter")
+console.log(this.input_filter)
     return modal.dismiss({products :this.products_filter,input : true,input_filter:this.input_filter});
   },
   async select_filter(filter){
-    console.log(filter)
+    console.log("select_filter")
     const modal = await modalController
     return modal.dismiss({products :this.products_filter,select_filter : true,filter:filter});
   },

@@ -10,7 +10,7 @@
     </ion-row>
     
      <p>
-      <button style="background: #fff;margin-left: -13px;"> 
+      <button style="background: #fff;margin-left: -13px;"  @click="$router.push({name : 'my.products'})"> 
         <SvgProducts></SvgProducts>  
       </button>
     </p>
@@ -41,9 +41,9 @@
          Actualmente no tiene registrado intercambios
         </p>
         <ion-card v-for="product in  products" :key="product" style="height: 138px;width: 95%; background: #FFFFFF;box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.08);border-radius: 16px;">
-          <ion-row >
+          <ion-row>
             <ion-col>
-              <img style="border-radius: 15px 30px 15px 15px;width: 177px;height: 209px;" :src="BasePublic+'uploads/'+product.photo" >
+              <img style="border-radius: 15px 30px 15px 15px;width: 177px;height: 209px;margin-top: -3px;" :src="BasePublic+product.photo" >
             </ion-col>
             <ion-col><br>
 
@@ -52,7 +52,6 @@
             <span class="text-control" style="position: absolute;top: 50%;font-weight: 500">{{product.status}}</span>
             </ion-col>
           </ion-row>
-          
         </ion-card>
         <!--<ion-card style="height: 138px;width: 95%; background: #FFFFFF;box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.08);border-radius: 16px;">
           <ion-row>

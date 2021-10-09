@@ -14,7 +14,7 @@
           </p>
       </ion-col>
     </ion-row>
-    <ion-content class="ion-padding">
+    <ion-content id="content" class="ion-padding">
          <div style="display: flex;justify-content: center;">  
         <ion-card style="width:345px;">
        
@@ -55,7 +55,7 @@
           </ion-row>
           
           <p  class="p-no-center" style="margin-left: 5px;font-size: 16px;line-height: 20px;align-items: center;letter-spacing: 0.75px;color: #5B716F;margin-top: -15px; ">
-            {{ show_pais ? product.pais : '' }}, {{ show_city ? product.city : ''}}
+            {{ product.show_direction == 'true' ? product.pais+',' : 'No se muestra la dirección por decisión del usuario' }} {{  product.show_direction  == 'true' ? product.city : ''}}
              <br><br>  
           <span class="text-control" style=" font-weight: 400;font-family: Montserrat;font-style: normal;font-weight: normal;font-size: 20px;line-height: 24px;color: #32BAB0;">
              Descripción 
@@ -70,7 +70,7 @@
                 <button type="button" class="btn-line"  style="width: 151px;" @click="openModal">Mas Información</button>
               </ion-col>
               <ion-col   size="6" >  
-                  <button type="button" class="btn-primary" style="width: 151px"   @click="redirect({ name : 'select_product.requests',params : { productId : product.id}, query : { ...product } })" >Me Interesa</button>
+                  <button v-show="getUser.id != product.id_user" type="button" class="btn-primary" style="width: 151px"   @click="redirect({ name : 'select_product.requests',params : { productId : product.id}, query : { ...product } })" >Me Interesa</button>
               </ion-col>
             </ion-row>
            
@@ -213,13 +213,12 @@ export default defineComponent({
   created(){
     this.product = this.$route.query
     this.getCustomer()
-     this.getCustomerSetting()
+    this.getCustomerSetting()
     this.getCategory()
     this.getProductsByCategories()
     if(this.getUser.d != null) {
       this.getSavePost()
     }
-    
     console.log(this.getUser.id === null)
   },
   computed : {
@@ -235,10 +234,11 @@ export default defineComponent({
         this.getCustomerSetting()
         this.getCategory()
         this.getProductsByCategories()
-         if(this.getUser.id != null) {
-            this.getSavePost()
-          }
-     
+        if(this.getUser.id != null) {
+          this.getSavePost()
+            let shadowRoot = document.querySelector('#content').shadowRoot
+            shadowRoot.querySelector('.scroll-y').scrollTop = 0
+        }
       }
     }
   },
@@ -306,7 +306,7 @@ export default defineComponent({
         console.log(res)
           this.saved = true
           loading.dismiss()
-          toast.openToast("Publicación guardado registrado exitosamente","error",2000);
+          toast.openToast("Publicación guardada exitosamente","error",2000);
        })
       .catch(err => {
         loading.dismiss()
@@ -325,8 +325,8 @@ export default defineComponent({
       .then(res => {
         this.saved = false
         console.log(res)
-        toast.openToast("Publicación guardada elimando exitosamente","error",2000);
-         
+        toast.openToast("Publicación guardada eliminada exitosamente","error",2000);
+        loading.dismiss()
        })
       .catch(err => {
         loading.dismiss()

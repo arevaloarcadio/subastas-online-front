@@ -24,9 +24,13 @@
      </p>
      <template  v-for="category in categories"  :key="category" >
        <div style="background: #E9EBEB;border-radius: 10px; height: 55px">
-          <svg @click="deleteCategory(category)" width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg"  style="float: right;margin-right: 8px; margin-top: 6px;">
+          <!--<svg @click="deleteCategory(category)" width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg"  style="float: right;margin-right: 8px; margin-top: 6px;">
             <path d="M10 1.41L8.59 0L5 3.59L1.41 0L0 1.41L3.59 5L0 8.59L1.41 10L5 6.41L8.59 10L10 8.59L6.41 5L10 1.41Z" fill="#5B716F" fill-opacity="0.5"/>
-          </svg><br>
+          </svg>-->
+           <svg @click="deleteCategory(category)" width="13" height="13" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"  style="float: right;margin-right: 8px; margin-top: 6px;">
+            <path d="M20 3.02962L17.18 0.292725L10 7.26113L2.82 0.292725L0 3.02962L7.18 9.99803L0 16.9664L2.82 19.7033L10 12.7349L17.18 19.7033L20 16.9664L12.82 9.99803L20 3.02962Z" fill="#000" fill-opacity="0.5"/>
+            </svg>
+          <br>
           <center>
             <span class="text-control button-category-edit">{{category.name}}</span> 
           </center>
@@ -50,10 +54,10 @@
        <center><span class="text-control button-category-edit">Juguetes</span> </center>
      </div>
      <br>-->
-      <div style="background: #E9EBEB;border-radius: 10px; height: 55px">
+      <div style="background: #E9EBEB;border-radius: 10px; height: 55px" @click="() => $router.push({name: 'edit.categories' ,params : { userId : getUser.id } })">
        <br>
        <center>
-        <span class="text-control"  @click="() => $router.push({name: 'edit.categories' ,params : { userId : getUser.id } })">
+        <span class="text-control"  >
         <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
            <path d="M14 8H8V14H6V8H0V6H6V0H8V6H14V8Z" fill="#32BAB0"/>
         </svg>

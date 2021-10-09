@@ -355,12 +355,12 @@ export default defineComponent({
         this.user.password = ''
         this.user.password_confirmed = ''
         this.user.photo = this.BasePublic+res.data.photo   
-        document.getElementById('name').value = this.user.name
-        document.getElementById('email').value = this.user.email
-        document.getElementById('city').value = this.user.city
-        document.getElementById('dir').value = this.user.dir
-        document.getElementById('pais').value = this.user.pais
-        document.getElementById('phone').value = this.user.phone
+        document.getElementById('name').value = this.user.name  == 'null' ? '' :  this.user.name 
+        document.getElementById('email').value = this.user.email  == 'null' ? '' :  this.user.email 
+        document.getElementById('city').value = this.user.city  == 'null' ? '' :  this.user.city 
+        document.getElementById('dir').value = this.user.dir  == 'null' ? '' :  this.user.dir 
+        document.getElementById('pais').value = this.user.pais  == 'null' ? '' :  this.user.pais 
+        document.getElementById('phone').value = this.user.phone == 'null' ? '' :  this.user.phone 
        })
       .catch(err => {
        console.log(err)

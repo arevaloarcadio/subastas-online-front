@@ -90,21 +90,23 @@
                   <ion-item  lines="none" style="margin-left: -11px;">
                     <p class="p-no-center" style="font-family: Montserrat;font-style: normal;font-weight: 500;font-size: 16px;line-height: 20px;align-items: center;color: #5B716F;">Mostrar mi dirección solo al 
                       <br> aceptar el intercambio</p>
-                    <ion-radio color="success" slot="start" checked="false" ref="show_direction"  @click="radio" style="margin-top: -3px;"></ion-radio>
+                    <ion-radio color="success" slot="start"  ref="show_direction"  @click="radio" style="margin-top: -3px;"></ion-radio>
                   </ion-item>
                 </ion-col>
                </ion-row>
             </ion-radio-group>
           </ion-col>
         </ion-row> 
-
+   <br>
+     
          <ion-row  v-show="showAppleSignIn">
+
           <ion-col size="2">
-              <input id="radio-2" style="margin-top: -5px;" class="radio-custom-2" name="radio-group" type="checkbox" @click="show_direction =! show_direction" checked="">
+              <input id="radio-2" style="margin-top: 13px;margin-left: 26px;z-index: 12;" class="radio-custom-2" name="radio-group" type="checkbox" @click="show_direction =! show_direction" v-model="show_direction" >
               <p for="radio-2" style="font-family: Montserrat;font-style: normal;font-weight: 500;font-size: 0px;line-height: 20px;align-items: center;color: #5B716F;text-align: left !important;padding-left: 13px;" class="radio-custom-label-2">M</p>
           </ion-col>
           <ion-col size="10">
-             <p for="radio-2" style="font-family: Montserrat;font-style: normal;font-weight: 500;font-size: 16px;line-height: 20px;align-items: center;color: #5B716F;text-align: left !important;margin-left: 17px;" class="radio-custom-label-2">Mostrar mi dirección solo al  <br>  aceptar el intercambio</p>
+             <p for="radio-2" @click="show_direction =! show_direction" style="font-family: Montserrat;font-style: normal;font-weight: 500;font-size: 16px;line-height: 20px;align-items: center;color: #5B716F;text-align: left !important;margin-left: 17px;" class="radio-custom-label-2">Mostrar mi dirección solo al  <br>  aceptar el intercambio</p>
           </ion-col>
         </ion-row>
         <br>
@@ -254,12 +256,14 @@ export default defineComponent({
         value : this.country 
       }
     }
+
     this.getCountry(ev)
     this.nombre = this.$route.query.nombre;
     this.descripcion = this.$route.query.descripcion;
     this.to_change = this.$route.query.to_change ?? null
     this.$route.params.newFile == 'true' ? this.image = this.dataURLtoFile(this.$route.query.image,'image/png') : this.image = this.$route.query.image
     
+    this.show_direction = this.$route.query.show_direction 
     this.address = this.$route.query.address;
     this.city = this.$route.query.city;
   },
@@ -269,6 +273,13 @@ export default defineComponent({
                 '<path d="M11 1L6 6L1 1" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>'+
               '</svg>'
     document.querySelector('#ionSelectCountry').shadowRoot.innerHTML = svg 
+   
+    this.$route.query.show_direction ? this.$refs.show_direction.classList.add('radio-checked') : '';
+    this.$refs.show_direction.checked = this.show_direction 
+
+    this.$route.query.show_direction  ? this.$refs.show_direction.classList.add('radio-checked') : this.$refs.show_direction.classList.remove('radio-checked') 
+
+   
  },
   computed : {
     ...mapGetters([
@@ -308,9 +319,10 @@ export default defineComponent({
    
     },
     radio(){
+      this.show_direction = this.$refs.show_direction.checked
+      console.log(this.show_direction)
       this.$refs.show_direction.checked = !this.$refs.show_direction.checked
       this.$refs.show_direction.checked ? this.$refs.show_direction.classList.remove('radio-checked') : this.$refs.show_direction.classList.add('radio-checked')
-      this.show_direction = this.$refs.show_direction.checked
     },
     redirect() {
       this.$router.push({path: '/principal'});
