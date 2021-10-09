@@ -82,7 +82,7 @@
         </ion-row> 
 
         
-        <ion-row  v-show="!showAppleSignIn">
+        <!--<ion-row  v-show="!showAppleSignIn">
           <ion-col >
              <ion-radio-group>
               <ion-row>
@@ -90,16 +90,16 @@
                   <ion-item  lines="none" style="margin-left: -11px;">
                     <p class="p-no-center" style="font-family: Montserrat;font-style: normal;font-weight: 500;font-size: 16px;line-height: 20px;align-items: center;color: #5B716F;">Mostrar mi dirección solo al 
                       <br> aceptar el intercambio</p>
-                    <ion-radio color="success" slot="start"  ref="show_direction"  @click="radio" style="margin-top: -3px;"></ion-radio>
+                    <ion-radio color="success" slot="start"  ref="show_direction" :checked="show_direction" @click="radio" style="margin-top: -3px;"></ion-radio>
                   </ion-item>
                 </ion-col>
                </ion-row>
             </ion-radio-group>
           </ion-col>
-        </ion-row> 
+        </ion-row> -->
    <br>
      
-         <ion-row  v-show="showAppleSignIn">
+         <ion-row  >
 
           <ion-col size="2">
               <input id="radio-2" style="margin-top: 13px;margin-left: 26px;z-index: 12;" class="radio-custom-2" name="radio-group" type="checkbox" @click="show_direction =! show_direction" v-model="show_direction" >
@@ -273,14 +273,11 @@ export default defineComponent({
                 '<path d="M11 1L6 6L1 1" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>'+
               '</svg>'
     document.querySelector('#ionSelectCountry').shadowRoot.innerHTML = svg 
-   
-    this.$route.query.show_direction ? this.$refs.show_direction.classList.add('radio-checked') : '';
-    this.$refs.show_direction.checked = this.show_direction 
 
-    this.$route.query.show_direction  ? this.$refs.show_direction.classList.add('radio-checked') : this.$refs.show_direction.classList.remove('radio-checked') 
+    //this.$refs.show_direction.checked = this.show_direction 
 
-   
- },
+    //this.$refs.show_direction.checked ? this.$refs.show_direction.classList.remove('radio-checked') : this.$refs.show_direction.classList.add('radio-checked')
+  },
   computed : {
     ...mapGetters([
         'getUser'
@@ -319,10 +316,11 @@ export default defineComponent({
    
     },
     radio(){
-      this.show_direction = this.$refs.show_direction.checked
-      console.log(this.show_direction)
-      this.$refs.show_direction.checked = !this.$refs.show_direction.checked
-      this.$refs.show_direction.checked ? this.$refs.show_direction.classList.remove('radio-checked') : this.$refs.show_direction.classList.add('radio-checked')
+       this.$refs.show_direction.checked ? this.$refs.show_direction.classList.remove('radio-checked') : this.$refs.show_direction.classList.add('radio-checked')
+     this.$refs.show_direction.checked = !this.$refs.show_direction.checked
+     
+       this.show_direction = this.$refs.show_direction.checked
+      console.log(this.$refs.show_direction.checked )
     },
     redirect() {
       this.$router.push({path: '/principal'});

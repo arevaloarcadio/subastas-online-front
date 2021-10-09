@@ -73,23 +73,8 @@
           </ion-col>
         </ion-row> 
 
-        <ion-row  v-show="!showAppleSignIn">
-          <ion-col >
-             <ion-radio-group>
-              <ion-row>
-                <ion-col>
-                  <ion-item  lines="none" style="margin-left: -11px;">
-                    <p class="p-no-center" style="font-family: Montserrat;font-style: normal;font-weight: 500;font-size: 16px;line-height: 20px;align-items: center;color: #5B716F;">Mostrar mi dirección solo al 
-                      <br> aceptar el intercambio</p>
-                    <ion-radio color="success" slot="start" checked="false" ref="show_direction"  @click="radio" style="margin-top: -3px;"></ion-radio>
-                  </ion-item>
-                </ion-col>
-               </ion-row>
-            </ion-radio-group>
-          </ion-col>
-        </ion-row> 
 
-         <ion-row  v-show="showAppleSignIn">
+         <ion-row >
           <ion-col size="2">
               <input id="radio-2" style="margin-top: 13px;margin-left: 26px;z-index: 12;" class="radio-custom-2" name="radio-group" type="checkbox" @click="show_direction =! show_direction" checked="">
               <p for="radio-2" style="font-family: Montserrat;font-style: normal;font-weight: 500;font-size: 0px;line-height: 20px;align-items: center;color: #5B716F;text-align: left !important;padding-left: 13px;" class="radio-custom-label-2">M</p>
