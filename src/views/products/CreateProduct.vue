@@ -105,7 +105,7 @@
         <br>
         <br>
         <center>
-          <button type="button" class="btn-primary" @click="redirect()" style="padding-right: 20px;width: 215px">
+          <button type="button" class="btn-primary" @click="redirect()" style="padding-right: 29px;width: 215px">
            Añadir categoría
 
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" style="position: absolute;margin-left: 10px;margin-top: 2px;">
