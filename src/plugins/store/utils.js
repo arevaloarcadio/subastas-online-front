@@ -1,4 +1,4 @@
-const BasePublic = 'http://138.68.102.83:5000/public/';
+const BasePublic = 'https://mobile.upgrap.com/public/';
 
 //const BasePublic = 'http://localhost/';
 

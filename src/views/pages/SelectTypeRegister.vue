@@ -147,7 +147,7 @@ export default defineComponent({
       if (result.accessToken) {
         this.token = result.accessToken;
       }else{
-        toast.openToast("Error al regitrar con facebook","error",2000);
+        toast.openToast("Error al registrar con facebook","error",2000);
         return
       }
 
@@ -195,7 +195,7 @@ export default defineComponent({
     console.log('my user: ', googleUser);
 
     if(!googleUser?.email){
-      toast.openToast("Error al regitrar con google","error",2000);
+      toast.openToast("Error al registrar con google","error",2000);
       return
     }
 

@@ -105,10 +105,10 @@
         <br>
         <br>
         <center>
-          <button type="button" class="btn-primary" @click="redirect()" style="width: 215px">
-            <span style="position: fixed;margin-left:-76px;margin-top: -8px;font-style: normal;font-weight: 400;font-size: 16px;line-height: 20px;color: #FFFFFF;">Añadir categoría</span>
+          <button type="button" class="btn-primary" @click="redirect()" style="padding-right: 20px;width: 215px">
+           Añadir categoría
 
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" style="position: fixed;margin-left: 68px;margin-top: -6px;">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" style="position: absolute;margin-left: 10px;margin-top: 2px;">
               <path d="M0 9H12.17L6.58 14.59L8 16L16 8L8 0L6.59 1.41L12.17 7H0V9Z" fill="#E6EFFF"/>
             </svg>
           </button>

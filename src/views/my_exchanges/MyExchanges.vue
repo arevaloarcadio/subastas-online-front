@@ -49,7 +49,7 @@
 
             <b style="color: #000;font-family: Montserrat;">{{product.name}}</b><br>
               <p class="p-no-center" style="margin-top: 2%; font-family: Montserrat;font-style: normal;font-weight: normal;font-size: 14px;line-height: 17px;letter-spacing: 0.75px;color: #001D1B;">{{product.pais}}, {{product.city}} </p> <br>
-            <span class="text-control" style="position: absolute;    margin-top: 5px;font-weight: 500">{{product.status}}</span>
+            <span class="text-control" style="position: absolute;    margin-top: 21px;font-weight: 500">{{product.status}}</span>
             </ion-col>
           </ion-row>
         </ion-card>
