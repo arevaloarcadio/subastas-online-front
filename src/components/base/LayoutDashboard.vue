@@ -1,7 +1,7 @@
 <template>
   <div>
     <transition name="slide-fade" >
-        <router-view></router-view>
+        <router-view ></router-view>
     </transition>
 
     <div :class="{'footer' :!showAppleSignIn ,'footer-ios' :showAppleSignIn} ">

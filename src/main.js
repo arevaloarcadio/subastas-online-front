@@ -48,8 +48,6 @@ const app = createApp(Layout)
 })*/
 
 
-
-
 //app.component('base-layout', BaseLayout);
  /*router.beforeEach((to, from, next) => {
   if (to.matched.some(record => record.meta.reuse === false)) {

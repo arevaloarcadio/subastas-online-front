@@ -216,7 +216,7 @@ export default defineComponent({
     this.getCustomerSetting()
     this.getCategory()
     this.getProductsByCategories()
-    if(this.getUser.d != null) {
+    if(this.getUser.id != null) {
       this.getSavePost()
     }
     console.log(this.getUser.id === null)
