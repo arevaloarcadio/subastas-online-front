@@ -83,7 +83,7 @@
           <ion-slides pager="true" :options="slideOpts" v-if="productsByCategory">
             <ion-slide>
               <div style="display: flex;justify-content: center;">  
-                <ion-card class="cursor"  @click="redirect_details(productsByCategory[0])" style="width: 160px;overflow-y: auto;">
+                <ion-card class="cursor anchor"  @click="redirect_details(productsByCategory[0])" >
                   <img :src="BasePublic+productsByCategory[0].photo" style="width: auto;height: 143px;border-radius: 0px 10px 0px 0px;width: 100%;">
                   <ion-card-header>
 
@@ -104,7 +104,7 @@
               </ion-card>
             </div>
                 <div style="display: flex;justify-content: center;">  
-              <ion-card class="cursor" style="width:160px;overflow-y: auto;" @click="redirect_details(productsByCategory[0])">
+              <ion-card class="cursor anchor" @click="redirect_details(productsByCategory[0])">
                   <img :src="BasePublic+productsByCategory[1].photo" style="height: 143px;border-radius: 0px 10px 0px 0px;width: 100%;">
                   <ion-card-header>
 
@@ -126,7 +126,7 @@
             </ion-slide>
             <ion-slide>
                   <div style="display: flex;justify-content: center;">  
-               <ion-card class="cursor" style="width:160px;overflow-y: auto;" @click="redirect_details(productsByCategory[2])">
+               <ion-card class="cursor anchor" @click="redirect_details(productsByCategory[2])">
                   <img :src="BasePublic+productsByCategory[2].photo" style="height: 143px;border-radius: 0px 10px 0px 0px;width: 100%;">
                   <ion-card-header>
 
@@ -146,7 +146,7 @@
               </ion-card>
                 </div>
                   <div style="display: flex;justify-content: center;">  
-              <ion-card class="cursor"  style="width:160px;overflow-y: auto;" @click="redirect_details(productsByCategory[3])">
+              <ion-card class="cursor anchor"  @click="redirect_details(productsByCategory[3])">
                   <img :src="BasePublic+productsByCategory[3].photo" style="height: 143px;border-radius: 0px 10px 0px 0px;width: 100%;">
                   <ion-card-header>
 
@@ -401,5 +401,23 @@ export default defineComponent({
 }
 .swiper-wrapper{
     margin-top: -29px !important;
+}
+
+@media (max-width: 350px){
+  .anchor{
+    width: 125px;overflow-y: auto;
+  }
+}
+
+@media (min-width: 350px){
+  .anchor{
+    width: 145px;overflow-y: auto;
+  }
+}
+
+@media (min-width: 400px){
+  .anchor{
+  width: 165px;overflow-y: auto;
+}
 }
 </style>

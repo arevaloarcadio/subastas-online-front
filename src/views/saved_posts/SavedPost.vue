@@ -12,7 +12,7 @@
      <ion-row v-else >
        <ion-col v-for="product in products" :key="product"  size="6"  >
         <div style="display: flex;justify-content: center;width: 112%;">  
-        <ion-card class="cursor" @click="redirect_details(product)" style="width: 200px;left: -8px;overflow-y: auto;">
+        <ion-card class="cursor" @click="redirect_details(product)" style="width: 200px;left: -8px;overflow-y: none;">
             <div v-show="product.requests != 0"  class="badge-2" style="padding-left: 18px;padding-top: 6.5px;"> 
             <span  style="">
             {{product.requests}}
@@ -32,7 +32,10 @@
          <ion-card-subtitle  style="color: #000">
             <ion-row style="margin-top: -14px;width: 90%;">
               <ion-col>
-            <b  style="font-family: Montserrat;font-style: normal;font-weight: bold;font-size: 16px;line-height: 20px;align-items: center;letter-spacing: 0.75px;color: #001D1B;margin-top: -15px;margin-left: -4px;"> 
+            <b   v-if="product.name.length > 10" style="font-family: Montserrat;font-style: normal;font-weight: bold;font-size: 16px;line-height: 20px;align-items: center;letter-spacing: 0.75px;color: #001D1B;margin-top: -15px;margin-left: -4px;"> 
+             {{product.name.substr(0,10)+'...'}}
+            </b>
+            <b   v-else style="font-family: Montserrat;font-style: normal;font-weight: bold;font-size: 16px;line-height: 20px;align-items: center;letter-spacing: 0.75px;color: #001D1B;margin-top: -15px;margin-left: -4px;"> 
                {{product.name}}
             </b>
             </ion-col>
@@ -54,7 +57,7 @@
     </ion-col>
   </ion-row>
        
-
+    <br><br><br><br>
  
     </ion-content>    
   </ion-page>  
