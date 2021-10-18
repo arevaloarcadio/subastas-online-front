@@ -37,7 +37,7 @@
                    
                   </li>
                   <template v-else >
-                   <img :class="{'img-right' :  getUser.id == message.id_sender ,'img-left' : getUser.id == message.id_receiver}" :src="BasePublic+message.message">
+                   <img @click="openModal(message.message)" :class="{'img-right' :  getUser.id == message.id_sender ,'img-left' : getUser.id == message.id_receiver}" :src="BasePublic+message.message">
 
                   </template>
                 </ul>
@@ -100,7 +100,8 @@ import {
   IonInfiniteScrollContent,
   createAnimation,
   IonModal,
-  IonPage
+  IonPage,
+  modalController
  } from '@ionic/vue';
 
 import { Camera,CameraSource, CameraResultType } from '@capacitor/camera';
@@ -108,6 +109,7 @@ import { defineComponent, ref } from 'vue';
 import axios from 'axios'
 import { mapGetters } from 'vuex'
 import ModalUpload from '../products/ModalUpload'
+import ModalImg from './ModalImg'
 import BasePublic from '@/plugins/store/utils'
 import send_notification from '@/plugins/fcm/send_notification'
 import io from 'socket.io-client'
@@ -192,11 +194,14 @@ export default defineComponent({
     this.product_customer_id = this.$route.query.product_customer_id
     this.product_user_id = this.$route.query.product_user_id
     this.exchange = this.$route.query.exchange
-    this.message_last_message_id = this.$route.query.message_last_message_id
+    this.message_last_message_id = this.$route.query.message_last_message_id ?? null
+    console.log(this.message_last_message_id)
     this.getMessages()
     this.getRequest()
     this.getProductEstatus()
-    this.updateReadAtLastMessage()
+    if(this.message_last_message_id != null){
+     this.updateReadAtLastMessage() 
+    }
   },
   mounted(){
   },
@@ -383,6 +388,19 @@ export default defineComponent({
         
         return new File([u8arr], filename, {type:mime});
     }, 
+     async openModal(img) {
+    
+      const modal = await modalController
+        .create({
+          component: ModalImg,
+          keyboardClose : true,
+          enterAnimation: this.enterAnimation,
+          leaveAnimation: this.leaveAnimation,
+          componentProps : {img : img}
+        })
+
+      modal.present(); 
+    }
   }
 });
 

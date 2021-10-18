@@ -196,7 +196,9 @@ export default defineComponent({
         });
     },
     async aceptedProduct(){
-      
+    if(this.product_customer == null || this.request == null){
+      return
+    }  
     let loading = await toast.showLoading()
 
     await loading.present(); 

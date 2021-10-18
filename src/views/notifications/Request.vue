@@ -221,6 +221,11 @@ export default defineComponent({
         })
     },
     async createChatlist(){
+      
+      if(this.product_customer == null || this.product_user.id_user   == null ||this.request.id  == null){
+        return
+      }
+      
       let loading = await toast.showLoading()
 
       await loading.present(); 
@@ -230,7 +235,7 @@ export default defineComponent({
         id_customer : this.product_user.id_user,
         id_request : this.request.id
       }
-  
+ 
         
       axios
         .post("/chat/list",data)
