@@ -85,7 +85,7 @@
                   <input class="input-text">
                 </div>
                 <div  class="input-container" v-else>
-                  <svg @click="takenImageUrl = null" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" style="z-index: 12;margin-left: 90%;position: absolute;margin-top: -76px;">
+                  <svg @click="takenImageUrl = null;newFile = false " width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" style="z-index: 12;margin-left: 90%;position: absolute;margin-top: -76px;">
                     <path d="M20 3.02962L17.18 0.292725L10 7.26113L2.82 0.292725L0 3.02962L7.18 9.99803L0 16.9664L2.82 19.7033L10 12.7349L17.18 19.7033L20 16.9664L12.82 9.99803L20 3.02962Z" fill="#000" fill-opacity="0.5"/>
                     </svg>
 
@@ -300,13 +300,53 @@ export default defineComponent({
       });
 
       this.takenImageUrl = photo.webPath;
+
+   
     },
     getPhoto($event){
-      console.log($event)
+      var self = this
       this.newFile = true
-      this.image = $event.dataUrl
-      this.takenImageUrl = URL.createObjectURL(this.dataURLtoFile($event.dataUrl,'image'));
       this.setOpen(false)
+      //this.image = $event.dataUrl
+      if($event.type == 'image'){
+
+        this.takenImageUrl = URL.createObjectURL(this.dataURLtoFile($event.image.dataUrl,'image'));
+      
+        const buf = Buffer.from($event.image.dataUrl.split(',')[1], 'base64');
+
+        window.jimp.read(buf).then(info => {
+          info.resize(512, window.jimp.AUTO,window.jimp.RESIZE_BEZIER)
+          .getBase64(window.jimp.MIME_JPEG, function (err, src) {
+            self.image = src
+          })
+        })
+        .catch(err => {
+          console.log('error - '+err)
+        })
+      }else{
+
+        this.takenImageUrl = URL.createObjectURL($event.file);
+
+        var reader  = new FileReader();
+       
+        reader.readAsDataURL($event.file);
+
+        reader.onloadend = function () {
+        
+          const buf = Buffer.from(reader.result.split(',')[1], 'base64');
+
+          window.jimp.read(buf).then(info => {
+            info.resize(512, window.jimp.AUTO,window.jimp.RESIZE_BEZIER)
+            .getBase64(window.jimp.MIME_JPEG, function (err, src) {
+              self.image = src
+            })
+          })
+          .catch(err => {
+            console.log('error - '+err)
+          })
+        }
+        
+      }
     },
     dataURLtoFile : function(dataurl, filename) {
         var arr = dataurl.split(','),

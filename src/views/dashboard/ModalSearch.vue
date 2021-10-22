@@ -133,7 +133,7 @@ console.log(this.input_filter)
       return
     }
     axios
-    .post("/products/filter",{filter : this.input_filter})
+    .post("/products/filter",{filter : this.input_filter })
     .then(res => {
       this.products_filter = res.data
      })

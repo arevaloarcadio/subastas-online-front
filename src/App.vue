@@ -1,11 +1,11 @@
 <template>
-	<ion-app :class="{'ios' : showAppleSignIn }" v-if="route.meta.layout =='LayoutDashboard'">
+	<ion-app :class="{'ios' : showAppleSignIn }" v-if="route.meta.layout == 'LayoutDashboard'">
 		<LayoutDashboard></LayoutDashboard>
 	</ion-app>
-	<ion-app  :class="{'ios' : showAppleSignIn }" v-if="route.meta.layout =='Layout'">
+	<ion-app :class="{'ios' : showAppleSignIn }" v-if="route.meta.layout =='Layout'">
 		<Layout></Layout>
 	</ion-app>
-	<ion-app  :class="{'ios' : showAppleSignIn }" v-else>
+	<ion-app :class="{'ios' : showAppleSignIn }" v-else>
 		<transition name="slide-fade">
 			<router-view></router-view>
 		</transition>
@@ -25,77 +25,102 @@ import { Plugins } from '@capacitor/core'
 import '@capacitor/push-notifications';
 import '@capacitor/device';
 import toast from '@/toast'
-const {PushNotifications}  = Plugins
+import '@codetrix-studio/capacitor-google-auth';
+import '@capacitor/app';
+import { mapGetters } from 'vuex'
+//import { loadingController} from '@ionic/vue';
 
-
+const { 
+	PushNotifications,
+	//App 
+}  = Plugins
+//import {  useIonRouter } from '@ionic/vue';
 export default defineComponent({
-	name: 'App',
-	components: {
-		IonApp,
-		LayoutDashboard,
-		Layout
-	},
-	data(){
-		return {
-			route : this.$route,
-			showAppleSignIn : true
-			//fcm: new FCM()
-		}
-	},
-	mounted(){
-		console.log(Plugins)
-		this.initPushNotification()
-		this.show_ios()
-	},
-	methods : {
-	async show_ios(){
-      let device = await Plugins.Device.getInfo();
-     this.showAppleSignIn = device.platform === 'ios';
-    },
-	async initPushNotification(){
+name: 'App',
+components: {
+IonApp,
+LayoutDashboard,
+Layout
+},
+data(){
+return {
+route : this.$route,
+showAppleSignIn : true,
+redirections : 0
+//fcm: new FCM()
+}
+},
 
-	// Register with Apple / Google to receive push via APNS/FCM
-	PushNotifications.register();
+mounted(){
 
-	// On success, we should be able to receive notifications
-	PushNotifications.addListener('registration', 
-	(token) => {
-	console.log(token.value)
-	fcm_token.setToken(token.value)
-	//alert('Push received: ' + JSON.stringify(token));
-	}
-	);
 
-	// Some issue with our setup and push will not work
-	PushNotifications.addListener('registrationError', 
-	(error) => {
-	alert('Error on registration: ' + JSON.stringify(error));
-	}
-	);
+this.initPushNotification()
+this.show_ios()
 
-	// Show us the notification payload if the app is open on our device
-	PushNotifications.addListener('pushNotificationReceived', 
-	(notification) => {
-	/*if (notification['path']) {
-		this.$router.push(notification.path)
-	}*/
-	if(notification.data['message']){
-	toast.openToast(notification['message'],"error",2000);
-	}
-	//alert('Push received: ' + JSON.stringify(notification));
-	}
-	);
+Promise.all([
+Plugins.GoogleAuth.initialize()
+]).then(() =>{
+console.log("aqui")
+//Plugins.GoogleAuth.platformJsLoaded()
+}).catch(err => console.log(err));
 
-	// Method called when tapping on a notification
-	PushNotifications.addListener('pushNotificationActionPerformed', 
-	(notification) => {
-	if (notification.data['path']) {
-		this.$router.push(notification.path)
-	}
-	}
-	);
-	}
-	}
+},
+computed : {
+...mapGetters([
+'getUser'
+]),
+},
+methods : {
+
+async show_ios(){
+let device = await Plugins.Device.getInfo();
+this.showAppleSignIn = device.platform === 'ios';
+},
+async initPushNotification(){
+
+// Register with Apple / Google to receive push via APNS/FCM
+PushNotifications.register();
+
+// On success, we should be able to receive notifications
+PushNotifications.addListener('registration', 
+(token) => {
+console.log(token.value)
+fcm_token.setToken(token.value)
+//alert('Push received: ' + JSON.stringify(token));
+}
+);
+
+// Some issue with our setup and push will not work
+PushNotifications.addListener('registrationError', 
+(error) => {
+//alert('Error on registration: ' + JSON.stringify(error));
+console.log(error)
+}
+);
+
+// Show us the notification payload if the app is open on our device
+PushNotifications.addListener('pushNotificationReceived', 
+(notification) => {
+/*if (notification['path']) {
+this.$router.push(notification.path)
+}*/
+if(notification.data['message']){
+toast.openToast(notification['message'],"error",2000);
+}
+//alert('Push received: ' + JSON.stringify(notification));
+}
+);
+
+// Method called when tapping on a notification
+PushNotifications.addListener('pushNotificationActionPerformed', 
+(notification) => {
+if (notification.data['path']) {
+this.$router.push(notification.path)
+}
+}
+);
+}
+}
 });
 
 //591791636275-45hoofl1j9jcdbkfmv2cc88a51i2ahtl.apps.googleusercontent.com mi token

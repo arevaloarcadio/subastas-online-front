@@ -341,8 +341,13 @@ export default defineComponent({
       this.user[$event.target.id] = $event.target.value
     },
     getPhoto($event){
-      this.photo = this.dataURLtoFile($event.dataUrl,'image/png')
-      this.user.photo = URL.createObjectURL(this.dataURLtoFile($event.dataUrl,'image/png'));
+      if($event.type == 'image'){
+        this.photo = this.dataURLtoFile($event.image.dataUrl,'image/png')
+        this.user.photo = URL.createObjectURL(this.dataURLtoFile($event.image.dataUrl,'image/png'));
+      }else{
+        this.file = $event.file
+        this.user.photo = URL.createObjectURL($event.file);
+      } 
       this.setOpen(false)
     },
     getCustomer(){

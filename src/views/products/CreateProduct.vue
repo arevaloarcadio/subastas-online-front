@@ -30,7 +30,7 @@
         </ion-col>
       </ion-row>
       
-         <ion-row> 
+      <ion-row> 
         <ion-col col-12>
           <div class="container">
             <label class="label-input" style="font-family: Montserrat;font-style: normal;font-weight: 500;font-size: 16px;line-height: 20px;color: #32BAB0;">Descripción</label>
@@ -281,26 +281,51 @@ export default defineComponent({
       this.takenImageUrl = photo.webPath;
     },
     getPhoto($event){
-
-      //this.image = $event.dataUrl
-
-      this.takenImageUrl = URL.createObjectURL(this.dataURLtoFile($event.dataUrl,'image'));
-
-      this.setOpen(false)
-
       var self = this
-      const buf = Buffer.from($event.dataUrl.split(',')[1], 'base64');
+      
+      this.setOpen(false)
+      //this.image = $event.dataUrl
+      if($event.type == 'image'){
 
-      window.jimp.read(buf).then(info => {
-        info.resize(512, window.jimp.AUTO,window.jimp.RESIZE_BEZIER)
-        .getBase64(window.jimp.MIME_JPEG, function (err, src) {
-          console.log(src);
-          self.image = src
+        this.takenImageUrl = URL.createObjectURL(this.dataURLtoFile($event.image.dataUrl,'image'));
+
+        
+
+        const buf = Buffer.from($event.image.dataUrl.split(',')[1], 'base64');
+
+        window.jimp.read(buf).then(info => {
+          info.resize(512, window.jimp.AUTO,window.jimp.RESIZE_BEZIER)
+          .getBase64(window.jimp.MIME_JPEG, function (err, src) {
+            self.image = src
+          })
         })
-      })
-      .catch(err => {
-        console.log('error - '+err)
-      })
+        .catch(err => {
+          console.log('error - '+err)
+        })
+      }else{
+
+        this.takenImageUrl = URL.createObjectURL($event.file);
+
+        var reader  = new FileReader();
+       
+        reader.readAsDataURL($event.file);
+
+        reader.onloadend = function () {
+        
+          const buf = Buffer.from(reader.result.split(',')[1], 'base64');
+
+          window.jimp.read(buf).then(info => {
+            info.resize(512, window.jimp.AUTO,window.jimp.RESIZE_BEZIER)
+            .getBase64(window.jimp.MIME_JPEG, function (err, src) {
+              self.image = src
+            })
+          })
+          .catch(err => {
+            console.log('error - '+err)
+          })
+        }
+        
+      }
     },
     dataURLtoFile : function(dataurl, filename) {
         var arr = dataurl.split(','),

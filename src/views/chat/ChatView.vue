@@ -30,15 +30,16 @@
               
               <div class="messages" id="chat">
                <small style="margin-top:2%"></small>
-               <template v-for="message in messages" :key="message">
+               <template v-for="(message,key) in messages" :key="message">
                 <ul v-if="message.type == 'message'">
-                  <li v-if="!message.is_file" :class="{'replies' :  getUser.id == message.id_sender ,'sent' : getUser.id == message.id_receiver}">
+                  <li v-if="!message.is_file" :class="{'replies' :  getUser.id == message.id_sender ,'sent' : getUser.id == message.id_receiver,'margin-text-before-img' :  key-1 != -1 ? messages[key-1].is_file : false}">
                     <p >{{message.message}}</p>
                    
                   </li>
                   <template v-else >
-                   <img @click="openModal(message.message)" :class="{'img-right' :  getUser.id == message.id_sender ,'img-left' : getUser.id == message.id_receiver}" :src="BasePublic+message.message">
-
+                    <li  style="" :class="{'replies' :  getUser.id == message.id_sender ,'sent' : getUser.id == message.id_receiver}" >
+                   <img @click="openModal(message.message)"   class="li-img"  :class="{'img-right' :  getUser.id == message.id_sender ,'img-left' : getUser.id == message.id_receiver,'margin-before-img' : key-1 != -1 ? messages[key-1].is_file : false }" :src="BasePublic+message.message">
+                    </li>
                   </template>
                 </ul>
           
@@ -114,6 +115,7 @@ import BasePublic from '@/plugins/store/utils'
 import send_notification from '@/plugins/fcm/send_notification'
 import io from 'socket.io-client'
 import '@capacitor/device';
+import toast from '@/toast'
 //import { Plugins } from '@capacitor/core'
 
 var ChatView
@@ -180,7 +182,7 @@ export default defineComponent({
       exchange : null,
       product_user : null,
       request : null,
-      status : false,
+      status : true,
       showAppleSignIn : false
     }
   },
@@ -195,9 +197,10 @@ export default defineComponent({
     this.product_user_id = this.$route.query.product_user_id
     this.exchange = this.$route.query.exchange
     this.message_last_message_id = this.$route.query.message_last_message_id ?? null
-    console.log(this.message_last_message_id)
-    this.getMessages()
+    
     this.getRequest()
+    this.getMessages()
+ 
     this.getProductEstatus()
     if(this.message_last_message_id != null){
      this.updateReadAtLastMessage() 
@@ -241,7 +244,7 @@ export default defineComponent({
     getMessages(){
       console.log("aquiiiiii")
       axios
-        .get("/chat/"+this.getUser.id+'/'+this.customer_id)
+        .get("/chat/"+this.getUser.id+'/'+this.customer_id+'/'+this.request_id)
         .then(res => {
           this.messages = res.data
          })
@@ -255,11 +258,63 @@ export default defineComponent({
         
         });
     }, 
-    getPhoto($event){
-      this.file = this.dataURLtoFile($event.dataUrl,'image/png')
-     // this.user.photo = URL.createObjectURL(this.dataURLtoFile($event.dataUrl,'image/png'));
+    async getPhoto($event){
+      /*if($event.type == 'image'){
+        this.file = this.dataURLtoFile($event.image.dataUrl,'image/png')
+      }else{
+        this.file = $event.file
+      } 
+      //this.user.photo = URL.createObjectURL(this.dataURLtoFile($event.dataUrl,'image/png'));
+      this.setOpen(false)*/
+      console.log($event)
+
       this.setOpen(false)
-      this.postMessage(true)
+
+      var self = this
+      
+      let loading = await toast.showLoading()
+
+      await loading.present(); 
+      //this.image = $event.dataUrl
+      if($event.type == 'image'){
+        
+        const buf = Buffer.from($event.image.dataUrl.split(',')[1], 'base64');
+
+        window.jimp.read(buf).then(info => {
+          info.resize(512, window.jimp.AUTO,window.jimp.RESIZE_BEZIER)
+          .getBase64(window.jimp.MIME_JPEG, function (err, src) {
+            self.file = self.dataURLtoFile(src,'image/png')
+            self.postMessage(true)
+          })
+        })
+        .catch(err => {
+          console.log('error - '+err)
+        })
+      }else{
+
+        var reader  = new FileReader();
+       
+        reader.readAsDataURL($event.file);
+
+        reader.onloadend = function () {
+        
+          const buf = Buffer.from(reader.result.split(',')[1], 'base64');
+
+          window.jimp.read(buf).then(info => {
+            info.resize(512, window.jimp.AUTO,window.jimp.RESIZE_BEZIER)
+            .getBase64(window.jimp.MIME_JPEG, function (err, src) {
+              self.file = self.dataURLtoFile(src,'image/png')
+              self.postMessage(true)
+            })
+          })
+          .catch(err => {
+            console.log('error - '+err)
+          }).finally(() =>{
+            loading.dismiss()
+          })
+        }
+      }
+    
     },
     updateReadAtLastMessage(){
        axios
@@ -271,17 +326,24 @@ export default defineComponent({
           console.log(err)
         })
     },
-    postMessage(is_file = false){
+    async postMessage(is_file = false){
+      
       if(this.message == null && is_file == false){
         return;
       }
+
       
+      let loading = await toast.showLoading()
+
+      await loading.present(); 
+
       let new_message = {
         id_sender : this.getUser.id,
         id_receiver :   this.customer_id,
         message :  'Has recibido un nuevo mensaje de '+ this.getUser.name+' - '+ this.product_user.name,
         is_file : is_file,
-        type : 'message'
+        type : 'message',
+        id_request : this.request_id
       }
       
       socket.emit('chat_message',new_message);
@@ -294,24 +356,27 @@ export default defineComponent({
         data.append('id_receiver', this.customer_id);
         data.append('message',this.file);
         data.append('is_file',is_file);
-        data.append('type', 'message');    
+        data.append('type', 'message');  
+        data.append('id_request', this.request_id);    
       }else{
         data = {
           id_sender : this.getUser.id,
           id_receiver :   this.customer_id,
           message : this.message,
           is_file : is_file,
-          type : 'message'
+          type : 'message',
+          id_request : this.request_id
+
         }
       }
       
       axios.
        post('/chat/message',data,{'Content-Type': 'multipart/form-data'})
         .then(() => {
-           this.message = null
-           this.getMessages()
-           this.customer_name  = this.$route.query.customer_name
-
+            this.message = null
+         
+            this.getMessages()
+            this.customer_name  = this.$route.query.customer_name
             this.product_name  = this.$route.query.product_name
             this.customer_id  = this.$route.query.customer_id
             this.request_id = this.$route.query.request_id
@@ -319,13 +384,31 @@ export default defineComponent({
             this.product_user_id = this.$route.query.product_user_id
             this.exchange = this.$route.query.exchange
 
-           send_notification.send('Nuevo Mensaje',
+            send_notification.send('Nuevo Mensaje',
             new_message.message,
-            {data : {path : {name : 'request.chat' , params : { productId : this.request.product_user_id } , query : { customer_name : this.getUser.name,product_name : this.product_user.name,customer_id : this.getUser.id,request_id :this.$route.query.request_id,exchange : this.$route.query.exchange == 'recibido' ? 'enviado' : 'recibido' }}}},
-            this.customer_id)
+            {
+            data :{
+              path : {
+                  name : 'request.chat' , 
+                  params : { 
+                    productId : this.request.product_user_id 
+                  }, 
+                  query : { 
+                    customer_name : this.getUser.name,
+                    product_name : this.product_user.name,customer_id : this.getUser.id,
+                    request_id : this.$route.query.request_id,exchange : this.$route.query.exchange == 'recibido' ? 'enviado' : 'recibido' }
+                  }
+                }
+              },
+            this.customer_id
+            )
+
           })
         .catch(err => {
+          //loading.dismiss()
           console.log(err)
+        }).finally(() =>{
+          loading.dismiss()
         });
     },
      getRequest(){
@@ -408,6 +491,21 @@ export default defineComponent({
 
 
 <style scoped>
+
+.margin-text-before-img{
+    margin-top: 37px !important;
+}
+
+.margin-img-before-img-left{
+  margin-right: -99px !important;
+}
+
+.li-img{
+  height: 168px !important;
+  width: 100px !important;
+ border-radius: 10px 10px 10px 10px !important;
+}
+
 body {
   display: flex;
   align-items: center;
@@ -1134,9 +1232,13 @@ margin-top: 1%;
   outline: none;
 }
 
+.margin-before-img{
+  margin-top: 180px;
+}
+
 .img-right{
       height: 168px;
-    width: auto;
+    width: 100px;
     float: right;
       margin-right: 15px;
       border-radius: 10px 10px 10px 10px;
@@ -1144,9 +1246,9 @@ margin-top: 1%;
 
 .img-left{
   height: 168px;
-  width: auto;
+  width: 100px;
   float: left;
-  margin-left: 15px;
+  margin-left: -42px !important;
   border-radius: 10px 10px 10px 10px;
 }
 

@@ -304,24 +304,26 @@ const routes = [
         meta : {layout : 'Layout'},
         component: Complete,
       },
+      {
+        path: '/chat/policies/terms',
+        name: 'chat.policies.terms',
+        component: PoliciesAndTerms,
+      },
+      {
+        path: '/chat/view/:productId',
+        name: 'request.chat',
+        meta : {layout : 'LayoutDashboard'},
+        component: ChatView
+      },
+      {
+        path: '/edit/categories/:userId',
+        name: 'edit.categories',
+         meta : {layout : 'Layout'},
+        component: ModalEditCategory,
+      }, 
     ]
   },
-  {
-    path: '/chat/policies/terms',
-    name: 'chat.policies.terms',
-    component: PoliciesAndTerms,
-  },
-  {
-    path: '/chat/view/:productId',
-    name: 'request.chat',
-    meta : {layout : 'LayoutDashboard'},
-    component: ChatView
-  },
-  {
-    path: '/edit/categories/:userId',
-    name: 'edit.categories',
-    component: ModalEditCategory,
-  }, 
+ 
 ]
 
 const router = createRouter({

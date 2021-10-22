@@ -1,4 +1,5 @@
 <template>
+
   <div>
     <transition name="slide-fade" >
         <router-view ></router-view>
@@ -64,7 +65,7 @@ import toast from '@/toast'
 import { Plugins } from '@capacitor/core'
 import '@capacitor/device';
 
-let loading;
+//let loading;
 
 export default {
   components: { IonRow,IonCol },
@@ -74,7 +75,7 @@ export default {
     return {
       path :null,
       from : null,
-      chat : '/chat/policies/terms',
+      chat : '/chat',
       inactive : null,
       loading : null,
       invite : null,
@@ -93,14 +94,8 @@ export default {
     $route(to, from) {
       this.path = to.path
       this.from = from.path
-  
-        loading.dismiss()
+     
     }
-  },
- async beforeRouteUpdate (to, from, next) {
-    loading = await toast.showLoading()
-    await loading.present();
-    next()
   },
   computed : {
     ...mapGetters([
@@ -126,7 +121,9 @@ export default {
         .then(res => {
           if(res.data.terms_chat_accepted){
             this.chat = '/chat'
-          }
+          }else{
+            this.chat = '/chat/policies/terms'
+          } 
          })
         .catch(err => {
           console.log(err)

@@ -98,13 +98,13 @@
                   </ion-card-header>
                 
                   
-                  <ion-card-content style="margin-top:-15px;text-align: left;">{{productsByCategory[0].pais}}, {{productsByCategory[1].city}}
+                  <ion-card-content style="margin-top:-15px;text-align: left;">{{productsByCategory[0].pais}}, {{productsByCategory[0].city}}
                 </ion-card-content>
 
               </ion-card>
             </div>
                 <div style="display: flex;justify-content: center;">  
-              <ion-card class="cursor anchor" @click="redirect_details(productsByCategory[0])">
+              <ion-card class="cursor anchor" @click="redirect_details(productsByCategory[1])">
                   <img :src="BasePublic+productsByCategory[1].photo" style="height: 143px;border-radius: 0px 10px 0px 0px;width: 100%;">
                   <ion-card-header>
 

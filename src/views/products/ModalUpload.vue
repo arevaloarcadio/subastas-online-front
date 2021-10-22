@@ -1,4 +1,5 @@
 <template>
+
   <ion-content class="ion-padding">
     <button @click="closeModal()" style="background: #fff;margin-left: 90%;margin-top: 7px;">
             <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -12,9 +13,11 @@
       <button type="button" class="btn-primary" @click="takePhoto('camara')">Tomar una foto</button>
        <br>
        <br>
-    <button type="button" class="btn-line" @click="takePhoto('photos')" >Subir una foto</button>
+    <button type="button" class="btn-line" @click="file" >Subir una foto</button>
+    <input type="file" name="photo"  ref="file" @change="upload"  accept="image/*"   id="photo" style="display: none;">
   </center>
  </ion-content>
+
 </template>
 
 <script>
@@ -54,9 +57,16 @@ export default defineComponent({
         quality: 60
       });
       this.takenImageUrl = photo;
-      this.$emit("get",this.takenImageUrl)
+      this.$emit("get",{image : this.takenImageUrl , type : 'image'})
       this.closeModal()
     },
+    file(){
+      document.querySelector('#photo').click()
+    },
+    upload(){
+      this.$emit("get",{file : this.$refs.file.files[0] , type : 'file'})
+      this.closeModal()
+    }
   }
 });
 </script>

@@ -36,7 +36,7 @@
               </ion-col>
             </ion-row>
           </ion-card>
-        </template>
+        </template><br><br><br><br><br><br>
     </ion-content>    
   </ion-page>  
 </template>

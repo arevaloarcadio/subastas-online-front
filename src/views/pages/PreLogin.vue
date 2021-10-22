@@ -53,7 +53,7 @@ import { Plugins } from '@capacitor/core'
 import { SignInWithApple } from '@capacitor-community/apple-sign-in';
 import { FacebookLogin } from '@capacitor-community/facebook-login';
 import '@codetrix-studio/capacitor-google-auth';
-import '@capacitor/device';
+import { Device }  from '@capacitor/device';
 //591791636275-45hoofl1j9jcdbkfmv2cc88a51i2ahtl.apps.googleusercontent.com Tu ID de cliente
 
 //CKfLfyeO3d137Or-4dtBa9nN tu secreto de cliente
@@ -83,6 +83,9 @@ export default defineComponent({
   mounted(){
 
  this.show_ios()
+// GoogleAuth.init()
+  Plugins.GoogleAuth.initialize();
+  Plugins.GoogleAuth.signOut();
   //GoogleAuth.init(); // or await GoogleAuth.init()
   window.fbAsyncInit = function() {
     window.FB.init({
@@ -112,7 +115,7 @@ export default defineComponent({
       this.$router.push({path: page});
     },
     async show_ios(){
-      let device = await Plugins.Device.getInfo();
+      let device = await Device.getInfo();
       this.showAppleSignIn = device.platform === 'ios';
     },
     async loginFacebook(){
@@ -169,6 +172,7 @@ export default defineComponent({
    },
    async loginGoogle() {
 
+  
 
     const googleUser = await Plugins.GoogleAuth.signIn();
 

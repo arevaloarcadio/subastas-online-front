@@ -2,9 +2,14 @@
  <transition name="slide-fade" >
     <router-view  ></router-view>
  </transition>
+
 </template>
+
 <script>
 import { mapGetters } from 'vuex'
+import '@capacitor/app';
+import { Plugins } from '@capacitor/core'
+const { App } = Plugins
 
 export default {
   name :'Layout',
@@ -29,19 +34,33 @@ export default {
       var self = this;
       if(self.getUser.get_started){
         self.preload = false; 
+        this.set_first_route('/get_started')
         self.$router.push({path: '/get_started'});
       }else if(self.getUser.get_started == false && self.getUser.id == null){
         self.preload = false; 
+        this.set_first_route('/login')
         self.$router.push({path: '/login'});
       }else{
         self.preload = false; 
+        this.set_first_route('/principal')
         self.$router.push({path: '/principal'});
       } 
     }    
   },
-  methods: {
-  
-  }
+ methods:{
+  set_first_route(path){
+  var self = this;
+    document.addEventListener('ionBackButton', (ev) => {
+      ev.detail.register(1, () => {
+        if (self.$route.path == path) {
+          App.exitApp();
+        }else{
+          this.$router.go(-1)
+        }
+      });
+    });
+  },
+ }
 };
 </script>
 

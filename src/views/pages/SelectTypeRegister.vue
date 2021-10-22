@@ -107,9 +107,9 @@ export default defineComponent({
     };
   },
   mounted(){
-
     //Plugins.GoogleAuth.init(); // or await GoogleAuth.init()
    console.log(Plugins)
+
     this.show_ios()
     window.fbAsyncInit = function() {
       window.FB.init({
