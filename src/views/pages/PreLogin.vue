@@ -54,15 +54,12 @@ import { useRouter } from 'vue-router';
 import { Plugins } from '@capacitor/core'
 //import { SignInWithApple } from '@capacitor-community/apple-sign-in';
 import { FacebookLogin } from '@capacitor-community/facebook-login';
-<<<<<<< HEAD
+
 import { GoogleAuth } from '@codetrix-studio/capacitor-google-auth';
 import { Device }  from '@capacitor/device';
 //import { GooglePlus } from '@ionic-native/google-plus/ngx';
 
-=======
-import '@codetrix-studio/capacitor-google-auth';
-import { Device }  from '@capacitor/device';
->>>>>>> 2a3e57b8dbba8013cfde0674d82efa0c1c1e5644
+
 //591791636275-45hoofl1j9jcdbkfmv2cc88a51i2ahtl.apps.googleusercontent.com Tu ID de cliente
 
 //CKfLfyeO3d137Or-4dtBa9nN tu secreto de cliente
@@ -92,7 +89,9 @@ export default defineComponent({
   },
   mounted(){
     console.log(Plugins)
+   
     GoogleAuth.init();
+    
     this.show_ios()
 
     window.fbAsyncInit = function() {
@@ -104,7 +103,6 @@ export default defineComponent({
       });
     };
 
-<<<<<<< HEAD
     (function(d, s, id) {
       var js, fjs = d.getElementsByTagName(s)[0];
       if (d.getElementById(id)) return;
@@ -112,31 +110,7 @@ export default defineComponent({
       js.src = "https://connect.facebook.net/en_US/sdk.js";
       fjs.parentNode.insertBefore(js, fjs);
     }(document, 'script', 'facebook-jssdk'));
-=======
- this.show_ios()
-// GoogleAuth.init()
-  Plugins.GoogleAuth.initialize();
-  Plugins.GoogleAuth.signOut();
-  //GoogleAuth.init(); // or await GoogleAuth.init()
-  window.fbAsyncInit = function() {
-    window.FB.init({
-      appId: '891037061645114',
-      cookie: true, // enable cookies to allow the server to access the session
-      xfbml: true, // parse social plugins on this page
-      version: 'v11.0' // use graph api current version
-    });
-  };
-
-
-  // Load the SDK asynchronously
-  (function(d, s, id) {
-    var js, fjs = d.getElementsByTagName(s)[0];
-    if (d.getElementById(id)) return;
-    js = d.createElement(s); js.id = id;
-    js.src = "https://connect.facebook.net/en_US/sdk.js";
-    fjs.parentNode.insertBefore(js, fjs);
-  }(document, 'script', 'facebook-jssdk'));
->>>>>>> 2a3e57b8dbba8013cfde0674d82efa0c1c1e5644
+   
 
   },
   methods: {
@@ -204,15 +178,8 @@ export default defineComponent({
    async loginGoogle() {
 
   
-<<<<<<< HEAD
-  
     const googleUser = await GoogleAuth.signIn();
    
-=======
-
-    const googleUser = await Plugins.GoogleAuth.signIn();
-
->>>>>>> 2a3e57b8dbba8013cfde0674d82efa0c1c1e5644
     console.log('my user: ', googleUser);
 
     if(!googleUser?.email){

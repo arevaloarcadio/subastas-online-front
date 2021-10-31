@@ -43,11 +43,7 @@ export default {
       }else{
         self.preload = false; 
         this.set_first_route('/principal')
-<<<<<<< HEAD
         self.$router.push({path: '/principal' , query : {set_fcm : true }});
-=======
-        self.$router.push({path: '/principal'});
->>>>>>> 2a3e57b8dbba8013cfde0674d82efa0c1c1e5644
       } 
     }    
   },
