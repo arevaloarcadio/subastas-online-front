@@ -13,10 +13,13 @@ send_notification.send = function (title,body,data,user_id) {
     .catch(err => {
       console.log(err)
     }).finally(() => {
+      const registrationTokens = [];
 
       if(fcms != null ){
-        fcms.forEach((fcm) =>{
         
+        fcms.forEach((fcm) =>{
+          registrationTokens.push(fcm.token)
+        }) 
             var xhttp = new XMLHttpRequest();
             xhttp.open("POST", "https://fcm.googleapis.com/fcm/send", true);
             xhttp.setRequestHeader("Content-type", "application/json");
@@ -27,7 +30,7 @@ send_notification.send = function (title,body,data,user_id) {
                 'body': body 
               },
               data : data,
-              'to': fcm.token,
+              'registration_ids': registrationTokens,
               "priority": "high"
             }
 
@@ -37,7 +40,7 @@ send_notification.send = function (title,body,data,user_id) {
               }
             };
             xhttp.send(JSON.stringify(res))
-        }) 
+       
       }
     });
 }

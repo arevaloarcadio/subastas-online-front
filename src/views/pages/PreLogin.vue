@@ -5,6 +5,7 @@
       <br>
       <img src="/assets/logo-white.png" style="margin-top: 38px;">
     </div>
+
      <p style="font-family: Montserrat;font-style: normal;font-weight: normal;font-size: 16px;line-height: 20px;text-align: center;">
       <center>
        Regístrate o ingresa para  <br> comenzar
@@ -33,6 +34,7 @@
         </ion-col>
       </ion-row>
     </ion-grid>
+  
 
     <br>
       <a class="text-control" style="font-weight: 600;font-size: 16px;line-height: 20px;" @click="$router.push({path: '/principal' , query : {invite : true }})"> Continuar como invitado</a> <br>
@@ -50,10 +52,17 @@ import user from "@/plugins/jwt/user";
 import axios from 'axios';
 import { useRouter } from 'vue-router';
 import { Plugins } from '@capacitor/core'
-import { SignInWithApple } from '@capacitor-community/apple-sign-in';
+//import { SignInWithApple } from '@capacitor-community/apple-sign-in';
 import { FacebookLogin } from '@capacitor-community/facebook-login';
+<<<<<<< HEAD
+import { GoogleAuth } from '@codetrix-studio/capacitor-google-auth';
+import { Device }  from '@capacitor/device';
+//import { GooglePlus } from '@ionic-native/google-plus/ngx';
+
+=======
 import '@codetrix-studio/capacitor-google-auth';
 import { Device }  from '@capacitor/device';
+>>>>>>> 2a3e57b8dbba8013cfde0674d82efa0c1c1e5644
 //591791636275-45hoofl1j9jcdbkfmv2cc88a51i2ahtl.apps.googleusercontent.com Tu ID de cliente
 
 //CKfLfyeO3d137Or-4dtBa9nN tu secreto de cliente
@@ -73,7 +82,8 @@ export default defineComponent({
       password: '',
       fb_user : '',
       token : null,
-      showAppleSignIn : true
+      showAppleSignIn : true,
+      googleUser : null
     };
   },
   setup() {
@@ -81,7 +91,28 @@ export default defineComponent({
       return { router };
   },
   mounted(){
+    console.log(Plugins)
+    GoogleAuth.init();
+    this.show_ios()
 
+    window.fbAsyncInit = function() {
+      window.FB.init({
+        appId: '891037061645114',
+        cookie: true, // enable cookies to allow the server to access the session
+        xfbml: true, // parse social plugins on this page
+        version: 'v11.0' // use graph api current version
+      });
+    };
+
+<<<<<<< HEAD
+    (function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s); js.id = id;
+      js.src = "https://connect.facebook.net/en_US/sdk.js";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+=======
  this.show_ios()
 // GoogleAuth.init()
   Plugins.GoogleAuth.initialize();
@@ -105,6 +136,7 @@ export default defineComponent({
     js.src = "https://connect.facebook.net/en_US/sdk.js";
     fjs.parentNode.insertBefore(js, fjs);
   }(document, 'script', 'facebook-jssdk'));
+>>>>>>> 2a3e57b8dbba8013cfde0674d82efa0c1c1e5644
 
   },
   methods: {
@@ -119,7 +151,6 @@ export default defineComponent({
       this.showAppleSignIn = device.platform === 'ios';
     },
     async loginFacebook(){
-
 
       const FACEBOOK_PERMISSIONS = ['email'];
       const result = await FacebookLogin.login({ permissions: FACEBOOK_PERMISSIONS });
@@ -173,9 +204,15 @@ export default defineComponent({
    async loginGoogle() {
 
   
+<<<<<<< HEAD
+  
+    const googleUser = await GoogleAuth.signIn();
+   
+=======
 
     const googleUser = await Plugins.GoogleAuth.signIn();
 
+>>>>>>> 2a3e57b8dbba8013cfde0674d82efa0c1c1e5644
     console.log('my user: ', googleUser);
 
     if(!googleUser?.email){
@@ -199,7 +236,6 @@ export default defineComponent({
         user.setUser(res.data.user)
         jwtToken.setToken(res.data.token);
         this.setAuthUser(res.data.user)
-        await Plugins.GoogleAuth.signOut();
         this.$router.push({path: '/principal' , query : {set_fcm : true }});
       })
       .catch(err => {
@@ -212,9 +248,43 @@ export default defineComponent({
         }*/
       });
     },
+    loginGoogleFirebase(){
+
+   
+      //const auth = getAuth()
+
+       const provider = new window.firebase.auth.GoogleAuthProvider();
+     window.firebase.auth().signInWithPopup(provider)
+        .then((result) => {
+          alert('Error on registration: ' + JSON.stringify(result));
+          console.log(result)
+          // This gives you a Google Access Token. You can use it to access the Google API.
+          //const credential = window.firebase.GoogleAuthProvider.credentialFromResult(result);
+          //const token = credential.accessToken;
+          // The signed-in user info.
+          //const user = result.user;
+          //console.log(credential,token,user)
+          // ...
+        }).catch((error) => {
+          alert('Error on registration: ' + JSON.stringify(error));
+          console.log(error)
+          // Handle Errors here.
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          // The email of the user's account used.
+          const email = error.email;
+          // The AuthCredential type that was used.
+          const credential = window.firebase.auth().GoogleAuthProvider.credentialFromError(error);
+          console.log(errorCode,errorMessage,email,credential)
+        });
+
+        window.firebase.auth().onAuthStateChanged( userInfo => {
+          console.log(userInfo)
+        })
+    },
     async loginApple() {
 
-    let options = {
+   /*let options = {
       clientId: 'com.app.upgrap',
       redirectURI: 'https://upgrap.firebaseapp.com/__/auth/handler',
       scopes: 'email name',
