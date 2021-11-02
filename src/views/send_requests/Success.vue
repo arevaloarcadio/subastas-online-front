@@ -1,5 +1,6 @@
 <template>
   <ion-page>
+    <ion-content class="ion-padding">
     <ion-row>
        <ion-col>
         <button @click="$router.go(-1)">
@@ -22,7 +23,7 @@
           </p>
       </ion-col>
     </ion-row>
-    <ion-content class="ion-padding">
+
   
         <p style="font-family: Montserrat;font-style: normal;font-weight: 500;font-size: 16px;line-height: 20px;align-items: center;text-align: center;letter-spacing: 0.75px;color: #5B716F;">
           <img  src="/assets/bi_clock.png" style="margin-top: -5%;">
@@ -37,6 +38,11 @@
           <button type="button" class="btn-primary" @click="redirect({path : '/principal'})" style="width: 200px;font-family: Montserrat;font-style: normal;font-weight: 500;font-size: 16px;line-height: 20px;color: #FFFFFF;">
               Regresar al home
           </button>
+           <br>
+          <br>
+          <br> <br>
+          <br>
+          <br>
         </p>
      
     </ion-content>

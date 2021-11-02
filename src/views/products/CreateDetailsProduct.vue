@@ -254,13 +254,18 @@ export default defineComponent({
       let device = await Plugins.Device.getInfo();
       this.showAppleSignIn = device.platform === 'ios';
     },
-    getCategories(){
+    async getCategories(){
+      let loading = await toast.showLoading()
+
+    await loading.present(); 
      axios
       .get("categories")
       .then(res => {
         this.categories = res.data
+        loading.dismiss()
        })
       .catch(err => {
+        loading.dismiss()
         console.log(err)
       });
     },
@@ -331,6 +336,7 @@ export default defineComponent({
       this.getCities()
     },
     getCity(ev){
+      console.log("aqui")
       this.city = ev.target.value;
     },
     category_(category){
@@ -342,7 +348,10 @@ export default defineComponent({
       var country = this.states.find(country => {
         return country.name == this.country
       })
-      this.state = country.states
+      console.log(country)
+      if(country !== undefined){
+        this.state = country.states
+      }
     },
     async openModal() {
       const modal = await modalController
