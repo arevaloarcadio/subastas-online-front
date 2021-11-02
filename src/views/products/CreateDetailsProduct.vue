@@ -48,7 +48,7 @@
             <ion-row class="container" style="border-radius: 10px" >
               <div class="input-container" style="height: 55px; width: 97%;margin-left: 1.5%;">
                 <img  :src="'https://www.countryflags.io/'+flag+'/flat/64.png'" class="select-country" style="width: 20px;height: 16px">
-                <ion-select id="ionSelectCountry" :interface-options="customActionSheetOptions" interface="action-sheet" style="background: #32BAB0;border-radius: 10px;color: #32BAB0;font-family: Montserrat;width: 83px;height: 100%;    margin-top: -1px;"  ok-text="Seleccionar" cancel-text="Cerrar" @ionchange="getCountry($event)">
+                <ion-select id="ionSelectCountry" :interface-options="customActionSheetOptions" interface="action-sheet" style="background: #32BAB0;border-radius: 10px;color: #32BAB0;font-family: Montserrat;width: 83px;height: 100%;    margin-top: -1px;"  ok-text="Seleccionar" cancel-text="Cerrar" @ionchange="getCountry($event)" @ionBlur="getCountry($event)">
                   <ion-select-option v-for="country in countries" :key="country" :value="country.country">{{country.country}}</ion-select-option>
                 </ion-select>
                    <input type="text" style="padding-left: 18px;font-size: 18px; font-family: Montserrat;font-style: normal;font-weight: normal;font-size: 16px;line-height: 20px;" v-model="country" class="input-text">
@@ -62,7 +62,7 @@
               <label class="label-input" style="font-family: Montserrat;font-style: normal;font-weight: normal;font-size: 16px;line-height: 28px;letter-spacing: 0.75px;color: #32BAB0;">Estado o Provincia</label>
               <div  class="input-container">
                 <input type="text" style="font-size: 18px; font-family: Montserrat;font-style: normal;font-weight: normal;font-size: 16px;line-height: 20px;" v-model="city" class="input-text" >
-                <ion-select  :interface-options="customActionSheetOptions" interface="action-sheet" v-model="select_city" style="color: #32BAB0;width: 20%;"  @ionchange="getCity($event)" >
+                <ion-select  :interface-options="customActionSheetOptions" interface="action-sheet" v-model="select_city" style="color: #32BAB0;width: 20%;"  @ionchange="getCity($event)" @ionBlur="getCity($event)">
                   <ion-select-option  v-for="state in state" :key="state" :value="state.name">{{state.name}}</ion-select-option>
               </ion-select>
                <svg width="22" height="12" viewBox="0 0 22 12" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-right: 4%;" >
