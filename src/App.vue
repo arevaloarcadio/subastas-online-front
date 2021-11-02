@@ -53,7 +53,7 @@ Promise.all([
 GoogleAuth.init()
 
 ]).then(() =>{
-Plugins.GoogleAuth.initialize()
+Plugins.GoogleAuth.init()
 console.log("aqui")
 
 }).catch(err => console.log(err));

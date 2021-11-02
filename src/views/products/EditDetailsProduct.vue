@@ -51,10 +51,14 @@
               <div class="input-container" style="height: 55px; width: 97%;margin-left: 1.5%;">
               
                     <img :src="'https://www.countryflags.io/'+flag+'/flat/64.png'" class="select-country" style="width: 20px;height: 16px">
-                    <ion-select id="ionSelectCountry" :interface-options="customActionSheetOptions" interface="action-sheet"  style="background: #32BAB0;border-radius: 10px;color: #32BAB0;font-family: Montserrat;width: 83px;height: 100%;margin-top: -1px;"  ok-text="Seleccionar" cancel-text="Cerrar" @ionChange="getCountry($event)">
+                    <ion-select id="ionSelectCountry"  v-show="!showAppleSignIn"  :interface-options="customActionSheetOptions" interface="action-sheet"  style="background: #32BAB0;border-radius: 10px;color: #32BAB0;font-family: Montserrat;width: 83px;height: 100%;margin-top: -1px;"  ok-text="Seleccionar" cancel-text="Cerrar" @ionChange="getCountry($event)">
                       <ion-select-option v-for="country in countries" :key="country" :value="country.country">{{country.country}}</ion-select-option>
                   </ion-select>
-       
+                  <div style="background: #32BAB0;border-radius: 10px;color: #32BAB0;font-family: Montserrat;width: 83px;height: 100%;    margin-top: -1px;" @click="openCountry"  v-show="showAppleSignIn">
+                        <svg style="margin-left:14px;margin-left: 44px;margin-top: 24px;" width="12" height="7" viewBox="0 0 12 7" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M11 1L6 6L1 1" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                      </svg>
+                  </div>
                 <ion-col size="8">
                   <div style="margin-left: -13%;">
                     <div   >
@@ -70,10 +74,14 @@
               <label class="label-input" style="font-family: Montserrat;font-style: normal;font-weight: normal;font-size: 16px;line-height: 28px;letter-spacing: 0.75px;color: #32BAB0;">Estado o Provincia</label>
               <div  class="input-container">
                 <input type="text" style="font-size: 18px; font-family: Montserrat;font-style: normal;font-weight: normal;font-size: 16px;line-height: 20px;" v-model="city" class="input-text" >
-                <ion-select  :interface-options="customActionSheetOptions" interface="action-sheet" v-model="select_city" style="color: #32BAB0;width: 20%;"  @ionChange="getCity($event)" >
+                <ion-select v-if="!showAppleSignIn"   :interface-options="customActionSheetOptions" interface="action-sheet" v-model="select_city" style="color: #32BAB0;width: 20%;"  @ionChange="getCity($event)" >
                   <ion-select-option  v-for="state in state" :key="state" :value="state.name">{{state.name}}</ion-select-option>
               </ion-select>
-               <svg width="22" height="12" viewBox="0 0 22 12" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-right: 4%;" >
+               <svg v-if="!showAppleSignIn"  width="22" height="12" viewBox="0 0 22 12" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-right: 4%;" >
+                 <path d="M21 1L11 11L1 1" stroke="#5B716F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+
+                 <svg v-if="showAppleSignIn"  @click="openState" width="22" height="12" viewBox="0 0 22 12" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-right: 4%;" >
                  <path d="M21 1L11 11L1 1" stroke="#5B716F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
               </div>
@@ -144,6 +152,8 @@
 import { repeat,arrowBack,camera } from 'ionicons/icons';
 import ModalDetail from '@/views/products/ModalDetail'
 import PopoverSelectCategory from './PopoverSelectCategory'
+import PopoverSelectCountry from './PopoverSelectCountry'
+import PopoverSelectStates from './PopoverSelectStates'
 import axios from 'axios'
 
 import { 
@@ -268,7 +278,7 @@ export default defineComponent({
     this.city = this.$route.query.city;
   },
   mounted(){
-   this.show_ios()
+   //this.show_ios()
     let svg = '<svg style="margin-left:10px" width="12" height="7" viewBox="0 0 12 7" fill="none" xmlns="http://www.w3.org/2000/svg">'+
                 '<path d="M11 1L6 6L1 1" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>'+
               '</svg>'
@@ -303,6 +313,59 @@ export default defineComponent({
         let category = data.data
         this.category = category.name;
         this.category_id =  category.id
+        this.setOpen(false)
+      });
+ 
+    },
+
+    async openCountry(Event) {
+      const popover = await popoverController
+        .create({
+          event : Event,
+          component: PopoverSelectCountry,
+          translucent : true,
+          showBackdrop : false,
+          keyboardClose : false,
+          backdropDismiss : true,
+          cssClass : "my-class-country",
+          componentProps : {countries : this.countries}
+        })
+
+      await popover.present();
+
+      popover.onDidDismiss().then((data) => { 
+ 
+         this.city = null
+        const country = this.countries.filter(function(country) {
+          if(country.country == data.data.country){
+            return country
+          }
+        });
+    
+        this.flag = country[0].abbreviation.toLowerCase()
+        this.country = data.data.country;
+        this.getCities()
+        this.setOpen(false)
+      });
+ 
+    },async openState(Event) {
+       console.log(this.state)
+      const popover = await popoverController
+        .create({
+          event : Event,
+          component: PopoverSelectStates,
+          translucent : true,
+          showBackdrop : false,
+          keyboardClose : false,
+          backdropDismiss : true,
+          cssClass : "my-class-state",
+          componentProps : {states : this.state}
+        })
+
+      await popover.present();
+
+      popover.onDidDismiss().then((data) => { 
+        this.city = data.data.name;
         this.setOpen(false)
       });
  
