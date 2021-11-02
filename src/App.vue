@@ -88,7 +88,7 @@ PushNotifications.addListener('registration',
 (token) => {
 console.log(token.value)
 fcm_token.setToken(token.value)
-alert(JSON.stringify(token));
+
 
 }
 );
