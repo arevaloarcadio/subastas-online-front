@@ -210,7 +210,7 @@ export default defineComponent({
     }
   },
   mounted(){
-    this.show_ios()
+    //this.show_ios()
 
     let svg = '<svg style="margin-left:14px" width="12" height="7" viewBox="0 0 12 7" fill="none" xmlns="http://www.w3.org/2000/svg">'+
                 '<path d="M11 1L6 6L1 1" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>'+

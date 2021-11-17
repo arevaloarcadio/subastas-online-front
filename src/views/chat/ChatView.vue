@@ -398,7 +398,8 @@ export default defineComponent({
                     product_name : this.product_user.name,customer_id : this.getUser.id,
                     request_id : this.$route.query.request_id,exchange : this.$route.query.exchange == 'recibido' ? 'enviado' : 'recibido' }
                   }
-                }
+                },
+                message : 'Has Recibido un nuevo mensaje de '+this.getUser.name
               },
             this.customer_id
             )

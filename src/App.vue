@@ -43,7 +43,15 @@ redirections : 0
 
 mounted(){
 
+const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
 
+toggleDarkTheme(prefersDark.matches);
+
+// Listen for changes to the prefers-color-scheme media query
+prefersDark.addListener((mediaQuery) => toggleDarkTheme(mediaQuery.matches));
+
+console.log(prefersDark)
+// Add or remove the "dark" class based on if the media query matches
 
 this.initPushNotification()
 this.show_ios()
@@ -107,24 +115,29 @@ PushNotifications.addListener('pushNotificationReceived',
 /*if (notification['path']) {
 this.$router.push(notification.path)
 }*/
+
 if(notification.data['message']){
-toast.openToast(notification['message'],"error",2000);
+toast.openToast(notification.data['message'],"success",10000);
 }
-//alert('Push received: ' + JSON.stringify(notification));
+
 }
 );
 
 // Method called when tapping on a notification
 PushNotifications.addListener('pushNotificationActionPerformed', 
 (notification) => {
-if (notification.data['path']) {
-this.$router.push(notification.path)
+if (notification.data.data['path']) {
+this.$router.push(notification.data.data['path'])
 }
 }
 );
 }
 }
 });
+
+function toggleDarkTheme(shouldAdd) {
+  document.body.classList.toggle('dark', shouldAdd);
+}
 
 //591791636275-45hoofl1j9jcdbkfmv2cc88a51i2ahtl.apps.googleusercontent.com mi token
 //oficial de upgrap 404466753320-8ob9c44f8na5ajcr317p25qv92juvv6e.apps.googleusercontent.com

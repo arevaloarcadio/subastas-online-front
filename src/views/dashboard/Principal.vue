@@ -294,12 +294,12 @@ export default defineComponent({
           this.products = data.data.products
           return
         }
-        
+        console.log(data.data)
         this.filter = data.data
-        this.input_filter = data.data.input_filter
+        this.input_filter = data.data
         filter.add(this.input_filter)
         this.reload=0;
-        //this.getProducts(this.reload,true);
+        this.getProductsFilter();
       })
 
     },

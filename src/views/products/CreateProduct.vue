@@ -41,8 +41,8 @@
         </ion-col>
       </ion-row>
        
-        <ion-row v-show="!showAppleSignIn">
-          <ion-col >
+        <div  style="width: 325px;" v-show="!showAppleSignIn">
+          
              <ion-radio-group value="Nuevo" v-model="estado">
               <ion-row>
                 <ion-col>
@@ -53,15 +53,15 @@
                   </ion-item>
                     </ion-col>
                      <ion-col>
-                  <ion-item  lines="none" style="margin-left: -27px;">
+                  <ion-item  lines="none" >
                     <p class="text-radio">Usado</p>
                     <ion-radio  color="success" slot="start"  value="Usado" @click="estado ='usado'"></ion-radio>
                   </ion-item>
                   </ion-col>
                </ion-row>
             </ion-radio-group>
-          </ion-col>
-        </ion-row>
+      
+        </div>
 
         <ion-row v-show="showAppleSignIn" style="margin-top: 10px">
           <ion-col style="margin-left: 20px;">

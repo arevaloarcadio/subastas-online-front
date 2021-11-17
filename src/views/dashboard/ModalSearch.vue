@@ -108,7 +108,7 @@ export default defineComponent({
     },
   methods: {
   async search(filter){
-     console.log("search")
+     console.log(filter)
     const modal = await modalController
     return modal.dismiss(filter);
   },  

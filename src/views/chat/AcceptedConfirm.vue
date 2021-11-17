@@ -213,7 +213,7 @@ export default defineComponent({
        
 
         toast.openToast("Producto aceptado existosamente","success",2000);
-        send_notification.send('Tu Producto ha sido aceptado',this.product_customer.name,{data: {path : {name :'request.accepted' , params : { requestId : this.request_id }}},},this.request.id_user)
+        send_notification.send('Tu Producto ha sido aceptado',this.product_customer.name,{data: {path : {name :'request.accepted' , params : { requestId : this.request_id }}},message : 'Tu Producto ha sido aceptado - '+this.product_customer.name },this.request.id_user)
          socket.emit('chat_message',res.data.data);
         this.$router.push({path : '/principal'})
        })

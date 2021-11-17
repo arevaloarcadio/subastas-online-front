@@ -34,7 +34,13 @@
       </ion-col>
       <br>
       <ion-col> 
-        <button type="button" class="tag-primary"  style="width: 180px;padding: 1px 2px;margin-left: -20px;font-style: normal;font-weight: normal;font-size: 16px;line-height: 20px;text-align: center;color: #FFFFFF;">Producto {{product.estado}}</button>
+
+         <div style="display: flex;flex-direction: row;align-items: center;padding: 4px 4px;">
+        <div style="background: #EAEAEA;border-radius: 10px;padding: 10px 22px;font-family: Montserrat;font-style: normal;font-weight: normal;font-size: 16px;line-height: 20px;margin-left: -14px;text-align: center;color: #FFFFFF;background:#32BAB0;">
+          Producto {{product.estado}} 
+        </div>
+    </div>
+        <!--<button type="button" class="tag-primary"  style="width: 180px;padding: 1px 2px;margin-left: -20px;font-style: normal;font-weight: normal;font-size: 16px;line-height: 20px;text-align: center;color: #FFFFFF;">Producto {{product.estado}}</button>-->
       </ion-col>
     </ion-row>
     <ion-row>
@@ -44,13 +50,23 @@
         </p>
       </ion-col>
       <ion-col> 
-        <button type="button" class="tag-primary" style="padding: 1px 2px;margin-left: 11px;font-style: normal;font-weight: normal;font-size: 16px;line-height: 20px;text-align: center;color: #FFFFFF;">
+        
+          <div style="display: flex;flex-direction: row;align-items: center;padding: 4px 4px;">
+        <div style="background: #EAEAEA;border-radius: 10px;padding: 7px  22px;font-family: Montserrat;font-style: normal;font-weight: normal;font-size: 16px;line-height: 20px;margin-left: 0px;text-align: center;color: #FFFFFF;background:#32BAB0;">
+           <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M10.272 4.56607C11.1087 4.5326 11.9212 4.85029 12.5133 5.44235L16.8062 9.73528C17.9778 10.9069 17.9778 12.8063 16.8062 13.9779L13.9778 16.8063C12.8062 17.9779 10.9067 17.9779 9.73514 16.8063L5.44221 12.5134C4.85015 11.9214 4.53246 11.1088 4.56592 10.2722L4.7485 5.70787C4.76933 5.18698 5.18683 4.76948 5.70773 4.74864L10.272 4.56607Z" stroke="white" stroke-width="1.5"/>
+          <circle cx="8.83789" cy="8.47266" r="0.625" stroke="white" stroke-width="1.5"/>
+          </svg> 
+        {{category.name}}
+        </div>
+    </div>
+        <!--<button type="button" class="tag-primary" style="padding: 1px 2px;margin-left: 11px;font-style: normal;font-weight: normal;font-size: 16px;line-height: 20px;text-align: center;color: #FFFFFF;">
           <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M10.272 4.56607C11.1087 4.5326 11.9212 4.85029 12.5133 5.44235L16.8062 9.73528C17.9778 10.9069 17.9778 12.8063 16.8062 13.9779L13.9778 16.8063C12.8062 17.9779 10.9067 17.9779 9.73514 16.8063L5.44221 12.5134C4.85015 11.9214 4.53246 11.1088 4.56592 10.2722L4.7485 5.70787C4.76933 5.18698 5.18683 4.76948 5.70773 4.74864L10.272 4.56607Z" stroke="white" stroke-width="1.5"/>
           <circle cx="8.83789" cy="8.47266" r="0.625" stroke="white" stroke-width="1.5"/>
           </svg> 
         {{category.name}}
-      </button>
+      </button>-->
       </ion-col>
     </ion-row>  
  </ion-content>

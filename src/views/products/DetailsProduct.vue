@@ -67,7 +67,13 @@
           <div align="center">
           <ion-row >
               <ion-col   size="6"> 
-                <button  type="button" class="btn-line"  style="width: 151px;" @click="openModal">Más Información</button>
+               <!-- <button  type="button" class="btn-line"  style="width: 151px;" @click="openModal">Más Información</button>-->
+                 <div @click="openModal" style="display: flex;justify-content: center; flex-direction: row;align-items: center;">
+                    <div style="border: 1px solid #32BAB0;background: #EAEAEA;border-radius: 10px;padding: 5px  22px;font-family: Montserrat;font-style: normal;font-weight: 500;font-size: 16px;line-height: 20px;margin-left: 0px;text-align: center;color: #32BAB0;background:#ffffff;width: 151px ">
+                        
+                    Más <br>Información
+                    </div>
+                </div>
               </ion-col>
               <ion-col   size="6" >  
                   <button v-show="getUser.id != product.id_user" type="button" class="btn-primary" style="width: 151px"   @click="redirect({ name : 'select_product.requests',params : { productId : product.id}, query : { ...product } })" >Me Interesa</button>

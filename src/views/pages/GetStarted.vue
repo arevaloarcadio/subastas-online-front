@@ -5,25 +5,28 @@
  <ion-slides pager="true" :options="slideOpts">
     <ion-slide >
     
-        <span class="text-control" style="position: absolute;width: 254px;height: 48px;top: 17%;font-weight: 400;font-size: 20px;"> Conecta con personas alrededor del mundo</span>
+        <span class="text-control" style="position: absolute;width: 254px;height: 48px;top: 13%;font-weight: 400;font-size: 20px;"> Conecta con personas alrededor del mundo</span>
 
  
         <img src="assets/amigos.svg" style="margin-top: 5%;">
 
     </ion-slide>
     <ion-slide >
-         <span class="text-control" style="position: absolute;width: 254px;height: 72px;top: 17%;font-weight: 400;font-size: 20px;">¡Intercambia lo que no utilizas por algo que si quieras utilizar!</span>
+         <span class="text-control" style="position: absolute;width: 254px;height: 72px;top: 13%;font-weight: 400;font-size: 20px;">¡Intercambia lo que no utilizas por algo que si quieras utilizar!</span>
     
 <img src="assets/get_started.svg" style="margin-top: 80px;">
 
     </ion-slide>
      <ion-slide >
-        <span class="text-control" style="position: absolute;width: 254px;height: 72px;top: 17%;font-weight: 400;font-size: 20px;">
-        Upgrap es 100% gratuito no pagas ni compras nada, solo intercambias!
-        </span>
-         <span class="text-control" style="position: absolute;width: 320px;height: 48px;top: 36%;font-weight: 500;font-size: 20px;">
+        <span class="text-control" style="position: absolute;width: 254px;height: 72px;top: 13%;font-weight: 400;font-size: 20px;">
+        Upgrap es 100% gratuito no pagas ni compras nada, solo intercambias!<br>
+        <br>
+
+         <span class="text-control" style="width: 320px;height: 48px;font-weight: 500;font-size: 20px;">
              ¡Comienza a intercambiar!
         </span>
+        </span>
+        
   
         <img src="assets/get_started-2.svg" style="margin-top: 92px;margin-left: 8px;">
    

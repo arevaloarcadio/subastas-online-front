@@ -165,7 +165,7 @@ export default defineComponent({
         .post("/requests",data)
         .then(res => {
           loading.dismiss()
-          send_notification.send('Has Recibido una nueva solicitud',res.data.customer.name,{data : {path : {name : 'request', params : { requestId : res.data.request.id }}},message : 'Has Recibido una nueva solictud'},this.product_id_user)
+          send_notification.send('Has Recibido una nueva solicitud',res.data.customer.name,{data : {path : {name : 'request', params : { requestId : res.data.request.id }}},message : 'Has Recibido una nueva solictud de '+this.getUser.name},this.product_id_user)
           this.redirect({name : 'success.requests', query : {customer_name:res.data.customer.name}})
 
          })

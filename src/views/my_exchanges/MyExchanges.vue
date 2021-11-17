@@ -49,7 +49,7 @@
 
             <b style="color: #000;font-family: Montserrat;">{{product.name}}</b><br>
               <p class="p-no-center" style="margin-top: 2%; font-family: Montserrat;font-style: normal;font-weight: normal;font-size: 14px;line-height: 17px;letter-spacing: 0.75px;color: #001D1B;">{{product.pais}}, {{product.city}} </p> <br>
-            <span class="text-control" style="position: absolute;    margin-top: 17px;font-weight: 500">{{product.status}}</span>
+            <p class="p-no-center text-control" style="margin-top: 10px;font-weight: 500">{{product.status}}</p>
             </ion-col>
           </ion-row>
         </ion-card>
@@ -298,7 +298,7 @@ socket.emit('user_conected',this.getUser)
     removeFilter(filter){
 
       var index = this.filters.indexOf(filter);
-      var index1= this.post_filters.indexOf(this.products_values[filter].name);3
+      var index1= this.post_filters.indexOf(this.products_values[filter].name);
       if(this.margin_top_active != null){
         delete this.styles[this.margin_top_active]['margin-top'] 
         this.margin_top_active = null
