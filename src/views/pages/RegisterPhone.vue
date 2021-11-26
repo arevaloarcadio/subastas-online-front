@@ -28,7 +28,7 @@
              
             
              <div style="display: flex;justify-content: center;margin-top: 50px" >   
-                 <div style="display: flex;padding-right: 28px;    padding-top: 18px;height: 51px !important;background: #32BAB0;border-radius: 10px;color: #fff;font-family: Montserrat;width: 110px" @click="select()"> <img  :src="'https://www.countryflags.io/'+flag+'/flat/64.png'" style="width: 20px;height: 16px;margin-top: 1px;margin-left: 18px;color: #fff">   
+                 <div style="display: flex;padding-right: 28px;    padding-top: 18px;height: 51px !important;background: #32BAB0;border-radius: 10px;color: #fff;font-family: Montserrat;width: 110px" @click="select()"> <img  :src="'/assets/banderas/'+flag" style="width: 20px;height: 16px;margin-top: 1px;margin-left: 18px;color: #fff">   
                         &nbsp;{{code}}
                       <svg width="12" height="7" viewBox="0 0 12 7" fill="none" xmlns="http://www.w3.org/2000/svg" style="position:absolute;margin-left: 84px;margin-top: 6px;">'+
                     <path d="M11 1L6 6L1 1" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -102,7 +102,7 @@ export default defineComponent({
       code_number,
       countries : null,
       codes :null,
-      flag : 'https://restcountries.eu/data/afg.svg',
+      flag : 'AR.png',
       type : null,
       first_name: null,
       last_name: null,
@@ -166,7 +166,7 @@ export default defineComponent({
         }
       });
       this.code = this.codes[0].value
-      this.flag =  this.codes[0].flag
+      this.flag = this.codes[0].flag.toUpperCase()+'.png'  
       
       let svg = '<div class="select-text-2" part="text-2">'+this.codes[0].value+'</div>'+
        '<svg width="12" height="7" viewBox="0 0 12 7" fill="none" xmlns="http://www.w3.org/2000/svg" style="position:absolute;margin-left: 28px;">'+
@@ -193,7 +193,7 @@ export default defineComponent({
       
           this.code = code[0].dial_code
         
-          this.flag = code[0].code.toLowerCase()
+          this.flag = code[0].code.toUpperCase()+'.png'
           
           let svg = '<div class="select-text-2" part="text-2">'+code[0].dial_code+'<svg width="12" height="7" viewBox="0 0 12 7" fill="none" xmlns="http://www.w3.org/2000/svg" style="position:absolute;margin-left: 7px;margin-top: 6px;">'+
                     '<path d="M11 1L6 6L1 1" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>'+

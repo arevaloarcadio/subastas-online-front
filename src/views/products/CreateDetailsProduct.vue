@@ -47,7 +47,7 @@
    
             <ion-row class="container" style="border-radius: 10px" >
               <div class="input-container" style="height: 55px; width: 97%;margin-left: 1.5%;">
-                <img  :src="'https://www.countryflags.io/'+flag+'/flat/64.png'" class="select-country" style="width: 20px;height: 16px">
+                <img  :src="'/assets/banderas/'+flag" class="select-country" style="width: 20px;height: 16px">
                 <ion-select id="ionSelectCountry" v-show="!showAppleSignIn"  :interface-options="customActionSheetOptions" interface="action-sheet" style="background: #32BAB0;border-radius: 10px;color: #32BAB0;font-family: Montserrat;width: 83px;height: 100%;    margin-top: -1px;"  ok-text="Seleccionar" cancel-text="Cerrar" @ionchange="getCountry($event)" @ionBlur="getCountry($event)">
                   <ion-select-option v-for="country in countries" :key="country" :value="country.country">{{country.country}}</ion-select-option>
                 </ion-select>
@@ -196,7 +196,7 @@ export default defineComponent({
       city :'',
       category :null,
       category_id : null,
-      flag : 'https://restcountries.eu/data/afg.svg',
+      flag : 'AR.png',
       estado : null,
       nombre : null,
       descripcion : null,
@@ -287,7 +287,7 @@ export default defineComponent({
           }
         });
     
-        this.flag = country[0].abbreviation.toLowerCase()
+        this.flag = country[0].abbreviation.toUpperCase()+'.png'  
         this.country = data.data.country;
         this.getCities()
         this.setOpen(false)
@@ -396,7 +396,7 @@ export default defineComponent({
         }
       });
   
-      this.flag = country[0].abbreviation.toLowerCase()
+      this.flag = country[0].abbreviation.toUpperCase()+'.png'  
       this.country = ev.target.value;
       this.getCities()
     },

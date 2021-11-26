@@ -102,7 +102,7 @@ export default defineComponent({
       
       axios
       .post("/signup/verify", {
-        code : this.code_1+this.code_2+this.code_3+this.code_4,
+        code : ""+this.code_1+""+this.code_2+""+this.code_3+""+this.code_4+"",
         id_user : this.id_user
       })
       .then(res => {
