@@ -36,7 +36,7 @@
                 </div>
                   <div class="container1" >
                     <div  class="input-container1">
-                      <input type="number"  v-model="phone" @input="maxlength" class="input-text1">
+                      <input type="number" onkeypress="return valideKey(event);"  v-model="phone" @input="maxlength" class="input-text1">
                     </div>
                   </div>  
             </div>

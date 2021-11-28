@@ -27,10 +27,10 @@
             </div>
             <div  ref="footer" class="footer" style="position: inherit; background:#32BAB0;height: 290.21px; width: 100%;border-radius: 24px 24px 0 0 ;margin-top: 400px;">
               
-              <input type="number" id="code-1" v-model="code_1" maxlength="1" v-on:keyup="change_input($event,1)" class="input-validate-code" style="margin-left: -2%"> 
-              <input type="number" id="code-2" v-model="code_2" maxlength="1" v-on:keyup="change_input($event,2)" class="input-validate-code">
-              <input type="number" id="code-3"  v-model="code_3" maxlength="1" v-on:keyup="change_input($event,3)" class="input-validate-code">
-              <input type="number" id="code-4"  v-model="code_4" maxlength="1" v-on:keyup="change_input($event,4)" class="input-validate-code" >
+              <input type="text" id="code-1" v-model="code_1" autocomplete="off" maxlength="1" onkeypress="return valideKey(event);" @keyup="change_input($event,1)" class="input-validate-code" style="margin-left: -2%"> 
+              <input type="text" id="code-2" v-model="code_2" autocomplete="off" maxlength="1" onkeypress="return valideKey(event);" @keyup="change_input($event,2)" class="input-validate-code">
+              <input type="text" id="code-3" v-model="code_3" autocomplete="off" maxlength="1" onkeypress="return valideKey(event);" @keyup="change_input($event,3)" class="input-validate-code">
+              <input type="text" id="code-4" v-model="code_4" autocomplete="off" maxlength="1" onkeypress="return valideKey(event);" @keyup="change_input($event,4)" class="input-validate-code" >
               
               <p class="p-no-center" style="color: #fff; position: absolute;left: 33px;width: 312px;">
                 Por favor, ingresa el codigo de 4 digitos que te enviamos por SMS
@@ -58,6 +58,7 @@ import {mapActions} from "vuex";
 import user from "@/plugins/jwt/user";
 
 
+
 export default defineComponent({
   components : {Phone,IonContent},
   name: "Register",
@@ -82,14 +83,22 @@ export default defineComponent({
      this.$refs.footer.style.display == 'none' ? this.$refs.footer.style.display = '' : this.$refs.footer.style.display = 'none' 
     },
     change_input(event,input){
-      console.log(event.target.value.length)
       if(event.target.value.length > 1){
           let val = event.target.value.toString().slice(0,-1);
           event.target.value = parseInt(val);
       }
 
-       let next = input + 1;
-      document.getElementById("code-"+next).focus();
+      let next;
+      var key = event.which || event.keyCode || event.charCode; 
+      
+      if(key == 8) {
+        next = input - 1;
+        document.getElementById("code-"+next).focus();
+      }
+      if (key>=48 && key<=57 || key>=96 && key<=105){
+        next = input + 1;
+        document.getElementById("code-"+next).focus(); 
+      }
     },
     redirect(poth){
       this.$router.push(poth);
