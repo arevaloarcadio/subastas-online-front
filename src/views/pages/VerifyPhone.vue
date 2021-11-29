@@ -27,7 +27,7 @@
             </div>
             <div  ref="footer" class="footer" style="position: inherit; background:#32BAB0;height: 290.21px; width: 100%;border-radius: 24px 24px 0 0 ;margin-top: 400px;">
               
-              <input type="text" id="code-1" v-model="code_1" autocomplete="off" maxlength="1" onkeypress="return valideKey(event);" @keyup="change_input($event,1)" class="input-validate-code" style="margin-left: -2%"> 
+              <input type="text" id="code-1" v-model="code_1" autocomplete="off" @input="getPaste" @keyup="change_input($event,1)" class="input-validate-code"  style="margin-left: -2%"> 
               <input type="text" id="code-2" v-model="code_2" autocomplete="off" maxlength="1" onkeypress="return valideKey(event);" @keyup="change_input($event,2)" class="input-validate-code">
               <input type="text" id="code-3" v-model="code_3" autocomplete="off" maxlength="1" onkeypress="return valideKey(event);" @keyup="change_input($event,3)" class="input-validate-code">
               <input type="text" id="code-4" v-model="code_4" autocomplete="off" maxlength="1" onkeypress="return valideKey(event);" @keyup="change_input($event,4)" class="input-validate-code" >
@@ -73,11 +73,22 @@ export default defineComponent({
   },
   mounted(){
     this.id_user = this.$route.query.id_user;
+    document.getElementById("code-1").addEventListener("paste", this.getPaste);
   },
   methods: {
     ...mapActions([
           'setAuthUser',
       ]),
+    getPaste(event){
+      let digit = event.target.value
+      document.getElementById("code-1").value = ''
+
+      for (var i = 0; i <= 3; i ++) {
+        if (!isNaN(digit.charAt(i))) {
+          document.getElementById("code-"+(i+1)).value = digit.charAt(i); 
+        }
+      }
+    },
     footer(){
 
      this.$refs.footer.style.display == 'none' ? this.$refs.footer.style.display = '' : this.$refs.footer.style.display = 'none' 

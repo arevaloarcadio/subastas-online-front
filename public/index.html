@@ -28,5 +28,21 @@
     <div id="app"></div>
   </body>
     <script src="/js/jimp.js" ></script>
+    <script type="text/javascript">
+    function valideKey(event){
+      console.log(event)
+      // code is the decimal ASCII representation of the pressed key.
+      var code = (event.which) ? event.which : event.keyCode;
+        console.log(code)
+      if(code==8) { // backspace.
+        return true;
+      } else if(code>=48 && code<=57) { // is a number.
+        return true;
+      } else{ // other keys.
+        return false
+      }
+    }
+    
+    </script>
 </html>
 
